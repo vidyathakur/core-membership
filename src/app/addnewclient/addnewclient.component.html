@@ -1,0 +1,342 @@
+<div class="page-container">
+  <div class="main-content">
+    <div class="main-content">
+      <div class="main-content-inner">
+        <h4 class="header-title">Add New Client</h4>
+        <form class="col-lg-12" [formGroup]="employeeForm" (ngSubmit)="onSubmit()">
+          <div class="control-section accordion-control-section">
+            <div class="e-sample-resize-container">
+              <!-- Render the Accoridon Component -->
+              <ejs-accordion>
+                <e-accordionitems>
+                  <e-accordionitem expanded='true'>
+                    <ng-template #header>
+                      <div>Contact Details</div>
+                    </ng-template>
+                    <ng-template #content>
+                      <div class="card-body">
+                        <div class="form-row">
+                          <div class="col-md-4">
+                              <label style="color: #000000;">FirstName</label>
+                            <input type="text" formControlName="firstname" placeholder="FirstName" class="form-control">
+                             <span class="opt">Required</span>
+                          </div>
+                          
+                          <div class="col-md-4" >
+                            <label style="color: #000000;">Surname</label>
+                            <input type="text" class="form-control"  formControlName="surname" required placeholder="Surname">
+                            <span class="opt">Required</span>
+                          </div>
+                        </div>
+                        <div class="form-row" style="margin-top: 10px;">
+                          <div class="col-md-4">
+                            <label style="color: #000000;">Email</label>
+                            <input type="email" class="form-control" placeholder="Email">
+                            <span class="opt">Required</span>
+                          </div>
+                          <div class="col-md-4">
+                            <label style="color: #000000;">Twitter</label>
+                            <input type="text" class="form-control" formControlName="twitter"  placeholder="Twitter">
+                            <span class="opt">Optional</span>
+                          </div>
+                        </div>
+                      </div>
+                    </ng-template>
+                  </e-accordionitem>
+                </e-accordionitems>
+              </ejs-accordion>
+            </div>
+          </div>
+          <div class="control-section accordion-control-section" style="margin-top: 20px;">
+            <div class="e-sample-resize-container">
+              <!-- Render the Accoridon Component -->
+              <ejs-accordion>
+                <e-accordionitems>
+                  <e-accordionitem>
+                    <ng-template #header>
+                      <div>More Details</div>
+                    </ng-template>
+                    <ng-template #content>
+                      <div class="card-body">
+                          <div class="form-row">
+                             <div class="col-md-4">
+                            <label style="color: #000000;">Mobile</label>
+                            <input type="text" class="form-control" 
+                              placeholder="Mobile">
+                          </div>
+                            <div class="col-md-4">
+                              <label style="color: #000000;">Other Phone</label>
+                            <input type="text" formControlName="phone_no" placeholder="Other Phone" class="form-control">
+                            </div>
+                          </div>
+                         <div class="form-row" style="margin-top: 10px;">
+                          <div class="col-md-6">
+                            <label style="color: #000000;">Gender</label>
+                            <div class="roles">
+                             <input type="radio" class="inputgen" value="male" name="gender" > <label class="role">Male</label>
+                 <input type="radio" class="inputgen" value="female" name="gender"> <label class="role">Female</label>
+                 <input type="radio" class="inputgen" value="other" name="gender"><label class="role"> Other</label>
+
+                            </div>
+                          </div>
+                        </div>
+                          <div class="form-row">
+                            <div class="col-md-4">
+                             <label style="color: #000000;">Date Of Birth</label>
+                            <div class="input-group">
+                              <input class="form-control" formControlName="birthday" placeholder="yyyy-mm-dd" 
+                              name="birthday" [(ngModel)]="model" ngbDatepicker
+                                #d="ngbDatepicker">
+                              <div class="input-group-append">
+                                <button class="btn btn-outline-secondary calendar" (click)="d.toggle()" type="button">
+                                  <i class="fa fa-calendar"></i></button>
+                              </div>
+                            </div>
+                            <span class="opt">Optional</span>
+                            </div>
+                          </div>
+                          <div class="form-row" style="margin-top: 10px;">
+                            <div class="col-md-4">
+                              <label style="color: #000000;">Preffered Employee </label>
+                            <select class="custom-select" formControlName="emp_level_id" required>
+                            <option selected>Select Level</option>
+                            <option >One</option>
+                            </select>
+                            <span class="opt">Optional</span>
+                            </div>
+                            <div class="col-md-4">
+                             <label style="color: #000000;">Referred By</label>
+                            <select class="custom-select" formControlName="emp_level_id" required>
+                            <option selected>Select Level</option>
+                            <option >One</option>
+                            </select>
+                            <span class="opt">Optional</span>
+                            </div>
+                          </div>
+                          <div class="form-row" style="margin-top: 10px;">
+                            <div class="col-md-4">
+                              <label style="color: #000000;">Referal Type</label>
+                            <select class="custom-select" formControlName="emp_level_id" required>
+                            <option selected>Select Level</option>
+                            <option >One</option>
+                            </select>
+                            <span class="opt">Optional</span>
+                            </div>
+                            <div class="col-md-4">
+                              <label style="color: #000000;">Barcode/Member No.</label>
+                              <input type="text" class="form-control" placeholder="Barcode/Member No.">
+                              <span class="opt">Optional</span>
+                            </div>
+                          </div>
+                      </div>
+                    </ng-template>
+                  </e-accordionitem>
+                </e-accordionitems>
+              </ejs-accordion>
+            </div>
+          </div>
+          <div class="control-section accordion-control-section" style="margin-top: 20px;">
+            <div class="e-sample-resize-container">
+              <!-- Render the Accoridon Component -->
+              <ejs-accordion>
+                <e-accordionitems>
+                  <e-accordionitem>
+                    <ng-template #header>
+                      <div>Postal Address</div>
+                    </ng-template>
+                    <ng-template #content>
+                      <div class="card-body">
+                        <form>
+                          <div class="form-row">
+                            <div class="col-md-4">
+                             <label style="color: #000000;">Address</label>
+                            <input type="text" class="form-control" formControlName="address" 
+                              placeholder="Address">
+                            <span class="opt">Required</span>
+                            </div>
+                            <div class="col-md-4">
+                             <label style="color: #000000;">Suburb</label>
+                            <input type="text" class="form-control" formControlName="suburb" 
+                              placeholder="Suburb">
+                            <span class="opt">Required</span>
+                            </div>
+                          </div>
+                          <div class="form-row" style="margin-top: 10px;">
+                            <div class="col-md-4">
+                              <label style="color: #000000;">Post Code</label>
+                            <input type="text" class="form-control" formControlName="postcode" 
+                            [ngClass]="{ 'is-invalid': submitted && f.postcode.errors }"
+                              placeholder="Post Code">
+                            <div *ngIf="submitted && f.postcode.errors" class="invalid-feedback">
+                              <div *ngIf="f.postcode.errors.required">Post Code is required</div>
+                            </div>
+                            <span class="opt">Optional</span>
+                            </div>
+                            <div class="col-md-4">
+                             <label style="color: #000000;">State</label>
+                            <select class="custom-select" formControlName="state_id" required>
+                            <option selected>Select State</option>
+                            <option >One</option>
+                            </select>
+                            <span class="opt">Optional</span>
+                            </div>
+                          </div>
+                          <!--<label for="validationTooltip01" class="mylabel">Referral Type</label>-->
+                        </form>
+                      </div>
+                    </ng-template>
+                  </e-accordionitem>
+                </e-accordionitems>
+              </ejs-accordion>
+            </div>
+          </div>
+          <div class="control-section accordion-control-section" style="margin-top: 20px;">
+            <div class="e-sample-resize-container">
+              <!-- Render the Accoridon Component -->
+              <ejs-accordion>
+                <e-accordionitems>
+                  <e-accordionitem>
+                    <ng-template #header>
+                      <div>SMS and Email</div>
+                    </ng-template>
+                    <ng-template #content>
+                      <div class="card-body">
+                        <form>
+                          <div class="form-row">
+                            <div class="col-md-4">
+                              <b class="text-muted mb-3 d-block mylabel" style="color:#000000 !important; font-weight: 500;">Appointment Reminders</b>
+                               <div class="custom-control custom-checkbox custom-control-inline">
+                                                <input type="radio" id="customRadio5" name="customRadio2" class="custom-control-input">
+                                                <label class="custom-control-label" for="customRadio5">SMS</label>
+                                            </div>
+                                            <div class="custom-control custom-checkbox custom-control-inline">
+                                                <input type="radio" checked id="customRadio4" name="customRadio2" class="custom-control-input">
+                                                <label class="custom-control-label" for="customRadio4">Email</label>
+                                            </div>
+                                           
+                              <b class="text-muted mb-3 d-block mylabel" style="color:#000000 !important; font-weight: 500; padding-top: 10px;"> Promotions</b>
+                              <div class="custom-control custom-checkbox custom-control-inline">
+                                                <input type="radio" id="customRadio7" name="customRadio3" class="custom-control-input">
+                                                <label class="custom-control-label" for="customRadio7">SMS</label>
+                                            </div>
+                               <div class="custom-control custom-checkbox custom-control-inline">
+                                                <input type="radio" checked id="customRadio6" name="customRadio3" class="custom-control-input">
+                                                <label class="custom-control-label" for="customRadio6">Email</label>
+                                            </div>
+                               
+                              <b class="text-muted mb-3 d-block mylabel" style="color:#000000 !important; font-weight: 500; padding-top: 10px;">Online Booking </b>
+                             <div class="custom-control custom-checkbox custom-control-inline">
+                              <input type="checkbox" class="custom-control-input" value="1" 
+                              formControlName="appoint_email" id="customCheck9">
+                              <label class="custom-control-label" for="customCheck9">Enable Online Booking</label>
+
+                            </div>
+                            </div>
+                          </div>
+                        </form>
+                      </div>
+                    </ng-template>
+                  </e-accordionitem>
+                </e-accordionitems>
+              </ejs-accordion>
+            </div>
+          </div>
+          <div class="control-section accordion-control-section" style="margin-top: 20px;">
+            <div class="e-sample-resize-container">
+              <!-- Render the Accoridon Component -->
+              <ejs-accordion>
+                <e-accordionitems>
+                  <e-accordionitem>
+                    <ng-template #header>
+                      <div>Loyalty Points</div>
+                    </ng-template>
+                    <ng-template #content>
+                      <div class="card-body">
+                        <div class="form-row" >
+                          <div class="col-md-4">
+                            <label style="color: #000000;">Loyalty Points</label>
+                            <input type="text" class="form-control" placeholder="Loyalty Points">
+                            <span class="opt">Optional</span>
+                          </div>
+                        </div>
+                      </div>
+                    </ng-template>
+                  </e-accordionitem>
+                </e-accordionitems>
+              </ejs-accordion>
+            </div>
+          </div>
+          <div class="control-section accordion-control-section" style="margin-top: 20px;">
+            <div class="e-sample-resize-container">
+              <ejs-accordion>
+                <e-accordionitems>
+                  <e-accordionitem>
+                    <ng-template #header>
+                      <div>Client Comments</div>
+                    </ng-template>
+                    <ng-template #content>
+                      <div class="card-body">
+                          <div class="form-row" style="margin-top: 10px;">
+                            <div class="col-md-4">
+                              <label style="color: #000000;" for="comment">Comment</label>
+                              <textarea ngModel name="comment" id="comment" cols="30" rows="10" type="text" class="form-control"></textarea>
+                              <span class="opt">Optional</span>
+                            </div>
+                          </div>
+                          <div class="form-row" style="margin-top: 10px;">
+                            <div class="col-md-4">
+                              <p class="text-muted mb-3 d-block mylabel" style="color:#000000 !important;font-weight: 
+                            500;margin-top: 10px;">
+                            </p>
+                            <div class="custom-control custom-checkbox custom-control-inline">
+                              <input type="checkbox" class="custom-control-input" value="1" 
+                              formControlName="appoint_email" id="customCheck6">
+                              <label class="custom-control-label" for="customCheck6">client category</label>
+
+                            </div>
+                            </div>
+                          </div>
+                      </div>
+                    </ng-template>
+                  </e-accordionitem>
+                </e-accordionitems>
+              </ejs-accordion>
+            </div>
+          </div>
+          <div class="control-section accordion-control-section" style="margin-top: 20px;">
+            <div class="e-sample-resize-container">
+              <ejs-accordion>
+                <e-accordionitems>
+                  <e-accordionitem>
+                    <ng-template #header>
+                      <div>Client Category</div>
+                    </ng-template>
+                    <ng-template #content>
+                      <div class="card-body">
+                          <div class="form-row" style="margin-top: 10px;">
+                            <div class="col-md-4">
+                              <p class="text-muted mb-3 d-block mylabel" style="color:#000000 !important;font-weight: 
+                            500;margin-top: 10px;">
+                            </p>
+                            <div class="custom-control custom-checkbox custom-control-inline">
+                              <input type="checkbox" class="custom-control-input" value="1" 
+                              formControlName="appoint_email" id="customCheck6">
+                              <label class="custom-control-label" for="customCheck6">client category</label>
+
+                            </div>
+                            </div>
+                          </div>
+                      </div>
+                    </ng-template>
+                  </e-accordionitem>
+                </e-accordionitems>
+              </ejs-accordion>
+            </div>
+          </div>
+          <button type="button" class="btn mb-3 canc" (click)="onReset()">Cancel</button>
+          <button type="submit" class="btn mb-3 sub">Submit</button>
+        </form>
+      </div>
+    </div>
+  </div>
+</div>

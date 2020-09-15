@@ -1,0 +1,354 @@
+<div class="page-container">
+  <form class="col-lg-12" [formGroup]="serviceForm" (ngSubmit)="onSubmit()">
+    <div class="main-content-inner">
+      <div class="col-12 ">
+        <h4 class="header-title" style="color: #c89628; cursor: pointer;" [routerLink]="['/admin']">Back </h4>
+        <h4 class="header-title">Add Services </h4>
+        <div class="card">
+          <div class="header-title myheadtitle">Contact Details</div>
+          <div class="main-content-inner">
+            <h4 class="header-title" style="font-size: 16px;">Group Service </h4>
+            <div class="form-row">
+              <div class="col-md-4">
+                <div class="custom-control custom-checkbox custom-control-inline">
+                  <input type="radio" formControlName="options" name="options" [(ngModel)]="options" [value]="1" [checked]="options" class="custom-control-input"
+                    id="customCheck6">
+                  <label class="custom-control-label" for="customCheck6">Yes</label>
+
+                </div>
+                <div class="custom-control custom-checkbox custom-control-inline">
+                  <input type="radio" formControlName="options" [value]="0" name="options" [(ngModel)]="options" [checked]="!options" class="custom-control-input"
+                    id="customCheck7">
+                  <label class="custom-control-label" for="customCheck7">No</label>
+                </div>
+              </div>
+            </div>
+
+            <div class="row mygroup">
+              <div class="col-12" *ngIf="options">
+                <div class="form-row" style="margin-top: 25px;">
+                  <div class="col-md-4">
+
+                    <div class="custom-control custom-checkbox custom-control-inline">
+                      <input type="checkbox" #small name="override_price" formControlName="override_price" 
+                      #small class="custom-control-input" (change)="0" id="customCheck1">
+                      <label class="custom-control-label" for="customCheck1">Override Price</label>
+
+                    </div>
+                    <div class="custom-control custom-checkbox custom-control-inline">
+                      <input type="checkbox" #big name="override_duration" formControlName="override_duration" 
+                      (change)="1" class="custom-control-input" id="customCheck3">
+                      <label class="custom-control-label" for="customCheck3">Override Duration</label>
+                    </div>
+                  </div>
+                </div>
+                <b class="text-muted  d-block mylabel" style="padding-top: 10px;"> Services Category  </b>
+                <div class="form-row">
+                  <div class="col-md-5">
+                    <select class="custom-select" formControlName="service_cat_id">
+              <option [value]="null">Select</option>
+              <option *ngFor="let serviceCat of serviceCats" [value]="serviceCat.id">{{serviceCat.name}}</option>
+              </select>
+                    <span class="req">Required</span>
+                  </div>
+                  <div class="col-md-4">
+                    <button type="button" class="btn  mybtn" [routerLink]="['/admin']">ADD NEW</button>
+                  </div>
+                </div>
+
+                <div class="form-row" style="padding-top: 10px;">
+                  <div class="col-md-4">
+                    <label style="color: #000000;">Service Name</label>
+                    <input type="text" class="form-control"  [ngClass]="{ 'is-invalid': submitted && f.service_name.errors }" formControlName="service_name"
+                      placeholder="Service Name">
+                    <div *ngIf="submitted && f.service_name.errors" class="invalid-feedback">
+                      <div *ngIf="f.service_name.errors.required">Service Name is required</div>
+                    </div>
+                    <span class="req">Required</span>
+                  </div>
+                  <div class="col-md-4" *ngIf="small.checked">
+                    <label style="color: #000000;">Price(Including GST)</label>
+                    <input type="text" class="form-control" [ngClass]="{ 'is-invalid': submitted && f.price.errors }" formControlName="price"
+                      [(ngModel)]="data2" placeholder="Price(Including GST)">
+                    <div *ngIf="submitted && f.price.errors" class="invalid-feedback">
+                      <div *ngIf="f.price.errors.required">price is required</div>
+                    </div>
+                    <span class="req">Required</span>
+                  </div>
+                </div>
+
+                <div class="form-row" style="padding-top: 10px;">
+                  <div class="col-md-2" *ngIf="big.checked">
+                    <b class="text-muted  d-block mylabel"> Duration   </b>
+                    <select class="custom-select" formControlName="duration" 
+                    [ngClass]="{ 'is-invalid': submitted && f.duration.errors }">
+              <option value="" selected="">0 HRS</option>
+              <option value="1">1 HRS</option>
+              <option value="2">2 HRS</option>
+              <option value="3">3 HRS</option>
+              <option value="4">4 HRS</option>
+              <option value="5">5 HRS</option>
+              <option value="6">6 HRS</option>
+              <option value="7">7 HRS</option>
+              <option value="8">8 HRS</option>
+              <option value="9">9 HRS</option>
+            </select>
+             <div *ngIf="submitted && f.duration.errors" class="invalid-feedback">
+                      <div *ngIf="f.duration.errors.required">Duration is required</div>
+                    </div>
+                    <span class="req">Required</span>
+                  </div>
+                  <div class="col-md-2" *ngIf="big.checked">
+                    <b class="text-muted  d-block mylabel" style="visibility: hidden;">  Duration  </b>
+                    <select class="custom-select" formControlName="duration_minutes">
+                      <option value="" selected="">0 MNS</option>
+              <option value="15" selected>15 MNS</option>
+              <option value="30">30 MNS</option>
+              <option value="45">45 MNS</option>
+            </select>
+                    <span class="req">Required</span>
+                  </div>
+                </div>
+                <div class="form-row" style="padding-top: 10px;">
+                  <div class="col-md-2">
+                    <label style="color: #000000;">Display Color</label>
+                    <input class="customcolor" [ngClass]="{ 'is-invalid': submitted && f.display_color.errors }" 
+                    formControlName="display_color"
+                      [value]="color2" [style.background]="color2" [(colorPicker)]="color2" />
+                    <div *ngIf="submitted && f.display_color.errors" class="invalid-feedback">
+                      <div *ngIf="f.display_color.errors.required">Display Color is required</div>
+                    </div>
+                    <span class="req">Required</span>
+                  </div>
+                </div>
+                <div class="form-row" style="padding-top: 10px;">
+                  <div class="col-md-4">
+                    <label style="color: #000000;">Barcode</label>
+                    <input type="text" class="form-control" [ngClass]="{ 'is-invalid': submitted && f.barcode.errors }" formControlName="barcode"
+                      placeholder="Barcode">
+                    <div *ngIf="submitted && f.barcode.errors" class="invalid-feedback">
+                      <div *ngIf="f.barcode.errors.required">Barcode is required</div>
+                    </div>
+                    <span class="req">Required</span>
+                  </div>
+                </div>
+                <div class="form-row">
+                  <div class="col-md-4">
+                    <b class="text-muted   d-block mylabel">Online Booking</b>
+                    <div class="custom-control custom-checkbox custom-control-inline">
+                      <input type="checkbox" formControlName="show_online" class="custom-control-input" id="customCheck12">
+                      <label class="custom-control-label" for="customCheck12">Show Online</label>
+                    </div>
+                  </div>
+                </div>
+
+                <div class="form-row" style="padding-top: 20px;">
+                  <div class="col-md-4">
+                    <label style="color: #000000;">Online Booking Name</label>
+                    <input type="text" class="form-control" formControlName="online_name" placeholder="Online Booking Name">
+                    <span class="req">Optional</span>
+                  </div>
+                </div>
+
+                <div class="form-row">
+                  <div class="custom-control custom-checkbox custom-control-inline">
+                    <input type="checkbox" class="custom-control-input" id="customCheck01">
+                    <label class="custom-control-label" for="customCheck01" style="font-size: 14px; color: #000;">TAX Free</label>
+                  </div>
+                </div>
+              </div>
+            </div>
+
+            <!--///////////////////////////////////////////////////////////////////////////////////////////////////////////////////////-->
+
+            <div class="row mygroup">
+              <div class="col-12" *ngIf="!options">
+                <label style="color: #000000; padding-top: 20px;">Services Category</label>
+                <div class="form-row">
+                  <div class="col-md-5">
+                    <select class="custom-select" formControlName="service_cat_id">
+              <option [value]="null">Select</option>
+              <option *ngFor="let serviceCat of serviceCats" [value]="serviceCat.id">{{serviceCat.name}}</option>
+              </select>
+                    <span class="req">Required</span>
+                  </div>
+                  <div class="col-md-4">
+                    <button type="button" class="btn  mybtn">ADD NEW</button>
+                  </div>
+                </div>
+
+                <div class="form-row" style="padding-top: 10px;">
+                  <div class="col-md-4">
+                    <label style="color: #000000;">Service Name</label>
+                    <input type="text" class="form-control" name="address" [ngClass]="{ 'is-invalid': submitted && f.service_name.errors }" formControlName="service_name"
+                      placeholder="Service Name">
+                    <div *ngIf="submitted && f.service_name.errors" class="invalid-feedback">
+                      <div *ngIf="f.service_name.errors.required">Service Name is required</div>
+                    </div>
+                    <span class="req">Required</span>
+                  </div>
+                  <div class="col-md-4">
+                    <label style="color: #000000;">Price(Including GST)</label>
+                    <input type="text" class="form-control" [ngClass]="{ 'is-invalid': submitted && f.price.errors }" formControlName="price"
+                      [(ngModel)]="data2" placeholder="Price(Including GST)">
+                    <div *ngIf="submitted && f.price.errors" class="invalid-feedback">
+                      <div *ngIf="f.price.errors.required">price is required</div>
+                    </div>
+                    <span class="req">Required</span>
+                  </div>
+                </div>
+
+                <div class="form-row" style="padding-top: 10px;">
+                  <div class="col-md-2">
+                    <label style="color: #000000;">Duration</label>
+                    <select class="custom-select" formControlName="duration" [ngClass]="{ 'is-invalid': submitted && f.duration.errors }">
+              <option value="" selected="">0 HRS</option>
+              <option value="1">1 HRS</option>
+              <option value="2">2 HRS</option>
+              <option value="3">3 HRS</option>
+              <option value="4">4 HRS</option>
+              <option value="5">5 HRS</option>
+              <option value="6">6 HRS</option>
+              <option value="7">7 HRS</option>
+              <option value="8">8 HRS</option>
+              <option value="9">9 HRS</option>
+            </select>
+                    <div *ngIf="submitted && f.duration.errors" class="invalid-feedback">
+                      <div *ngIf="f.duration.errors.required">Duration is required</div>
+                    </div>
+                    <span class="req">Required</span>
+                  </div>
+                  <div class="col-md-2">
+                    <label style="color: #000000; visibility: hidden;">Duration</label>
+                    <select class="custom-select" formControlName="duration_minutes">
+                      <option value="" selected="">0 MNS</option>
+              <option selected value="15">15 MNS</option>
+              <option value="30">30 MNS</option>
+              <option value="45">45 MNS</option>
+            </select>
+                    <span class="req">Required</span>
+                  </div>
+
+                  <div class="col-md-2">
+                    <label style="color: #000000;">Processing Duration</label>
+                    <select class="custom-select" formControlName="process_duration" [ngClass]="{ 'is-invalid': submitted && f.process_duration.errors }">
+              <option value="" selected="">0 HRS</option>
+              <option value="1">1 HRS</option>
+              <option value="2">2 HRS</option>
+              <option value="3">3 HRS</option>
+              <option value="4">4 HRS</option>
+              <option value="5">5 HRS</option>
+              <option value="6">6 HRS</option>
+              <option value="7">7 HRS</option>
+              <option value="8">8 HRS</option>
+              <option value="9">9 HRS</option>
+            </select>
+                    <div *ngIf="submitted && f.process_duration.errors" class="invalid-feedback">
+                      <div *ngIf="f.process_duration.errors.required">Processing Duration is required</div>
+                    </div>
+                    <span class="req">Required</span>
+                  </div>
+                  <div class="col-md-2">
+                    <label style="color: #000000; visibility: hidden;">Duration</label>
+                    <select class="custom-select" formControlName="process_duration_minutes">
+                      <option value="" selected="">0 MNS</option>
+               <option value="15" selected>15 MNS</option>
+              <option value="30">30 MNS</option>
+              <option value="45">45 MNS</option>
+            </select>
+                    <span class="req">Required</span>
+                  </div>
+                </div>
+                <div class="form-row" style="padding-top: 10px;">
+                  <div class="col-md-2">
+                    <label style="color: #000000;">Display Color</label>
+                    <input class="customcolor"  [ngClass]="{ 'is-invalid': submitted && f.display_color.errors }" 
+                    formControlName="display_color"
+                      [value]="color2" [style.background]="color2" [(colorPicker)]="color2" 
+                      (colorPickerChange)="rgbaText=onChangeColorHex8($event);color16=$event"/>
+                    <div *ngIf="submitted && f.display_color.errors" class="invalid-feedback">
+                      <div *ngIf="f.display_color.errors.required">Display Color is required</div>
+                    </div>
+                    <span class="req">Required</span>
+                  </div>
+                </div>
+                <div class="form-row" style="padding-top: 10px;">
+                  <div class="col-md-4">
+                    <label style="color: #000000;">Barcode</label>
+                    <input type="text" class="form-control" [ngClass]="{ 'is-invalid': submitted && f.barcode.errors }" formControlName="barcode"
+                      placeholder="Barcode">
+                    <div *ngIf="submitted && f.barcode.errors" class="invalid-feedback">
+                      <div *ngIf="f.barcode.errors.required">Barcode is required</div>
+                    </div>
+                    <span class="req">Required</span>
+                  </div>
+                </div>
+
+                <div class="form-row">
+                  <div class="col-md-4">
+                    <label style="color: #000000; padding-top: 10px;">Loyalty Points </label>
+                    <input type="text" class="form-control" formControlName="loyalty_point" placeholder="Loyalty Points Earned:">
+                    <span class="req">Optional</span>
+                  </div>
+                  <div class="col-md-4">
+                    <label style="color: #000000; padding-top: 10px;">Loyalty Points Redeem:</label>
+                    <input type="text" class="form-control" formControlName="loyalty_redeem" placeholder="Loyalty Points Redeem:">
+                    <span class="req">Optional</span>
+                  </div>
+                </div>
+                <div class="form-row" style="padding-top: 20px;">
+                  <div class="col-md-4">
+                    <b class="text-muted  d-block mylabel">Multiple Clients </b>
+                    <div class="custom-control custom-checkbox custom-control-inline">
+                      <input type="checkbox" formControlName="allow_multiple_client" class="custom-control-input" id="customCheck11">
+                      <label class="custom-control-label" for="customCheck11">Allow Multiple Clients</label>
+                    </div>
+                  </div>
+                  <div class="col-md-4">
+                    <b class="text-muted   d-block mylabel">Online Booking</b>
+                    <div class="custom-control custom-checkbox custom-control-inline">
+                      <input type="checkbox" formControlName="show_online" value="1" class="custom-control-input" id="customCheck12">
+                      <label class="custom-control-label" for="customCheck12">Show Online</label>
+                    </div>
+                  </div>
+                </div>
+
+                <div class="form-row" style="padding-top: 20px;">
+                  <div class="col-md-4">
+                    <label style="color: #000000; padding-top: 10px;">Maximum Clients</label>
+                    <input type="text" class="form-control" formControlName="max_client" 
+                      placeholder="Maximum Clients">
+                    <span class="req">Optional</span>
+                  </div>
+                  <div class="col-md-4">
+                    <label style="color: #000000; padding-top: 10px;">Online Booking Name</label>
+                    <input type="text" class="form-control"  formControlName="online_name"
+                      placeholder="Online Booking Name">
+                    <span class="req">Optional</span>
+                  </div>
+                </div>
+                <div class="form-row" style="padding-top: 10px;">
+                  <div class="custom-control custom-checkbox custom-control-inline">
+                    <input type="checkbox" class="custom-control-input" formControlName="require_resource" value="1" id="customCheck0">
+                    <label class="custom-control-label" for="customCheck0" style="font-size: 14px; color: #000;">Requires Resources</label>
+                  </div>
+                </div>
+                <div class="form-row" style=" padding-top: 10px;">
+                  <div class="custom-control custom-checkbox custom-control-inline">
+                    <input type="checkbox" class="custom-control-input" formControlName="gst_free" value="1" id="customCheck01">
+                    <label class="custom-control-label" for="customCheck01" style="font-size: 14px; color: #000;">GST Free</label>
+                  </div>
+                </div>
+              </div>
+            </div>
+
+          </div>
+        </div>
+      </div>
+    </div>
+    <div class="footrcard">
+      <button type="button" class="btn mb-3 canc">Cancel</button>
+      <button type="submit" class="btn mb-3 sub">Submit</button>
+    </div>
+  </form>
+</div>

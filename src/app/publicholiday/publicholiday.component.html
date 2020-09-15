@@ -1,0 +1,29 @@
+<div class="modal-header">
+  <h5 class="modal-title">Add Public Holiday</h5>
+  <button type="button" class="close" data-dismiss="modal" (click)="closeModal('dismiss')">
+        <span aria-hidden="true">&times;</span>
+    </button>
+</div>
+<div class="modal-body">
+  <form [formGroup]="publicholidayForm" (ngSubmit)="onSubmit()">
+      <div class="form-group form-label-group">
+        <input type="text" formControlName="holiday_name" name="holiday_name" id="holiday_name"
+          placeholder="Enter Public Holiday" class="form-control myformscontrol custominput" required autofocus>
+        <label for="holiday_name" class="floating-label">Enter Public Holiday</label>
+        
+      </div>
+      <div class="input-group">
+        <input class="form-control" formControlName="holiday_date" placeholder="yyyy-mm-dd" name="holiday_date" [(ngModel)]="model" ngbDatepicker
+          #d="ngbDatepicker">
+        <div class="input-group-append">
+          <button class="btn btn-outline-secondary calendar" (click)="d.toggle()" type="button">
+                                  <i class="fa fa-calendar"></i></button>
+        </div>
+      </div>
+    <div class="modal-footer">
+      <button type="button" class="btn mb-3 canc" data-dismiss="modal" (click)="closeModal('close')">Cancel</button>
+      <button type="submit" class="btn mb-3 sub">Submit</button>
+    </div>
+  </form>
+</div>
+

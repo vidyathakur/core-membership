@@ -1,0 +1,161 @@
+<div class="login-areas">
+  <div class="container-fluid p-0">
+    <div class="row no-gutters" style="height: 100vh;">
+      <div class="col-sm-3  abc">
+        <form [formGroup]="registerForm" (ngSubmit)="onSubmit()">
+          <img class="text-left imgstyle" src="assets/img/mini 20-01.png">
+          <p class="h4 text-left textsignup">Sign Up</p>
+          <div class="card-body">
+            <div class="row">
+              <div class="col-12">
+                <div class="form-group form-label-group">
+                  <input type="text"  name="full_name" id="inputFullname" placeholder="Full Name"
+                  formControlName="full_name" [ngClass]="{ 'is-invalid': submitted && f.full_name.errors }"
+                    class="form-control myformscontrol custominput" required autofocus>
+                    <label for="inputFullname" class="floating-label">Full Name</label>
+                  <div *ngIf="submitted && f.full_name.errors" class="invalid-feedback">
+                    <div *ngIf="f.full_name.errors.required">Full Name is required</div>
+                  </div>
+                </div>
+              </div>
+            </div>
+            <div class="row">
+              <div class="col-12">
+              <div class="form-group form-label-group" style="margin-top: 7px;">
+              <input type="text" name="company_name" formControlName="company_name" id="inputCompanyname" [ngClass]="{ 'is-invalid': submitted && f.company_name.errors }"
+                class="form-control myformscontrol custominput" placeholder="Company Name" required autofocus>
+              <label for="inputCompanyname" class="floating-label">Company name</label>
+              <div *ngIf="submitted && f.company_name.errors" class="invalid-feedback">
+                <div *ngIf="f.company_name.errors.required">Company Name is required</div>
+              </div>
+            </div>
+              </div>
+            </div>
+            <div class="row">
+            <div class="col-12">
+              <div class="form-group form-label-group">
+                <input type="text" name="mobile" formControlName="mobile" id="inputMobile" [ngClass]="{ 'is-invalid': submitted && f.mobile.errors }"
+                  class="form-control myformscontrol custominput" placeholder="Mobile Number" required autofocus>
+                <label for="inputMobile" class="floating-label">Mobile Number</label>
+                <div *ngIf="submitted && f.mobile.errors" class="invalid-feedback">
+                  <div *ngIf="f.mobile.errors.required">Mobile Number is required</div>
+                  <div *ngIf="f.mobile.errors.mobile"> Must be a valid Mobile Number </div>
+                </div>
+              </div>
+            </div>
+          </div>
+            <div class="row">
+              <div class="col-12">
+                <div class="form-group form-label-group">
+                  <input type="email" name="email" formControlName="email" id="inputEmail" [ngClass]="{ 'is-invalid': submitted && f.email.errors }"
+                    class="form-control myformscontrol custominput" placeholder="Email Address " required autofocus>
+                  <label for="inputEmail" class="floating-label">Email address</label>
+                  <div *ngIf="submitted && f.email.errors" class="invalid-feedback">
+                    <div *ngIf="f.email.errors.required">Email is required</div>
+                    <div *ngIf="f.email.errors.email">Email must be a valid email address</div>
+                  </div>
+                </div>
+              </div>
+            </div>
+            <div class="row">
+              <div class="col-md-6">
+                <div class="form-group">
+                  <select formControlName="country_id" class="custom-select myformscontrol" 
+                  placeholder="Refferal Code" required>
+                   <option value="" >Select Country</option>
+                    <option  *ngFor="let country of countryList" [value]="country.id" >{{country.name}}</option>
+                  </select>
+                 
+                </div>
+              </div>
+              <div class="col-md-6">
+             <div class="form-group form-label-group">
+                <input type="text" class="form-control myformscontrol custominput" name="referal_code" id="inputReferalcode" formControlName="referal_code"
+                 placeholder="Refferal Code"  required autofocus>
+                <label for="inputReferalcode" class="floating-label">Refferal Code</label>
+              </div>
+            </div>
+            </div>
+           <div class="row">
+            <div class="col-12">
+              <div class="form-group form-label-group">
+                <input type="password" name="password" formControlName="password" id="inputPassword" [ngClass]="{ 'is-invalid': submitted && f.password.errors }"
+                  class="form-control myformscontrol custominput" placeholder="Password" required autofocus>
+                <label for="inputPassword" class="floating-label">Password </label>
+                <div *ngIf="submitted && f.password.errors" class="invalid-feedback">
+                  <div *ngIf="f.password.errors.required">Password is required</div>
+                  <div *ngIf="f.password.errors.minlength">Password must be at least 9 characters</div>
+                </div>
+              </div>
+            </div>
+          </div>
+            <div class="row">
+            <div class="col-12">
+              <div class="form-group form-label-group">
+                <input type="password" name="confirmPassword" formControlName="confirmPassword" id="inputConfirmpassword" [ngClass]="{ 'is-invalid': submitted && f.confirmPassword.errors }"
+                  class="form-control myformscontrol custominput" placeholder="Confirm Password" required>
+                <label for="inputConfirmpassword" class="floating-label">Confirm Password</label>
+                <div *ngIf="submitted && f.confirmPassword.errors" class="invalid-feedback">
+                  <div *ngIf="f.confirmPassword.errors.required">Confirm Password is required</div>
+                  <div *ngIf="f.confirmPassword.errors.mustMatch">Passwords must match</div>
+                </div>
+              </div>
+            </div>
+          </div>
+          </div>
+          <div class="col-md-12" style="margin-top: -20px;">
+            <button type="submit" class="btn btn-lg btn-block signupbtn">SIGN UP  </button>
+          </div>
+
+        </form>
+        <div class="col-md-12 " style="margin-top: 30px;">
+          <div class="form-group">
+            <p class="text-center"><a [routerLink]="" class="myaccount" (click)="goToSignIn()" id="signin">
+              Already have an account? <span style="text-decoration: underline;">Login</span></a></p>
+          </div>
+        </div>
+      </div>
+      <div class="col-sm-9 xyz" style="background-image: url('assets/img/background-img.jpg')">
+
+        <h1 class="startday">START YOUR 30-DAY</h1>
+        <h1 class="freetrial">FREE TRIAL</h1>
+        <h6 class="nocontracts">No Contracts.Fully Featured.Cancel Anytime</h6>
+        <br>
+        <h3 style="padding-left: 30px;">
+          <span class="fa fa-star checked" style=" color:#ffff00;"></span>
+          <span class="fa fa-star checked" style="padding-left: 10px; color:#ffff00;"></span>
+          <span class="fa fa-star checked" style="padding-left: 10px; color:#ffff00;"></span>
+          <span class="fa fa-star checked" style="padding-left: 10px; color:#ffff00;"></span>
+          <span class="fa fa-star checked" style="padding-left: 10px; color:#ffff00;"></span></h3>
+        <br>
+        <h4 class="fant">Fantastic experience & </h4>
+        <h4 class="fant">expectations met!</h4>
+        <h6 class="nocontracts">The customer support has been great.They custom to your needs which is</h6> <br>
+        <h6 class="nocontracts2">crucial to our business.</h6>
+        <br>
+        <h6 class="nocontracts">Hirak Chhatbar</h6> <br>
+        <h6 class="nocontracts2">CEO & founder</h6>
+        <br>
+        <h6 class="nocontracts">LAKME</h6> <br>
+        <h6 class="nocontracts2">SALON</h6><br>
+        <h6 class="nocontracts">Our top clients</h6> <br>
+        <h6 class="copyright">Copyright 2020 Core | Privacy Policy | Terms Of Use</h6>
+      </div>
+    </div>
+  </div>
+</div>
+
+
+
+    
+
+
+
+
+
+
+
+
+
+
+ 

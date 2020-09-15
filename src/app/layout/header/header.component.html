@@ -1,0 +1,37 @@
+<div class="page-container">
+<div class="header-area">
+  <div class="row align-items-center">
+    <!-- nav and search button -->
+    <div class="col-md-8 col-sm-8 clearfix">
+      <div class="nav-btn pull-left">
+        <span></span>
+        <span></span>
+        <span></span>
+      </div>
+      <div class="search-box pull-left">
+        <form action="#">
+          <input type="text" name="search" style="font-size: 13px; font-style: italic; color: #BCBDB8;" placeholder="Search by Name,Phone Number,Barcode etc.."
+            required>
+          <i class="ti-search"></i>
+        </form>
+      </div>
+      <div class="button-res">
+        <button type="button" [routerLink]="['/addnewclient']" class="btn  mybutton myrespbtn">
+             <i class="fa fa-plus-circle"></i> ADD NEW CLIENT</button>
+      </div>
+    </div>
+    <!-- profile info & task notification -->
+    <div class="col-md-4 col-sm-4 clearfix">
+      <ul class="notification-area pull-right">
+        <li class="dropdown">
+          <i class="ti-bell dropdown-toggle" data-toggle="dropdown">
+                                    <span>2</span>
+                                </i>
+
+        </li>
+
+      </ul>
+    </div>
+  </div>
+</div>
+  </div>

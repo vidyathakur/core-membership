@@ -1,0 +1,55 @@
+
+
+<div class="login-area login-bg">
+  <div class="container-fluid">
+    <div class="login-box ptb--100">
+      <form>
+  <img class="text-left imgstyle2" src="assets/img/mini 20-01.png">
+  <p class="h4 text-left textlogin">Login </p>
+  <div class="card-body">
+    <div class="row">
+      <div class="col-12">
+        <div class="form-group form-label-group">
+          <input type="email" name="email" id="inputEmail"  placeholder="Email Address"
+           [(ngModel)]="email" [ngModelOptions]="{standalone: true}"
+            class="form-control myformscontrol custominput" required autofocus>
+            <label for="inputEmail" class="floating-label">Email Address </label>
+        </div>
+      </div>
+    </div>
+    <div class="row">
+      <div class="col-12">
+        <div class="form-group form-label-group">
+          <input type="password" name="password" id="inputPassword" [(ngModel)]="password" 
+          [ngModelOptions]="{standalone: true}" class="form-control myformscontrol custominput" 
+            placeholder="Password" required autofocus>
+            <label for="inputPassword" class="floating-label">Password </label>
+        </div>
+      </div>
+    </div>
+
+   
+   
+  </div>
+  <div class="col-md-12 " >
+  <div class="form-group">
+    <p class="text-center"><a [routerLink]="" class="myaccount3" (click)="goToSignUp()" id="signin">Forgot Password?</a></p>
+  </div>
+</div>
+  <div class="col-md-12" style="margin-top: -20px;">
+    <button type="submit" class="btn btn-lg btn-block signupbtn" (click)="signinFunction()">LOGIN   </button>
+  </div>
+<div class="col-md-12 " style="margin-top: 30px;">
+  <div class="form-group">
+    <p class="text-center"><a [routerLink]="" class="myaccount2" (click)="goToSignUp()" id="signin">Create new an account</a></p>
+  </div>
+</div>
+
+
+</form>
+
+
+    </div>
+  </div>
+</div>
+

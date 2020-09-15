@@ -1,0 +1,36 @@
+<div class="modal-header">
+ <h5 class="modal-title">Add Client Category</h5>
+  <button type="button" class="close" data-dismiss="modal" (click)="closeModal('dismiss')">
+        <span aria-hidden="true">&times;</span>
+    </button>
+</div>
+<div class="modal-body">
+  <form [formGroup]="clientcatForm" (ngSubmit)="onSubmit()">
+  <div class="form-group form-label-group">
+  <input type="text" id="name" formControlName="name" [ngClass]="{ 'is-invalid': submitted && f.name.errors }" placeholder="Enter Name"
+    class="form-control myformscontrol custominput" required autofocus>
+  <label for="name" class="floating-label">Enter Name</label>
+  <div *ngIf="submitted && f.name.errors" class="invalid-feedback">
+    <div *ngIf="f.name.errors.required">Name is required</div>
+  </div>
+
+</div>
+
+<div class="form-group form-label-group">
+  <p class="text-muted mb-3 d-block mylabel" style="color:#000000 !important;font-weight: 
+                            500;margin-top: 10px;">
+  </p>
+  <div class="custom-control custom-checkbox custom-control-inline">
+    <input type="checkbox" class="custom-control-input" value="1" id="customCheck6">
+    <label class="custom-control-label" for="customCheck6">Add to new clients</label>
+
+  </div>
+</div>
+<div class="modal-footer">
+  <button type="button" class="btn mb-3 canc" data-dismiss="modal" (click)="closeModal('close')">Cancel</button>
+<button type="submit" class="btn mb-3 sub">Submit</button>
+</div>
+</form>
+</div>
+
+  

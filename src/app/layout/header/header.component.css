@@ -1,0 +1,177 @@
+.chat_img {
+  float: left;
+  width: 11%;
+}
+.chat_ib {
+  float: left;
+  padding: 0 0 0 15px;
+  width: 88%;
+}
+
+.chat_people{ overflow:hidden; clear:both;}
+
+.redtxt{
+  color: #fe5a5c;
+}
+.myarrow{
+      padding-left: 4px;
+    font-size: 15px;
+    color: #7dd320;
+    width: 11%;
+}
+.redarrow{
+    padding-left: 4px;
+    font-size: 15px;
+    color: #fe5a59;
+    width: 11%;
+}
+/*.myscrolls{
+  max-height: 92vh;
+    overflow-y: scroll;
+}*/
+
+/*myscrolls::-webkit-scrollbar {
+    width: 1em;
+    max-height: 92vh;
+}
+ 
+myscrolls::-webkit-scrollbar-track {
+    -webkit-box-shadow: inset 0 0 6px rgba(0,0,0,0.3);
+}
+ 
+myscrolls::-webkit-scrollbar-thumb {
+  background-color: darkgrey;
+  outline: 1px solid slategrey;
+}*/
+
+
+.scrollbar
+{
+  /*max-height: 87vh;*/
+  max-height: 606px;
+	overflow-y: scroll;
+}
+
+.scrollbar2
+{
+  /*max-height: 24vh;*/
+  max-height: 180px;
+	overflow-y: scroll;
+}
+
+
+
+/*
+ *  STYLE 1
+ */
+
+
+/*
+ *  STYLE 2
+ */
+
+#style-2::-webkit-scrollbar-track
+{
+	-webkit-box-shadow: inset 0 0 6px rgba(0,0,0,0.3);
+	border-radius: 10px;
+	background-color: #F5F5F5;
+}
+
+#style-2::-webkit-scrollbar
+{
+	width: 6px;
+	background-color: #F5F5F5;
+}
+
+#style-2::-webkit-scrollbar-thumb
+{
+	border-radius: 10px;
+	-webkit-box-shadow: inset 0 0 6px rgba(0,0,0,.3);
+	background-color: #babec9;
+}
+
+#style-3::-webkit-scrollbar-track
+{
+	-webkit-box-shadow: inset 0 0 6px rgba(0,0,0,0.3);
+	border-radius: 10px;
+	background-color: #F5F5F5;
+}
+
+#style-3::-webkit-scrollbar
+{
+	width: 6px;
+	background-color: #F5F5F5;
+}
+
+#style-3::-webkit-scrollbar-thumb
+{
+	border-radius: 10px;
+	-webkit-box-shadow: inset 0 0 6px rgba(0,0,0,.3);
+	background-color: #babec9;
+}
+
+.appointmnt{
+  margin-left: 7px; background-color: #BCBDB8 !important;
+}
+.myborder{
+  border-bottom: 1px solid #dadee8;
+}
+
+.bottomsearchinput{
+      height: 35px;
+    padding-left: 20px;
+    padding-right: 40px;
+    letter-spacing: 0;
+    background: #fff;
+    border-radius: 0px;
+    border: 1px solid #dadee8;
+    border-top: 0px #ffffff;
+    width: 100%;
+    display: inline;
+}
+.searchbar{
+      position: absolute;
+    left: 10px;
+    top: 12px;
+    font-size: 14px;
+    color: #b1a7a7;
+}
+.myheader{
+  font-size: 15px; color: #000000; margin-bottom: 2px;
+}
+.mypara{
+  color: #BCBDB8; font-size: 11px; font-weight: 500;
+}
+.custo-btn{
+  border-radius: 33px;
+    background-color: #C89628;
+    border-color: #C89628;
+    height: 25px;
+    font-size: 10px;
+    font-weight: 500;
+    padding-top: 4px;
+    color: #fff;
+}
+.reschedule-btn{
+  border-radius: 33px;
+    background-color: #BCBDB8;
+    border-color: #BCBDB8;
+    height: 25px;
+    font-size: 10px;
+    color: #fff;
+    margin-left: 7px;
+    font-weight: 500;
+    padding-top: 4px;
+}
+.myrespbtn{
+  background-color: #C89628; border-color: #C89628; color:#fff;
+  border-radius: 33px; height: 33px; font-size: 11px; margin-left: 1rem; font-weight: 500;
+}
+
+.mybtnsearch{
+  position: absolute;
+    left: 25px;
+    margin-top: 10px;
+    font-size: 14px;
+    color: #b1a7a7;
+}

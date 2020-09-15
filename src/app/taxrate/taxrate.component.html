@@ -1,0 +1,45 @@
+<div class="modal-header">
+  <h4 class="modal-title" id="modal-basic-title" style="font-size: 17px;"> Tax Rate Details</h4>
+  <button type="button" class="close" style="border: 0px solid #ffffff !important;" aria-label="Close" (click)="modal.dismiss('Cross click')">
+      <span aria-hidden="true">×</span>
+    </button>
+</div>
+<div class="modal-body">
+  <form [formGroup]="taxrateForm" (ngSubmit)="onSubmit()">
+    <div class="card-body">
+      <div class="row">
+        <div class="col-12">
+          <div class="form-group form-label-group">
+            <input type="text" formControlName="tax_name" name="tax_name" [ngClass]="{ 'is-invalid': submitted && f.tax_name.errors }" id="name" placeholder="Enter Employee Level"
+              class="form-control myformscontrol custominput" required autofocus>
+            <label for="tax_name" class="floating-label">Tax Name</label>
+            <div *ngIf="submitted && f.tax_name.errors" class="invalid-feedback">
+              <div *ngIf="f.tax_name.errors.required">Tax Name is required</div>
+            </div>
+          </div>
+        </div>
+        <div class="col-12">
+          <div class="form-group form-label-group">
+            <input type="text" formControlName="tax_description" name="tax_description" placeholder="Tax Description" class="form-control myformscontrol custominput"
+              required autofocus>
+            <label for="tax_description" class="floating-label">Tax Description</label>
+          </div>
+        </div>
+        <div class="col-12">
+          <div class="form-group form-label-group">
+            <input type="text" formControlName="tax_amount" name="tax_amount" [ngClass]="{ 'is-invalid': submitted && f.tax_amount.errors }" id="name"
+              placeholder="Tax Amount" class="form-control myformscontrol custominput" required autofocus>
+            <label for="tax_amount" class="floating-label">Tax Amount: (in %)</label>
+            <div *ngIf="submitted && f.tax_amount.errors" class="invalid-feedback">
+              <div *ngIf="f.tax_amount.errors.required">Tax Amount is required</div>
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
+    <div class="modal-footer">
+      <button type="button" class="btn mb-3 canc" (click)="modal.close('Save click')">Cancel</button>
+      <button type="submit" class="btn mb-3 sub">Submit</button>
+    </div>
+  </form>
+</div>
