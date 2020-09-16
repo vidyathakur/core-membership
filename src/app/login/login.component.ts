@@ -42,7 +42,7 @@ export class LoginComponent implements OnInit {
 					if (apiResponse.code === 200) {
 						this.toastr.successToastr('Login Successfully');
 							this.jwtService.setToken('jwt_token',apiResponse.data.session_token);
-							this.router.navigate(['/dashboard']);
+							this.router.navigate(['/signup']);
 							this.loginService.getMerchant({}).subscribe(
 								apiResponse =>{
 									let merchant_details = apiResponse.data[0];

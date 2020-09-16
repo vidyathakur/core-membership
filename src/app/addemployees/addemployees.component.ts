@@ -165,6 +165,7 @@ export class AddemployeesComponent implements OnInit {
 							if (apiResponse.code === 200) {
 								this.toastr.successToastr('Employee Added Successfully');
 								this.router.navigate(['/admin']);
+								(<HTMLInputElement>document.getElementById('employees-tab'));
 							} else {
 								console.log("Hello");
 								this.toastr.errorToastr(apiResponse.errors.order[0]);
@@ -177,6 +178,8 @@ export class AddemployeesComponent implements OnInit {
 						});
 			}
 	}
+
+	
 
 	public getEmpLevelName(): any {
 		this.addemployeesService.getEmplevelByMechantId({}).subscribe(
@@ -210,6 +213,13 @@ export class AddemployeesComponent implements OnInit {
 		this.employeeForm.reset();
 	}
 
+// moveToSelectedTab(tabName: string) {
+//   for (let i =0; i< document.querySelectorAll('.mat-tab-label-content').length; i++) {
+//       if ((<HTMLElement>document.querySelectorAll('.mat-tab-label-content')[i]).innerText == tabName) {
+//         (<HTMLElement>document.querySelectorAll('.mat-tab-label')[i]).click();
+//       }
+//     }
+// }
 
 }
 

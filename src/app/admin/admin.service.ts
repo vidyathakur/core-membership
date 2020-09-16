@@ -113,5 +113,20 @@ export class AdminService {
 		console.log(myResponse);
 		return myResponse;
 	}
-	
+
+	public deleteServiceCat(servicecatId): any {
+		let myResponse = this.http.delete(`${environment.BASE_URL}/deleteServiceCat` + '/' + servicecatId, {
+			headers: new HttpHeaders().set('SESSION-TOKEN', localStorage.getItem('jwt_token'))
+		});
+		console.log(myResponse);
+		return myResponse;
+	}
+
+	public deleteService(serviceId): any {
+		let myResponse = this.http.delete(`${environment.BASE_URL}/deleteService` + '/' + serviceId, {
+			headers: new HttpHeaders().set('SESSION-TOKEN', localStorage.getItem('jwt_token'))
+		});
+		console.log(myResponse);
+		return myResponse;
+	}
 }

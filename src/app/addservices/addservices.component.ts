@@ -1,3 +1,4 @@
+import { ServicecategoryComponent } from './../servicecategory/servicecategory.component';
 import { AddservicesService } from './addservices.service';
 import { Component, OnInit } from '@angular/core';
 import { NgxSpinnerService } from 'ngx-spinner';
@@ -19,10 +20,11 @@ export class AddservicesComponent implements OnInit {
 	submitted = false;
 	public serviceCats: any;
 	data2: string = '0';
+	color2: string = '#e920e9';
 	public arrayColors: any = {
-		color2: '#e920e9'
+		display_color: '#e920e9'
 	};
-	public color2: string = '#e920e9';
+	display_color: string = '#e920e9';
 	constructor(
 		private SpinnerService: NgxSpinnerService,
 		private formBuilder: FormBuilder,
@@ -37,33 +39,29 @@ export class AddservicesComponent implements OnInit {
 		this.serviceForm = this.formBuilder.group({
 			service_cat_id: [],
 			service_name: ['', Validators.required],
-			price: ['', [Validators.required]],
+			price: [''],
 			display_color: ['', Validators.required],
 			barcode: ['', [Validators.required]],
-			duration: ['', [Validators.required]],
-			duration_minutes: ['', [Validators.required]],
-			process_duration: ['', [Validators.required]],
-			process_duration_minutes: ['', [Validators.required]],
+			duration: [''],
+			duration_minutes: [''],
+			process_duration: [''],
+			process_duration_minutes: [''],
 			override_price: [''],
 			override_duration: [''],
 			loyalty_point: [''],
 			loyalty_redeem: [''],
 			allow_multiple_client: [''],
 			show_online: [''],
-			max_client: ['', Validators.required],
-			online_name: ['', Validators.required],
+			max_client: [''],
+			online_name: [''],
 			require_resource: [''],
 			gst_free: [''],
-			options: ['']
+			group_service: ['']
 		});
 	}
 
 	ngOnInit() {
 		this.getServiceCatByMerchantId();
-		this.SpinnerService.show();
-		setTimeout(() => {
-			this.SpinnerService.hide();
-		}, 5000);
 	}
 
 	get f() {
@@ -97,26 +95,18 @@ export class AddservicesComponent implements OnInit {
 				require_resource: service_data.require_resource == true ? 1 : 0,
 				gst_free: service_data.gst_free == true ? 1 : 0,
 				service_cat_id: service_data.service_cat_id,
-				group_service: service_data.options == true ? 1 : 0
+				group_service: service_data.group_service == true ? 1 : 0
 			};
 			console.log(data);
-			this.addservicesService.createService(data).subscribe(
-				apiResponse => {
-					if (apiResponse.code === 200) {
-						this.toastr.successToastr('Service Added Successfully');
-						this.router.navigate(['/admin']);
-					} else {
-						console.log('Hello');
-						this.toastr.errorToastr(apiResponse.message);
-					}
+			this.addservicesService.createService(data).subscribe(apiResponse => {
+				if (apiResponse.code === 200) {
+					this.toastr.successToastr('Service Added Successfully');
+					this.router.navigate(['/admin']);
+				} else {
+					console.log('Hello');
+					this.toastr.errorToastr(apiResponse.message);
 				}
-				// er => {
-				// 	console.log(er.error.errors['order'][0]);
-				// 	console.log(er.error.errors);
-				// 	console.log(er.error.errors['order']);
-				// 	this.toastr.errorToastr(er.error.errors['order'][0]);
-				// }
-			);
+			});
 		}
 	}
 
@@ -142,15 +132,10 @@ export class AddservicesComponent implements OnInit {
 	}
 
 	public getServiceCatByMerchantId(): any {
-		this.SpinnerService.show();
 		this.adminService.getServiceCatByMerchantId({}).subscribe(
 			data => {
 				console.log(data);
 				this.serviceCats = data['data'];
-
-				setTimeout(() => {
-					this.SpinnerService.hide();
-				}, 2000);
 			},
 			error => {
 				console.log('some error occured');
@@ -158,6 +143,4 @@ export class AddservicesComponent implements OnInit {
 			}
 		);
 	}
-
-
 }

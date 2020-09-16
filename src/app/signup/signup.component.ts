@@ -45,7 +45,7 @@ export class SignupComponent implements OnInit {
 				mobile: ['', Validators.required],
 				referal_code: [''],
 				email: ['', [Validators.required, Validators.email, Validators.pattern(this.emailPattern)]],
-				password: ['', [Validators.required, Validators.minLength(9)]],
+				password: ['', [Validators.required, Validators.minLength(8)]],
 				confirmPassword: ['', Validators.required],
 				country_id: ['', Validators.required]
 			},
@@ -87,20 +87,26 @@ export class SignupComponent implements OnInit {
 					if (apiResponse.code === 200) {
 						this.toastr.successToastr('Signup Successfull');
 						this.router.navigate(['/login']);
-					} else {
-						console.log('Hello');
-						this.toastr.errorToastr(apiResponse.errors.email[0]);
-						this.toastr.errorToastr(apiResponse.errors.mobile[0]);
+					} 
+					else {
+						// this.toastr.errorToastr(apiResponse.errors.email[0]);
+						// this.toastr.errorToastr(apiResponse.errors.mobile[0]);
 					}
 				}, er => {
 					// console.log(er.error.errors['email'][0]);
 					// console.log(er.error.errors);
 					// console.log(er.error.errors['email']);
-					this.toastr.errorToastr(er.error.errors['email'][0]);
-					this.toastr.errorToastr(er.error.errors['mobile'][0]);
+					if(er.error.errors['mobile']){
+						//this.toastr.errorToastr('Mobile No. is already registered with us!');
+						this.toastr.errorToastr(er.error.errors['mobile'][0]);
+					}
+					if (er.error.errors['email']) {
+						this.toastr.errorToastr(er.error.errors['email'][0]);
+					}
+					//this.toastr.errorToastr(er.error.errors['email'][0]); 
+					//this.toastr.errorToastr(er.error.errors['mobile'][0]);
 				});
-			 
-	}
+     }
 
 	onReset() {
 		this.submitted = false;

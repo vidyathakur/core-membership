@@ -83,7 +83,7 @@ export class EditemployeeComponent implements OnInit {
 			gift_voucher: ['', [Validators.pattern('^[0-9]*$')]],
 			emp_level_id: [],
 			role: ['', Validators.required],
-			password: ['', [Validators.required, Validators.minLength(9)]],
+			// password: ['', [Validators.required, Validators.minLength(9)]],
 			appointment_on: [],
 			rebook_rate: ['', [Validators.pattern('^[0-9]*$')]],
 			wages_vs_sale: ['', [Validators.pattern('^[0-9]*$')]],
@@ -152,7 +152,7 @@ export class EditemployeeComponent implements OnInit {
 					product_profit: [employee_details.product_profit, [Validators.pattern('^[0-9]*$')]],
 					package: [employee_details.package, [Validators.pattern('^[0-9]*$')]],
 					role: [employee_details.role, Validators.required],
-					password: [employee_details.password, [Validators.required, Validators.minLength(9)]],
+					// password: [employee_details.password, [Validators.required, Validators.minLength(9)]],
 					wages_vs_sale: [employee_details.wages_vs_sale, [Validators.pattern('^[0-9]*$')]],
 					retail_sale: [employee_details.retail_sale, [Validators.pattern('^[0-9]*$')]],
 					client_per_day: [employee_details.client_per_day, [Validators.pattern('^[0-9]*$')]],
@@ -235,23 +235,23 @@ export class EditemployeeComponent implements OnInit {
 			product_profit: employee_data.product_profit || '',
 			package: employee_data.package || '',
 			role: employee_data.role || '',
-			password: employee_data.password || '',
+			// password: employee_data.password || '',
 			wages_vs_sale: employee_data.wages_vs_sale || '',
 			retail_sale: employee_data.retail_sale || '',
 			client_per_day: employee_data.client_per_day || '',
 			avg_client_per_day: employee_data.avg_client_per_day || ''
 		};
 		console.log(data);
-		this.editemployeeService.editEmployee(data).subscribe(
-			data => {
-				console.log(data);
-				this.toastr.successToastr(' Employee Updated Successfully');
-				this.router.navigate(['/admin']);
-			},
-			error => {
-				console.log('some error occured');
-				this.toastr.errorToastr('Some error occured', 'Oops!');
-			}
-		);
+		this.editemployeeService.editEmployee(data).subscribe(data => {
+			console.log(data);
+			this.toastr.successToastr(' Employee Updated Successfully');
+			this.router.navigate(['/admin']);
+		},er => {
+			// console.log(er.error.errors['order'][0]);
+			// console.log(er.error.errors);
+			// console.log(er.error.errors['order']);
+			// this.toastr.errorToastr(er.error.errors['order'][0]);
+			this.toastr.errorToastr('some error occured');
+		});
 	}
 }

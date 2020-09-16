@@ -11,13 +11,13 @@
             <div class="form-row">
               <div class="col-md-4">
                 <div class="custom-control custom-checkbox custom-control-inline">
-                  <input type="radio" formControlName="options" name="options" [(ngModel)]="options" [value]="1" [checked]="options" class="custom-control-input"
+                  <input type="radio" formControlName="group_service" name="group_service" [(ngModel)]="options" [value]="1" [checked]="options" class="custom-control-input"
                     id="customCheck6">
                   <label class="custom-control-label" for="customCheck6">Yes</label>
 
                 </div>
                 <div class="custom-control custom-checkbox custom-control-inline">
-                  <input type="radio" formControlName="options" [value]="0" name="options" [(ngModel)]="options" [checked]="!options" class="custom-control-input"
+                  <input type="radio" formControlName="group_service" [value]="0" name="group_service" [(ngModel)]="options" [checked]="!options" class="custom-control-input"
                     id="customCheck7">
                   <label class="custom-control-label" for="customCheck7">No</label>
                 </div>
@@ -68,20 +68,16 @@
                   </div>
                   <div class="col-md-4" *ngIf="small.checked">
                     <label style="color: #000000;">Price(Including GST)</label>
-                    <input type="text" class="form-control" [ngClass]="{ 'is-invalid': submitted && f.price.errors }" formControlName="price"
+                    <input type="text" class="form-control" formControlName="price"
                       [(ngModel)]="data2" placeholder="Price(Including GST)">
-                    <div *ngIf="submitted && f.price.errors" class="invalid-feedback">
-                      <div *ngIf="f.price.errors.required">price is required</div>
-                    </div>
-                    <span class="req">Required</span>
+                   <span class="req">Optional</span>
                   </div>
                 </div>
 
                 <div class="form-row" style="padding-top: 10px;">
                   <div class="col-md-2" *ngIf="big.checked">
                     <b class="text-muted  d-block mylabel"> Duration   </b>
-                    <select class="custom-select" formControlName="duration" 
-                    [ngClass]="{ 'is-invalid': submitted && f.duration.errors }">
+                    <select class="custom-select" formControlName="duration">
               <option value="" selected="">0 HRS</option>
               <option value="1">1 HRS</option>
               <option value="2">2 HRS</option>
@@ -93,10 +89,7 @@
               <option value="8">8 HRS</option>
               <option value="9">9 HRS</option>
             </select>
-             <div *ngIf="submitted && f.duration.errors" class="invalid-feedback">
-                      <div *ngIf="f.duration.errors.required">Duration is required</div>
-                    </div>
-                    <span class="req">Required</span>
+                    <!--<span class="req">Optional</span>-->
                   </div>
                   <div class="col-md-2" *ngIf="big.checked">
                     <b class="text-muted  d-block mylabel" style="visibility: hidden;">  Duration  </b>
@@ -106,15 +99,16 @@
               <option value="30">30 MNS</option>
               <option value="45">45 MNS</option>
             </select>
-                    <span class="req">Required</span>
+                    <!--<span class="req">Required</span>-->
                   </div>
                 </div>
                 <div class="form-row" style="padding-top: 10px;">
                   <div class="col-md-2">
                     <label style="color: #000000;">Display Color</label>
-                    <input class="customcolor" [ngClass]="{ 'is-invalid': submitted && f.display_color.errors }" 
-                    formControlName="display_color"
-                      [value]="color2" [style.background]="color2" [(colorPicker)]="color2" />
+                     <input class="customcolor"  [ngClass]="{ 'is-invalid': submitted && f.display_color.errors }" 
+                    formControlName="display_color" [(ngModel)]="color2"
+                      [value]="display_color" [style.background]="display_color" [(colorPicker)]="display_color" 
+                      (colorPickerChange)="rgbaText=onChangeColorHex8($event);color16=$event"/>
                     <div *ngIf="submitted && f.display_color.errors" class="invalid-feedback">
                       <div *ngIf="f.display_color.errors.required">Display Color is required</div>
                     </div>
@@ -166,14 +160,14 @@
                 <label style="color: #000000; padding-top: 20px;">Services Category</label>
                 <div class="form-row">
                   <div class="col-md-5">
-                    <select class="custom-select" formControlName="service_cat_id">
+                    <select class="custom-select" formControlName="service_cat_id" >
               <option [value]="null">Select</option>
               <option *ngFor="let serviceCat of serviceCats" [value]="serviceCat.id">{{serviceCat.name}}</option>
               </select>
                     <span class="req">Required</span>
                   </div>
                   <div class="col-md-4">
-                    <button type="button" class="btn  mybtn">ADD NEW</button>
+                    <button type="button" class="btn mybtn" [routerLink]="['/admin']">ADD NEW</button>
                   </div>
                 </div>
 
@@ -189,19 +183,16 @@
                   </div>
                   <div class="col-md-4">
                     <label style="color: #000000;">Price(Including GST)</label>
-                    <input type="text" class="form-control" [ngClass]="{ 'is-invalid': submitted && f.price.errors }" formControlName="price"
+                    <input type="text" class="form-control" formControlName="price"
                       [(ngModel)]="data2" placeholder="Price(Including GST)">
-                    <div *ngIf="submitted && f.price.errors" class="invalid-feedback">
-                      <div *ngIf="f.price.errors.required">price is required</div>
-                    </div>
-                    <span class="req">Required</span>
+                    <span class="req">Optional</span>
                   </div>
                 </div>
 
                 <div class="form-row" style="padding-top: 10px;">
                   <div class="col-md-2">
                     <label style="color: #000000;">Duration</label>
-                    <select class="custom-select" formControlName="duration" [ngClass]="{ 'is-invalid': submitted && f.duration.errors }">
+                    <select class="custom-select" formControlName="duration" >
               <option value="" selected="">0 HRS</option>
               <option value="1">1 HRS</option>
               <option value="2">2 HRS</option>
@@ -213,10 +204,7 @@
               <option value="8">8 HRS</option>
               <option value="9">9 HRS</option>
             </select>
-                    <div *ngIf="submitted && f.duration.errors" class="invalid-feedback">
-                      <div *ngIf="f.duration.errors.required">Duration is required</div>
-                    </div>
-                    <span class="req">Required</span>
+                    <!--<span class="req">Required</span>-->
                   </div>
                   <div class="col-md-2">
                     <label style="color: #000000; visibility: hidden;">Duration</label>
@@ -226,12 +214,12 @@
               <option value="30">30 MNS</option>
               <option value="45">45 MNS</option>
             </select>
-                    <span class="req">Required</span>
+                    <!--<span class="req">Required</span>-->
                   </div>
 
                   <div class="col-md-2">
                     <label style="color: #000000;">Processing Duration</label>
-                    <select class="custom-select" formControlName="process_duration" [ngClass]="{ 'is-invalid': submitted && f.process_duration.errors }">
+                    <select class="custom-select" formControlName="process_duration">
               <option value="" selected="">0 HRS</option>
               <option value="1">1 HRS</option>
               <option value="2">2 HRS</option>
@@ -243,10 +231,7 @@
               <option value="8">8 HRS</option>
               <option value="9">9 HRS</option>
             </select>
-                    <div *ngIf="submitted && f.process_duration.errors" class="invalid-feedback">
-                      <div *ngIf="f.process_duration.errors.required">Processing Duration is required</div>
-                    </div>
-                    <span class="req">Required</span>
+                    <!--<span class="req">Required</span>-->
                   </div>
                   <div class="col-md-2">
                     <label style="color: #000000; visibility: hidden;">Duration</label>
@@ -256,19 +241,20 @@
               <option value="30">30 MNS</option>
               <option value="45">45 MNS</option>
             </select>
-                    <span class="req">Required</span>
+                    <!--<span class="req">Required</span>-->
                   </div>
                 </div>
                 <div class="form-row" style="padding-top: 10px;">
                   <div class="col-md-2">
                     <label style="color: #000000;">Display Color</label>
                     <input class="customcolor"  [ngClass]="{ 'is-invalid': submitted && f.display_color.errors }" 
-                    formControlName="display_color"
-                      [value]="color2" [style.background]="color2" [(colorPicker)]="color2" 
+                    formControlName="display_color" [(ngModel)]="color2"
+                      [value]="display_color" [style.background]="display_color" [(colorPicker)]="display_color" 
                       (colorPickerChange)="rgbaText=onChangeColorHex8($event);color16=$event"/>
                     <div *ngIf="submitted && f.display_color.errors" class="invalid-feedback">
                       <div *ngIf="f.display_color.errors.required">Display Color is required</div>
                     </div>
+                    
                     <span class="req">Required</span>
                   </div>
                 </div>
@@ -286,13 +272,13 @@
 
                 <div class="form-row">
                   <div class="col-md-4">
-                    <label style="color: #000000; padding-top: 10px;">Loyalty Points </label>
-                    <input type="text" class="form-control" formControlName="loyalty_point" placeholder="Loyalty Points Earned:">
+                    <label style="color: #000000; padding-top: 10px;">Loyalty Points Earned: </label>
+                    <input type="text" class="form-control" formControlName="loyalty_point" placeholder="Loyalty Points Earned">
                     <span class="req">Optional</span>
                   </div>
                   <div class="col-md-4">
                     <label style="color: #000000; padding-top: 10px;">Loyalty Points Redeem:</label>
-                    <input type="text" class="form-control" formControlName="loyalty_redeem" placeholder="Loyalty Points Redeem:">
+                    <input type="text" class="form-control" formControlName="loyalty_redeem" placeholder="Loyalty Points Redeem">
                     <span class="req">Optional</span>
                   </div>
                 </div>

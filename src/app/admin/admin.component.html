@@ -292,7 +292,7 @@
             <tr>
               <td class="rowcont" style="text-align: left;">{{serviceCat.name}}</td>
               <td style="text-align: right;"><a class="editt" (click)="openservicecatModal(serviceCat.id)">Edit</a>
-                <a class="del">Delete</a></td>
+                <a class="del" (click)="deleteServiceCat(serviceCat.id)">Delete</a></td>
             </tr>
           </tbody>
         </table>
@@ -333,7 +333,7 @@
                           </div>
                           <div class="col-lg-2">
                             <div class="user-profile pull-right">
-                              <button type="button" class="btn btnstand btn-sm mybtn" [routerLink]="['/addservices']" style="margin-top: -17px;">ADD NEW</button>
+                              <button type="button" class="btn btnstand btn-sm mybtn" [routerLink]="['/addservices']" style="margin-top: -17px;">ADD NEW SERVICE</button>
                             </div>
                           </div>
 
@@ -365,14 +365,15 @@
                                 </thead>
                                 <tbody *ngFor="let service of services;let i= index;">
                                   <tr>
-                                    <th scope="row" class="rowcont">1</th>
+                                    <th scope="row" class="rowcont">{{i + 1}}</th>
                                     <td class="rowcont">{{service.service_name}}</td>
-                                    <td class="rowcont">$ {{service.price}}</td>
+                                    <td class="rowcont">{{service.price | currency}}</td>
                                     <td class="rowcont">{{service.duration}} MNS</td>
-                                    <td class="levl">Items</td>
-                                    <td class="levl">Level</td>
-                                    <th class="levl">Resources</th>
-                                    <td><a class="editt" [routerLink]="['/editservice',service.id]">Edit</a> <a class="del">Delete</a></td>
+                                    <td class="levl">{{service.group_service === 1 ? 'Items' : '' }}</td>
+                                    <td class="levl">{{service.group_service === 0 ? 'Levels' : '' }}</td>
+                                    <th class="levl">{{service.require_resource === 1 ? 'Resources' : '' }}</th>
+                                    <td><a class="editt" [routerLink]="['/editservice',service.id]">Edit</a> 
+                                    <a class="del" (click)="deleteService(service.id)">Delete</a></td>
                                   </tr>
                                 </tbody>
                               </table>

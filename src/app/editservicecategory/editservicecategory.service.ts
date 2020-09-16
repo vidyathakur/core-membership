@@ -18,10 +18,21 @@ export class EditservicecategoryService {
 	}
 
 	public getServiceCat(serviceCatId): any {
-		let myResponse = this.http.get(`${environment.BASE_URL}/getServiceCat`+'/'+serviceCatId, {
+		let myResponse = this.http.get(`${environment.BASE_URL}/getServiceCat` + '/' + serviceCatId, {
 			headers: new HttpHeaders().set('SESSION-TOKEN', localStorage.getItem('jwt_token'))
 		});
-		console.log(serviceCatId); 
+		console.log(serviceCatId);
+		return myResponse;
+	}
+
+	public editServiceCat(serviceCatData): any {
+		let myResponse = this.http.patch(`${environment.BASE_URL}/editServiceCat` + '?', serviceCatData, {
+			headers: new HttpHeaders({ 'Access-Control-Allow-Origin': '*' }).set(
+				'SESSION-TOKEN',
+				localStorage.getItem('jwt_token')
+			)
+		});
+		console.log(serviceCatData);
 		return myResponse;
 	}
 }

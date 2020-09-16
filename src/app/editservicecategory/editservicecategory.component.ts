@@ -30,27 +30,48 @@ export class EditservicecategoryComponent implements OnInit {
 		public editservicecategoryService: EditservicecategoryService
 	) {
 		this.servicecategoryForm = this.formBuilder.group({
-      id: new FormControl(''),
+			serviceCat_id: new FormControl(''),
 			name: new FormControl('')
 		});
 	}
 
 	ngOnInit() {
 		console.log(this.fromParent);
-		// let id = this._route.snapshot.paramMap.get('id');
 		let id = this.fromParent.id;
 		this.editservicecategoryService.getServiceCat(id).subscribe(
 			data => {
 				let serviceCat_details = data['data'];
 				console.log(serviceCat_details);
 				this.servicecategoryForm = this.formBuilder.group({
-					name: [serviceCat_details.service_name]
+					name: [serviceCat_details.name],
+					serviceCat_id: [id]
 				});
 			},
 			error => {
 				console.log('some error occured');
 			}
 		);
+	}
+
+	public updateServicecat(): any {
+		this.submitted = true;
+		let serviceCat_data = this.servicecategoryForm.value;
+		console.log(serviceCat_data);
+		let data = {
+			serviceCat_id: serviceCat_data.serviceCat_id,
+			name: serviceCat_data.name || '',
+		};
+		console.log(data);
+		this.editservicecategoryService.editServiceCat(data).subscribe(data => {
+				console.log(data);
+				this.toastr.successToastr(' Service Category Updated Successfully');
+				this.router.navigate(['/admin']);
+				this.activeModal.close();
+				this.ngOnInit();
+			}, error => {
+				console.log('some error occured');
+				this.toastr.errorToastr('Some error occured', 'Oops!');
+			});
 	}
 
 	closeModal(sendData) {

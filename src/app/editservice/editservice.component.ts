@@ -17,6 +17,11 @@ export class EditserviceComponent implements OnInit {
 	serviceForm: FormGroup;
 	public serviceCats: any;
 	submitted = false;
+	color2: string = '#e920e9';
+	public arrayColors: any = {
+		display_color: '#e920e9'
+	};
+	display_color: string = '#e920e9';
 	constructor(
 		public router: Router,
 		public addemployeesService: AddemployeesService,
@@ -32,25 +37,24 @@ export class EditserviceComponent implements OnInit {
 			service_cat_id: [],
 			service_id: [],
 			service_name: ['', Validators.required],
-			price: ['', [Validators.required]],
+			price: [''],
 			display_color: ['', Validators.required],
 			barcode: ['', [Validators.required]],
-			duration: ['', [Validators.required]],
-			duration_minutes: ['', [Validators.required]],
-			process_duration: ['', [Validators.required]],
-			process_duration_minutes: ['', [Validators.required]],
+			duration: [''],
+			duration_minutes: [''],
+			process_duration: [''],
+			process_duration_minutes: [''],
 			override_price: [''],
 			override_duration: [''],
 			loyalty_point: [''],
 			loyalty_redeem: [''],
 			allow_multiple_client: [''],
 			show_online: [''],
-			max_client: ['', Validators.required],
-			online_name: ['', Validators.required],
+			max_client: [''],
+			online_name: [''],
 			require_resource: [''],
 			gst_free: [''],
-			options: [''],
-		  
+			group_service: ['']
 		});
 	}
 
@@ -63,24 +67,28 @@ export class EditserviceComponent implements OnInit {
 		this.editserviceservice.getServiceById(id).subscribe(
 			data => {
 				let service_details = data['data'];
-				let duration = service_details.duration
+				/*let duration = service_details.duration
 					? service_details.duration + ':' + service_details.duration_minutes + ':00'
-					: '00:00:00';
+					: '00:00:00'; 
 				let process_duration = service_details.process_duration
 					? service_details.process_duration + ':' + service_details.process_duration_minutes + ':00'
-					: '00:00:00';
+					: '00:00:00';*/
+				let duration  = service_details.duration ? (service_details.duration).split(':') : [];
+				let process_duration = service_details.process_duration ? (service_details.process_duration).split(':') : [];
+				console.log(duration);
+				console.log(duration[0]);
 				console.log(service_details);
 				this.serviceForm = this.formBuilder.group({
 					service_name: [service_details.service_name, Validators.required],
-					price: [service_details.price, Validators.required],
+					price: [service_details.price],
 					display_color: [service_details.display_color, Validators.required],
 					barcode: [service_details.barcode, Validators.required],
-					duration: [service_details.duration, Validators.required],
-					duration_minutes: [service_details.duration_minutes, Validators.required],
-					process_duration: [service_details.process_duration, Validators.required],
-					process_duration_minutes: [service_details.process_duration_minutes, Validators.required],
-					max_client: [service_details.max_client, Validators.required],
-					online_name: [service_details.online_name, Validators.required],
+					duration: [duration[0]],
+					duration_minutes: [duration[1]],
+					process_duration: [process_duration[0]],
+					process_duration_minutes: [process_duration[1]],
+					max_client: [service_details.max_client],
+					online_name: [service_details.online_name],
 					override_price: [service_details.override_price],
 					override_duration: [service_details.override_duration],
 					loyalty_point: [service_details.loyalty_point],
@@ -89,10 +97,11 @@ export class EditserviceComponent implements OnInit {
 					show_online: [service_details.show_online],
 					require_resource: [service_details.require_resource],
 					gst_free: [service_details.gst_free],
-					options: [service_details.options],
 					service_cat_id: [service_details.service_cat_id],
-					service_id: [id]
+					service_id: [id],
+					group_service:[service_details.group_service]
 				});
+				console.log(this.serviceForm);
 			},
 			error => {
 				console.log('some error occured');
@@ -128,14 +137,17 @@ export class EditserviceComponent implements OnInit {
 			service_cat_id: service_data.service_cat_id || ''
 		};
 		console.log(data);
-		this.editserviceservice.editService(data).subscribe(data => {
+		this.editserviceservice.editService(data).subscribe(
+			data => {
 				console.log(data);
 				this.toastr.successToastr(' Service Updated Successfully');
 				this.router.navigate(['/admin']);
-			}, error => {
+			},
+			error => {
 				console.log('some error occured');
 				this.toastr.errorToastr('Some error occured', 'Oops!');
-			});
+			}
+		);
 	}
 
 	public onChangeColor(color: string): void {

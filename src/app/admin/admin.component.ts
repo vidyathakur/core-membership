@@ -65,7 +65,7 @@ export class AdminComponent implements OnInit {
 		this.getEmplevel();
 		this.getClientCategories();
 		this.getHoliday();
-		
+
 		this.getServiceByMerchantId();
 		this.getTaxRates();
 	}
@@ -179,15 +179,10 @@ export class AdminComponent implements OnInit {
 	}
 
 	public getServiceCatByMerchantId(): any {
-		this.SpinnerService.show();
 		this.adminService.getServiceCatByMerchantId({}).subscribe(
 			data => {
 				console.log(data);
 				this.serviceCats = data['data'];
-
-				setTimeout(() => {
-					this.SpinnerService.hide();
-				}, 2000);
 			},
 			error => {
 				console.log('some error occured');
@@ -272,7 +267,12 @@ export class AdminComponent implements OnInit {
 		};
 		console.log(data);
 		modalRef.componentInstance.fromParent = data;
-		modalRef.result.then(result => {}, reason => {});
+		modalRef.result.then(
+			result => {
+				this.getServiceCatByMerchantId();
+			},
+			reason => {}
+		);
 	}
 
 	openholidayModal() {
@@ -414,6 +414,33 @@ export class AdminComponent implements OnInit {
 				this.toastr.errorToastr('Some error occured', 'Oops!');
 			}
 		);
+	}
+
+	public deleteServiceCat(id): any {
+		this.adminService.deleteServiceCat(id).subscribe(
+			data => {
+				console.log(data);
+				this.toastr.successToastr(' Service Category Deleted Successfully');
+				this.ngOnInit();
+				this.getServiceCatByMerchantId();
+			},
+			error => {
+				console.log('some error occured');
+				this.toastr.errorToastr('Some error occured', 'Oops!');
+			}
+		);
+	}
+
+	public deleteService(id): any {
+		this.adminService.deleteService(id).subscribe(data => {
+				console.log(data);
+				this.toastr.successToastr(' Service Deleted Successfully');
+				this.ngOnInit();
+				this.getServiceByMerchantId();
+			}, error => {
+				console.log('some error occured');
+				this.toastr.errorToastr('Some error occured', 'Oops!');
+			});
 	}
 
 	private getDismissReason(reason: any): string {
