@@ -47,7 +47,7 @@ export class SignupComponent implements OnInit {
 				email: ['', [Validators.required, Validators.email, Validators.pattern(this.emailPattern)]],
 				password: ['', [Validators.required, Validators.minLength(8)]],
 				confirmPassword: ['', Validators.required],
-				country_id: ['', Validators.required]
+				country_id: ['']
 			},
 			{
 				validator: MustMatch('password', 'confirmPassword')
@@ -66,46 +66,39 @@ export class SignupComponent implements OnInit {
 
 	onSubmit() {
 		this.submitted = true;
-		let response_data = this.registerForm.value;
-		let data = {
-			full_name: response_data.full_name || '',
-			name: response_data.name || '',
-			company_name: response_data.company_name || '',
-			mobile: response_data.mobile || '',
-			email: response_data.email || '',
-			referal_code: response_data.referal_code || '',
-			country_id: response_data.country_id,
-			plan_id: response_data.plan_id || '',
-			start_date: response_data.start_date || '',
-			end_date: response_data.end_date || '',
-			password: response_data.password || ''
-		};
-
-		console.log(data);
-
-			this.signupService.signupFunction(data).subscribe(apiResponse => {
+		if (!this.registerForm.invalid) {
+			let register_data = this.registerForm.value;
+			console.log(register_data);
+			let data = {
+			full_name: register_data.full_name || '',
+			name: register_data.name || '',
+			company_name: register_data.company_name || '',
+			mobile: register_data.mobile || '',
+			email: register_data.email || '',
+			referal_code: register_data.referal_code || '',
+			country_id: register_data.country_id,
+			plan_id: register_data.plan_id || '',
+			start_date: register_data.start_date || '',
+			end_date: register_data.end_date || '',
+			password: register_data.password || '',
+			};
+			console.log(data);
+		this.signupService.signupFunction(data).subscribe(apiResponse => {
 					if (apiResponse.code === 200) {
 						this.toastr.successToastr('Signup Successfull');
 						this.router.navigate(['/login']);
 					} 
 					else {
-						// this.toastr.errorToastr(apiResponse.errors.email[0]);
-						// this.toastr.errorToastr(apiResponse.errors.mobile[0]);
 					}
 				}, er => {
-					// console.log(er.error.errors['email'][0]);
-					// console.log(er.error.errors);
-					// console.log(er.error.errors['email']);
 					if(er.error.errors['mobile']){
-						//this.toastr.errorToastr('Mobile No. is already registered with us!');
 						this.toastr.errorToastr(er.error.errors['mobile'][0]);
 					}
 					if (er.error.errors['email']) {
 						this.toastr.errorToastr(er.error.errors['email'][0]);
 					}
-					//this.toastr.errorToastr(er.error.errors['email'][0]); 
-					//this.toastr.errorToastr(er.error.errors['mobile'][0]);
 				});
+		}
      }
 
 	onReset() {

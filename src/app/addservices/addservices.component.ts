@@ -37,7 +37,7 @@ export class AddservicesComponent implements OnInit {
 		private cpService: ColorPickerService
 	) {
 		this.serviceForm = this.formBuilder.group({
-			service_cat_id: [],
+			service_cat_id: ['', Validators.required],
 			service_name: ['', Validators.required],
 			price: [''],
 			display_color: ['', Validators.required],
@@ -62,6 +62,10 @@ export class AddservicesComponent implements OnInit {
 
 	ngOnInit() {
 		this.getServiceCatByMerchantId();
+	}
+
+	goOnServicecat() {
+		this.router.navigate(['/admin']);
 	}
 
 	get f() {

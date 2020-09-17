@@ -49,7 +49,9 @@ export class AdminService {
 		console.log(myResponse);
 		return myResponse;
 	}
+  
 
+	///////////////////////////////Eployees List///////////////////////////////////////////////////
 	public getEmpDetailByMerchantId(data): any {
 		let myResponse = this.http.post(`${environment.BASE_URL}/getEmpDetailByMerchantId `, data, {
 			headers: new HttpHeaders().set('SESSION-TOKEN', localStorage.getItem('jwt_token'))

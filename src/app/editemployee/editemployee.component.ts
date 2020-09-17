@@ -81,7 +81,7 @@ export class EditemployeeComponent implements OnInit {
 			product_profit: ['', [Validators.pattern('^[0-9]*$')]],
 			package: ['', [Validators.pattern('^[0-9]*$')]],
 			gift_voucher: ['', [Validators.pattern('^[0-9]*$')]],
-			emp_level_id: [],
+			emp_level_id: ['', Validators.required],
 			role: ['', Validators.required],
 			// password: ['', [Validators.required, Validators.minLength(9)]],
 			appointment_on: [],
@@ -159,7 +159,7 @@ export class EditemployeeComponent implements OnInit {
 					avg_client_per_day: [employee_details.avg_client_per_day, [Validators.pattern('^[0-9]*$')]],
 					emp_level_id: [
 						employee_details.emp_level_id ? employee_details.emp_level_id.toString() : '',
-						[Validators.pattern('^[0-9]*$')]
+						[Validators.required]
 					],
 					employee_id: [myEmployeeId]
 				});

@@ -138,3 +138,11 @@ b { /* used for event dates/times */
   background-color: #C89628; border-color: #C89628; color:#fff;
   border-radius: 33px; height: 33px; font-size: 11px; margin-left: 1rem; font-weight: 500;
 }
+.customtd{
+  /*background-color: #fff;
+    border-color: rgba(0, 0, 0, 0.12);
+    border-style: solid;
+    border-width: 0 0 1px 1px;
+    color: rgba(0, 0, 0, 0.87);
+    text-align: left;*/
+}

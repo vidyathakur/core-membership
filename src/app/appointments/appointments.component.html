@@ -40,11 +40,11 @@
           [eventSettings]="eventSettings" [timeScale]="timeScale" [currentView]="currentView">
           <ng-template #resourceHeaderTemplate let-data>
             <div class='template-wrap'>
-              <div class="resource-image {{getEmployeeImage(data)}}">
+              <div class="resource-image">
                 <img src="https://ptetutorials.com/images/user-profile.png" alt="sunil"></div>
               <div class="resource-details">
-                <div class="resource-name">{{getEmployeeName(data)}}</div>
-                <div class="resource-designation">{{getEmployeeDesignation(data)}}</div>
+                <div class="resource-name">{{resourceDataSource.f_name}}</div>
+                <!--<div class="resource-designation">{{getEmployeeDesignation(data)}}</div>-->
               </div>
             </div>
           </ng-template>

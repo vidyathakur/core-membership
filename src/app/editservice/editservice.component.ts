@@ -34,7 +34,7 @@ export class EditserviceComponent implements OnInit {
 		private cpService: ColorPickerService
 	) {
 		this.serviceForm = this.formBuilder.group({
-			service_cat_id: [],
+			service_cat_id: ['', Validators.required],
 			service_id: [],
 			service_name: ['', Validators.required],
 			price: [''],
@@ -67,12 +67,6 @@ export class EditserviceComponent implements OnInit {
 		this.editserviceservice.getServiceById(id).subscribe(
 			data => {
 				let service_details = data['data'];
-				/*let duration = service_details.duration
-					? service_details.duration + ':' + service_details.duration_minutes + ':00'
-					: '00:00:00'; 
-				let process_duration = service_details.process_duration
-					? service_details.process_duration + ':' + service_details.process_duration_minutes + ':00'
-					: '00:00:00';*/
 				let duration  = service_details.duration ? (service_details.duration).split(':') : [];
 				let process_duration = service_details.process_duration ? (service_details.process_duration).split(':') : [];
 				console.log(duration);
@@ -97,7 +91,7 @@ export class EditserviceComponent implements OnInit {
 					show_online: [service_details.show_online],
 					require_resource: [service_details.require_resource],
 					gst_free: [service_details.gst_free],
-					service_cat_id: [service_details.service_cat_id],
+					service_cat_id: [service_details.service_cat_id,Validators.required],
 					service_id: [id],
 					group_service:[service_details.group_service]
 				});

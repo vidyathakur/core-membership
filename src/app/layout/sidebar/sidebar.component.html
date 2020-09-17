@@ -15,11 +15,11 @@
                 <img src="assets/img/Dashboard-1.png" *ngIf="changeText0 || active=='/dashboard'">
                 <span>dashboard</span></a>
             </li>
-            <li [routerLinkActive]="['active']" (mouseenter)="changeText1=true" (mouseleave)="changeText1=false">
-              <a [routerLink]="['/addemployees']" (click)="changeText1=true">
+            <li  (mouseenter)="changeText1=true" (mouseleave)="changeText1=false">
+              <a [routerLink]="[]" (click)="changeText1=true">
                 <img src="assets/img/Employees.png" *ngIf="!changeText1 && active!='/addemployees'">
                 <img src="assets/img/Employees-1.png" *ngIf="changeText1 || active=='/addemployees'">
-                <span>Employees</span></a>
+                <span>Employee Roster</span></a>
             </li>
             <li [routerLinkActive]="['active']" (mouseenter)="changeText=true" (mouseleave)="changeText=false">
               <a [routerLink]="['/appointments']" (click)="changeText=true">

@@ -93,3 +93,22 @@ input[type='radio'] {
    
 }
 
+.header-titles2 {
+    font-family: 'Lato', sans-serif;
+    font-size: 13px;
+    font-weight: 600;
+    letter-spacing: 0;
+    color: #000;
+    text-transform: capitalize;
+    margin-bottom: 10px;
+    margin-left: 20px;
+}
+
+.header-title2 {
+    font-family: 'Lato', sans-serif;
+    font-size: 13px;
+    font-weight: 600;
+    letter-spacing: 0;
+    text-transform: capitalize;
+    margin-bottom: 10px;
+}

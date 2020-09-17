@@ -24,10 +24,8 @@ export class LoginComponent implements OnInit {
 	if (this.jwtService.getToken('session_token')) {
 		this.router.navigate(['/dashboard']);
 	}
-	}
-	public goToSignUp() {
-		this.router.navigate(['/signup']);
-	}
+}
+
 	ngOnInit(): void {}
 
 	public signinFunction() {
@@ -42,7 +40,7 @@ export class LoginComponent implements OnInit {
 					if (apiResponse.code === 200) {
 						this.toastr.successToastr('Login Successfully');
 							this.jwtService.setToken('jwt_token',apiResponse.data.session_token);
-							this.router.navigate(['/signup']);
+							this.router.navigate(['/dashboard']);
 							this.loginService.getMerchant({}).subscribe(
 								apiResponse =>{
 									let merchant_details = apiResponse.data[0];
@@ -59,10 +57,12 @@ export class LoginComponent implements OnInit {
 								}
 							);
 					  } else {
+						this.jwtService.destroyToken();
 						this.toastr.errorToastr(apiResponse.message);
 					}
 				},
 				err => {
+					this.jwtService.destroyToken();
 					this.toastr.errorToastr(err.error['message']);
 				}
 			);

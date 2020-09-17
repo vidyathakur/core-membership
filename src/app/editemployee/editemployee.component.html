@@ -95,11 +95,13 @@
                               </div>
                               <div class="col-md-4">
                                 <label style="color: #000000;">Employee Level</label>
-                                <select class="custom-select" formControlName="emp_level_id" required>
-                               <option >Select Level</option>
-                               <option *ngFor="let empName of empLevelNames" [value]="empName.id">{{empName.name}}</option>
-                                               
-                                             </select>
+                                 <select class="custom-select" formControlName="emp_level_id" required [ngClass]="{ 'is-invalid': submitted && f.emp_level_id.errors }">
+                            <option value="" selected="">Select Level</option>
+                            <option *ngFor="let empName of empLevelNames"  [value]="empName.id">{{empName.name}}</option>
+                            </select>
+                             <div *ngIf="submitted && f.emp_level_id.errors" class="invalid-feedback">
+                                <div *ngIf="f.emp_level_id.errors.required">Employee Level is required</div>
+                              </div>
                                 <span class="opt">Required</span>
                               </div>
                             </div>

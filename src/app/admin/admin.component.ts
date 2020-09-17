@@ -408,6 +408,7 @@ export class AdminComponent implements OnInit {
 				console.log(data);
 				this.toastr.successToastr(' Employee Deleted Successfully');
 				this.ngOnInit();
+				this.getEmployees();
 			},
 			error => {
 				console.log('some error occured');

@@ -61,7 +61,7 @@
               <div class="col-md-6">
                 <div class="form-group">
                   <select formControlName="country_id" class="custom-select myformscontrol" 
-                  placeholder="Refferal Code" required>
+                  placeholder="Refferal Code" >
                    <option value="" >Select Country</option>
                     <option  *ngFor="let country of countryList" [value]="country.id" >{{country.name}}</option>
                   </select>
@@ -70,9 +70,10 @@
               </div>
               <div class="col-md-6">
              <div class="form-group form-label-group">
-                <input type="text" class="form-control myformscontrol custominput" name="referal_code" id="inputReferalcode" formControlName="referal_code"
-                 placeholder="Refferal Code"  required autofocus>
-                <label for="inputReferalcode" class="floating-label">Refferal Code</label>
+                <input type="text" class="form-control myformscontrol custominput" name="referal_code" 
+                formControlName="referal_code" autofocus
+                 placeholder="Refferal Code">
+                <label for="inputReferalcode" class="floating-label" style="font-size: 14px;">Refferal Code</label>
               </div>
             </div>
             </div>

@@ -45,10 +45,14 @@
                 <b class="text-muted  d-block mylabel" style="padding-top: 10px;"> Services Category  </b>
                 <div class="form-row">
                   <div class="col-md-5">
-                    <select class="custom-select" formControlName="service_cat_id">
-              <option [value]="null">Select</option>
+                    <select class="custom-select" formControlName="service_cat_id" 
+                    [ngClass]="{ 'is-invalid': submitted && f.service_cat_id.errors }">
+              <option value="" selected="">Select</option>
               <option *ngFor="let serviceCat of serviceCats" [value]="serviceCat.id">{{serviceCat.name}}</option>
               </select>
+              <div *ngIf="submitted && f.service_cat_id.errors" class="invalid-feedback">
+                      <div *ngIf="f.service_cat_id.errors.required">Service Category is required</div>
+                    </div>
                     <span class="req">Required</span>
                   </div>
                   <div class="col-md-4">
@@ -160,10 +164,14 @@
                 <label style="color: #000000; padding-top: 20px;">Services Category</label>
                 <div class="form-row">
                   <div class="col-md-5">
-                    <select class="custom-select" formControlName="service_cat_id" >
-              <option [value]="null">Select</option>
+                    <select class="custom-select" formControlName="service_cat_id" 
+                    [ngClass]="{ 'is-invalid': submitted && f.service_cat_id.errors }">
+              <option value="" selected="">Select</option>
               <option *ngFor="let serviceCat of serviceCats" [value]="serviceCat.id">{{serviceCat.name}}</option>
               </select>
+              <div *ngIf="submitted && f.service_cat_id.errors" class="invalid-feedback">
+                      <div *ngIf="f.service_cat_id.errors.required">Service Category is required</div>
+                    </div>
                     <span class="req">Required</span>
                   </div>
                   <div class="col-md-4">

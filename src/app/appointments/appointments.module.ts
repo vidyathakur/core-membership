@@ -22,11 +22,17 @@ import { NumericTextBoxAllModule, TextBoxAllModule } from '@syncfusion/ej2-angul
 import { ScheduleAllModule, RecurrenceEditorAllModule } from '@syncfusion/ej2-angular-schedule';
 
 import { FormsModule, ReactiveFormsModule } from '@angular/forms';
+import { NgxSpinnerModule } from 'ngx-spinner';
+import { HttpClientModule } from '@angular/common/http';
+import { ToastrModule } from 'ng6-toastr-notifications';
 
 @NgModule({
   declarations: [AppointmentsComponent],
   imports: [
     CommonModule,
+		HttpClientModule,
+		 NgxSpinnerModule,
+		 ToastrModule.forRoot(),
     ScheduleAllModule,
 		RecurrenceEditorAllModule,
 		NumericTextBoxAllModule,

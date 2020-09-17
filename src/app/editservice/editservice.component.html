@@ -48,10 +48,14 @@
                 <b class="text-muted  d-block mylabel" style="padding-top: 10px;"> Services Category  </b>
                 <div class="form-row">
                   <div class="col-md-5">
-                   <select class="custom-select" formControlName="service_cat_id">
-              <option [value]="null">Select</option>
+                  <select class="custom-select" formControlName="service_cat_id" 
+                    [ngClass]="{ 'is-invalid': submitted && f.service_cat_id.errors }">
+              <option >Select</option>
               <option *ngFor="let serviceCat of serviceCats" [value]="serviceCat.id">{{serviceCat.name}}</option>
               </select>
+              <div *ngIf="submitted && f.service_cat_id.errors" class="invalid-feedback">
+                      <div *ngIf="f.service_cat_id.errors.required">Service Category is required</div>
+                    </div>
                     <span class="req">Required</span>
                   </div>
                   <div class="col-md-4">
@@ -164,10 +168,14 @@
                 <label style="color: #000000; padding-top: 20px;">Services Category</label>
                 <div class="form-row">
                   <div class="col-md-5">
-                    <select class="custom-select" formControlName="service_cat_id">
-              <option [value]="null">Select</option>
+                   <select class="custom-select" formControlName="service_cat_id" 
+                    [ngClass]="{ 'is-invalid': submitted && f.service_cat_id.errors }">
+              <option >Select</option>
               <option *ngFor="let serviceCat of serviceCats" [value]="serviceCat.id">{{serviceCat.name}}</option>
               </select>
+              <div *ngIf="submitted && f.service_cat_id.errors" class="invalid-feedback">
+                      <div *ngIf="f.service_cat_id.errors.required">Service Category is required</div>
+                    </div>
                     <span class="req">Required</span>
                   </div>
                   <div class="col-md-4">
@@ -198,7 +206,7 @@
                   <div class="col-md-2">
                     <label style="color: #000000;">Duration</label>
                     <select class="custom-select" formControlName="duration">
-              <option value="" selected="">0 HRS</option>
+              <option value="00" selected="">0 HRS</option>
              <option value="01">1 HRS</option>
               <option value="02">2 HRS</option>
               <option value="03">3 HRS</option>
@@ -215,7 +223,7 @@
                   <div class="col-md-2">
                     <label style="color: #000000; visibility: hidden;">Duration</label>
                     <select class="custom-select" formControlName="duration_minutes">
-                      <option value="" selected="">0 MNS</option>
+                      <option value="00" selected="">0 MNS</option>
               <option selected value="15">15 MNS</option>
               <option value="30">30 MNS</option>
               <option value="45">45 MNS</option>
@@ -226,7 +234,7 @@
                   <div class="col-md-2">
                     <label style="color: #000000;">Processing Duration</label>
                     <select class="custom-select" formControlName="process_duration">
-              <option value="" selected="">0 HRS</option>
+              <option value="00" selected="">0 HRS</option>
               <option value="01">1 HRS</option>
               <option value="02">2 HRS</option>
               <option value="03">3 HRS</option>
@@ -242,7 +250,7 @@
                   <div class="col-md-2">
                     <label style="color: #000000; visibility: hidden;">Duration</label>
                     <select class="custom-select" formControlName="process_duration_minutes">
-                      <option value="" selected="">0 MNS</option>
+                      <option value="00" selected="">0 MNS</option>
                <option value="15" selected>15 MNS</option>
               <option value="30">30 MNS</option>
               <option value="45">45 MNS</option>

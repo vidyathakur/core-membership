@@ -17,17 +17,24 @@ import {
 	ResourceDetails,
 	TreeViewArgs
 } from '@syncfusion/ej2-angular-schedule';
+import { AdminService } from 'src/app/admin/admin.service';
+import { ToastrManager } from 'ng6-toastr-notifications';
+import { Router, ActivatedRoute } from '@angular/router';
+import { JwtService } from 'src/app/login/jwt.service';
+import { NgxSpinnerService } from 'ngx-spinner';
 import { roomData, resourceConferenceData, scheduleData } from 'src/app/appointments/data';
+import { AppointmentsService } from 'src/app/appointments/appointments.service';
 
 
 @Component({
 	selector: 'app-appointments',
 	templateUrl: './appointments.component.html',
 	styleUrls: ['./appointments.component.css'],
-  encapsulation: ViewEncapsulation.None,
+	encapsulation: ViewEncapsulation.None,
 	providers: [TimelineViewsService, ResizeService, DragAndDropService]
 })
 export class AppointmentsComponent implements OnInit {
+	public currentEmployees: any;
 	public data: Object[] = <Object[]>extend([], resourceConferenceData, null, true);
 	public selectedDate: Date = new Date();
 	public timeScale: TimeScaleModel = {
@@ -46,9 +53,9 @@ export class AppointmentsComponent implements OnInit {
 	}
 	public currentView: View = 'Day';
 	public resourceDataSource: Object[] = [
-		{ Text: 'Margaret', Id: 1, Color: '#1aaa55' },
-		{ Text: 'Robert', Id: 2, Color: '#357cd2' },
-		{ Text: 'Laura', Id: 3, Color: '#7fa900' }
+		{ Text: 'f_name', Id: 1, Color: '#1aaa55' },
+		{ Text: 'f_name', Id: 2, Color: '#357cd2' },
+		{ Text: 'f_name', Id: 3, Color: '#7fa900' }
 	];
 	public group: GroupModel = { allowGroupEdit: true, resources: ['Conferences'] };
 	public allowMultiple: Boolean = true;
@@ -62,9 +69,26 @@ export class AppointmentsComponent implements OnInit {
 		}
 	};
 
-	constructor() {}
+	constructor(
+		private SpinnerService: NgxSpinnerService,
+		public router: Router,
+		public toastr: ToastrManager,
+		private jwtService: JwtService,
+		private _route: ActivatedRoute,
+		public appointmentsService: AppointmentsService
+	) {}
 
 	getEmployeeName(value: ResourceDetails | TreeViewArgs): string {
+		this.appointmentsService.getEmpDetailByMerchantId({}).subscribe(
+			data => {
+				console.log(data);
+				this.resourceDataSource = data['data'];
+			},
+			error => {
+				console.log('some error occured');
+				this.toastr.errorToastr('some error occured');
+			}
+		);
 		return (value as ResourceDetails).resourceData
 			? (value as ResourceDetails).resourceData[(value as ResourceDetails).resource.textField] as string
 			: (value as TreeViewArgs).resourceName;
@@ -80,5 +104,25 @@ export class AppointmentsComponent implements OnInit {
 		return resourceName.replace(' ', '-').toLowerCase();
 	}
 
-	ngOnInit() {}
+	ngOnInit() {
+		//this.getEmployees();
+	}
+
+	// public getEmployees(): any {
+	// 	this.SpinnerService.show();
+	// 	this.appointmentsService.getEmpDetailByMerchantId({}).subscribe(
+	// 		data => {
+	// 			console.log(data);
+	// 			this.currentEmployees = data['data'];
+
+	// 			setTimeout(() => {
+	// 				this.SpinnerService.hide();
+	// 			}, 2000);
+	// 		},
+	// 		error => {
+	// 			console.log('some error occured');
+	// 			this.toastr.errorToastr('some error occured');
+	// 		}
+	// 	);
+	// }
 }
