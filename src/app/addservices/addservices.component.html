@@ -11,13 +11,15 @@
             <div class="form-row">
               <div class="col-md-4">
                 <div class="custom-control custom-checkbox custom-control-inline">
-                  <input type="radio" formControlName="group_service" name="group_service" [(ngModel)]="options" [value]="1" [checked]="options" class="custom-control-input"
+                  <input type="radio" formControlName="group_service" name="group_service" 
+                  [(ngModel)]="options" [value]="1" [checked]="options" class="custom-control-input"
                     id="customCheck6">
                   <label class="custom-control-label" for="customCheck6">Yes</label>
 
                 </div>
                 <div class="custom-control custom-checkbox custom-control-inline">
-                  <input type="radio" formControlName="group_service" [value]="0" name="group_service" [(ngModel)]="options" [checked]="!options" class="custom-control-input"
+                  <input type="radio" formControlName="group_service" [value]="0" name="group_service" 
+                  [(ngModel)]="options" [checked]="!options" class="custom-control-input"
                     id="customCheck7">
                   <label class="custom-control-label" for="customCheck7">No</label>
                 </div>
@@ -56,7 +58,7 @@
                     <span class="req">Required</span>
                   </div>
                   <div class="col-md-4">
-                    <button type="button" class="btn  mybtn" [routerLink]="['/admin']">ADD NEW</button>
+                    <button type="button" class="btn mybtn" (click)="goToServiceCat()">ADD NEW</button>
                   </div>
                 </div>
 
@@ -81,28 +83,28 @@
                 <div class="form-row" style="padding-top: 10px;">
                   <div class="col-md-2" *ngIf="big.checked">
                     <b class="text-muted  d-block mylabel"> Duration   </b>
-                    <select class="custom-select" formControlName="duration">
-              <option value="" selected="">0 HRS</option>
-              <option value="1">1 HRS</option>
-              <option value="2">2 HRS</option>
-              <option value="3">3 HRS</option>
-              <option value="4">4 HRS</option>
-              <option value="5">5 HRS</option>
-              <option value="6">6 HRS</option>
-              <option value="7">7 HRS</option>
-              <option value="8">8 HRS</option>
-              <option value="9">9 HRS</option>
+                    <select class="custom-select"  [(ngModel)]="selectedValue"   formControlName="duration">
+              <option value="00">0 HRS</option>
+              <option value="01">1 HRS</option>
+              <option value="02">2 HRS</option>
+              <option value="03">3 HRS</option>
+              <option value="04">4 HRS</option>
+              <option value="05">5 HRS</option>
+              <option value="06">6 HRS</option>
+              <option value="07">7 HRS</option>
+              <option value="08">8 HRS</option>
+              <option value="09">9 HRS</option>
             </select>
                     <!--<span class="req">Optional</span>-->
                   </div>
                   <div class="col-md-2" *ngIf="big.checked">
-                    <b class="text-muted  d-block mylabel" style="visibility: hidden;">  Duration  </b>
-                    <select class="custom-select" formControlName="duration_minutes">
-                      <option value="" selected="">0 MNS</option>
-              <option value="15" selected>15 MNS</option>
-              <option value="30">30 MNS</option>
-              <option value="45">45 MNS</option>
-            </select>
+                    <b class="text-muted d-block mylabel" style="visibility: hidden;">  Duration  </b>
+                    <select class="custom-select" [(ngModel)]="selectedValueminute" formControlName="duration_minutes">
+                      <option value="00">0 MNS</option>
+                      <option value="15">15 MNS</option>
+                      <option value="30">30 MNS</option>
+                      <option value="45">45 MNS</option>
+                    </select>
                     <!--<span class="req">Required</span>-->
                   </div>
                 </div>
@@ -175,7 +177,7 @@
                     <span class="req">Required</span>
                   </div>
                   <div class="col-md-4">
-                    <button type="button" class="btn mybtn" [routerLink]="['/admin']">ADD NEW</button>
+                    <button type="button" class="btn mybtn" (click)="goToServiceCat()">ADD NEW</button>
                   </div>
                 </div>
 
@@ -200,25 +202,25 @@
                 <div class="form-row" style="padding-top: 10px;">
                   <div class="col-md-2">
                     <label style="color: #000000;">Duration</label>
-                    <select class="custom-select" formControlName="duration" >
-              <option value="" selected="">0 HRS</option>
-              <option value="1">1 HRS</option>
-              <option value="2">2 HRS</option>
-              <option value="3">3 HRS</option>
-              <option value="4">4 HRS</option>
-              <option value="5">5 HRS</option>
-              <option value="6">6 HRS</option>
-              <option value="7">7 HRS</option>
-              <option value="8">8 HRS</option>
-              <option value="9">9 HRS</option>
+                    <select class="custom-select" [(ngModel)]="selectedValue" formControlName="duration" >
+              <option value="00">0 HRS</option>
+              <option value="01">1 HRS</option>
+              <option value="02">2 HRS</option>
+              <option value="03">3 HRS</option>
+              <option value="04">4 HRS</option>
+              <option value="05">5 HRS</option>
+              <option value="06">6 HRS</option>
+              <option value="07">7 HRS</option>
+              <option value="08">8 HRS</option>
+              <option value="09">9 HRS</option>
             </select>
                     <!--<span class="req">Required</span>-->
                   </div>
                   <div class="col-md-2">
                     <label style="color: #000000; visibility: hidden;">Duration</label>
-                    <select class="custom-select" formControlName="duration_minutes">
-                      <option value="" selected="">0 MNS</option>
-              <option selected value="15">15 MNS</option>
+                    <select class="custom-select" [(ngModel)]="selectedValueminute" formControlName="duration_minutes">
+                      <option value="00">0 MNS</option>
+              <option  value="15">15 MNS</option>
               <option value="30">30 MNS</option>
               <option value="45">45 MNS</option>
             </select>
@@ -227,25 +229,25 @@
 
                   <div class="col-md-2">
                     <label style="color: #000000;">Processing Duration</label>
-                    <select class="custom-select" formControlName="process_duration">
-              <option value="" selected="">0 HRS</option>
-              <option value="1">1 HRS</option>
-              <option value="2">2 HRS</option>
-              <option value="3">3 HRS</option>
-              <option value="4">4 HRS</option>
-              <option value="5">5 HRS</option>
-              <option value="6">6 HRS</option>
-              <option value="7">7 HRS</option>
-              <option value="8">8 HRS</option>
-              <option value="9">9 HRS</option>
+                    <select class="custom-select" [(ngModel)]="selectedValueprocessing" formControlName="process_duration">
+              <option value="00">0 HRS</option>
+              <option value="01">1 HRS</option>
+              <option value="02">2 HRS</option>
+              <option value="03">3 HRS</option>
+              <option value="04">4 HRS</option>
+              <option value="05">5 HRS</option>
+              <option value="06">6 HRS</option>
+              <option value="07">7 HRS</option>
+              <option value="08">8 HRS</option>
+              <option value="09">9 HRS</option>
             </select>
                     <!--<span class="req">Required</span>-->
                   </div>
                   <div class="col-md-2">
                     <label style="color: #000000; visibility: hidden;">Duration</label>
-                    <select class="custom-select" formControlName="process_duration_minutes">
-                      <option value="" selected="">0 MNS</option>
-               <option value="15" selected>15 MNS</option>
+                    <select class="custom-select" [(ngModel)]="selectedValueminuteprocessing" formControlName="process_duration_minutes">
+                      <option value="00" >0 MNS</option>
+               <option value="15">15 MNS</option>
               <option value="30">30 MNS</option>
               <option value="45">45 MNS</option>
             </select>
@@ -341,7 +343,7 @@
       </div>
     </div>
     <div class="footrcard">
-      <button type="button" class="btn mb-3 canc">Cancel</button>
+      <button type="button" class="btn mb-3 canc" (click)="onCancel()">Cancel</button>
       <button type="submit" class="btn mb-3 sub">Submit</button>
     </div>
   </form>

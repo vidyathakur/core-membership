@@ -34,6 +34,7 @@ import { AppointmentsService } from 'src/app/appointments/appointments.service';
 	providers: [TimelineViewsService, ResizeService, DragAndDropService]
 })
 export class AppointmentsComponent implements OnInit {
+	public empLevelNames: any;
 	public currentEmployees: any;
 	public data: Object[] = <Object[]>extend([], resourceConferenceData, null, true);
 	public selectedDate: Date = new Date();
@@ -53,10 +54,11 @@ export class AppointmentsComponent implements OnInit {
 	}
 	public currentView: View = 'Day';
 	public resourceDataSource: Object[] = [
-		{ Text: 'f_name', Id: 1, Color: '#1aaa55' },
-		{ Text: 'f_name', Id: 2, Color: '#357cd2' },
-		{ Text: 'f_name', Id: 3, Color: '#7fa900' }
+		// { Text: 'f_name', Id: 2, Color: '#357cd2' },
+		// { Text: 'f_name', Id: 2, Color: '#357cd2' },
+		// { Text: 'f_name', Id: 3, Color: '#7fa900' }
 	];
+	//console.log(resourceDataSource);
 	public group: GroupModel = { allowGroupEdit: true, resources: ['Conferences'] };
 	public allowMultiple: Boolean = true;
 	public eventSettings: EventSettingsModel = {
@@ -79,25 +81,14 @@ export class AppointmentsComponent implements OnInit {
 	) {}
 
 	getEmployeeName(value: ResourceDetails | TreeViewArgs): string {
-		this.appointmentsService.getEmpDetailByMerchantId({}).subscribe(
-			data => {
-				console.log(data);
-				this.resourceDataSource = data['data'];
-			},
-			error => {
-				console.log('some error occured');
-				this.toastr.errorToastr('some error occured');
-			}
-		);
 		return (value as ResourceDetails).resourceData
 			? (value as ResourceDetails).resourceData[(value as ResourceDetails).resource.textField] as string
 			: (value as TreeViewArgs).resourceName;
 	}
 	getEmployeeDesignation(value: ResourceDetails | TreeViewArgs): string {
-		let resourceName: string = this.getEmployeeName(value);
-		return resourceName === 'Margaret'
-			? 'Makeup artist'
-			: resourceName === 'Robert' ? 'Hairstylist' : 'Spa therapist';
+		return (value as ResourceDetails).resourceData
+			? (value as ResourceDetails).resourceData[(value as ResourceDetails).resource.idField] as string
+			: (value as TreeViewArgs).resourceName;
 	}
 	getEmployeeImage(value: ResourceDetails | TreeViewArgs): string {
 		let resourceName: string = this.getEmployeeName(value);
@@ -105,23 +96,41 @@ export class AppointmentsComponent implements OnInit {
 	}
 
 	ngOnInit() {
-		//this.getEmployees();
+		//this.getEmplevel();
+		this.appointmentsService.getEmpDetailByMerchantId({}).subscribe(
+			data => {
+				console.log(data);
+				let currentEmployees = data['data'];
+				let finalArrayData = [];
+				currentEmployees.forEach((item, key) => {
+					let object = { Text: '', Id: '', Color: '' , Text2: ''};
+					object.Text = item.f_name;
+					object.Id = item.id;
+					object.Color = '#357cd2';
+					object.Text2 = item.display_name;
+					if(item.emp_levels){
+						object.Id = item.emp_levels.name;
+					}
+					finalArrayData.push(object);
+				});
+				this.resourceDataSource = finalArrayData;
+				console.log(this.resourceDataSource);
+			},
+			error => {
+				console.log('some error occured');
+				this.toastr.errorToastr('some error occured');
+			}
+		);
 	}
 
-	// public getEmployees(): any {
-	// 	this.SpinnerService.show();
-	// 	this.appointmentsService.getEmpDetailByMerchantId({}).subscribe(
+	//  public getEmplevel(): any {
+  // this.appointmentsService.getEmplevelByMechantId({}).subscribe(
 	// 		data => {
 	// 			console.log(data);
-	// 			this.currentEmployees = data['data'];
-
-	// 			setTimeout(() => {
-	// 				this.SpinnerService.hide();
-	// 			}, 2000);
+	// 			this.empLevelNames = data['data'];
 	// 		},
 	// 		error => {
 	// 			console.log('some error occured');
-	// 			this.toastr.errorToastr('some error occured');
 	// 		}
 	// 	);
 	// }

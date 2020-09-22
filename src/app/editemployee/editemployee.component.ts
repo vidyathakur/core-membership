@@ -60,7 +60,7 @@ export class EditemployeeComponent implements OnInit {
 		private formBuilder: FormBuilder,
 		public toastr: ToastrManager,
 		private jwtService: JwtService,
-		public editemployeeService: EditemployeeService,
+		public editemployeeService: EditemployeeService
 	) {
 		this.employeeForm = this.formBuilder.group({
 			display_name: ['', Validators.required],
@@ -112,7 +112,7 @@ export class EditemployeeComponent implements OnInit {
 			data => {
 				let employee_details = data['data'];
 				console.log(employee_details);
-				let birthday_data = (employee_details.birthday) ? employee_details.birthday.split('-') : ['0','0','0'];
+				let birthday_data = employee_details.birthday ? employee_details.birthday.split('-') : ['0', '0', '0'];
 				this.employeeForm = this.formBuilder.group({
 					display_name: [employee_details.display_name, Validators.required],
 					order: [employee_details.order, [Validators.pattern('^[0-9]*$')]],
@@ -136,7 +136,13 @@ export class EditemployeeComponent implements OnInit {
 						[Validators.required, Validators.pattern('^((\\+91-?)|0)?[0-9]{10}$')]
 					],
 					gender: [employee_details.gender, Validators.required],
-					birthday: [{ year: Number(birthday_data[0]), month: Number(birthday_data[1]), day: Number(birthday_data[2])}],
+					birthday: [
+						{
+							year: Number(birthday_data[0]),
+							month: Number(birthday_data[1]),
+							day: Number(birthday_data[2])
+						}
+					],
 					address: [employee_details.address, Validators.required],
 					postcode: [employee_details.postcode, Validators.required],
 					appoint_sms: [
@@ -239,19 +245,33 @@ export class EditemployeeComponent implements OnInit {
 			wages_vs_sale: employee_data.wages_vs_sale || '',
 			retail_sale: employee_data.retail_sale || '',
 			client_per_day: employee_data.client_per_day || '',
-			avg_client_per_day: employee_data.avg_client_per_day || ''
+			avg_client_per_day: employee_data.avg_client_per_day || '',
+			emp_level_id: employee_data.emp_level_id
 		};
 		console.log(data);
-		this.editemployeeService.editEmployee(data).subscribe(data => {
-			console.log(data);
-			this.toastr.successToastr(' Employee Updated Successfully');
-			this.router.navigate(['/admin']);
-		},er => {
-			// console.log(er.error.errors['order'][0]);
-			// console.log(er.error.errors);
-			// console.log(er.error.errors['order']);
-			// this.toastr.errorToastr(er.error.errors['order'][0]);
-			this.toastr.errorToastr('some error occured');
-		});
+		this.editemployeeService.editEmployee(data).subscribe(
+			data => {
+				console.log(data);
+				this.toastr.successToastr(' Employee Updated Successfully');
+				this.jwtService.setToken('tabId', 'employees-tab');
+				this.router.navigate(['/admin']);
+			},
+			er => {
+				// console.log(er.error.errors['order'][0]);
+				// console.log(er.error.errors);
+				// console.log(er.error.errors['order']);
+				// this.toastr.errorToastr(er.error.errors['order'][0]);
+				this.toastr.errorToastr('some error occured');
+			}
+		);
+	}
+
+	goToEditEmp() {
+		this.jwtService.setToken('tabId', 'employees-tab');
+		this.router.navigate(['/admin']);
+	}
+	onCancel() {
+		this.jwtService.setToken('tabId', 'employees-tab');
+		this.router.navigate(['/admin']);
 	}
 }

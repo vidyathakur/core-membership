@@ -30,6 +30,7 @@
     "@syncfusion/ej2-angular-pivotview": "^18.2.46",
     "@syncfusion/ej2-angular-schedule": "^18.2.47",
     "bootstrap": "^4.5.2",
+    "bootstrap4-toggle": "^3.6.1",
     "chart.js": "^2.9.3",
     "core-js": "^2.5.4",
     "jquery": "^3.5.1",

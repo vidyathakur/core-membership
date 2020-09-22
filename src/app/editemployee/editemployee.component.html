@@ -4,7 +4,7 @@
       <div class="main-content-inner">
         <div class="row">
           <div class="col">
-            <h4 class="header-title" style="color: #c89628; cursor: pointer; margin-left: 20px;" [routerLink]="['/admin']">Back </h4>
+            <h4 class="header-title" style="color: #c89628; cursor: pointer; margin-left: 20px;" (click)="goToEditEmp()">Back </h4>
             <h4 class="header-titles">Update Employees</h4>
             <form class="col-lg-12" [formGroup]="employeeForm" (ngSubmit)="updateEmployee()">
               <input type="hidden" formControlName="employee_id" class="form-control">
@@ -462,7 +462,7 @@
                   </ejs-accordion>
                 </div>
               </div>
-              <button type="button" class="btn mb-3 canc">Cancel</button>
+              <button type="button" class="btn mb-3 canc" (click)="onCancel()">Cancel</button>
               <button type="submit" class="btn mb-3 sub">Update</button>
             </form>
           </div>

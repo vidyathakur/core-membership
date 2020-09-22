@@ -1,8 +1,6 @@
 <div class="page-container">
   <div class="main-content">
-
     <div class="main-content-inner">
-     
       <h4 class="page-title" style="font-size: 15px;font-weight: 500; color: #000000;">Admin</h4>
       <div class="sales-report-area mt-5 mb-5">
         <div class="row">
@@ -48,11 +46,11 @@
           </div>
           <div class="col-md-2">
             <!--<div class="single-report mb-xs-30">
-              <div class="s-report-inner pr--20 pt--30 mb-3">
-                <span>This Month's earnings </span>
-                <h2>$63,475</h2>
-              </div>
-            </div>-->
+                     <div class="s-report-inner pr--20 pt--30 mb-3">
+                       <span>This Month's earnings </span>
+                       <h2>$63,475</h2>
+                     </div>
+                     </div>-->
           </div>
         </div>
       </div>
@@ -60,37 +58,46 @@
         <div class="col-lg-12">
           <div class="card mybordcard">
             <div class="card-body">
-              <ul class="nav nav-tabs" id="myTab" role="tablist" #tabset>
+              <ul class="nav nav-tabs" id="myTab" role="tablist">
                 <li class="nav-item">
-                  <a class="nav-link  myreboot" id="clients-tab" data-toggle="tab" href="#clients" role="tab" aria-controls="clients" aria-selected="true">Clients</a>
+                  <a class="nav-link  myreboot" [ngClass]="{ 'active':activeTab==='clients-tab'}" id="clients-tab" data-toggle="tab" href="#clients"
+                    role="tab" aria-controls="clients" aria-selected="true">Clients</a>
                 </li>
                 <li class="nav-item">
-                  <a class="nav-link" id="employees-tab" data-toggle="tab" href="#employees" role="tab" aria-controls="employees" aria-selected="false" (click)="onNoClick()">Employees</a>
+                  <a class="nav-link" [ngClass]="{ 'active':activeTab==='employees-tab'}" id="employees-tab" data-toggle="tab" href="#employees"
+                    role="tab" aria-controls="employees" aria-selected="false">Employees</a>
                 </li>
                 <li class="nav-item">
-                  <a class="nav-link" id="category-tab" data-toggle="tab" href="#category" role="tab" aria-controls="category" aria-selected="false" (click)="onServiceClick()">Service Category</a>
+                  <a class="nav-link" [ngClass]="{ 'active':activeTab==='category-tab'}" id="category-tab" data-toggle="tab" href="#category"
+                    role="tab" aria-controls="category" aria-selected="false">Service Category</a>
                 </li>
                 <li class="nav-item">
-                  <a class="nav-link active" id="services-tab" data-toggle="tab" href="#services" role="tab" aria-controls="services" aria-selected="true">Services</a>
+                  <a class="nav-link " [ngClass]="{ 'active':activeTab==='services-tab'}" id="services-tab" data-toggle="tab" href="#services"
+                    role="tab" aria-controls="services" aria-selected="true">Services</a>
                 </li>
                 <li class="nav-item">
-                  <a class="nav-link" id="lists-tab" data-toggle="tab" href="#lists" role="tab" aria-controls="lists" aria-selected="true">Lists</a>
+                  <a class="nav-link" [ngClass]="{ 'active':activeTab==='lists-tab'}" id="lists-tab" data-toggle="tab" href="#lists" role="tab"
+                    aria-controls="lists" aria-selected="true">Lists</a>
                 </li>
                 <li class="nav-item">
-                  <a class="nav-link" id="products-tab" data-toggle="tab" href="#products" role="tab" aria-controls="products" aria-selected="false">Products</a>
+                  <a class="nav-link" [ngClass]="{ 'active':activeTab==='products-tab'}" id="products-tab" data-toggle="tab" href="#products"
+                    role="tab" aria-controls="products" aria-selected="false">Products</a>
                 </li>
                 <li class="nav-item">
-                  <a class="nav-link" id="brands-tab" data-toggle="tab" href="#brands" role="tab" aria-controls="brands" aria-selected="false">Brands</a>
+                  <a class="nav-link" [ngClass]="{ 'active':activeTab==='brands-tab'}" id="brands-tab" data-toggle="tab" href="#brands" role="tab"
+                    aria-controls="brands" aria-selected="false">Brands</a>
                 </li>
                 <li class="nav-item">
-                  <a class="nav-link " id="emphours-tab" data-toggle="tab" href="#emphours" role="tab" aria-controls="emphours" aria-selected="true">Employee Hours</a>
+                  <a class="nav-link " [ngClass]="{ 'active':activeTab==='emphours-tab'}" id="emphours-tab" data-toggle="tab" href="#emphours"
+                    role="tab" aria-controls="emphours" aria-selected="true">Employee Hours</a>
                 </li>
                 <li class="nav-item">
-                  <a class="nav-link" id="openhours-tab" data-toggle="tab" href="#openhours" role="tab" aria-controls="openhours" aria-selected="false">Opening Hours</a>
+                  <a class="nav-link" [ngClass]="{ 'active':activeTab==='openhours-tab'}" id="openhours-tab" data-toggle="tab" href="#openhours"
+                    role="tab" aria-controls="openhours" aria-selected="false">Opening Hours</a>
                 </li>
               </ul>
               <div class="tab-content mt-3" id="myTabContent">
-                <div class="tab-pane fade " id="clients" role="tabpanel" aria-labelledby="clients-tab">
+                <div class="tab-pane fade " [ngClass]="{ 'show active':activeTab==='clients-tab'}" id="clients" role="tabpanel" aria-labelledby="clients-tab">
                   <div class="col-12 mt-5">
                     <div class="card">
                       <div class="card-body">
@@ -125,14 +132,10 @@
                               <button type="button" class="btn btnstand btn-sm mybtn" [routerLink]="['/addnewclient']" style="margin-top: -17px;">ADD NEW CLIENT </button>
                             </div>
                           </div>
-
-
-
                         </div>
                       </div>
                     </div>
                   </div>
-
                   <div class="row">
                     <div class="col-12">
                       <div class="card">
@@ -187,121 +190,122 @@
                     </div>
                   </div>
                 </div>
-                <div class="tab-pane fade" id="employees" role="tabpanel" aria-labelledby="employees-tab">
+                <div class="tab-pane fade" [ngClass]="{ 'show active':activeTab==='employees-tab'}" id="employees" role="tabpanel" aria-labelledby="employees-tab">
                   <div class="card">
-                  <div class="card-body">
-                  <div class="row">
-                  <div class="col-md-auto">
-                    <!--<ul class="breadcrumbs pull-left">
-                      <li>
-                        <div class="dropdown">
-                          <button class="btn  btnstand btn-md dropdown-toggle" style="border: 1px solid #d3d3d3;" type="button" id="dropdownMenuButton"
-                            data-toggle="dropdown" aria-haspopup="true" aria-expanded="false"> Select Category </button>
-                          <div class="dropdown-menu" aria-labelledby="dropdownMenuButton">
-                            <a class="dropdown-item" href="#">Action</a>
-                            <a class="dropdown-item" href="#">Another action</a>
-                            <a class="dropdown-item" href="#">Something else here</a>
+                    <div class="card-body">
+                      <div class="row">
+                        <div class="col-md-auto">
+                          <!--<ul class="breadcrumbs pull-left">
+                                          <li>
+                                            <div class="dropdown">
+                                              <button class="btn  btnstand btn-md dropdown-toggle" style="border: 1px solid #d3d3d3;" type="button" id="dropdownMenuButton"
+                                                data-toggle="dropdown" aria-haspopup="true" aria-expanded="false"> Select Category </button>
+                                              <div class="dropdown-menu" aria-labelledby="dropdownMenuButton">
+                                                <a class="dropdown-item" href="#">Action</a>
+                                                <a class="dropdown-item" href="#">Another action</a>
+                                                <a class="dropdown-item" href="#">Something else here</a>
+                                              </div>
+                                            </div>
+                                          </li>
+                                          </ul>-->
+                        </div>
+                        <div class="col">
+                          <div class="row">
+                            <div class=" col-sm-10 ressearch">
+                              <input type="text" class="form-control search-slt" placeholder="Search...">
+                            </div>
+                            <div class=" col-sm-2">
+                              <button type="button" class="btn btnstand btn-sm mybtn2">SEARCH</button>
+                            </div>
                           </div>
                         </div>
-                      </li>
-                    </ul>-->
-                  </div>
-                  <div class="col">
-                    <div class="row">
-                      <div class=" col-sm-10 ressearch">
-                        <input type="text" class="form-control search-slt" placeholder="Search...">
+                        <div class="col-lg-2">
+                          <div class=" pull-right">
+                            <button type="button" class="btn btnstand btn-sm mybtn" [routerLink]="['/addemployees']">ADD NEW EMPLOYEE</button>
+                          </div>
+                        </div>
                       </div>
-                      <div class=" col-sm-2">
-                        <button type="button" class="btn btnstand btn-sm mybtn2">SEARCH</button>
-                      </div>
-                    </div>
-                  </div>
-                  <div class="col-lg-2">
-                    <div class=" pull-right">
-                      <button type="button" class="btn btnstand btn-sm mybtn" [routerLink]="['/addemployees']" >ADD NEW EMPLOYEE</button>
-                    </div>
-                  </div>
-                  </div>
-                    <div class="single-table" style="margin-top: 15px;">
-                      <div class="table-responsive">
-                        <table class="table text-center">
-                          <thead class="text-uppercase bg-secondary">
-                            <tr class="text-white">
-                              <th scope="col">Order</th>
-                              <th scope="col">Name</th>
-                              <th scope="col">Level</th>
-                              <th scope="col">Mobile</th>
-                              <th scope="col">Email</th>
-                              <th scope="col">Services</th>
-                              <th scope="col">Roster Rates</th>
-                              <th scope="col">action</th>
-                            </tr>
-                          </thead>
-                          <tbody *ngFor="let employee of currentEmployees">
-                            <tr>
-                              <th scope="row" class="rowcont">{{employee.order}}</th>
-                              <td class="rowcont">{{employee.f_name}}</td>
-                              <td class="rowcont">{{employee.role}}</td>
-                              <td class="rowcont">{{employee.mobile}}</td>
-                              <td class="levl">{{employee.email}}</td>
-                              <td class="levl">Services</td>
-                              <td class="levl">Roster Rates</td>
-                             
-                              <td><a class="editt" [routerLink]="['/editemployee', employee.id]">Edit</a> 
-                              <a class="del" (click)="deleteEmployee(employee.id)">Delete</a></td>
-                            </tr>
-                          </tbody>
-                        </table>
+                      <div class="single-table" style="margin-top: 15px;">
+                        <div class="table-responsive">
+                          <table class="table text-center">
+                            <thead class="text-uppercase bg-secondary">
+                              <tr class="text-white">
+                                <th scope="col">Order</th>
+                                <th scope="col">Name</th>
+                                <th scope="col">Level</th>
+                                <th scope="col">Mobile</th>
+                                <th scope="col">Email</th>
+                                <th scope="col">Services</th>
+                                <th scope="col">Roster Rates</th>
+                                <th scope="col">action</th>
+                              </tr>
+                            </thead>
+                            <tbody *ngFor="let employee of currentEmployees">
+                              <tr>
+                                <th scope="row" class="rowcont">{{employee.order}}</th>
+                                <td class="rowcont">{{employee.f_name}}</td>
+                                <td class="rowcont">{{employee.role}}</td>
+                                <td class="rowcont">{{employee.mobile}}</td>
+                                <td class="levl">{{employee.email}}</td>
+                                <td class="levl">Services</td>
+                                <td class="levl">Roster Rates</td>
+                                <td><a class="editt" [routerLink]="['/editemployee', employee.id]">Edit</a>
+                                  <a class="del" (click)="deleteEmployee(employee.id)">Delete</a>
+                                </td>
+                              </tr>
+                            </tbody>
+                          </table>
+                        </div>
                       </div>
                     </div>
-                  </div>
                   </div>
                 </div>
-                <div class="tab-pane fade" id="category" role="tabpanel" aria-labelledby="category-tab">
-                 <div class="card">
-  <div class="card-body">
-    <div class="row">
-      <div class="col-md-auto">
-      </div>
-      <div class="col">
-        <div class="row">
-          <div class=" col-sm-10 ressearch">
-            <input type="text" class="form-control search-slt" placeholder="Search...">
-          </div>
-          <div class=" col-sm-2">
-            <button type="button" class="btn btnstand btn-sm mybtn2">SEARCH</button>
-          </div>
-        </div>
-      </div>
-      <div class="col-lg-2">
-        <div class=" pull-right">
-          <button type="button" class="btn btnstand btn-sm mybtn" (click)="openserviceModal()">ADD NEW SERVICE CATEGORY</button>
-        </div>
-      </div>
-    </div>
-    <div class="single-table" style="margin-top: 15px;">
-      <div class="table-responsive">
-        <table class="table text-center">
-          <thead class="text-uppercase bg-secondary">
-            <tr class="text-white">
-              <th scope="col" style="text-align: left;">Category Name</th>
-              <th scope="col" style="text-align: right;">action</th>
-            </tr>
-          </thead>
-          <tbody *ngFor="let serviceCat of serviceCats">
-            <tr>
-              <td class="rowcont" style="text-align: left;">{{serviceCat.name}}</td>
-              <td style="text-align: right;"><a class="editt" (click)="openservicecatModal(serviceCat.id)">Edit</a>
-                <a class="del" (click)="deleteServiceCat(serviceCat.id)">Delete</a></td>
-            </tr>
-          </tbody>
-        </table>
-      </div>
-    </div>
-  </div>
-</div>
+                <div class="tab-pane fade"  [ngClass]="{ 'show active':activeTab==='category-tab'}" id="category" role="tabpanel" aria-labelledby="category-tab">
+                  <div class="card">
+                    <div class="card-body">
+                      <div class="row">
+                        <div class="col-md-auto">
+                        </div>
+                        <div class="col">
+                          <div class="row">
+                            <div class=" col-sm-10 ressearch">
+                              <input type="text" class="form-control search-slt" placeholder="Search...">
+                            </div>
+                            <div class=" col-sm-2">
+                              <button type="button" class="btn btnstand btn-sm mybtn2">SEARCH</button>
+                            </div>
+                          </div>
+                        </div>
+                        <div class="col-lg-2">
+                          <div class=" pull-right">
+                            <button type="button" class="btn btnstand btn-sm mybtn" (click)="openserviceModal()">ADD NEW SERVICE CATEGORY</button>
+                          </div>
+                        </div>
+                      </div>
+                      <div class="single-table" style="margin-top: 15px;">
+                        <div class="table-responsive">
+                          <table class="table text-center">
+                            <thead class="text-uppercase bg-secondary">
+                              <tr class="text-white">
+                                <th scope="col" style="text-align: left;">Category Name</th>
+                                <th scope="col" style="text-align: right;">action</th>
+                              </tr>
+                            </thead>
+                            <tbody *ngFor="let serviceCat of serviceCats">
+                              <tr>
+                                <td class="rowcont" style="text-align: left;">{{serviceCat.name}}</td>
+                                <td style="text-align: right;"><a class="editt" (click)="openservicecatModal(serviceCat.id)">Edit</a>
+                                  <a class="del" (click)="deleteServiceCat(serviceCat.id)">Delete</a>
+                                </td>
+                              </tr>
+                            </tbody>
+                          </table>
+                        </div>
+                      </div>
+                    </div>
+                  </div>
                 </div>
-                <div class="tab-pane show active" id="services" role="tabpanel" aria-labelledby="services-tab">
+                <div class="tab-pane" [ngClass]="{ 'show active':activeTab==='services-tab'}" id="services" role="tabpanel" aria-labelledby="services-tab">
                   <div class="col-12 mt-5">
                     <div class="card">
                       <div class="card-body">
@@ -336,14 +340,10 @@
                               <button type="button" class="btn btnstand btn-sm mybtn" [routerLink]="['/addservices']" style="margin-top: -17px;">ADD NEW SERVICE</button>
                             </div>
                           </div>
-
-
-
                         </div>
                       </div>
                     </div>
                   </div>
-
                   <div class="row">
                     <div class="col-12">
                       <div class="card">
@@ -368,12 +368,13 @@
                                     <th scope="row" class="rowcont">{{i + 1}}</th>
                                     <td class="rowcont">{{service.service_name}}</td>
                                     <td class="rowcont">{{service.price | currency}}</td>
-                                    <td class="rowcont">{{service.duration}} MNS</td>
+                                    <td class="rowcont">{{service.duration}}</td>
                                     <td class="levl">{{service.group_service === 1 ? 'Items' : '' }}</td>
                                     <td class="levl">{{service.group_service === 0 ? 'Levels' : '' }}</td>
                                     <th class="levl">{{service.require_resource === 1 ? 'Resources' : '' }}</th>
-                                    <td><a class="editt" [routerLink]="['/editservice',service.id]">Edit</a> 
-                                    <a class="del" (click)="deleteService(service.id)">Delete</a></td>
+                                    <td><a class="editt" [routerLink]="['/editservice',service.id]">Edit</a>
+                                      <a class="del" (click)="deleteService(service.id)">Delete</a>
+                                    </td>
                                   </tr>
                                 </tbody>
                               </table>
@@ -402,23 +403,20 @@
                       </div>
                     </div>
                   </div>
-
                 </div>
-
-                <div class="tab-pane fade" id="lists" role="tabpanel" aria-labelledby="lists-tab">
+                <div class="tab-pane fade" [ngClass]="{ 'show active':activeTab==='lists-tab'}" id="lists" role="tabpanel" aria-labelledby="lists-tab">
                   <div class="col-12 mt-5">
                     <div class="card">
                       <div class="card-body">
                         <div class="row">
                           <div class="col-md-auto">
-                            <select class="custom-select"  [(ngModel)]="myDropDown" placeholder="Refferal Code">
-                                    <option [selected]="true" [ngValue]="title">Select Lists</option>
-                                    <option value="one">Employee Levels</option>
-                                    <option value="two">Client Categories</option>
-                                    <option value="three">Tax Rates</option>
-                                    <option value="four">Public Holidays</option>
-                                                      </select>
-
+                            <select class="custom-select" [(ngModel)]="myDropDown" placeholder="Refferal Code">
+                                          <option [selected]="true" [ngValue]="title">Select Lists</option>
+                                          <option value="one">Employee Levels</option>
+                                          <option value="two">Client Categories</option>
+                                          <option value="three">Tax Rates</option>
+                                          <option value="four">Public Holidays</option>
+                                          </select>
                           </div>
                           <div class="col">
                             <div class="row">
@@ -432,35 +430,28 @@
                           </div>
                           <div class="col-lg-2" [hidden]="myDropDown !=='one'">
                             <div class="user-profile pull-right">
-                              <button type="button" class="btn btnstand btn-sm mybtn" (click)="open(mymodal)" 
-                              style="margin-top: -17px;">ADD NEW EMPLOYEE LEVEL</button>
+                              <button type="button" class="btn btnstand btn-sm mybtn" (click)="open(mymodal)" style="margin-top: -17px;">ADD NEW EMPLOYEE LEVEL</button>
                             </div>
                           </div>
-                           <div class="col-lg-2" [hidden]="myDropDown !=='two'">
+                          <div class="col-lg-2" [hidden]="myDropDown !=='two'">
                             <div class="user-profile pull-right">
-                              <button type="button" class="btn btnstand btn-sm mybtn" (click)="openmyModal()" 
-                              style="margin-top: -17px;">ADD NEW CLIENT CATEGORY</button>
+                              <button type="button" class="btn btnstand btn-sm mybtn" (click)="openmyModal()" style="margin-top: -17px;">ADD NEW CLIENT CATEGORY</button>
                             </div>
                           </div>
                           <div class="col-lg-2" [hidden]="myDropDown !=='three'">
                             <div class="user-profile pull-right">
-                              <button type="button" class="btn btnstand btn-sm mybtn" (click)="opentaxModal()" 
-                              style="margin-top: -17px;">ADD NEW TAX RATE</button>
+                              <button type="button" class="btn btnstand btn-sm mybtn" (click)="opentaxModal()" style="margin-top: -17px;">ADD NEW TAX RATE</button>
                             </div>
                           </div>
                           <div class="col-lg-2" [hidden]="myDropDown !=='four'">
                             <div class="user-profile pull-right">
-                              <button type="button" class="btn btnstand btn-sm mybtn" (click)="openholidayModal()" 
-                              style="margin-top: -17px;">ADD NEW PUBLIC HOLIDAY</button>
+                              <button type="button" class="btn btnstand btn-sm mybtn" (click)="openholidayModal()" style="margin-top: -17px;">ADD NEW PUBLIC HOLIDAY</button>
                             </div>
                           </div>
-
-
                         </div>
                       </div>
                     </div>
                   </div>
-
                   <div class="row" [hidden]="myDropDown !=='one'">
                     <div class="col-12">
                       <div class="card">
@@ -477,8 +468,9 @@
                                 <tbody *ngFor="let emp of currentEmp">
                                   <tr>
                                     <th scope="row" class="rowcont" style="text-align: left;">{{emp.name}}</th>
-                                    <td style="text-align: right;"><a class="editt" (click)="openupdatemodal(mymodal3,emp.id)">Edit</a> 
-                                    <a class="del" (click)="deleteEmpLevel(emp.id)">Delete</a></td>
+                                    <td style="text-align: right;"><a class="editt" (click)="openupdatemodal(mymodal3,emp.id)">Edit</a>
+                                      <a class="del" (click)="deleteEmpLevel(emp.id)">Delete</a>
+                                    </td>
                                   </tr>
                                 </tbody>
                               </table>
@@ -506,7 +498,6 @@
                         </div>
                       </div>
                     </div>
-                    
                   </div>
                   <div class="row" [hidden]="myDropDown !=='two'">
                     <div class="col-12">
@@ -518,13 +509,13 @@
                                 <thead class="text-uppercase bg-secondary">
                                   <tr class="text-white">
                                     <th scope="col" style="text-align: left;">Client Name</th>
-                                    <th scope="col"  style="text-align: right;">action</th>
+                                    <th scope="col" style="text-align: right;">action</th>
                                   </tr>
                                 </thead>
                                 <tbody *ngFor="let clientCat of clientCats">
-                                  <tr >
-                                    <th scope="row" class="rowcont"  style="text-align: left;">{{clientCat.name}}</th>
-                                    <td  style="text-align: right;"><a class="editt" (click)="openclientcatupdateModal()">Edit</a> <a class="del">Delete</a></td>
+                                  <tr>
+                                    <th scope="row" class="rowcont" style="text-align: left;">{{clientCat.name}}</th>
+                                    <td style="text-align: right;"><a class="editt" (click)="openclientcatupdateModal()">Edit</a> <a class="del">Delete</a></td>
                                   </tr>
                                 </tbody>
                               </table>
@@ -562,19 +553,20 @@
                               <table class="table text-center">
                                 <thead class="text-uppercase bg-secondary">
                                   <tr class="text-white">
-                                    <th scope="col" >Name</th>
+                                    <th scope="col">Name</th>
                                     <th scope="col">Description</th>
-                                    <th scope="col" >Rate</th>
+                                    <th scope="col">Rate</th>
                                     <th scope="col">action</th>
                                   </tr>
                                 </thead>
                                 <tbody *ngFor="let tax of taxRate">
                                   <tr>
-                                    <th scope="row" class="rowcont" >{{tax.tax_name}}</th>
+                                    <th scope="row" class="rowcont">{{tax.tax_name}}</th>
                                     <td class="rowcont">{{tax.tax_description}}</td>
                                     <td class="rowcont">{{tax.tax_amount}} %</td>
-                                    <td><a class="editt">Edit</a> 
-                                    <a class="del">Delete</a></td>
+                                    <td><a class="editt">Edit</a>
+                                      <a class="del">Delete</a>
+                                    </td>
                                   </tr>
                                 </tbody>
                               </table>
@@ -602,9 +594,8 @@
                         </div>
                       </div>
                     </div>
-                    
                   </div>
-                   <div class="row" [hidden]="myDropDown !=='four'">
+                  <div class="row" [hidden]="myDropDown !=='four'">
                     <div class="col-12">
                       <div class="card">
                         <div class="card-body">
@@ -613,17 +604,18 @@
                               <table class="table text-center">
                                 <thead class="text-uppercase bg-secondary">
                                   <tr class="text-white">
-                                    <th scope="col" >Name</th>
+                                    <th scope="col">Name</th>
                                     <th scope="col">Date</th>
                                     <th scope="col">action</th>
                                   </tr>
                                 </thead>
                                 <tbody *ngFor="let holiday of publicHoliday">
                                   <tr>
-                                    <th scope="row" class="rowcont" >{{holiday.holiday_name}}</th>
+                                    <th scope="row" class="rowcont">{{holiday.holiday_name}}</th>
                                     <td class="rowcont">{{holiday.holiday_date}}</td>
-                                    <td><a class="editt">Edit</a> 
-                                    <a class="del">Delete</a></td>
+                                    <td><a class="editt">Edit</a>
+                                      <a class="del">Delete</a>
+                                    </td>
                                   </tr>
                                 </tbody>
                               </table>
@@ -651,1525 +643,236 @@
                         </div>
                       </div>
                     </div>
-                    
                   </div>
                 </div>
-                <div class="tab-pane fade" id="products" role="tabpanel" aria-labelledby="products-tab">
+                <div class="tab-pane fade" [ngClass]="{ 'active':activeTab==='products-tab'}" id="products" role="tabpanel" aria-labelledby="products-tab">
                   <p>Lorem, ipsum dolor sit amet consectetur adipisicing elit. Dicta soluta doloribus, ullam, ut obcaecati laboriosam
                     eos, officia dolores voluptatum quas impedit placeat cumque animi quos odio quibusdam voluptatibus magnam
                     minima facilis necessitatibus libero! Error velit veritatis veniam ipsa? Reiciendis quas qui neque atque
-                    repudiandae quidem incidunt, a consectetur ipsam impedit.</p>
+                    repudiandae quidem incidunt, a consectetur ipsam impedit.
+                  </p>
                 </div>
-                <div class="tab-pane fade" id="brands" role="tabpanel" aria-labelledby="brands-tab">
+                <div class="tab-pane fade" [ngClass]="{ 'active':activeTab==='brands-tab'}" id="brands" role="tabpanel" aria-labelledby="brands-tab">
                   <p>Lorem, ipsum dolor sit amet consectetur adipisicing elit. Dicta soluta doloribus, ullam, ut obcaecati laboriosam
                     eos, officia dolores voluptatum quas impedit placeat cumque animi quos odio quibusdam voluptatibus magnam
                     minima facilis necessitatibus libero! Error velit veritatis veniam ipsa? Reiciendis quas qui neque atque
-                    repudiandae quidem incidunt, a consectetur ipsam impedit.</p>
+                    repudiandae quidem incidunt, a consectetur ipsam impedit.
+                  </p>
                 </div>
-
-                <div class="tab-pane fade show" id="emphours" role="tabpanel" aria-labelledby="emphours-tab">
+                <div class="tab-pane fade show" [ngClass]="{ 'active':activeTab==='emphours-tab'}" id="emphours" role="tabpanel" aria-labelledby="emphours-tab">
                   <p>Lorem, ipsum dolor sit amet consectetur adipisicing elit. Dicta soluta doloribus, ullam, ut obcaecati laboriosam
                     eos, officia dolores voluptatum quas impedit placeat cumque animi quos odio quibusdam voluptatibus magnam
                     minima facilis necessitatibus libero! Error velit veritatis veniam ipsa? Reiciendis quas qui neque atque
-                    repudiandae quidem incidunt, a consectetur ipsam impedit.</p>
+                    repudiandae quidem incidunt, a consectetur ipsam impedit.
+                  </p>
                 </div>
-                <div class="tab-pane fade" id="openhours" role="tabpanel" aria-labelledby="openhours-tab" style="padding: 20px;">
-                 <h4 class="header-title" style="font-size: 16px;">Opening Hours </h4>
-                 <div class="form-row" >
-                <div class="col-md-2" >
-                  <label style="color: #000000;">Sunday</label>
-                  <select class="custom-select" disabled>
-                  <option value="0">Midnight</option>
-                  <option value="0.25">12:15 AM</option>
-                  <option value="0.5">12:30 AM</option>
-                  <option value="0.75">12:45 AM</option>
-                  <option value="1">1:00 AM</option>
-                  <option value="1.25">1:15 AM</option>
-                  <option value="1.5">1:30 AM</option>
-                  <option value="1.75">1:45 AM</option>
-                  <option value="2">2:00 AM</option>
-                  <option value="2.25">2:15 AM</option>
-                  <option value="2.5">2:30 AM</option>
-                  <option value="2.75">2:45 AM</option>
-                  <option value="3">3:00 AM</option>
-                  <option value="3.25">3:15 AM</option>
-                  <option value="3.5">3:30 AM</option>
-                  <option value="3.75">3:45 AM</option>
-                  <option value="4">4:00 AM</option>
-                  <option value="4.25">4:15 AM</option>
-                  <option value="4.5">4:30 AM</option>
-                  <option value="4.75">4:45 AM</option>
-                  <option value="5">5:00 AM</option>
-                  <option value="5.25">5:15 AM</option>
-                  <option value="5.5">5:30 AM</option>
-                  <option value="5.75">5:45 AM</option>
-                  <option value="6">6:00 AM</option>
-                  <option value="6.25">6:15 AM</option>
-                  <option value="6.5">6:30 AM</option>
-                  <option value="6.75">6:45 AM</option>
-                  <option value="7">7:00 AM</option>
-                  <option value="7.25">7:15 AM</option>
-                  <option value="7.5">7:30 AM</option>
-                  <option value="7.75">7:45 AM</option>
-                  <option value="8">8:00 AM</option>
-                  <option value="8.25">8:15 AM</option>
-                  <option value="8.5">8:30 AM</option>
-                  <option value="8.75">8:45 AM</option>
-                  <option value="9" selected="">9:00 AM</option>
-                  <option value="9.25">9:15 AM</option>
-                  <option value="9.5">9:30 AM</option>
-                  <option value="9.75">9:45 AM</option>
-                  <option value="10" >10:00 AM</option>
-                  <option value="10.25">10:15 AM</option>
-                  <option value="10.5">10:30 AM</option>
-                  <option value="10.75">10:45 AM</option>
-                  <option value="11">11:00 AM</option>
-                  <option value="11.25">11:15 AM</option>
-                  <option value="11.5">11:30 AM</option>
-                  <option value="11.75">11:45 AM</option>
-                  <option value="12">Noon</option>
-                  <option value="12.25">12:15 PM</option>
-                  <option value="12.5">12:30 PM</option>
-                  <option value="12.75">12:45 PM</option>
-                  <option value="13">1:00 PM</option>
-                  <option value="13.25">1:15 PM</option>
-                  <option value="13.5">1:30 PM</option>
-                  <option value="13.75">1:45 PM</option>
-                  <option value="14">2:00 PM</option>
-                  <option value="14.25">2:15 PM</option>
-                  <option value="14.5">2:30 PM</option>
-                  <option value="14.75">2:45 PM</option>
-                  <option value="15">3:00 PM</option>
-                  <option value="15.25">3:15 PM</option>
-                  <option value="15.5">3:30 PM</option>
-                  <option value="15.75">3:45 PM</option>
-                  <option value="16">4:00 PM</option>
-                  <option value="16.25">4:15 PM</option>
-                  <option value="16.5">4:30 PM</option>
-                  <option value="16.75">4:45 PM</option>
-                  <option value="17">5:00 PM</option>
-                  <option value="17.25">5:15 PM</option>
-                  <option value="17.5">5:30 PM</option>
-                  <option value="17.75">5:45 PM</option>
-                  <option value="18">6:00 PM</option>
-                  <option value="18.25">6:15 PM</option>
-                  <option value="18.5">6:30 PM</option>
-                  <option value="18.75">6:45 PM</option>
-                  <option value="19">7:00 PM</option>
-                  <option value="19.25">7:15 PM</option>
-                  <option value="19.5">7:30 PM</option>
-                  <option value="19.75">7:45 PM</option>
-                  <option value="20">8:00 PM</option>
-                  <option value="20.25">8:15 PM</option>
-                  <option value="20.5">8:30 PM</option>
-                  <option value="20.75">8:45 PM</option>
-                  <option value="21">9:00 PM</option>
-                  <option value="21.25">9:15 PM</option>
-                  <option value="21.5">9:30 PM</option>
-                  <option value="21.75">9:45 PM</option>
-                  <option value="22">10:00 PM</option>
-                  <option value="22.25">10:15 PM</option>
-                  <option value="22.5">10:30 PM</option>
-                  <option value="22.75">10:45 PM</option>
-                  <option value="23">11:00 PM</option>
-                  <option value="23.25">11:15 PM</option>
-                  <option value="23.5">11:30 PM</option>
-                  <option value="23.75">11:45 PM</option>
-                  <option value="24">Midnight</option>
-                  </select>
-                </div>
-                <span class="timepick">TO</span>
-                <div class="col-md-2" >
-                  <label style="visibility: hidden;">Sunday</label>
-                  <select class="custom-select" disabled="">
-                  <option value="0">Midnight</option>
-                  <option value="0.25">12:15 AM</option>
-                  <option value="0.5">12:30 AM</option>
-                  <option value="0.75">12:45 AM</option>
-                  <option value="1">1:00 AM</option>
-                  <option value="1.25">1:15 AM</option>
-                  <option value="1.5">1:30 AM</option>
-                  <option value="1.75">1:45 AM</option>
-                  <option value="2">2:00 AM</option>
-                  <option value="2.25">2:15 AM</option>
-                  <option value="2.5">2:30 AM</option>
-                  <option value="2.75">2:45 AM</option>
-                  <option value="3">3:00 AM</option>
-                  <option value="3.25">3:15 AM</option>
-                  <option value="3.5">3:30 AM</option>
-                  <option value="3.75">3:45 AM</option>
-                  <option value="4">4:00 AM</option>
-                  <option value="4.25">4:15 AM</option>
-                  <option value="4.5">4:30 AM</option>
-                  <option value="4.75">4:45 AM</option>
-                  <option value="5">5:00 AM</option>
-                  <option value="5.25">5:15 AM</option>
-                  <option value="5.5">5:30 AM</option>
-                  <option value="5.75">5:45 AM</option>
-                  <option value="6">6:00 AM</option>
-                  <option value="6.25">6:15 AM</option>
-                  <option value="6.5">6:30 AM</option>
-                  <option value="6.75">6:45 AM</option>
-                  <option value="7">7:00 AM</option>
-                  <option value="7.25">7:15 AM</option>
-                  <option value="7.5">7:30 AM</option>
-                  <option value="7.75">7:45 AM</option>
-                  <option value="8">8:00 AM</option>
-                  <option value="8.25">8:15 AM</option>
-                  <option value="8.5">8:30 AM</option>
-                  <option value="8.75">8:45 AM</option>
-                  <option value="9">9:00 AM</option>
-                  <option value="9.25">9:15 AM</option>
-                  <option value="9.5">9:30 AM</option>
-                  <option value="9.75">9:45 AM</option>
-                  <option value="10">10:00 AM</option>
-                  <option value="10.25">10:15 AM</option>
-                  <option value="10.5">10:30 AM</option>
-                  <option value="10.75">10:45 AM</option>
-                  <option value="11">11:00 AM</option>
-                  <option value="11.25">11:15 AM</option>
-                  <option value="11.5">11:30 AM</option>
-                  <option value="11.75">11:45 AM</option>
-                  <option value="12">Noon</option>
-                  <option value="12.25">12:15 PM</option>
-                  <option value="12.5">12:30 PM</option>
-                  <option value="12.75">12:45 PM</option>
-                  <option value="13">1:00 PM</option>
-                  <option value="13.25">1:15 PM</option>
-                  <option value="13.5">1:30 PM</option>
-                  <option value="13.75">1:45 PM</option>
-                  <option value="14">2:00 PM</option>
-                  <option value="14.25">2:15 PM</option>
-                  <option value="14.5">2:30 PM</option>
-                  <option value="14.75">2:45 PM</option>
-                  <option value="15">3:00 PM</option>
-                  <option value="15.25">3:15 PM</option>
-                  <option value="15.5">3:30 PM</option>
-                  <option value="15.75">3:45 PM</option>
-                  <option value="16">4:00 PM</option>
-                  <option value="16.25">4:15 PM</option>
-                  <option value="16.5">4:30 PM</option>
-                  <option value="16.75">4:45 PM</option>
-                  <option value="17">5:00 PM</option>
-                  <option value="17.25">5:15 PM</option>
-                  <option value="17.5">5:30 PM</option>
-                  <option value="17.75">5:45 PM</option>
-                  <option value="18">6:00 PM</option>
-                  <option value="18.25">6:15 PM</option>
-                  <option value="18.5">6:30 PM</option>
-                  <option value="18.75">6:45 PM</option>
-                  <option value="19">7:00 PM</option>
-                  <option value="19.25">7:15 PM</option>
-                  <option value="19.5">7:30 PM</option>
-                  <option value="19.75">7:45 PM</option>
-                  <option value="20">8:00 PM</option>
-                  <option value="20.25">8:15 PM</option>
-                  <option value="20.5">8:30 PM</option>
-                  <option value="20.75">8:45 PM</option>
-                  <option value="21" selected="">9:00 PM</option>
-                  <option value="21.25">9:15 PM</option>
-                  <option value="21.5">9:30 PM</option>
-                  <option value="21.75">9:45 PM</option>
-                  <option value="22">10:00 PM</option>
-                  <option value="22.25">10:15 PM</option>
-                  <option value="22.5">10:30 PM</option>
-                  <option value="22.75">10:45 PM</option>
-                  <option value="23">11:00 PM</option>
-                  <option value="23.25">11:15 PM</option>
-                  <option value="23.5">11:30 PM</option>
-                  <option value="23.75">11:45 PM</option>
-                  <option value="24">Midnight</option>
-                </select>
-                </div>
-                <div class="col-md-4" style="padding-left: 40px;">
-                  <label style="color: #000000;">States</label>
-                  <p>
-        <ui-switch checked labelOn="OPEN" switchColor="#c89628" defaultBgColor="#ededed" color="#ffe5ac" labelOff="CLOSED" size="large"></ui-switch>
-                </p>
-                 </div>
-              </div>
-               <div class="form-row" style="margin-top: 10px;">
-                <div class="col-md-2" >
-                  <label style="color: #000000;">Monday</label>
-                  <select class="custom-select">
-                  <option value="0">Midnight</option>
-                  <option value="0.25">12:15 AM</option>
-                  <option value="0.5">12:30 AM</option>
-                  <option value="0.75">12:45 AM</option>
-                  <option value="1">1:00 AM</option>
-                  <option value="1.25">1:15 AM</option>
-                  <option value="1.5">1:30 AM</option>
-                  <option value="1.75">1:45 AM</option>
-                  <option value="2">2:00 AM</option>
-                  <option value="2.25">2:15 AM</option>
-                  <option value="2.5">2:30 AM</option>
-                  <option value="2.75">2:45 AM</option>
-                  <option value="3">3:00 AM</option>
-                  <option value="3.25">3:15 AM</option>
-                  <option value="3.5">3:30 AM</option>
-                  <option value="3.75">3:45 AM</option>
-                  <option value="4">4:00 AM</option>
-                  <option value="4.25">4:15 AM</option>
-                  <option value="4.5">4:30 AM</option>
-                  <option value="4.75">4:45 AM</option>
-                  <option value="5">5:00 AM</option>
-                  <option value="5.25">5:15 AM</option>
-                  <option value="5.5">5:30 AM</option>
-                  <option value="5.75">5:45 AM</option>
-                  <option value="6">6:00 AM</option>
-                  <option value="6.25">6:15 AM</option>
-                  <option value="6.5">6:30 AM</option>
-                  <option value="6.75">6:45 AM</option>
-                  <option value="7">7:00 AM</option>
-                  <option value="7.25">7:15 AM</option>
-                  <option value="7.5">7:30 AM</option>
-                  <option value="7.75">7:45 AM</option>
-                  <option value="8">8:00 AM</option>
-                  <option value="8.25">8:15 AM</option>
-                  <option value="8.5">8:30 AM</option>
-                  <option value="8.75">8:45 AM</option>
-                  <option value="9">9:00 AM</option>
-                  <option value="9.25">9:15 AM</option>
-                  <option value="9.5">9:30 AM</option>
-                  <option value="9.75">9:45 AM</option>
-                  <option value="10" selected="">10:00 AM</option>
-                  <option value="10.25">10:15 AM</option>
-                  <option value="10.5">10:30 AM</option>
-                  <option value="10.75">10:45 AM</option>
-                  <option value="11">11:00 AM</option>
-                  <option value="11.25">11:15 AM</option>
-                  <option value="11.5">11:30 AM</option>
-                  <option value="11.75">11:45 AM</option>
-                  <option value="12">Noon</option>
-                  <option value="12.25">12:15 PM</option>
-                  <option value="12.5">12:30 PM</option>
-                  <option value="12.75">12:45 PM</option>
-                  <option value="13">1:00 PM</option>
-                  <option value="13.25">1:15 PM</option>
-                  <option value="13.5">1:30 PM</option>
-                  <option value="13.75">1:45 PM</option>
-                  <option value="14">2:00 PM</option>
-                  <option value="14.25">2:15 PM</option>
-                  <option value="14.5">2:30 PM</option>
-                  <option value="14.75">2:45 PM</option>
-                  <option value="15">3:00 PM</option>
-                  <option value="15.25">3:15 PM</option>
-                  <option value="15.5">3:30 PM</option>
-                  <option value="15.75">3:45 PM</option>
-                  <option value="16">4:00 PM</option>
-                  <option value="16.25">4:15 PM</option>
-                  <option value="16.5">4:30 PM</option>
-                  <option value="16.75">4:45 PM</option>
-                  <option value="17">5:00 PM</option>
-                  <option value="17.25">5:15 PM</option>
-                  <option value="17.5">5:30 PM</option>
-                  <option value="17.75">5:45 PM</option>
-                  <option value="18">6:00 PM</option>
-                  <option value="18.25">6:15 PM</option>
-                  <option value="18.5">6:30 PM</option>
-                  <option value="18.75">6:45 PM</option>
-                  <option value="19">7:00 PM</option>
-                  <option value="19.25">7:15 PM</option>
-                  <option value="19.5">7:30 PM</option>
-                  <option value="19.75">7:45 PM</option>
-                  <option value="20">8:00 PM</option>
-                  <option value="20.25">8:15 PM</option>
-                  <option value="20.5">8:30 PM</option>
-                  <option value="20.75">8:45 PM</option>
-                  <option value="21">9:00 PM</option>
-                  <option value="21.25">9:15 PM</option>
-                  <option value="21.5">9:30 PM</option>
-                  <option value="21.75">9:45 PM</option>
-                  <option value="22">10:00 PM</option>
-                  <option value="22.25">10:15 PM</option>
-                  <option value="22.5">10:30 PM</option>
-                  <option value="22.75">10:45 PM</option>
-                  <option value="23">11:00 PM</option>
-                  <option value="23.25">11:15 PM</option>
-                  <option value="23.5">11:30 PM</option>
-                  <option value="23.75">11:45 PM</option>
-                  <option value="24">Midnight</option>
-                  </select>
-                </div>
-                <span class="timepick">TO</span>
-                <div class="col-md-2" >
-                  <label style="visibility: hidden;">Monday</label>
-                  <select class="custom-select" >
-                  <option value="0">Midnight</option>
-                  <option value="0.25">12:15 AM</option>
-                  <option value="0.5">12:30 AM</option>
-                  <option value="0.75">12:45 AM</option>
-                  <option value="1">1:00 AM</option>
-                  <option value="1.25">1:15 AM</option>
-                  <option value="1.5">1:30 AM</option>
-                  <option value="1.75">1:45 AM</option>
-                  <option value="2">2:00 AM</option>
-                  <option value="2.25">2:15 AM</option>
-                  <option value="2.5">2:30 AM</option>
-                  <option value="2.75">2:45 AM</option>
-                  <option value="3">3:00 AM</option>
-                  <option value="3.25">3:15 AM</option>
-                  <option value="3.5">3:30 AM</option>
-                  <option value="3.75">3:45 AM</option>
-                  <option value="4">4:00 AM</option>
-                  <option value="4.25">4:15 AM</option>
-                  <option value="4.5">4:30 AM</option>
-                  <option value="4.75">4:45 AM</option>
-                  <option value="5">5:00 AM</option>
-                  <option value="5.25">5:15 AM</option>
-                  <option value="5.5">5:30 AM</option>
-                  <option value="5.75">5:45 AM</option>
-                  <option value="6">6:00 AM</option>
-                  <option value="6.25">6:15 AM</option>
-                  <option value="6.5">6:30 AM</option>
-                  <option value="6.75">6:45 AM</option>
-                  <option value="7">7:00 AM</option>
-                  <option value="7.25">7:15 AM</option>
-                  <option value="7.5">7:30 AM</option>
-                  <option value="7.75">7:45 AM</option>
-                  <option value="8">8:00 AM</option>
-                  <option value="8.25">8:15 AM</option>
-                  <option value="8.5">8:30 AM</option>
-                  <option value="8.75">8:45 AM</option>
-                  <option value="9">9:00 AM</option>
-                  <option value="9.25">9:15 AM</option>
-                  <option value="9.5">9:30 AM</option>
-                  <option value="9.75">9:45 AM</option>
-                  <option value="10">10:00 AM</option>
-                  <option value="10.25">10:15 AM</option>
-                  <option value="10.5">10:30 AM</option>
-                  <option value="10.75">10:45 AM</option>
-                  <option value="11">11:00 AM</option>
-                  <option value="11.25">11:15 AM</option>
-                  <option value="11.5">11:30 AM</option>
-                  <option value="11.75">11:45 AM</option>
-                  <option value="12">Noon</option>
-                  <option value="12.25">12:15 PM</option>
-                  <option value="12.5">12:30 PM</option>
-                  <option value="12.75">12:45 PM</option>
-                  <option value="13">1:00 PM</option>
-                  <option value="13.25">1:15 PM</option>
-                  <option value="13.5">1:30 PM</option>
-                  <option value="13.75">1:45 PM</option>
-                  <option value="14">2:00 PM</option>
-                  <option value="14.25">2:15 PM</option>
-                  <option value="14.5">2:30 PM</option>
-                  <option value="14.75">2:45 PM</option>
-                  <option value="15">3:00 PM</option>
-                  <option value="15.25">3:15 PM</option>
-                  <option value="15.5">3:30 PM</option>
-                  <option value="15.75">3:45 PM</option>
-                  <option value="16">4:00 PM</option>
-                  <option value="16.25">4:15 PM</option>
-                  <option value="16.5">4:30 PM</option>
-                  <option value="16.75">4:45 PM</option>
-                  <option value="17">5:00 PM</option>
-                  <option value="17.25">5:15 PM</option>
-                  <option value="17.5">5:30 PM</option>
-                  <option value="17.75">5:45 PM</option>
-                  <option value="18">6:00 PM</option>
-                  <option value="18.25">6:15 PM</option>
-                  <option value="18.5">6:30 PM</option>
-                  <option value="18.75">6:45 PM</option>
-                  <option value="19">7:00 PM</option>
-                  <option value="19.25">7:15 PM</option>
-                  <option value="19.5">7:30 PM</option>
-                  <option value="19.75">7:45 PM</option>
-                  <option value="20">8:00 PM</option>
-                  <option value="20.25">8:15 PM</option>
-                  <option value="20.5">8:30 PM</option>
-                  <option value="20.75">8:45 PM</option>
-                  <option value="21" selected="">9:00 PM</option>
-                  <option value="21.25">9:15 PM</option>
-                  <option value="21.5">9:30 PM</option>
-                  <option value="21.75">9:45 PM</option>
-                  <option value="22">10:00 PM</option>
-                  <option value="22.25">10:15 PM</option>
-                  <option value="22.5">10:30 PM</option>
-                  <option value="22.75">10:45 PM</option>
-                  <option value="23">11:00 PM</option>
-                  <option value="23.25">11:15 PM</option>
-                  <option value="23.5">11:30 PM</option>
-                  <option value="23.75">11:45 PM</option>
-                  <option value="24">Midnight</option>
-                </select>
-                </div>
-                <div class="col-md-4" style="padding-left: 40px; padding-top: 30px;">
-                  
-                  <p>
-        <ui-switch checked labelOn="OPEN" switchColor="#c89628" defaultBgColor="#ededed" color="#ffe5ac" labelOff="CLOSED" size="large"></ui-switch>
-                </p>
-                 </div>
-              </div>
-               <div class="form-row" style="margin-top: 10px; ">
-                <div class="col-md-2" >
-                  <label style="color: #000000;">Tuesday</label>
-                  <select class="custom-select">
-                  <option value="0">Midnight</option>
-                  <option value="0.25">12:15 AM</option>
-                  <option value="0.5">12:30 AM</option>
-                  <option value="0.75">12:45 AM</option>
-                  <option value="1">1:00 AM</option>
-                  <option value="1.25">1:15 AM</option>
-                  <option value="1.5">1:30 AM</option>
-                  <option value="1.75">1:45 AM</option>
-                  <option value="2">2:00 AM</option>
-                  <option value="2.25">2:15 AM</option>
-                  <option value="2.5">2:30 AM</option>
-                  <option value="2.75">2:45 AM</option>
-                  <option value="3">3:00 AM</option>
-                  <option value="3.25">3:15 AM</option>
-                  <option value="3.5">3:30 AM</option>
-                  <option value="3.75">3:45 AM</option>
-                  <option value="4">4:00 AM</option>
-                  <option value="4.25">4:15 AM</option>
-                  <option value="4.5">4:30 AM</option>
-                  <option value="4.75">4:45 AM</option>
-                  <option value="5">5:00 AM</option>
-                  <option value="5.25">5:15 AM</option>
-                  <option value="5.5">5:30 AM</option>
-                  <option value="5.75">5:45 AM</option>
-                  <option value="6">6:00 AM</option>
-                  <option value="6.25">6:15 AM</option>
-                  <option value="6.5">6:30 AM</option>
-                  <option value="6.75">6:45 AM</option>
-                  <option value="7">7:00 AM</option>
-                  <option value="7.25">7:15 AM</option>
-                  <option value="7.5">7:30 AM</option>
-                  <option value="7.75">7:45 AM</option>
-                  <option value="8">8:00 AM</option>
-                  <option value="8.25">8:15 AM</option>
-                  <option value="8.5">8:30 AM</option>
-                  <option value="8.75">8:45 AM</option>
-                  <option value="9" selected="">9:00 AM</option>
-                  <option value="9.25">9:15 AM</option>
-                  <option value="9.5">9:30 AM</option>
-                  <option value="9.75">9:45 AM</option>
-                  <option value="10" >10:00 AM</option>
-                  <option value="10.25">10:15 AM</option>
-                  <option value="10.5">10:30 AM</option>
-                  <option value="10.75">10:45 AM</option>
-                  <option value="11">11:00 AM</option>
-                  <option value="11.25">11:15 AM</option>
-                  <option value="11.5">11:30 AM</option>
-                  <option value="11.75">11:45 AM</option>
-                  <option value="12">Noon</option>
-                  <option value="12.25">12:15 PM</option>
-                  <option value="12.5">12:30 PM</option>
-                  <option value="12.75">12:45 PM</option>
-                  <option value="13">1:00 PM</option>
-                  <option value="13.25">1:15 PM</option>
-                  <option value="13.5">1:30 PM</option>
-                  <option value="13.75">1:45 PM</option>
-                  <option value="14">2:00 PM</option>
-                  <option value="14.25">2:15 PM</option>
-                  <option value="14.5">2:30 PM</option>
-                  <option value="14.75">2:45 PM</option>
-                  <option value="15">3:00 PM</option>
-                  <option value="15.25">3:15 PM</option>
-                  <option value="15.5">3:30 PM</option>
-                  <option value="15.75">3:45 PM</option>
-                  <option value="16">4:00 PM</option>
-                  <option value="16.25">4:15 PM</option>
-                  <option value="16.5">4:30 PM</option>
-                  <option value="16.75">4:45 PM</option>
-                  <option value="17">5:00 PM</option>
-                  <option value="17.25">5:15 PM</option>
-                  <option value="17.5">5:30 PM</option>
-                  <option value="17.75">5:45 PM</option>
-                  <option value="18">6:00 PM</option>
-                  <option value="18.25">6:15 PM</option>
-                  <option value="18.5">6:30 PM</option>
-                  <option value="18.75">6:45 PM</option>
-                  <option value="19">7:00 PM</option>
-                  <option value="19.25">7:15 PM</option>
-                  <option value="19.5">7:30 PM</option>
-                  <option value="19.75">7:45 PM</option>
-                  <option value="20">8:00 PM</option>
-                  <option value="20.25">8:15 PM</option>
-                  <option value="20.5">8:30 PM</option>
-                  <option value="20.75">8:45 PM</option>
-                  <option value="21">9:00 PM</option>
-                  <option value="21.25">9:15 PM</option>
-                  <option value="21.5">9:30 PM</option>
-                  <option value="21.75">9:45 PM</option>
-                  <option value="22">10:00 PM</option>
-                  <option value="22.25">10:15 PM</option>
-                  <option value="22.5">10:30 PM</option>
-                  <option value="22.75">10:45 PM</option>
-                  <option value="23">11:00 PM</option>
-                  <option value="23.25">11:15 PM</option>
-                  <option value="23.5">11:30 PM</option>
-                  <option value="23.75">11:45 PM</option>
-                  <option value="24">Midnight</option>
-                  </select>
-                </div>
-                <span class="timepick">TO</span>
-                <div class="col-md-2" >
-                  <label style="visibility: hidden;">Tuesday</label>
-                 <select class="custom-select">
-                  <option value="0">Midnight</option>
-                  <option value="0.25">12:15 AM</option>
-                  <option value="0.5">12:30 AM</option>
-                  <option value="0.75">12:45 AM</option>
-                  <option value="1">1:00 AM</option>
-                  <option value="1.25">1:15 AM</option>
-                  <option value="1.5">1:30 AM</option>
-                  <option value="1.75">1:45 AM</option>
-                  <option value="2">2:00 AM</option>
-                  <option value="2.25">2:15 AM</option>
-                  <option value="2.5">2:30 AM</option>
-                  <option value="2.75">2:45 AM</option>
-                  <option value="3">3:00 AM</option>
-                  <option value="3.25">3:15 AM</option>
-                  <option value="3.5">3:30 AM</option>
-                  <option value="3.75">3:45 AM</option>
-                  <option value="4">4:00 AM</option>
-                  <option value="4.25">4:15 AM</option>
-                  <option value="4.5">4:30 AM</option>
-                  <option value="4.75">4:45 AM</option>
-                  <option value="5">5:00 AM</option>
-                  <option value="5.25">5:15 AM</option>
-                  <option value="5.5">5:30 AM</option>
-                  <option value="5.75">5:45 AM</option>
-                  <option value="6">6:00 AM</option>
-                  <option value="6.25">6:15 AM</option>
-                  <option value="6.5">6:30 AM</option>
-                  <option value="6.75">6:45 AM</option>
-                  <option value="7">7:00 AM</option>
-                  <option value="7.25">7:15 AM</option>
-                  <option value="7.5">7:30 AM</option>
-                  <option value="7.75">7:45 AM</option>
-                  <option value="8">8:00 AM</option>
-                  <option value="8.25">8:15 AM</option>
-                  <option value="8.5">8:30 AM</option>
-                  <option value="8.75">8:45 AM</option>
-                  <option value="9">9:00 AM</option>
-                  <option value="9.25">9:15 AM</option>
-                  <option value="9.5">9:30 AM</option>
-                  <option value="9.75">9:45 AM</option>
-                  <option value="10">10:00 AM</option>
-                  <option value="10.25">10:15 AM</option>
-                  <option value="10.5">10:30 AM</option>
-                  <option value="10.75">10:45 AM</option>
-                  <option value="11">11:00 AM</option>
-                  <option value="11.25">11:15 AM</option>
-                  <option value="11.5">11:30 AM</option>
-                  <option value="11.75">11:45 AM</option>
-                  <option value="12">Noon</option>
-                  <option value="12.25">12:15 PM</option>
-                  <option value="12.5">12:30 PM</option>
-                  <option value="12.75">12:45 PM</option>
-                  <option value="13">1:00 PM</option>
-                  <option value="13.25">1:15 PM</option>
-                  <option value="13.5">1:30 PM</option>
-                  <option value="13.75">1:45 PM</option>
-                  <option value="14">2:00 PM</option>
-                  <option value="14.25">2:15 PM</option>
-                  <option value="14.5">2:30 PM</option>
-                  <option value="14.75">2:45 PM</option>
-                  <option value="15">3:00 PM</option>
-                  <option value="15.25">3:15 PM</option>
-                  <option value="15.5">3:30 PM</option>
-                  <option value="15.75">3:45 PM</option>
-                  <option value="16">4:00 PM</option>
-                  <option value="16.25">4:15 PM</option>
-                  <option value="16.5">4:30 PM</option>
-                  <option value="16.75">4:45 PM</option>
-                  <option value="17">5:00 PM</option>
-                  <option value="17.25">5:15 PM</option>
-                  <option value="17.5">5:30 PM</option>
-                  <option value="17.75">5:45 PM</option>
-                  <option value="18">6:00 PM</option>
-                  <option value="18.25">6:15 PM</option>
-                  <option value="18.5">6:30 PM</option>
-                  <option value="18.75">6:45 PM</option>
-                  <option value="19">7:00 PM</option>
-                  <option value="19.25">7:15 PM</option>
-                  <option value="19.5">7:30 PM</option>
-                  <option value="19.75">7:45 PM</option>
-                  <option value="20">8:00 PM</option>
-                  <option value="20.25">8:15 PM</option>
-                  <option value="20.5">8:30 PM</option>
-                  <option value="20.75">8:45 PM</option>
-                  <option value="21" selected="">9:00 PM</option>
-                  <option value="21.25">9:15 PM</option>
-                  <option value="21.5">9:30 PM</option>
-                  <option value="21.75">9:45 PM</option>
-                  <option value="22">10:00 PM</option>
-                  <option value="22.25">10:15 PM</option>
-                  <option value="22.5">10:30 PM</option>
-                  <option value="22.75">10:45 PM</option>
-                  <option value="23">11:00 PM</option>
-                  <option value="23.25">11:15 PM</option>
-                  <option value="23.5">11:30 PM</option>
-                  <option value="23.75">11:45 PM</option>
-                  <option value="24">Midnight</option>
-                </select>
-                </div>
-                <div class="col-md-4" style="padding-left: 40px; padding-top: 30px;">
-                  
-                  <p>
-        <ui-switch checked labelOn="OPEN" switchColor="#c89628" defaultBgColor="#ededed" color="#ffe5ac" labelOff="CLOSED" size="large"></ui-switch>
-                </p>
-                 </div>
-              </div>
-               <div class="form-row" style="margin-top: 10px;">
-                <div class="col-md-2" >
-                  <label style="color: #000000;">Wednesday</label>
-                  <select class="custom-select">
-                  <option value="0">Midnight</option>
-                  <option value="0.25">12:15 AM</option>
-                  <option value="0.5">12:30 AM</option>
-                  <option value="0.75">12:45 AM</option>
-                  <option value="1">1:00 AM</option>
-                  <option value="1.25">1:15 AM</option>
-                  <option value="1.5">1:30 AM</option>
-                  <option value="1.75">1:45 AM</option>
-                  <option value="2">2:00 AM</option>
-                  <option value="2.25">2:15 AM</option>
-                  <option value="2.5">2:30 AM</option>
-                  <option value="2.75">2:45 AM</option>
-                  <option value="3">3:00 AM</option>
-                  <option value="3.25">3:15 AM</option>
-                  <option value="3.5">3:30 AM</option>
-                  <option value="3.75">3:45 AM</option>
-                  <option value="4">4:00 AM</option>
-                  <option value="4.25">4:15 AM</option>
-                  <option value="4.5">4:30 AM</option>
-                  <option value="4.75">4:45 AM</option>
-                  <option value="5">5:00 AM</option>
-                  <option value="5.25">5:15 AM</option>
-                  <option value="5.5">5:30 AM</option>
-                  <option value="5.75">5:45 AM</option>
-                  <option value="6">6:00 AM</option>
-                  <option value="6.25">6:15 AM</option>
-                  <option value="6.5">6:30 AM</option>
-                  <option value="6.75">6:45 AM</option>
-                  <option value="7">7:00 AM</option>
-                  <option value="7.25">7:15 AM</option>
-                  <option value="7.5">7:30 AM</option>
-                  <option value="7.75">7:45 AM</option>
-                  <option value="8">8:00 AM</option>
-                  <option value="8.25">8:15 AM</option>
-                  <option value="8.5">8:30 AM</option>
-                  <option value="8.75">8:45 AM</option>
-                  <option value="9" selected="">9:00 AM</option>
-                  <option value="9.25">9:15 AM</option>
-                  <option value="9.5">9:30 AM</option>
-                  <option value="9.75">9:45 AM</option>
-                  <option value="10" >10:00 AM</option>
-                  <option value="10.25">10:15 AM</option>
-                  <option value="10.5">10:30 AM</option>
-                  <option value="10.75">10:45 AM</option>
-                  <option value="11">11:00 AM</option>
-                  <option value="11.25">11:15 AM</option>
-                  <option value="11.5">11:30 AM</option>
-                  <option value="11.75">11:45 AM</option>
-                  <option value="12">Noon</option>
-                  <option value="12.25">12:15 PM</option>
-                  <option value="12.5">12:30 PM</option>
-                  <option value="12.75">12:45 PM</option>
-                  <option value="13">1:00 PM</option>
-                  <option value="13.25">1:15 PM</option>
-                  <option value="13.5">1:30 PM</option>
-                  <option value="13.75">1:45 PM</option>
-                  <option value="14">2:00 PM</option>
-                  <option value="14.25">2:15 PM</option>
-                  <option value="14.5">2:30 PM</option>
-                  <option value="14.75">2:45 PM</option>
-                  <option value="15">3:00 PM</option>
-                  <option value="15.25">3:15 PM</option>
-                  <option value="15.5">3:30 PM</option>
-                  <option value="15.75">3:45 PM</option>
-                  <option value="16">4:00 PM</option>
-                  <option value="16.25">4:15 PM</option>
-                  <option value="16.5">4:30 PM</option>
-                  <option value="16.75">4:45 PM</option>
-                  <option value="17">5:00 PM</option>
-                  <option value="17.25">5:15 PM</option>
-                  <option value="17.5">5:30 PM</option>
-                  <option value="17.75">5:45 PM</option>
-                  <option value="18">6:00 PM</option>
-                  <option value="18.25">6:15 PM</option>
-                  <option value="18.5">6:30 PM</option>
-                  <option value="18.75">6:45 PM</option>
-                  <option value="19">7:00 PM</option>
-                  <option value="19.25">7:15 PM</option>
-                  <option value="19.5">7:30 PM</option>
-                  <option value="19.75">7:45 PM</option>
-                  <option value="20">8:00 PM</option>
-                  <option value="20.25">8:15 PM</option>
-                  <option value="20.5">8:30 PM</option>
-                  <option value="20.75">8:45 PM</option>
-                  <option value="21">9:00 PM</option>
-                  <option value="21.25">9:15 PM</option>
-                  <option value="21.5">9:30 PM</option>
-                  <option value="21.75">9:45 PM</option>
-                  <option value="22">10:00 PM</option>
-                  <option value="22.25">10:15 PM</option>
-                  <option value="22.5">10:30 PM</option>
-                  <option value="22.75">10:45 PM</option>
-                  <option value="23">11:00 PM</option>
-                  <option value="23.25">11:15 PM</option>
-                  <option value="23.5">11:30 PM</option>
-                  <option value="23.75">11:45 PM</option>
-                  <option value="24">Midnight</option>
-                  </select>
-                </div>
-                <span class="timepick">TO</span>
-                <div class="col-md-2" >
-                  <label style="visibility: hidden;">Thursday</label>
-                 <select class="custom-select" >
-                  <option value="0">Midnight</option>
-                  <option value="0.25">12:15 AM</option>
-                  <option value="0.5">12:30 AM</option>
-                  <option value="0.75">12:45 AM</option>
-                  <option value="1">1:00 AM</option>
-                  <option value="1.25">1:15 AM</option>
-                  <option value="1.5">1:30 AM</option>
-                  <option value="1.75">1:45 AM</option>
-                  <option value="2">2:00 AM</option>
-                  <option value="2.25">2:15 AM</option>
-                  <option value="2.5">2:30 AM</option>
-                  <option value="2.75">2:45 AM</option>
-                  <option value="3">3:00 AM</option>
-                  <option value="3.25">3:15 AM</option>
-                  <option value="3.5">3:30 AM</option>
-                  <option value="3.75">3:45 AM</option>
-                  <option value="4">4:00 AM</option>
-                  <option value="4.25">4:15 AM</option>
-                  <option value="4.5">4:30 AM</option>
-                  <option value="4.75">4:45 AM</option>
-                  <option value="5">5:00 AM</option>
-                  <option value="5.25">5:15 AM</option>
-                  <option value="5.5">5:30 AM</option>
-                  <option value="5.75">5:45 AM</option>
-                  <option value="6">6:00 AM</option>
-                  <option value="6.25">6:15 AM</option>
-                  <option value="6.5">6:30 AM</option>
-                  <option value="6.75">6:45 AM</option>
-                  <option value="7">7:00 AM</option>
-                  <option value="7.25">7:15 AM</option>
-                  <option value="7.5">7:30 AM</option>
-                  <option value="7.75">7:45 AM</option>
-                  <option value="8">8:00 AM</option>
-                  <option value="8.25">8:15 AM</option>
-                  <option value="8.5">8:30 AM</option>
-                  <option value="8.75">8:45 AM</option>
-                  <option value="9">9:00 AM</option>
-                  <option value="9.25">9:15 AM</option>
-                  <option value="9.5">9:30 AM</option>
-                  <option value="9.75">9:45 AM</option>
-                  <option value="10">10:00 AM</option>
-                  <option value="10.25">10:15 AM</option>
-                  <option value="10.5">10:30 AM</option>
-                  <option value="10.75">10:45 AM</option>
-                  <option value="11">11:00 AM</option>
-                  <option value="11.25">11:15 AM</option>
-                  <option value="11.5">11:30 AM</option>
-                  <option value="11.75">11:45 AM</option>
-                  <option value="12">Noon</option>
-                  <option value="12.25">12:15 PM</option>
-                  <option value="12.5">12:30 PM</option>
-                  <option value="12.75">12:45 PM</option>
-                  <option value="13">1:00 PM</option>
-                  <option value="13.25">1:15 PM</option>
-                  <option value="13.5">1:30 PM</option>
-                  <option value="13.75">1:45 PM</option>
-                  <option value="14">2:00 PM</option>
-                  <option value="14.25">2:15 PM</option>
-                  <option value="14.5">2:30 PM</option>
-                  <option value="14.75">2:45 PM</option>
-                  <option value="15">3:00 PM</option>
-                  <option value="15.25">3:15 PM</option>
-                  <option value="15.5">3:30 PM</option>
-                  <option value="15.75">3:45 PM</option>
-                  <option value="16">4:00 PM</option>
-                  <option value="16.25">4:15 PM</option>
-                  <option value="16.5">4:30 PM</option>
-                  <option value="16.75">4:45 PM</option>
-                  <option value="17">5:00 PM</option>
-                  <option value="17.25">5:15 PM</option>
-                  <option value="17.5">5:30 PM</option>
-                  <option value="17.75">5:45 PM</option>
-                  <option value="18">6:00 PM</option>
-                  <option value="18.25">6:15 PM</option>
-                  <option value="18.5">6:30 PM</option>
-                  <option value="18.75">6:45 PM</option>
-                  <option value="19">7:00 PM</option>
-                  <option value="19.25">7:15 PM</option>
-                  <option value="19.5">7:30 PM</option>
-                  <option value="19.75">7:45 PM</option>
-                  <option value="20">8:00 PM</option>
-                  <option value="20.25">8:15 PM</option>
-                  <option value="20.5">8:30 PM</option>
-                  <option value="20.75">8:45 PM</option>
-                  <option value="21" selected="">9:00 PM</option>
-                  <option value="21.25">9:15 PM</option>
-                  <option value="21.5">9:30 PM</option>
-                  <option value="21.75">9:45 PM</option>
-                  <option value="22">10:00 PM</option>
-                  <option value="22.25">10:15 PM</option>
-                  <option value="22.5">10:30 PM</option>
-                  <option value="22.75">10:45 PM</option>
-                  <option value="23">11:00 PM</option>
-                  <option value="23.25">11:15 PM</option>
-                  <option value="23.5">11:30 PM</option>
-                  <option value="23.75">11:45 PM</option>
-                  <option value="24">Midnight</option>
-                </select>
-                </div>
-                <div class="col-md-4" style="padding-left: 40px; padding-top: 30px;">
-                  
-                  <p>
-        <ui-switch checked labelOn="OPEN" switchColor="#c89628" defaultBgColor="#ededed" color="#ffe5ac" labelOff="CLOSED" size="large"></ui-switch>
-                </p>
-                 </div>
-              </div>
-              <div class="form-row" style="margin-top: 10px;">
-                <div class="col-md-2" >
-                  <label style="color: #000000;">Thursday</label>
-                  <select class="custom-select">
-                  <option value="0">Midnight</option>
-                  <option value="0.25">12:15 AM</option>
-                  <option value="0.5">12:30 AM</option>
-                  <option value="0.75">12:45 AM</option>
-                  <option value="1">1:00 AM</option>
-                  <option value="1.25">1:15 AM</option>
-                  <option value="1.5">1:30 AM</option>
-                  <option value="1.75">1:45 AM</option>
-                  <option value="2">2:00 AM</option>
-                  <option value="2.25">2:15 AM</option>
-                  <option value="2.5">2:30 AM</option>
-                  <option value="2.75">2:45 AM</option>
-                  <option value="3">3:00 AM</option>
-                  <option value="3.25">3:15 AM</option>
-                  <option value="3.5">3:30 AM</option>
-                  <option value="3.75">3:45 AM</option>
-                  <option value="4">4:00 AM</option>
-                  <option value="4.25">4:15 AM</option>
-                  <option value="4.5">4:30 AM</option>
-                  <option value="4.75">4:45 AM</option>
-                  <option value="5">5:00 AM</option>
-                  <option value="5.25">5:15 AM</option>
-                  <option value="5.5">5:30 AM</option>
-                  <option value="5.75">5:45 AM</option>
-                  <option value="6">6:00 AM</option>
-                  <option value="6.25">6:15 AM</option>
-                  <option value="6.5">6:30 AM</option>
-                  <option value="6.75">6:45 AM</option>
-                  <option value="7">7:00 AM</option>
-                  <option value="7.25">7:15 AM</option>
-                  <option value="7.5">7:30 AM</option>
-                  <option value="7.75">7:45 AM</option>
-                  <option value="8">8:00 AM</option>
-                  <option value="8.25">8:15 AM</option>
-                  <option value="8.5">8:30 AM</option>
-                  <option value="8.75">8:45 AM</option>
-                  <option value="9" selected="">9:00 AM</option>
-                  <option value="9.25">9:15 AM</option>
-                  <option value="9.5">9:30 AM</option>
-                  <option value="9.75">9:45 AM</option>
-                  <option value="10" >10:00 AM</option>
-                  <option value="10.25">10:15 AM</option>
-                  <option value="10.5">10:30 AM</option>
-                  <option value="10.75">10:45 AM</option>
-                  <option value="11">11:00 AM</option>
-                  <option value="11.25">11:15 AM</option>
-                  <option value="11.5">11:30 AM</option>
-                  <option value="11.75">11:45 AM</option>
-                  <option value="12">Noon</option>
-                  <option value="12.25">12:15 PM</option>
-                  <option value="12.5">12:30 PM</option>
-                  <option value="12.75">12:45 PM</option>
-                  <option value="13">1:00 PM</option>
-                  <option value="13.25">1:15 PM</option>
-                  <option value="13.5">1:30 PM</option>
-                  <option value="13.75">1:45 PM</option>
-                  <option value="14">2:00 PM</option>
-                  <option value="14.25">2:15 PM</option>
-                  <option value="14.5">2:30 PM</option>
-                  <option value="14.75">2:45 PM</option>
-                  <option value="15">3:00 PM</option>
-                  <option value="15.25">3:15 PM</option>
-                  <option value="15.5">3:30 PM</option>
-                  <option value="15.75">3:45 PM</option>
-                  <option value="16">4:00 PM</option>
-                  <option value="16.25">4:15 PM</option>
-                  <option value="16.5">4:30 PM</option>
-                  <option value="16.75">4:45 PM</option>
-                  <option value="17">5:00 PM</option>
-                  <option value="17.25">5:15 PM</option>
-                  <option value="17.5">5:30 PM</option>
-                  <option value="17.75">5:45 PM</option>
-                  <option value="18">6:00 PM</option>
-                  <option value="18.25">6:15 PM</option>
-                  <option value="18.5">6:30 PM</option>
-                  <option value="18.75">6:45 PM</option>
-                  <option value="19">7:00 PM</option>
-                  <option value="19.25">7:15 PM</option>
-                  <option value="19.5">7:30 PM</option>
-                  <option value="19.75">7:45 PM</option>
-                  <option value="20">8:00 PM</option>
-                  <option value="20.25">8:15 PM</option>
-                  <option value="20.5">8:30 PM</option>
-                  <option value="20.75">8:45 PM</option>
-                  <option value="21">9:00 PM</option>
-                  <option value="21.25">9:15 PM</option>
-                  <option value="21.5">9:30 PM</option>
-                  <option value="21.75">9:45 PM</option>
-                  <option value="22">10:00 PM</option>
-                  <option value="22.25">10:15 PM</option>
-                  <option value="22.5">10:30 PM</option>
-                  <option value="22.75">10:45 PM</option>
-                  <option value="23">11:00 PM</option>
-                  <option value="23.25">11:15 PM</option>
-                  <option value="23.5">11:30 PM</option>
-                  <option value="23.75">11:45 PM</option>
-                  <option value="24">Midnight</option>
-                  </select>
-                </div>
-                <span class="timepick">TO</span>
-                <div class="col-md-2" >
-                  <label style="visibility: hidden;">Thursday</label>
-                  <select class="custom-select">
-                  <option value="0">Midnight</option>
-                  <option value="0.25">12:15 AM</option>
-                  <option value="0.5">12:30 AM</option>
-                  <option value="0.75">12:45 AM</option>
-                  <option value="1">1:00 AM</option>
-                  <option value="1.25">1:15 AM</option>
-                  <option value="1.5">1:30 AM</option>
-                  <option value="1.75">1:45 AM</option>
-                  <option value="2">2:00 AM</option>
-                  <option value="2.25">2:15 AM</option>
-                  <option value="2.5">2:30 AM</option>
-                  <option value="2.75">2:45 AM</option>
-                  <option value="3">3:00 AM</option>
-                  <option value="3.25">3:15 AM</option>
-                  <option value="3.5">3:30 AM</option>
-                  <option value="3.75">3:45 AM</option>
-                  <option value="4">4:00 AM</option>
-                  <option value="4.25">4:15 AM</option>
-                  <option value="4.5">4:30 AM</option>
-                  <option value="4.75">4:45 AM</option>
-                  <option value="5">5:00 AM</option>
-                  <option value="5.25">5:15 AM</option>
-                  <option value="5.5">5:30 AM</option>
-                  <option value="5.75">5:45 AM</option>
-                  <option value="6">6:00 AM</option>
-                  <option value="6.25">6:15 AM</option>
-                  <option value="6.5">6:30 AM</option>
-                  <option value="6.75">6:45 AM</option>
-                  <option value="7">7:00 AM</option>
-                  <option value="7.25">7:15 AM</option>
-                  <option value="7.5">7:30 AM</option>
-                  <option value="7.75">7:45 AM</option>
-                  <option value="8">8:00 AM</option>
-                  <option value="8.25">8:15 AM</option>
-                  <option value="8.5">8:30 AM</option>
-                  <option value="8.75">8:45 AM</option>
-                  <option value="9">9:00 AM</option>
-                  <option value="9.25">9:15 AM</option>
-                  <option value="9.5">9:30 AM</option>
-                  <option value="9.75">9:45 AM</option>
-                  <option value="10">10:00 AM</option>
-                  <option value="10.25">10:15 AM</option>
-                  <option value="10.5">10:30 AM</option>
-                  <option value="10.75">10:45 AM</option>
-                  <option value="11">11:00 AM</option>
-                  <option value="11.25">11:15 AM</option>
-                  <option value="11.5">11:30 AM</option>
-                  <option value="11.75">11:45 AM</option>
-                  <option value="12">Noon</option>
-                  <option value="12.25">12:15 PM</option>
-                  <option value="12.5">12:30 PM</option>
-                  <option value="12.75">12:45 PM</option>
-                  <option value="13">1:00 PM</option>
-                  <option value="13.25">1:15 PM</option>
-                  <option value="13.5">1:30 PM</option>
-                  <option value="13.75">1:45 PM</option>
-                  <option value="14">2:00 PM</option>
-                  <option value="14.25">2:15 PM</option>
-                  <option value="14.5">2:30 PM</option>
-                  <option value="14.75">2:45 PM</option>
-                  <option value="15">3:00 PM</option>
-                  <option value="15.25">3:15 PM</option>
-                  <option value="15.5">3:30 PM</option>
-                  <option value="15.75">3:45 PM</option>
-                  <option value="16">4:00 PM</option>
-                  <option value="16.25">4:15 PM</option>
-                  <option value="16.5">4:30 PM</option>
-                  <option value="16.75">4:45 PM</option>
-                  <option value="17">5:00 PM</option>
-                  <option value="17.25">5:15 PM</option>
-                  <option value="17.5">5:30 PM</option>
-                  <option value="17.75">5:45 PM</option>
-                  <option value="18">6:00 PM</option>
-                  <option value="18.25">6:15 PM</option>
-                  <option value="18.5">6:30 PM</option>
-                  <option value="18.75">6:45 PM</option>
-                  <option value="19">7:00 PM</option>
-                  <option value="19.25">7:15 PM</option>
-                  <option value="19.5">7:30 PM</option>
-                  <option value="19.75">7:45 PM</option>
-                  <option value="20">8:00 PM</option>
-                  <option value="20.25">8:15 PM</option>
-                  <option value="20.5">8:30 PM</option>
-                  <option value="20.75">8:45 PM</option>
-                  <option value="21" selected="">9:00 PM</option>
-                  <option value="21.25">9:15 PM</option>
-                  <option value="21.5">9:30 PM</option>
-                  <option value="21.75">9:45 PM</option>
-                  <option value="22">10:00 PM</option>
-                  <option value="22.25">10:15 PM</option>
-                  <option value="22.5">10:30 PM</option>
-                  <option value="22.75">10:45 PM</option>
-                  <option value="23">11:00 PM</option>
-                  <option value="23.25">11:15 PM</option>
-                  <option value="23.5">11:30 PM</option>
-                  <option value="23.75">11:45 PM</option>
-                  <option value="24">Midnight</option>
-                </select>
-                </div>
-                <div class="col-md-4" style="padding-left: 40px; padding-top: 30px;">
-                  
-                  <p>
-        <ui-switch checked labelOn="OPEN" switchColor="#c89628" defaultBgColor="#ededed" color="#ffe5ac" labelOff="CLOSED" size="large"></ui-switch>
-                </p>
-                 </div>
-              </div>
-               <div class="form-row" style="margin-top: 10px;">
-                <div class="col-md-2" >
-                  <label style="color: #000000;">Friday</label>
-                 <select class="custom-select">
-                  <option value="0">Midnight</option>
-                  <option value="0.25">12:15 AM</option>
-                  <option value="0.5">12:30 AM</option>
-                  <option value="0.75">12:45 AM</option>
-                  <option value="1">1:00 AM</option>
-                  <option value="1.25">1:15 AM</option>
-                  <option value="1.5">1:30 AM</option>
-                  <option value="1.75">1:45 AM</option>
-                  <option value="2">2:00 AM</option>
-                  <option value="2.25">2:15 AM</option>
-                  <option value="2.5">2:30 AM</option>
-                  <option value="2.75">2:45 AM</option>
-                  <option value="3">3:00 AM</option>
-                  <option value="3.25">3:15 AM</option>
-                  <option value="3.5">3:30 AM</option>
-                  <option value="3.75">3:45 AM</option>
-                  <option value="4">4:00 AM</option>
-                  <option value="4.25">4:15 AM</option>
-                  <option value="4.5">4:30 AM</option>
-                  <option value="4.75">4:45 AM</option>
-                  <option value="5">5:00 AM</option>
-                  <option value="5.25">5:15 AM</option>
-                  <option value="5.5">5:30 AM</option>
-                  <option value="5.75">5:45 AM</option>
-                  <option value="6">6:00 AM</option>
-                  <option value="6.25">6:15 AM</option>
-                  <option value="6.5">6:30 AM</option>
-                  <option value="6.75">6:45 AM</option>
-                  <option value="7">7:00 AM</option>
-                  <option value="7.25">7:15 AM</option>
-                  <option value="7.5">7:30 AM</option>
-                  <option value="7.75">7:45 AM</option>
-                  <option value="8">8:00 AM</option>
-                  <option value="8.25">8:15 AM</option>
-                  <option value="8.5">8:30 AM</option>
-                  <option value="8.75">8:45 AM</option>
-                  <option value="9" selected="">9:00 AM</option>
-                  <option value="9.25">9:15 AM</option>
-                  <option value="9.5">9:30 AM</option>
-                  <option value="9.75">9:45 AM</option>
-                  <option value="10" >10:00 AM</option>
-                  <option value="10.25">10:15 AM</option>
-                  <option value="10.5">10:30 AM</option>
-                  <option value="10.75">10:45 AM</option>
-                  <option value="11">11:00 AM</option>
-                  <option value="11.25">11:15 AM</option>
-                  <option value="11.5">11:30 AM</option>
-                  <option value="11.75">11:45 AM</option>
-                  <option value="12">Noon</option>
-                  <option value="12.25">12:15 PM</option>
-                  <option value="12.5">12:30 PM</option>
-                  <option value="12.75">12:45 PM</option>
-                  <option value="13">1:00 PM</option>
-                  <option value="13.25">1:15 PM</option>
-                  <option value="13.5">1:30 PM</option>
-                  <option value="13.75">1:45 PM</option>
-                  <option value="14">2:00 PM</option>
-                  <option value="14.25">2:15 PM</option>
-                  <option value="14.5">2:30 PM</option>
-                  <option value="14.75">2:45 PM</option>
-                  <option value="15">3:00 PM</option>
-                  <option value="15.25">3:15 PM</option>
-                  <option value="15.5">3:30 PM</option>
-                  <option value="15.75">3:45 PM</option>
-                  <option value="16">4:00 PM</option>
-                  <option value="16.25">4:15 PM</option>
-                  <option value="16.5">4:30 PM</option>
-                  <option value="16.75">4:45 PM</option>
-                  <option value="17">5:00 PM</option>
-                  <option value="17.25">5:15 PM</option>
-                  <option value="17.5">5:30 PM</option>
-                  <option value="17.75">5:45 PM</option>
-                  <option value="18">6:00 PM</option>
-                  <option value="18.25">6:15 PM</option>
-                  <option value="18.5">6:30 PM</option>
-                  <option value="18.75">6:45 PM</option>
-                  <option value="19">7:00 PM</option>
-                  <option value="19.25">7:15 PM</option>
-                  <option value="19.5">7:30 PM</option>
-                  <option value="19.75">7:45 PM</option>
-                  <option value="20">8:00 PM</option>
-                  <option value="20.25">8:15 PM</option>
-                  <option value="20.5">8:30 PM</option>
-                  <option value="20.75">8:45 PM</option>
-                  <option value="21">9:00 PM</option>
-                  <option value="21.25">9:15 PM</option>
-                  <option value="21.5">9:30 PM</option>
-                  <option value="21.75">9:45 PM</option>
-                  <option value="22">10:00 PM</option>
-                  <option value="22.25">10:15 PM</option>
-                  <option value="22.5">10:30 PM</option>
-                  <option value="22.75">10:45 PM</option>
-                  <option value="23">11:00 PM</option>
-                  <option value="23.25">11:15 PM</option>
-                  <option value="23.5">11:30 PM</option>
-                  <option value="23.75">11:45 PM</option>
-                  <option value="24">Midnight</option>
-                  </select>
-                </div>
-                <span class="timepick">TO</span>
-                <div class="col-md-2" >
-                  <label style="visibility: hidden;">Sunday</label>
-                 <select class="custom-select" >
-                  <option value="0">Midnight</option>
-                  <option value="0.25">12:15 AM</option>
-                  <option value="0.5">12:30 AM</option>
-                  <option value="0.75">12:45 AM</option>
-                  <option value="1">1:00 AM</option>
-                  <option value="1.25">1:15 AM</option>
-                  <option value="1.5">1:30 AM</option>
-                  <option value="1.75">1:45 AM</option>
-                  <option value="2">2:00 AM</option>
-                  <option value="2.25">2:15 AM</option>
-                  <option value="2.5">2:30 AM</option>
-                  <option value="2.75">2:45 AM</option>
-                  <option value="3">3:00 AM</option>
-                  <option value="3.25">3:15 AM</option>
-                  <option value="3.5">3:30 AM</option>
-                  <option value="3.75">3:45 AM</option>
-                  <option value="4">4:00 AM</option>
-                  <option value="4.25">4:15 AM</option>
-                  <option value="4.5">4:30 AM</option>
-                  <option value="4.75">4:45 AM</option>
-                  <option value="5">5:00 AM</option>
-                  <option value="5.25">5:15 AM</option>
-                  <option value="5.5">5:30 AM</option>
-                  <option value="5.75">5:45 AM</option>
-                  <option value="6">6:00 AM</option>
-                  <option value="6.25">6:15 AM</option>
-                  <option value="6.5">6:30 AM</option>
-                  <option value="6.75">6:45 AM</option>
-                  <option value="7">7:00 AM</option>
-                  <option value="7.25">7:15 AM</option>
-                  <option value="7.5">7:30 AM</option>
-                  <option value="7.75">7:45 AM</option>
-                  <option value="8">8:00 AM</option>
-                  <option value="8.25">8:15 AM</option>
-                  <option value="8.5">8:30 AM</option>
-                  <option value="8.75">8:45 AM</option>
-                  <option value="9">9:00 AM</option>
-                  <option value="9.25">9:15 AM</option>
-                  <option value="9.5">9:30 AM</option>
-                  <option value="9.75">9:45 AM</option>
-                  <option value="10">10:00 AM</option>
-                  <option value="10.25">10:15 AM</option>
-                  <option value="10.5">10:30 AM</option>
-                  <option value="10.75">10:45 AM</option>
-                  <option value="11">11:00 AM</option>
-                  <option value="11.25">11:15 AM</option>
-                  <option value="11.5">11:30 AM</option>
-                  <option value="11.75">11:45 AM</option>
-                  <option value="12">Noon</option>
-                  <option value="12.25">12:15 PM</option>
-                  <option value="12.5">12:30 PM</option>
-                  <option value="12.75">12:45 PM</option>
-                  <option value="13">1:00 PM</option>
-                  <option value="13.25">1:15 PM</option>
-                  <option value="13.5">1:30 PM</option>
-                  <option value="13.75">1:45 PM</option>
-                  <option value="14">2:00 PM</option>
-                  <option value="14.25">2:15 PM</option>
-                  <option value="14.5">2:30 PM</option>
-                  <option value="14.75">2:45 PM</option>
-                  <option value="15">3:00 PM</option>
-                  <option value="15.25">3:15 PM</option>
-                  <option value="15.5">3:30 PM</option>
-                  <option value="15.75">3:45 PM</option>
-                  <option value="16">4:00 PM</option>
-                  <option value="16.25">4:15 PM</option>
-                  <option value="16.5">4:30 PM</option>
-                  <option value="16.75">4:45 PM</option>
-                  <option value="17">5:00 PM</option>
-                  <option value="17.25">5:15 PM</option>
-                  <option value="17.5">5:30 PM</option>
-                  <option value="17.75">5:45 PM</option>
-                  <option value="18">6:00 PM</option>
-                  <option value="18.25">6:15 PM</option>
-                  <option value="18.5">6:30 PM</option>
-                  <option value="18.75">6:45 PM</option>
-                  <option value="19">7:00 PM</option>
-                  <option value="19.25">7:15 PM</option>
-                  <option value="19.5">7:30 PM</option>
-                  <option value="19.75">7:45 PM</option>
-                  <option value="20">8:00 PM</option>
-                  <option value="20.25">8:15 PM</option>
-                  <option value="20.5">8:30 PM</option>
-                  <option value="20.75">8:45 PM</option>
-                  <option value="21" selected="">9:00 PM</option>
-                  <option value="21.25">9:15 PM</option>
-                  <option value="21.5">9:30 PM</option>
-                  <option value="21.75">9:45 PM</option>
-                  <option value="22">10:00 PM</option>
-                  <option value="22.25">10:15 PM</option>
-                  <option value="22.5">10:30 PM</option>
-                  <option value="22.75">10:45 PM</option>
-                  <option value="23">11:00 PM</option>
-                  <option value="23.25">11:15 PM</option>
-                  <option value="23.5">11:30 PM</option>
-                  <option value="23.75">11:45 PM</option>
-                  <option value="24">Midnight</option>
-                </select>
-                </div>
-                <div class="col-md-4" style="padding-left: 40px; padding-top: 30px;">
-                  
-                  <p>
-        <ui-switch checked labelOn="OPEN" switchColor="#c89628" defaultBgColor="#ededed" color="#ffe5ac" labelOff="CLOSED" size="large"></ui-switch>
-                </p>
-                 </div>
-              </div>
-               <div class="form-row" style="margin-top: 10px;">
-                <div class="col-md-2" >
-                  <label style="color: #000000;">Saturday</label>
-                 <select class="custom-select">
-                  <option value="0">Midnight</option>
-                  <option value="0.25">12:15 AM</option>
-                  <option value="0.5">12:30 AM</option>
-                  <option value="0.75">12:45 AM</option>
-                  <option value="1">1:00 AM</option>
-                  <option value="1.25">1:15 AM</option>
-                  <option value="1.5">1:30 AM</option>
-                  <option value="1.75">1:45 AM</option>
-                  <option value="2">2:00 AM</option>
-                  <option value="2.25">2:15 AM</option>
-                  <option value="2.5">2:30 AM</option>
-                  <option value="2.75">2:45 AM</option>
-                  <option value="3">3:00 AM</option>
-                  <option value="3.25">3:15 AM</option>
-                  <option value="3.5">3:30 AM</option>
-                  <option value="3.75">3:45 AM</option>
-                  <option value="4">4:00 AM</option>
-                  <option value="4.25">4:15 AM</option>
-                  <option value="4.5">4:30 AM</option>
-                  <option value="4.75">4:45 AM</option>
-                  <option value="5">5:00 AM</option>
-                  <option value="5.25">5:15 AM</option>
-                  <option value="5.5">5:30 AM</option>
-                  <option value="5.75">5:45 AM</option>
-                  <option value="6">6:00 AM</option>
-                  <option value="6.25">6:15 AM</option>
-                  <option value="6.5">6:30 AM</option>
-                  <option value="6.75">6:45 AM</option>
-                  <option value="7">7:00 AM</option>
-                  <option value="7.25">7:15 AM</option>
-                  <option value="7.5">7:30 AM</option>
-                  <option value="7.75">7:45 AM</option>
-                  <option value="8">8:00 AM</option>
-                  <option value="8.25">8:15 AM</option>
-                  <option value="8.5">8:30 AM</option>
-                  <option value="8.75">8:45 AM</option>
-                  <option value="9" selected="">9:00 AM</option>
-                  <option value="9.25">9:15 AM</option>
-                  <option value="9.5">9:30 AM</option>
-                  <option value="9.75">9:45 AM</option>
-                  <option value="10" >10:00 AM</option>
-                  <option value="10.25">10:15 AM</option>
-                  <option value="10.5">10:30 AM</option>
-                  <option value="10.75">10:45 AM</option>
-                  <option value="11">11:00 AM</option>
-                  <option value="11.25">11:15 AM</option>
-                  <option value="11.5">11:30 AM</option>
-                  <option value="11.75">11:45 AM</option>
-                  <option value="12">Noon</option>
-                  <option value="12.25">12:15 PM</option>
-                  <option value="12.5">12:30 PM</option>
-                  <option value="12.75">12:45 PM</option>
-                  <option value="13">1:00 PM</option>
-                  <option value="13.25">1:15 PM</option>
-                  <option value="13.5">1:30 PM</option>
-                  <option value="13.75">1:45 PM</option>
-                  <option value="14">2:00 PM</option>
-                  <option value="14.25">2:15 PM</option>
-                  <option value="14.5">2:30 PM</option>
-                  <option value="14.75">2:45 PM</option>
-                  <option value="15">3:00 PM</option>
-                  <option value="15.25">3:15 PM</option>
-                  <option value="15.5">3:30 PM</option>
-                  <option value="15.75">3:45 PM</option>
-                  <option value="16">4:00 PM</option>
-                  <option value="16.25">4:15 PM</option>
-                  <option value="16.5">4:30 PM</option>
-                  <option value="16.75">4:45 PM</option>
-                  <option value="17">5:00 PM</option>
-                  <option value="17.25">5:15 PM</option>
-                  <option value="17.5">5:30 PM</option>
-                  <option value="17.75">5:45 PM</option>
-                  <option value="18">6:00 PM</option>
-                  <option value="18.25">6:15 PM</option>
-                  <option value="18.5">6:30 PM</option>
-                  <option value="18.75">6:45 PM</option>
-                  <option value="19">7:00 PM</option>
-                  <option value="19.25">7:15 PM</option>
-                  <option value="19.5">7:30 PM</option>
-                  <option value="19.75">7:45 PM</option>
-                  <option value="20">8:00 PM</option>
-                  <option value="20.25">8:15 PM</option>
-                  <option value="20.5">8:30 PM</option>
-                  <option value="20.75">8:45 PM</option>
-                  <option value="21">9:00 PM</option>
-                  <option value="21.25">9:15 PM</option>
-                  <option value="21.5">9:30 PM</option>
-                  <option value="21.75">9:45 PM</option>
-                  <option value="22">10:00 PM</option>
-                  <option value="22.25">10:15 PM</option>
-                  <option value="22.5">10:30 PM</option>
-                  <option value="22.75">10:45 PM</option>
-                  <option value="23">11:00 PM</option>
-                  <option value="23.25">11:15 PM</option>
-                  <option value="23.5">11:30 PM</option>
-                  <option value="23.75">11:45 PM</option>
-                  <option value="24">Midnight</option>
-                  </select>
-                </div>
-                <span class="timepick">TO</span>
-                <div class="col-md-2" >
-                  <label style="visibility: hidden;">Sunday</label>
-                  <select class="custom-select" >
-                  <option value="0">Midnight</option>
-                  <option value="0.25">12:15 AM</option>
-                  <option value="0.5">12:30 AM</option>
-                  <option value="0.75">12:45 AM</option>
-                  <option value="1">1:00 AM</option>
-                  <option value="1.25">1:15 AM</option>
-                  <option value="1.5">1:30 AM</option>
-                  <option value="1.75">1:45 AM</option>
-                  <option value="2">2:00 AM</option>
-                  <option value="2.25">2:15 AM</option>
-                  <option value="2.5">2:30 AM</option>
-                  <option value="2.75">2:45 AM</option>
-                  <option value="3">3:00 AM</option>
-                  <option value="3.25">3:15 AM</option>
-                  <option value="3.5">3:30 AM</option>
-                  <option value="3.75">3:45 AM</option>
-                  <option value="4">4:00 AM</option>
-                  <option value="4.25">4:15 AM</option>
-                  <option value="4.5">4:30 AM</option>
-                  <option value="4.75">4:45 AM</option>
-                  <option value="5">5:00 AM</option>
-                  <option value="5.25">5:15 AM</option>
-                  <option value="5.5">5:30 AM</option>
-                  <option value="5.75">5:45 AM</option>
-                  <option value="6">6:00 AM</option>
-                  <option value="6.25">6:15 AM</option>
-                  <option value="6.5">6:30 AM</option>
-                  <option value="6.75">6:45 AM</option>
-                  <option value="7">7:00 AM</option>
-                  <option value="7.25">7:15 AM</option>
-                  <option value="7.5">7:30 AM</option>
-                  <option value="7.75">7:45 AM</option>
-                  <option value="8">8:00 AM</option>
-                  <option value="8.25">8:15 AM</option>
-                  <option value="8.5">8:30 AM</option>
-                  <option value="8.75">8:45 AM</option>
-                  <option value="9">9:00 AM</option>
-                  <option value="9.25">9:15 AM</option>
-                  <option value="9.5">9:30 AM</option>
-                  <option value="9.75">9:45 AM</option>
-                  <option value="10">10:00 AM</option>
-                  <option value="10.25">10:15 AM</option>
-                  <option value="10.5">10:30 AM</option>
-                  <option value="10.75">10:45 AM</option>
-                  <option value="11">11:00 AM</option>
-                  <option value="11.25">11:15 AM</option>
-                  <option value="11.5">11:30 AM</option>
-                  <option value="11.75">11:45 AM</option>
-                  <option value="12">Noon</option>
-                  <option value="12.25">12:15 PM</option>
-                  <option value="12.5">12:30 PM</option>
-                  <option value="12.75">12:45 PM</option>
-                  <option value="13">1:00 PM</option>
-                  <option value="13.25">1:15 PM</option>
-                  <option value="13.5">1:30 PM</option>
-                  <option value="13.75">1:45 PM</option>
-                  <option value="14">2:00 PM</option>
-                  <option value="14.25">2:15 PM</option>
-                  <option value="14.5">2:30 PM</option>
-                  <option value="14.75">2:45 PM</option>
-                  <option value="15">3:00 PM</option>
-                  <option value="15.25">3:15 PM</option>
-                  <option value="15.5">3:30 PM</option>
-                  <option value="15.75">3:45 PM</option>
-                  <option value="16">4:00 PM</option>
-                  <option value="16.25">4:15 PM</option>
-                  <option value="16.5">4:30 PM</option>
-                  <option value="16.75">4:45 PM</option>
-                  <option value="17">5:00 PM</option>
-                  <option value="17.25">5:15 PM</option>
-                  <option value="17.5">5:30 PM</option>
-                  <option value="17.75">5:45 PM</option>
-                  <option value="18">6:00 PM</option>
-                  <option value="18.25">6:15 PM</option>
-                  <option value="18.5">6:30 PM</option>
-                  <option value="18.75">6:45 PM</option>
-                  <option value="19">7:00 PM</option>
-                  <option value="19.25">7:15 PM</option>
-                  <option value="19.5">7:30 PM</option>
-                  <option value="19.75">7:45 PM</option>
-                  <option value="20">8:00 PM</option>
-                  <option value="20.25">8:15 PM</option>
-                  <option value="20.5">8:30 PM</option>
-                  <option value="20.75">8:45 PM</option>
-                  <option value="21" selected="">9:00 PM</option>
-                  <option value="21.25">9:15 PM</option>
-                  <option value="21.5">9:30 PM</option>
-                  <option value="21.75">9:45 PM</option>
-                  <option value="22">10:00 PM</option>
-                  <option value="22.25">10:15 PM</option>
-                  <option value="22.5">10:30 PM</option>
-                  <option value="22.75">10:45 PM</option>
-                  <option value="23">11:00 PM</option>
-                  <option value="23.25">11:15 PM</option>
-                  <option value="23.5">11:30 PM</option>
-                  <option value="23.75">11:45 PM</option>
-                  <option value="24">Midnight</option>
-                </select>
-                </div>
-                <div class="col-md-4" style="padding-left: 40px; padding-top: 30px;">
-                  
-                  <p>
-        <ui-switch checked labelOn="OPEN" switchColor="#c89628" defaultBgColor="#ededed" color="#ffe5ac" labelOff="CLOSED" size="large"></ui-switch>
-                </p>
-                 </div>
-              </div>
-              <div class="footrcard">
-    <button type="button" class="btn mb-3 canc">Cancel</button>
-    <button type="submit" class="btn mb-3 sub">Submit</button>
-  </div>
+                <div class="tab-pane fade" [ngClass]="{ 'show active':activeTab==='openhours-tab'}" id="openhours" role="tabpanel" aria-labelledby="openhours-tab"
+                  style="padding: 20px;">
+                  <h4 class="header-title" style="font-size: 16px;">Opening Hours </h4>
+                  <form class="col-lg-12" [formGroup]="openingForm" (ngSubmit)="addOpening()">
+                    <div class="form-row">
+                      <div class="col-md-2">
+                        <label style="color: #000000;">Sunday</label>
+                        <select class="custom-select" [(ngModel)]="selectedstartTime" formControlName="sun_start_time" 
+                        [disabled]="true">
+                                <option [value]="type.start" *ngFor="let type of startTimeArray; let i = index">
+                                  {{type.value}}
+                                </option>   
+                                 </select>
+                      </div>
+                      <span class="timepick">TO</span>
+                      <div class="col-md-2">
+                        <label style="visibility: hidden;">Sunday</label>
+                        <select class="custom-select" [(ngModel)]="selectedendTime" formControlName="sun_end_time" [disabled]="true">
+                                 <option [value]="type.start" *ngFor="let type of endTimeArray">
+                                  {{type.value}}
+                                </option>
+                             </select>
+                      </div>
+                      <div class="col-md-4" style="padding-left: 40px;">
+                        <label style="color: #000000;">States</label>
+                        <div class="nepal">
+                          <label class="switch switch-left-right">
+                                    <input class="switch-input" type="checkbox" value="1" formControlName="sunday_disable_option" (change)="onChangeDate($event,'sun_start_time','sun_end_time')"> 
+                                    <span class="switch-label" data-on="OPEN" data-off="CLOSE"></span> 
+                                    <span class="switch-handle"></span> 
+                                    </label>
+                        </div>
+                      </div>
+                    </div>
+                    <div class="form-row" style="margin-top: 10px;">
+                      <div class="col-md-2">
+                        <label style="color: #000000;">Monday</label>
+                        <select class="custom-select" [(ngModel)]="selectedMonstartTime" formControlName="mom_start_time" [disabled]="isMondayDisabled">
+                                  <option [value]="type.start" *ngFor="let type of startTimeArray; let i = index">
+                                    {{type.value}}
+                                  </option>
+                                 </select>
+                      </div>
+                      <span class="timepick">TO</span>
+                      <div class="col-md-2">
+                        <label style="visibility: hidden;">Monday</label>
+                        <select class="custom-select" [(ngModel)]="selectedMonendTime" formControlName="mom_end_time" [disabled]="isMondayDisabled">
+                                  <option [value]="type.start" *ngFor="let type of endTimeArray">
+                                    {{type.value}}
+                                  </option>
+                                 </select>
+                      </div>
+                      <div class="col-md-4" style="padding-left: 40px; padding-top: 30px;">
+                        <div class="nepal">
+                          <label class="switch switch-left-right">
+                                    <input class="switch-input" type="checkbox" value="1" formControlName="monday_disable_option" (change)="onChangeDate($event,'mom_start_time','mom_end_time')"> 
+                                    <span class="switch-label" data-on="OPEN" data-off="CLOSE"></span> 
+                                    <span class="switch-handle"></span> 
+                                    </label>
+                        </div>
+                      </div>
+                    </div>
+                    <div class="form-row" style="margin-top: 10px; ">
+                      <div class="col-md-2">
+                        <label style="color: #000000;">Tuesday</label>
+                        <select class="custom-select" [(ngModel)]="selectedTuestartTime" formControlName="tue_start_time" [disabled]="isTuesdayDisabled">
+                                   <option [value]="type.start" *ngFor="let type of startTimeArray; let i = index">
+                                      {{type.value}}
+                                    </option>
+                                 </select>
+                      </div>
+                      <span class="timepick">TO</span>
+                      <div class="col-md-2">
+                        <label style="visibility: hidden;">Tuesday</label>
+                        <select class="custom-select" [(ngModel)]="selectedTueendTime" formControlName="tue_end_time" [disabled]="isTuesdayDisabled">
+                                    <option [value]="type.start" *ngFor="let type of endTimeArray">
+                                      {{type.value}}
+                                    </option>
+                                 </select>
+                      </div>
+                      <div class="col-md-4" style="padding-left: 40px; padding-top: 30px;">
+                        <div class="nepal">
+                          <label class="switch switch-left-right">
+                                    <input class="switch-input" type="checkbox" value="1" formControlName="tuesday_disable_option" (change)="onChangeDate($event,'tue_start_time','tue_end_time')"> 
+                                    <span class="switch-label" data-on="OPEN" data-off="CLOSE"></span> 
+                                    <span class="switch-handle"></span> 
+                                    </label>
+                        </div>
+                      </div>
+                    </div>
+                    <div class="form-row" style="margin-top: 10px;">
+                      <div class="col-md-2">
+                        <label style="color: #000000;">Wednesday</label>
+                        <select class="custom-select" [(ngModel)]="selectedWedstartTime" formControlName="wed_start_time" [disabled]="isWedDisabled">
+                                   <option [value]="type.start" *ngFor="let type of startTimeArray; let i = index">
+                                      {{type.value}}
+                                    </option>
+                                 </select>
+                      </div>
+                      <span class="timepick">TO</span>
+                      <div class="col-md-2">
+                        <label style="visibility: hidden;">Wednesday</label>
+                        <select class="custom-select" [(ngModel)]="selectedWedendTime" formControlName="wed_end_time" [disabled]="isWedDisabled">
+                                   <option [value]="type.start" *ngFor="let type of endTimeArray">
+                                    {{type.value}}
+                                  </option>
+                                 </select>
+                      </div>
+                      <div class="col-md-4" style="padding-left: 40px; padding-top: 30px;">
+                        <div class="nepal">
+                          <label class="switch switch-left-right">
+                                    <input class="switch-input" type="checkbox" value="1" formControlName="wednesday_disable_option" (change)="onChangeDate($event,'wed_start_time','wed_end_time')"> 
+                                    <span class="switch-label" data-on="OPEN" data-off="CLOSE"></span> 
+                                    <span class="switch-handle"></span> 
+                                    </label>
+                        </div>
+                      </div>
+                    </div>
+                    <div class="form-row" style="margin-top: 10px;">
+                      <div class="col-md-2">
+                        <label style="color: #000000;">Thursday</label>
+                        <select class="custom-select" [(ngModel)]="selectedThurstartTime" formControlName="thur_start_time" [disabled]="isThurDisabled">
+                                  <option [value]="type.start" *ngFor="let type of startTimeArray; let i = index">
+                                  {{type.value}}
+                                </option>
+                                 </select>
+                      </div>
+                      <span class="timepick">TO</span>
+                      <div class="col-md-2">
+                        <label style="visibility: hidden;">Thursday</label>
+                        <select class="custom-select" [(ngModel)]="selectedThurendTime" formControlName="thur_end_time" [disabled]="isThurDisabled">
+                                   <option [value]="type.start" *ngFor="let type of endTimeArray">
+                                            {{type.value}}
+                                          </option>
+                                 </select>
+                      </div>
+                      <div class="col-md-4" style="padding-left: 40px; padding-top: 30px;">
+                        <div class="nepal">
+                          <label class="switch switch-left-right">
+                                    <input class="switch-input" type="checkbox" value="1" formControlName="thrusday_disable_option" (change)="onChangeDate($event,'thur_start_time','thur_end_time')"> 
+                                    <span class="switch-label" data-on="OPEN" data-off="CLOSE"></span> 
+                                    <span class="switch-handle"></span> 
+                                    </label>
+                        </div>
+                      </div>
+                    </div>
+                    <div class="form-row" style="margin-top: 10px;">
+                      <div class="col-md-2">
+                        <label style="color: #000000;">Friday</label>
+                        <select class="custom-select" [(ngModel)]="selectedFristartTime" formControlName="fri_start_time" [disabled]="isFridDisabled">
+                                   <option [value]="type.start" *ngFor="let type of startTimeArray; let i = index">
+                                      {{type.value}}
+                                    </option>
+                                 </select>
+                      </div>
+                      <span class="timepick">TO</span>
+                      <div class="col-md-2">
+                        <label style="visibility: hidden;">Friday</label>
+                        <select class="custom-select" [(ngModel)]="selectedFriendTime" formControlName="fri_end_time" [disabled]="isFridDisabled">
+                                  <option [value]="type.start" *ngFor="let type of endTimeArray">
+                                    {{type.value}}
+                                  </option>
+                                 </select>
+                      </div>
+                      <div class="col-md-4" style="padding-left: 40px; padding-top: 30px;">
+                        <div class="nepal">
+                          <label class="switch switch-left-right">
+                                    <input class="switch-input" type="checkbox" value="1" formControlName="friday_disable_option" (change)="onChangeDate($event,'fri_start_time','fri_end_time')"> 
+                                    <span class="switch-label" data-on="OPEN" data-off="CLOSE"></span> 
+                                    <span class="switch-handle"></span> 
+                                    </label>
+                        </div>
+                      </div>
+                    </div>
+                    <div class="form-row" style="margin-top: 10px;">
+                      <div class="col-md-2">
+                        <label style="color: #000000;">Saturday</label>
+                        <select class="custom-select" [(ngModel)]="selectedSatstartTime" formControlName="sat_start_time" [disabled]="isSatDisabled">
+                                    <option [value]="type.start" *ngFor="let type of startTimeArray; let i = index">
+                                  {{type.value}}
+                                </option>
+                                 </select>
+                      </div>
+                      <span class="timepick">TO</span>
+                      <div class="col-md-2">
+                        <label style="visibility: hidden;">Saturday</label>
+                        <select class="custom-select" [(ngModel)]="selectedSatendTime" formControlName="sat_end_time" [disabled]="isSatDisabled">
+                                   <option [value]="type.start" *ngFor="let type of endTimeArray">
+                                    {{type.value}}
+                                  </option>
+                                 </select>
+                      </div>
+                      <div class="col-md-4" style="padding-left: 40px; padding-top: 30px;">
+                        <div class="nepal">
+                          <label class="switch switch-left-right">
+                                    <input class="switch-input" type="checkbox" value="1" formControlName="saturday_disable_option" (change)="onChangeDate($event,'sat_start_time','sat_end_time')"> 
+                                    <span class="switch-label" data-on="OPEN" data-off="CLOSE"></span> 
+                                    <span class="switch-handle"></span> 
+                                    </label>
+                        </div>
+                      </div>
+                    </div>
+                    <div class="footrcard">
+                      <button type="button" class="btn mb-3 canc">Cancel</button>
+                      <button type="submit" [disabled]="openingForm.invalid" class="btn mb-3 sub">Save</button>
+                    </div>
+                  </form>
                 </div>
               </div>
             </div>
@@ -2179,57 +882,53 @@
     </div>
   </div>
 </div>
-
 <ng-template #mymodal let-modal>
   <form [formGroup]="empForm" (ngSubmit)="onSubmit()">
-  <div class="modal-header">
-    <h4 class="modal-title" id="modal-basic-title" style="font-size: 17px;"> Add Employee Level</h4>
-    <button type="button" class="close" style="border: 0px solid #ffffff !important;"aria-label="Close" (click)="modal.dismiss('Cross click')">
-      <span aria-hidden="true">×</span>
-    </button>
-  </div>
-  <div class="modal-body">
-   <div class="card-body">
-  <div class="row">
-    <div class="col-12">
-      <div class="form-group form-label-group">
-        <input type="text"  formControlName="name" [ngClass]="{ 'is-invalid': submitted && f.name.errors }" 
-        name="name" id="name" placeholder="Enter Employee Level"
-          class="form-control myformscontrol custominput" required autofocus>
-        <label for="name" class="floating-label">Enter Employee Level</label>
-         <div *ngIf="submitted && f.name.errors" class="invalid-feedback">
-                    <div *ngIf="f.name.errors.required">Employee Level is required</div>
-                  </div>
-      </div>
-    </div>
-  </div>
-</div>
-</div>
-<div class="modal-footer">
-  <button type="button" class="btn mb-3 canc" (click)="modal.close('Save click')">Cancel</button>
-  <button type="submit" class="btn mb-3 sub">Submit</button>
-</div>
-</form>
-</ng-template>
-
-
-
-<ng-template #mymodal3 let-modal>
-  <form [formGroup]="empForm">
     <div class="modal-header">
-      <h4 class="modal-title" id="modal-basic-title" style="font-size: 17px;"> Update Employee Level</h4>
-      <button type="button" class="close" aria-label="Close" (click)="modal.dismiss('Cross click')">
+      <h4 class="modal-title" id="modal-basic-title" style="font-size: 17px;"> Add Employee Level</h4>
+      <button type="button" class="close" style="border: 0px solid #ffffff !important;" aria-label="Close" (click)="modal.dismiss('Cross click')">
       <span aria-hidden="true">×</span>
-    </button>
+      </button>
     </div>
     <div class="modal-body">
       <div class="card-body">
         <div class="row">
           <div class="col-12">
             <div class="form-group form-label-group">
-              <input type="text" formControlName="name" [(ngModel)]='emplevel_name' placeholder="Enter Employee Level" class="form-control myformscontrol custominput" required autofocus>
+              <input type="text" formControlName="name" [ngClass]="{ 'is-invalid': submitted && f.name.errors }" name="name" id="name"
+                placeholder="Enter Employee Level" class="form-control myformscontrol custominput" required autofocus>
               <label for="name" class="floating-label">Enter Employee Level</label>
-              <input type="hidden" class="form-control"   [(ngModel)]='emplevel_id' [ngModelOptions]="{standalone: true}">
+              <div *ngIf="submitted && f.name.errors" class="invalid-feedback">
+                <div *ngIf="f.name.errors.required">Employee Level is required</div>
+              </div>
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
+    <div class="modal-footer">
+      <button type="button" class="btn mb-3 canc" (click)="modal.close('Save click')">Cancel</button>
+      <button type="submit" class="btn mb-3 sub">Submit</button>
+    </div>
+  </form>
+</ng-template>
+<ng-template #mymodal3 let-modal>
+  <form [formGroup]="empForm">
+    <div class="modal-header">
+      <h4 class="modal-title" id="modal-basic-title" style="font-size: 17px;"> Update Employee Level</h4>
+      <button type="button" class="close" aria-label="Close" (click)="modal.dismiss('Cross click')">
+         <span aria-hidden="true">×</span>
+         </button>
+    </div>
+    <div class="modal-body">
+      <div class="card-body">
+        <div class="row">
+          <div class="col-12">
+            <div class="form-group form-label-group">
+              <input type="text" formControlName="name" [(ngModel)]='emplevel_name' placeholder="Enter Employee Level" class="form-control myformscontrol custominput"
+                required autofocus>
+              <label for="name" class="floating-label">Enter Employee Level</label>
+              <input type="hidden" class="form-control" [(ngModel)]='emplevel_id' [ngModelOptions]="{standalone: true}">
             </div>
           </div>
         </div>
@@ -2241,14 +940,6 @@
     </div>
   </form>
 </ng-template>
-
-
-
-
-
-
-
-
 <ngx-spinner bdColor="rgba(51, 51, 51, 0.8)" size="default" type="ball-spin-clockwise">
   <p style="color: white">Please Wait. </p>
 </ngx-spinner>

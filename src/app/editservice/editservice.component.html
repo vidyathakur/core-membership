@@ -12,15 +12,15 @@
               <div class="col-md-4">
                 <div class="custom-control custom-checkbox custom-control-inline">
                  
-                  <input type="radio" formControlName="group_service" name="group_service" [(ngModel)]="options" [value]="1" 
-                  [checked]="options" class="custom-control-input"
+                  <input type="radio" formControlName="group_service" (change)="ShowHideChecked($event.target.value,'optionsYes')" name="group_service" [(ngModel)]="options" value="1" 
+                  [checked]="optionsYes" class="custom-control-input"
                     id="customCheck6">
                   <label class="custom-control-label" for="customCheck6">Yes</label>
 
                 </div>
                 <div class="custom-control custom-checkbox custom-control-inline">
-                  <input type="radio" formControlName="group_service" [value]="0" name="group_service" [(ngModel)]="options" 
-                  [checked]="!options" class="custom-control-input"
+                  <input type="radio" formControlName="group_service"  (change)="ShowHideChecked($event.target.value,'optionsNo')" value="0" name="group_service" [(ngModel)]="options" 
+                  [checked]="optionsNo" class="custom-control-input"
                     id="customCheck7">
                   <label class="custom-control-label" for="customCheck7">No</label>
                 </div>
@@ -28,19 +28,19 @@
             </div>
 
             <div class="row mygroup">
-              <div class="col-12" *ngIf="options">
+              <div class="col-12" *ngIf="optionsYes">
                 <div class="form-row" style="margin-top: 25px;">
                   <div class="col-md-4">
 
                     <div class="custom-control custom-checkbox custom-control-inline">
                       <input type="checkbox" #small name="override_price" formControlName="override_price" #small class="custom-control-input"
-                        (change)="0" id="customCheck1">
+                        (change)="0" id="customCheck1" [value]="1">
                       <label class="custom-control-label" for="customCheck1">Override Price</label>
 
                     </div>
                     <div class="custom-control custom-checkbox custom-control-inline">
                       <input type="checkbox" #big name="override_duration" formControlName="override_duration" (change)="1" class="custom-control-input"
-                        id="customCheck3">
+                        id="customCheck3" [value]="1">
                       <label class="custom-control-label" for="customCheck3">Override Duration</label>
                     </div>
                   </div>
@@ -59,7 +59,7 @@
                     <span class="req">Required</span>
                   </div>
                   <div class="col-md-4">
-                    <button type="button" class="btn  mybtn" [routerLink]="['/admin']">ADD NEW</button>
+                    <button type="button" class="btn  mybtn" (click)="goToServiceCat()">ADD NEW</button>
                   </div>
                 </div>
 
@@ -86,7 +86,7 @@
                   <div class="col-md-2" *ngIf="big.checked">
                     <b class="text-muted  d-block mylabel"> Duration   </b>
                     <select class="custom-select" formControlName="duration">
-              <option value="" selected="">0 HRS</option>
+              <option value="00">0 HRS</option>
               <option value="01">1 HRS</option>
               <option value="02">2 HRS</option>
               <option value="03">3 HRS</option>
@@ -102,8 +102,8 @@
                   <div class="col-md-2" *ngIf="big.checked">
                     <b class="text-muted  d-block mylabel" style="visibility: hidden;">  Duration  </b>
                     <select class="custom-select" formControlName="duration_minutes">
-                      <option value="" selected="">0 MNS</option>
-              <option value="15" selected>15 MNS</option>
+                      <option value="00">0 MNS</option>
+              <option value="15">15 MNS</option>
               <option value="30">30 MNS</option>
               <option value="45">45 MNS</option>
             </select>
@@ -164,7 +164,7 @@
             <!--///////////////////////////////////////////////////////////////////////////////////////////////////////////////////////-->
 
             <div class="row mygroup">
-              <div class="col-12" *ngIf="!options">
+              <div class="col-12" *ngIf="optionsNo">
                 <label style="color: #000000; padding-top: 20px;">Services Category</label>
                 <div class="form-row">
                   <div class="col-md-5">
@@ -179,7 +179,7 @@
                     <span class="req">Required</span>
                   </div>
                   <div class="col-md-4">
-                    <button type="button" class="btn mybtn" [routerLink]="['/admin']">ADD NEW</button>
+                    <button type="button" class="btn mybtn" (click)="goToServiceCat()">ADD NEW</button>
                   </div>
                 </div>
 
@@ -206,7 +206,7 @@
                   <div class="col-md-2">
                     <label style="color: #000000;">Duration</label>
                     <select class="custom-select" formControlName="duration">
-              <option value="00" selected="">0 HRS</option>
+              <option value="00">0 HRS</option>
              <option value="01">1 HRS</option>
               <option value="02">2 HRS</option>
               <option value="03">3 HRS</option>
@@ -223,8 +223,8 @@
                   <div class="col-md-2">
                     <label style="color: #000000; visibility: hidden;">Duration</label>
                     <select class="custom-select" formControlName="duration_minutes">
-                      <option value="00" selected="">0 MNS</option>
-              <option selected value="15">15 MNS</option>
+                      <option value="00">0 MNS</option>
+              <option  value="15">15 MNS</option>
               <option value="30">30 MNS</option>
               <option value="45">45 MNS</option>
             </select>
@@ -234,7 +234,7 @@
                   <div class="col-md-2">
                     <label style="color: #000000;">Processing Duration</label>
                     <select class="custom-select" formControlName="process_duration">
-              <option value="00" selected="">0 HRS</option>
+              <option value="00">0 HRS</option>
               <option value="01">1 HRS</option>
               <option value="02">2 HRS</option>
               <option value="03">3 HRS</option>
@@ -250,8 +250,8 @@
                   <div class="col-md-2">
                     <label style="color: #000000; visibility: hidden;">Duration</label>
                     <select class="custom-select" formControlName="process_duration_minutes">
-                      <option value="00" selected="">0 MNS</option>
-               <option value="15" selected>15 MNS</option>
+                      <option value="00">0 MNS</option>
+               <option value="15">15 MNS</option>
               <option value="30">30 MNS</option>
               <option value="45">45 MNS</option>
             </select>
@@ -344,7 +344,7 @@
           
         </div>
         <div class="footrcard">
-  <button type="button" class="btn mb-3 canc">Cancel</button>
+  <button type="button" class="btn mb-3 canc" (click)="onCancel()">Cancel</button>
   <button type="submit" class="btn mb-3 sub">Submit</button>
 </div>
 </form>

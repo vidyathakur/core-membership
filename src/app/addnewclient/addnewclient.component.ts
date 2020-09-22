@@ -1,5 +1,7 @@
 import { Component, OnInit } from '@angular/core';
 import { FormGroup, FormControl, Validators } from '@angular/forms';
+import { Router } from '@angular/router';
+import { JwtService } from 'src/app/login/jwt.service';
 
 @Component({
 	selector: 'app-addnewclient',
@@ -23,7 +25,7 @@ export class AddnewclientComponent implements OnInit {
 
 	genders = [{ id: 1, name: 'Email' }, { id: 2, name: 'Phone' }];
 
-	constructor() {
+	constructor(public router: Router, private jwtService: JwtService) {
 		// this.myForm = new FormGroup({
 		// 	f_name: new FormControl('', Validators.required),
 		// 	surname: new FormControl('', Validators.required),
@@ -58,5 +60,9 @@ export class AddnewclientComponent implements OnInit {
 		// 	promote_email: this.promote_email
 		// };
 		// console.log(clientData);
+	}
+	goToClient() {
+		this.jwtService.setToken('tabId', 'clients-tab');
+		this.router.navigate(['/admin']);
 	}
 }

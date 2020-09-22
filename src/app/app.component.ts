@@ -22,7 +22,8 @@ export class AppComponent {
 			'../assets/js/jquery.slimscroll.min.js',
 			'../assets/js/jquery.slicknav.min.js',
 			'../assets/js/scripts.js',
-			'../assets/js/metisMenu.min.js'
+			'../assets/js/metisMenu.min.js',
+			'../assets/js/custom.js'
 		];
 		this.loadScript(scriptPath);
 		this.router.events.subscribe(event => {

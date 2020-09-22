@@ -13,7 +13,7 @@ export class JwtService {
 	getToken(key) {
 		return window.localStorage.getItem('jwt_token');
 	}
-	
+
 	getTokenByParams(key) {
 		return window.localStorage.getItem(key);
 	}
@@ -23,5 +23,8 @@ export class JwtService {
 		window.localStorage.removeItem('merchant_id');
 		window.localStorage.removeItem('full_name');
 		window.localStorage.removeItem('country_id');
+	}
+	destroyTokenTab(tab) {
+		window.localStorage.removeItem(tab);
 	}
 }

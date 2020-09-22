@@ -17,11 +17,17 @@ export class EditserviceComponent implements OnInit {
 	serviceForm: FormGroup;
 	public serviceCats: any;
 	submitted = false;
-	color2: string = '#e920e9';
+	// display_color: string = '#e920e9';
 	public arrayColors: any = {
 		display_color: '#e920e9'
 	};
 	display_color: string = '#e920e9';
+	selectedValue = '00';
+	selectedValueminute = '00';
+	selectedValueprocessing = '00';
+	selectedValueminuteprocessing = '00';
+	optionsNo = false;
+	optionsYes = false;
 	constructor(
 		public router: Router,
 		public addemployeesService: AddemployeesService,
@@ -67,11 +73,19 @@ export class EditserviceComponent implements OnInit {
 		this.editserviceservice.getServiceById(id).subscribe(
 			data => {
 				let service_details = data['data'];
-				let duration  = service_details.duration ? (service_details.duration).split(':') : [];
-				let process_duration = service_details.process_duration ? (service_details.process_duration).split(':') : [];
-				console.log(duration);
-				console.log(duration[0]);
 				console.log(service_details);
+				let duration = service_details.duration ? service_details.duration.split(':') : [];
+				let process_duration = service_details.process_duration
+					? service_details.process_duration.split(':')
+					: [];
+					if (service_details.group_service == 1) {
+						this.optionsYes = true;
+						this.optionsNo = false;
+					} else {
+						this.optionsYes = false;
+						this.optionsNo = true;
+					}
+				this.display_color = service_details.display_color;
 				this.serviceForm = this.formBuilder.group({
 					service_name: [service_details.service_name, Validators.required],
 					price: [service_details.price],
@@ -91,9 +105,9 @@ export class EditserviceComponent implements OnInit {
 					show_online: [service_details.show_online],
 					require_resource: [service_details.require_resource],
 					gst_free: [service_details.gst_free],
-					service_cat_id: [service_details.service_cat_id,Validators.required],
+					service_cat_id: [service_details.service_cat_id, Validators.required],
 					service_id: [id],
-					group_service:[service_details.group_service]
+					group_service: [service_details.group_service]
 				});
 				console.log(this.serviceForm);
 			},
@@ -103,19 +117,37 @@ export class EditserviceComponent implements OnInit {
 		);
 	}
 
+	public ShowHideChecked(number: any,type) {
+		console.log(number);
+		if (number == 1) {
+			this.optionsYes = true;
+			this.optionsNo = false;
+		} else {
+				this.optionsYes = false;
+				this.optionsNo = true;
+		}
+	}
+
 	public updateService(): any {
 		this.submitted = true;
 		let service_data = this.serviceForm.value;
+	
 		console.log(service_data);
+		let duration = service_data.duration
+			? service_data.duration + ':' + service_data.duration_minutes + ':00'
+			: '00:00:00';
+		let process_duration = service_data.process_duration
+			? service_data.process_duration + ':' + service_data.process_duration_minutes + ':00'
+			: '00:00:00';
 		let data = {
 			service_id: service_data.service_id,
 			service_name: service_data.service_name || '',
 			price: service_data.price || '',
 			display_color: service_data.display_color || '',
 			barcode: service_data.barcode || '',
-			duration: service_data.duration,
+			duration: duration,
 			duration_minutes: service_data.duration_minutes || '',
-			process_duration: service_data.process_duration || '',
+			process_duration: process_duration,
 			process_duration_minutes: service_data.process_duration_minutes || '',
 			max_client: service_data.max_client || '',
 			online_name: service_data.online_name || '',
@@ -128,7 +160,8 @@ export class EditserviceComponent implements OnInit {
 			require_resource: service_data.require_resource,
 			gst_free: service_data.gst_free || '',
 			options: service_data.options || '',
-			service_cat_id: service_data.service_cat_id || ''
+			service_cat_id: service_data.service_cat_id || '',
+			group_service: service_data.group_service
 		};
 		console.log(data);
 		this.editserviceservice.editService(data).subscribe(
@@ -152,7 +185,6 @@ export class EditserviceComponent implements OnInit {
 		console.log(color);
 		this.serviceForm.controls.display_color.setValue(color);
 		const hsva = this.cpService.stringToHsva(color, true);
-
 		if (hsva) {
 			return this.cpService.outputFormat(hsva, 'rgba', null);
 		}
@@ -171,6 +203,14 @@ export class EditserviceComponent implements OnInit {
 				this.toastr.errorToastr('some error occured');
 			}
 		);
+	}
+
+	onCancel() {
+		this.router.navigate(['/admin']);
+	}
+	goToServiceCat() {
+		this.jwtService.setToken('tabId', 'category-tab');
+		this.router.navigate(['/admin']);
 	}
 }
 

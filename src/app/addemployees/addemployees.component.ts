@@ -46,7 +46,7 @@ export class AddemployeesComponent implements OnInit {
 	public promote_sms: any;
 	public promote_email: any;
 	public empLevelNames: any;
-	public stateList:any;
+	public stateList: any;
 	myModel = true;
 
 	genders = [{ id: 1, name: 'Email' }, { id: 2, name: 'Phone' }];
@@ -88,7 +88,7 @@ export class AddemployeesComponent implements OnInit {
 			client_per_day: ['', [Validators.pattern('^[0-9]*$')]],
 			avg_client_per_day: ['', [Validators.pattern('^[0-9]*$')]],
 			appoint_email: [],
-			appoint_sms: [],
+			appoint_sms: []
 		});
 	}
 	get f() {
@@ -122,63 +122,73 @@ export class AddemployeesComponent implements OnInit {
 	onSubmit() {
 		this.submitted = true;
 		if (!this.employeeForm.invalid) {
-				let employee_data = this.employeeForm.value;
-				let birthday = employee_data.birthday
-					? employee_data.birthday.year + '/' + employee_data.birthday.month + '/' + employee_data.birthday.day
-					: '';
-				let data = {
-					display_name: employee_data.display_name || '',
-					order: employee_data.order || '',
-					f_name: employee_data.f_name || '',
-					state_id: employee_data.state_id || '',
-					appointment_on: employee_data.appointment_on || 0,
-					surname: employee_data.surname || '',
-					rebook_rate: employee_data.rebook_rate || '',
-					gift_voucher: employee_data.gift_voucher || '',
-					suburb: employee_data.suburb || '',
-					mobile: employee_data.mobile || '',
-					gender: employee_data.gender || '',
-					phone_no: employee_data.phone_no || '',
-					email: employee_data.email || '',
-					birthday: birthday || '',
-					address: employee_data.address || '',
-					postcode: employee_data.postcode || '',
-					appoint_sms: employee_data.appoint_sms  || 0,
-					appoint_email: employee_data.appoint_email ||  0,
-					promote_sms: employee_data.promote_sms || '',
-					promote_email: employee_data.promote_email || '',
-					service: employee_data.service || '',
-					product_revenue: employee_data.product_revenue || '',
-					product_profit: employee_data.product_profit || '',
-					package: employee_data.package || '',
-					role: employee_data.role || '',
-					password: employee_data.password || '',
-					wages_vs_sale: employee_data.wages_vs_sale || '',
-					retail_sale: employee_data.retail_sale || '',
-					client_per_day: employee_data.client_per_day || '',
-					avg_client_per_day: employee_data.avg_client_per_day || '',
-					emp_level_id: employee_data.emp_level_id,
-				};
-				console.log(data);
-				this.addemployeesService.createEmployee(data).subscribe(
-					apiResponse => {
-							if (apiResponse.code === 200) {
-								this.toastr.successToastr('Employee Added Successfully');
-								this.router.navigate(['/admin']);
-							} else {
-								console.log("Hello");
-								this.toastr.errorToastr(apiResponse.errors.order[0]);
-							}
-						}, er => {
-							console.log(er.error.errors['order'][0]);
-							console.log(er.error.errors);
-							console.log(er.error.errors['order']);
-							this.toastr.errorToastr(er.error.errors['order'][0]);
-						});
-			}
+			let employee_data = this.employeeForm.value;
+			let birthday = employee_data.birthday
+				? employee_data.birthday.year + '/' + employee_data.birthday.month + '/' + employee_data.birthday.day
+				: '';
+			let data = {
+				display_name: employee_data.display_name || '',
+				order: employee_data.order || '',
+				f_name: employee_data.f_name || '',
+				state_id: employee_data.state_id || '',
+				appointment_on: employee_data.appointment_on || 0,
+				surname: employee_data.surname || '',
+				rebook_rate: employee_data.rebook_rate || '',
+				gift_voucher: employee_data.gift_voucher || '',
+				suburb: employee_data.suburb || '',
+				mobile: employee_data.mobile || '',
+				gender: employee_data.gender || '',
+				phone_no: employee_data.phone_no || '',
+				email: employee_data.email || '',
+				birthday: birthday || '',
+				address: employee_data.address || '',
+				postcode: employee_data.postcode || '',
+				appoint_sms: employee_data.appoint_sms || 0,
+				appoint_email: employee_data.appoint_email || 0,
+				promote_sms: employee_data.promote_sms || '',
+				promote_email: employee_data.promote_email || '',
+				service: employee_data.service || '',
+				product_revenue: employee_data.product_revenue || '',
+				product_profit: employee_data.product_profit || '',
+				package: employee_data.package || '',
+				role: employee_data.role || '',
+				password: employee_data.password || '',
+				wages_vs_sale: employee_data.wages_vs_sale || '',
+				retail_sale: employee_data.retail_sale || '',
+				client_per_day: employee_data.client_per_day || '',
+				avg_client_per_day: employee_data.avg_client_per_day || '',
+				emp_level_id: employee_data.emp_level_id
+			};
+			console.log(data);
+			this.addemployeesService.createEmployee(data).subscribe(
+				apiResponse => {
+					if (apiResponse.code === 200) {
+						this.toastr.successToastr('Employee Added Successfully');
+						this.jwtService.setToken('tabId', 'employees-tab');
+						this.router.navigate(['/admin']);
+					} else {
+						console.log('Hello');
+						this.toastr.errorToastr(apiResponse.errors.order[0]);
+					}
+				},
+				er => {
+					console.log(er.error.errors['order'][0]);
+					console.log(er.error.errors);
+					console.log(er.error.errors['order']);
+					this.toastr.errorToastr(er.error.errors['order'][0]);
+				}
+			);
+		}
 	}
 
-	
+	goToEmployees() {
+		this.jwtService.setToken('tabId', 'employees-tab');
+		this.router.navigate(['/admin']);
+	}
+	onCancel(){
+		this.jwtService.setToken('tabId', 'employees-tab');
+		this.router.navigate(['/admin']);
+	}
 
 	public getEmpLevelName(): any {
 		this.addemployeesService.getEmplevelByMechantId({}).subscribe(
@@ -195,23 +205,24 @@ export class AddemployeesComponent implements OnInit {
 
 	public getStates(): any {
 		let country_id = this.jwtService.getTokenByParams('country_id');
-			let paramsData = {
-									country_id: country_id
-								};
-								console.log(paramsData);
-		this.addemployeesService.getStates(paramsData).subscribe(data => {
+		let paramsData = {
+			country_id: country_id
+		};
+		console.log(paramsData);
+		this.addemployeesService.getStates(paramsData).subscribe(
+			data => {
 				console.log(data);
 				this.stateList = data['data'];
-			}, error => {
+			},
+			error => {
 				console.log('some error occured');
 				this.toastr.errorToastr('some error occured');
-			});
+			}
+		);
 	}
 	onReset() {
 		this.submitted = false;
 		this.employeeForm.reset();
 	}
-
-
 }
 

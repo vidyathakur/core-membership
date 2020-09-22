@@ -49,7 +49,6 @@ export class AdminService {
 		console.log(myResponse);
 		return myResponse;
 	}
-  
 
 	///////////////////////////////Eployees List///////////////////////////////////////////////////
 	public getEmpDetailByMerchantId(data): any {
@@ -130,5 +129,15 @@ export class AdminService {
 		});
 		console.log(myResponse);
 		return myResponse;
+	}
+
+	public addOpeningDay(data): Observable<any> {
+		console.log(data);
+		return this.http.post(`${environment.BASE_URL}/addOpeningDay`, data, {
+			headers: new HttpHeaders({ 'Access-Control-Allow-Origin': '*' }).set(
+				'SESSION-TOKEN',
+				localStorage.getItem('jwt_token')
+			)
+		});
 	}
 }

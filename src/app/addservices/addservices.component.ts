@@ -25,6 +25,11 @@ export class AddservicesComponent implements OnInit {
 		display_color: '#e920e9'
 	};
 	display_color: string = '#e920e9';
+	selectedValue = '00';
+	selectedValueminute = '00';
+	selectedValueprocessing = '00';
+	selectedValueminuteprocessing = '00';
+
 	constructor(
 		private SpinnerService: NgxSpinnerService,
 		private formBuilder: FormBuilder,
@@ -46,8 +51,8 @@ export class AddservicesComponent implements OnInit {
 			duration_minutes: [''],
 			process_duration: [''],
 			process_duration_minutes: [''],
-			override_price: [''],
-			override_duration: [''],
+			override_price: [],
+			override_duration: [],
 			loyalty_point: [''],
 			loyalty_redeem: [''],
 			allow_multiple_client: [''],
@@ -64,9 +69,9 @@ export class AddservicesComponent implements OnInit {
 		this.getServiceCatByMerchantId();
 	}
 
-	goOnServicecat() {
-		this.router.navigate(['/admin']);
-	}
+	// goOnServicecat() {
+	// 	this.router.navigate(['/admin']);
+	// }
 
 	get f() {
 		return this.serviceForm.controls;
@@ -90,6 +95,8 @@ export class AddservicesComponent implements OnInit {
 				barcode: service_data.barcode || '',
 				duration: duration,
 				process_duration: process_duration,
+				override_price: service_data.override_price,
+				override_duration: service_data.override_duration,
 				loyalty_point: service_data.loyalty_point || '',
 				loyalty_redeem: service_data.loyalty_redeem || '',
 				allow_multiple_client: service_data.allow_multiple_client == true ? 1 : 0,
@@ -117,6 +124,14 @@ export class AddservicesComponent implements OnInit {
 	onReset() {
 		this.submitted = false;
 		this.serviceForm.reset();
+	}
+	onCancel() {
+		this.router.navigate(['/admin']);
+	}
+	goToServiceCat() {
+		this.jwtService.setToken('tabId', 'category-tab');
+		this.router.navigate(['/admin']);
+	
 	}
 
 	public onChangeColor(color: string): void {
