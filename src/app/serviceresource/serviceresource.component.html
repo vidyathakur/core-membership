@@ -1,0 +1,23 @@
+<div class="modal-header">
+  <h5 class="modal-title">Add Service Resource</h5>
+  <button type="button" class="close" data-dismiss="modal" (click)="closeModal('dismiss')">
+        <span aria-hidden="true">&times;</span>
+    </button>
+</div>
+<div class="modal-body">
+  <form [formGroup]="serviceresourceForm" (ngSubmit)="onSubmit()">
+   <div class="form-group ">
+  <select class="custom-select" formControlName="resource_id" name="resource_id" required [ngClass]="{ 'is-invalid': submitted && f.resource_id.errors }">
+      <option value="" selected="">Select Resource</option>
+      <option *ngFor="let resource of resources" [value]="resource.id">{{resource.resource_name}}</option>
+      </select>
+  <div *ngIf="submitted && f.resource_id.errors" class="invalid-feedback">
+    <div *ngIf="f.resource_id.errors.required">Service Resource is required</div>
+  </div>
+</div>
+    <div class="modal-footer">
+      <button type="button" class="btn mb-3 canc" data-dismiss="modal" (click)="closeModal('close')">Cancel</button>
+      <button type="submit" class="btn mb-3 sub">Submit</button>
+    </div>
+  </form>
+</div>

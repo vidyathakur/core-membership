@@ -23,6 +23,7 @@ export class JwtService {
 		window.localStorage.removeItem('merchant_id');
 		window.localStorage.removeItem('full_name');
 		window.localStorage.removeItem('country_id');
+		window.localStorage.removeItem('service_id');
 	}
 	destroyTokenTab(tab) {
 		window.localStorage.removeItem(tab);

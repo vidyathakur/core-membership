@@ -26,4 +26,26 @@ export class PublicholidayService {
 			)
 		});
 	}
+
+	public getHolidayDateById(holidayId): any {
+		let myResponse = this.http.get(`${environment.BASE_URL}/getHolidayDateById` + '/' + holidayId, {
+			headers: new HttpHeaders().set('SESSION-TOKEN', localStorage.getItem('jwt_token'))
+		});
+		console.log(holidayId);
+		return myResponse;
+	}
+
+	public editHoliday(holidayData): Observable<any> {
+		return this.http.post(`${environment.BASE_URL}/editHoliday`, holidayData, {
+			headers: new HttpHeaders().set('SESSION-TOKEN', localStorage.getItem('jwt_token'))
+		});
+	}
+
+	public deleteHoliday(holidayData): any {
+		let myResponse = this.http.post(`${environment.BASE_URL}/deleteHoliday`, holidayData, {
+			headers: new HttpHeaders().set('SESSION-TOKEN', localStorage.getItem('jwt_token'))
+		});
+		console.log(myResponse);
+		return myResponse;
+	}
 }

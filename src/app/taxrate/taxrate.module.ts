@@ -1,4 +1,4 @@
-import { TaxrateComponent } from './taxrate.component';
+
 import { NgModule } from '@angular/core';
 import { CommonModule } from '@angular/common';
 
@@ -12,7 +12,7 @@ import { BsDatepickerModule } from 'ngx-bootstrap/datepicker';
 import { ToastrModule } from 'ng6-toastr-notifications';
 
 @NgModule({
-  declarations: [TaxrateComponent],
+  declarations: [],
   imports: [
     CommonModule,
      FormsModule,

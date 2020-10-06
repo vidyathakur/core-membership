@@ -1,0 +1,24 @@
+<div class="modal-header">
+  <h5 class="modal-title">Add Service Item</h5>
+  <button type="button" class="close" data-dismiss="modal" (click)="closeModal('dismiss')">
+        <span aria-hidden="true">&times;</span>
+    </button>
+</div>
+<div class="modal-body">
+  <form [formGroup]="serviceItemForm" (ngSubmit)="onSubmit()">
+    <div class="form-group ">
+      <select class="custom-select" formControlName="item_service_id" name="item_service_id" required 
+      [ngClass]="{ 'is-invalid': submitted && f.item_service_id.errors }">
+      <option value="" selected="">Add Service</option>
+      <option *ngFor="let item of serviceItem" [value]="item.id">{{item.service_name}}</option>
+      </select>
+      <div *ngIf="submitted && f.item_service_id.errors" class="invalid-feedback">
+        <div *ngIf="f.item_service_id.errors.required">Service Item is required</div>
+      </div>
+    </div>
+    <div class="modal-footer">
+      <button type="button" class="btn mb-3 canc" data-dismiss="modal" (click)="closeModal('close')">Cancel</button>
+      <button type="submit" class="btn mb-3 sub">Submit</button>
+    </div>
+  </form>
+</div>

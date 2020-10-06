@@ -1,0 +1,30 @@
+<div class="modal-header">
+  <h5 class="modal-title">Add Resources</h5>
+  <button type="button" class="close" data-dismiss="modal" (click)="closeModal('dismiss')">
+        <span aria-hidden="true">&times;</span>
+    </button>
+</div>
+<div class="modal-body">
+  <form [formGroup]="resourcesForm" (ngSubmit)="onSubmit()">
+    <div class="form-group form-label-group">
+      <input type="text" formControlName="resource_name" 
+      [ngClass]="{ 'is-invalid': submitted && f.resource_name.errors }" 
+      name="resource_name" id="resource_name" placeholder="Enter Resources"
+        class="form-control myformscontrol custominput" required autofocus>
+      <label for="resource_name" class="floating-label">Enter Resources</label>
+    <div *ngIf="submitted && f.resource_name.errors" class="invalid-feedback">
+    <div *ngIf="f.resource_name.errors.required">Resources Name is required</div>
+  </div>
+    </div>
+   <div class="form-group form-label-group">
+      <input type="text" formControlName="resource_describe" name="resource_describe" 
+      id="resource_describe" placeholder="Description"
+        class="form-control myformscontrol custominput"  autofocus>
+      <label for="resource_describe" class="floating-label">Description</label>
+    </div>
+    <div class="modal-footer">
+      <button type="button" class="btn mb-3 canc" data-dismiss="modal" (click)="closeModal('close')">Cancel</button>
+      <button type="submit" class="btn mb-3 sub">Submit</button>
+    </div>
+  </form>
+</div>

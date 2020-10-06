@@ -25,10 +25,7 @@ export class EditemployeeService {
 
 	public editEmployee(employeeData): any {
 		let myResponse = this.http.post(`${environment.BASE_URL}/editEmployee `, employeeData, {
-			headers: new HttpHeaders({ 'Access-Control-Allow-Origin': '*' }).set(
-				'SESSION-TOKEN',
-				localStorage.getItem('jwt_token')
-			)
+			headers: new HttpHeaders().set('SESSION-TOKEN',localStorage.getItem('jwt_token'))
 		});
 		console.log(myResponse);
 		return myResponse;

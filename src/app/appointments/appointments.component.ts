@@ -36,6 +36,7 @@ import { AppointmentsService } from 'src/app/appointments/appointments.service';
 export class AppointmentsComponent implements OnInit {
 	public empLevelNames: any;
 	public currentEmployees: any;
+	public TimeArray:any;
 	public data: Object[] = <Object[]>extend([], resourceConferenceData, null, true);
 	public selectedDate: Date = new Date();
 	public timeScale: TimeScaleModel = {
@@ -58,7 +59,6 @@ export class AppointmentsComponent implements OnInit {
 		// { Text: 'f_name', Id: 2, Color: '#357cd2' },
 		// { Text: 'f_name', Id: 3, Color: '#7fa900' }
 	];
-	//console.log(resourceDataSource);
 	public group: GroupModel = { allowGroupEdit: true, resources: ['Conferences'] };
 	public allowMultiple: Boolean = true;
 	public eventSettings: EventSettingsModel = {
@@ -96,19 +96,19 @@ export class AppointmentsComponent implements OnInit {
 	}
 
 	ngOnInit() {
-		//this.getEmplevel();
+		//this.getOpeningDay();
 		this.appointmentsService.getEmpDetailByMerchantId({}).subscribe(
 			data => {
 				console.log(data);
 				let currentEmployees = data['data'];
 				let finalArrayData = [];
 				currentEmployees.forEach((item, key) => {
-					let object = { Text: '', Id: '', Color: '' , Text2: ''};
+					let object = { Text: '', Id: '', Color: '', Text2: '' };
 					object.Text = item.f_name;
 					object.Id = item.id;
 					object.Color = '#357cd2';
 					object.Text2 = item.display_name;
-					if(item.emp_levels){
+					if (item.emp_levels) {
 						object.Id = item.emp_levels.name;
 					}
 					finalArrayData.push(object);
@@ -123,14 +123,15 @@ export class AppointmentsComponent implements OnInit {
 		);
 	}
 
-	//  public getEmplevel(): any {
-  // this.appointmentsService.getEmplevelByMechantId({}).subscribe(
+	// public getOpeningDay(): any {
+	// 	this.appointmentsService.getOpeningDay().subscribe(
 	// 		data => {
 	// 			console.log(data);
-	// 			this.empLevelNames = data['data'];
+	// 			this.TimeArray = data['data'];
 	// 		},
 	// 		error => {
 	// 			console.log('some error occured');
+	// 			this.toastr.errorToastr('some error occured');
 	// 		}
 	// 	);
 	// }

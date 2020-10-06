@@ -1,0 +1,66 @@
+<div class="modal-header">
+  <h5 class="modal-title">Update Employee Level</h5>
+  <button type="button" class="close" data-dismiss="modal" (click)="closeModal('dismiss')">
+        <span aria-hidden="true">&times;</span>
+    </button>
+</div>
+<div class="modal-body">
+  <form [formGroup]="servicelevelForm" (ngSubmit)="updateServicelevel()">
+    <div class="form-group form-label-group">
+      <select class="custom-select" disabled formControlName="emp_level_id" name="emp_level_id" 
+      [ngClass]="{ 'is-invalid': submitted && f.emp_level_id.errors }"
+      required >
+      <option value="" selected="">Select Employee Level</option>
+      <option *ngFor="let empName of empLevelNames"  [value]="empName.id">{{empName.name}}</option>
+      </select>
+        <div *ngIf="submitted && f.emp_level_id.errors" class="invalid-feedback">
+  <div *ngIf="f.emp_level_id.errors.required">Employee Level is required</div>
+</div>
+    </div>
+    <div class="form-group form-label-group">
+ <input type="text" class="form-control myformscontrol custominput" 
+      name="price" id="price" formControlName="price" [ngClass]="{ 'is-invalid': submitted && f.price.errors }"
+  placeholder="Level Price" required autofocus>
+<div *ngIf="submitted && f.price.errors" class="invalid-feedback">
+  <div *ngIf="f.price.errors.required">Level Price is required</div>
+</div>
+      <label for="price" class="floating-label">Enter Price</label>
+    </div>
+   <div class="form-row form-group">
+  <div class="col-md-6">
+    <label>Level Duration</label>
+    <select class="custom-select" [(ngModel)]="selectedValue" formControlName="duration">
+              <option value="00">0 HRS</option>
+              <option value="01">1 HRS</option>
+              <option value="02">2 HRS</option>
+              <option value="03">3 HRS</option>
+              <option value="04">4 HRS</option>
+              <option value="05">5 HRS</option>
+              <option value="06">6 HRS</option>
+              <option value="07">7 HRS</option>
+              <option value="08">8 HRS</option>
+              <option value="09">9 HRS</option>
+            </select>
+  </div>
+  <div class="col-md-6">
+    <label style="visibility: hidden;">Level Duration</label>
+    <select class="custom-select" [(ngModel)]="selectedValueminute" formControlName="duration_minutes">
+                      <option value="00">0 MNS</option>
+                      <option value="15">15 MNS</option>
+                      <option value="30">30 MNS</option>
+                      <option value="45">45 MNS</option>
+                    </select>
+  </div>
+</div>
+    <div class="form-group form-label-group">
+      <input type="hidden" class="form-control" formControlName="serviceLevel_id">
+     <input type="text" class="form-control myformscontrol custominput" name="commission" id="commission" formControlName="commission"
+  placeholder="Level Commission" autofocus>
+<label for="commission" class="floating-label">Level Commission</label>
+    </div>
+    <div class="modal-footer">
+      <button type="button" class="btn mb-3 canc" data-dismiss="modal" (click)="closeModal('close')">Cancel</button>
+      <button type="submit" class="btn mb-3 sub">Update</button>
+    </div>
+  </form>
+</div>

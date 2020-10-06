@@ -48,12 +48,15 @@ export class LoginComponent implements OnInit {
 									let merchant_id = merchant_details.merchantplan_history[0].merchant_id || '';
 									let full_name = merchant_details.full_name || '';
 									let country_id = merchant_details.country_id || '';
+									let service_id = merchant_details.service_id || '';
 									console.log(country_id);
 									console.log(merchant_id);
 									console.log(full_name);
+									console.log(service_id);
 								  this.jwtService.setToken('merchant_id', merchant_id);
 								  this.jwtService.setToken('full_name', full_name);
 								  this.jwtService.setToken('country_id', country_id);
+									this.jwtService.setToken('service_id', service_id);
 								}
 							);
 					  } else {

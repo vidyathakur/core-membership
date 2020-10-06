@@ -1,4 +1,4 @@
-import { ServicecategoryComponent } from './servicecategory.component';
+
 import { NgModule } from '@angular/core';
 import { CommonModule } from '@angular/common';
 import { ToastrModule } from 'ng6-toastr-notifications';
@@ -9,7 +9,7 @@ import { NgxSpinnerModule } from 'ngx-spinner';
 import { ServicecategoryRoutingModule } from './servicecategory-routing.module';
 
 @NgModule({
-  declarations: [ServicecategoryComponent],
+  declarations: [],
   imports: [
     CommonModule,
     FormsModule,

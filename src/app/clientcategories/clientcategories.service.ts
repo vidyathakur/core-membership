@@ -19,12 +19,29 @@ export class ClientcategoriesService {
 	public addClientCat(data): Observable<any> {
 		console.log(data);
 		return this.http.post(`${environment.BASE_URL}/addClientCat`, data, {
-			headers: new HttpHeaders({ 'Access-Control-Allow-Origin': '*' }).set(
-				'SESSION-TOKEN',
-				localStorage.getItem('jwt_token')
-			)
+			headers: new HttpHeaders().set('SESSION-TOKEN', localStorage.getItem('jwt_token'))
 		});
 	}
 
-	
+	public getClientCatDetails(clientCatData): any {
+		let myResponse = this.http.post(`${environment.BASE_URL}/getClientCatDetails`, clientCatData, {
+			headers: new HttpHeaders().set('SESSION-TOKEN', localStorage.getItem('jwt_token'))
+		});
+		console.log(clientCatData);
+		return myResponse;
+	}
+
+	public editClientCat(clientCatData): Observable<any> {
+		return this.http.post(`${environment.BASE_URL}/editClientCat`, clientCatData, {
+			headers: new HttpHeaders().set('SESSION-TOKEN', localStorage.getItem('jwt_token'))
+		});
+	}
+
+	public deleteClientCat(clientcatData): any {
+		let myResponse = this.http.post(`${environment.BASE_URL}/deleteClientCat`, clientcatData, {
+			headers: new HttpHeaders().set('SESSION-TOKEN', localStorage.getItem('jwt_token'))
+		});
+		console.log(myResponse);
+		return myResponse;
+	}
 }

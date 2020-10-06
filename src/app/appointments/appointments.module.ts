@@ -25,9 +25,10 @@ import { FormsModule, ReactiveFormsModule } from '@angular/forms';
 import { NgxSpinnerModule } from 'ngx-spinner';
 import { HttpClientModule } from '@angular/common/http';
 import { ToastrModule } from 'ng6-toastr-notifications';
+import { Time24to12Format } from 'src/app/pipe/time24to12.pipe';
 
 @NgModule({
-  declarations: [AppointmentsComponent],
+  declarations: [AppointmentsComponent,Time24to12Format],
   imports: [
     CommonModule,
 		HttpClientModule,

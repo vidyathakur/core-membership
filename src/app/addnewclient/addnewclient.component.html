@@ -4,10 +4,9 @@
       <div class="main-content-inner">
         <h4 class="header-title2" style="color: #c89628; cursor: pointer; margin-left: 20px;" (click)="goToClient()">Back </h4>
         <h4 class="header-titles2">Add New Client</h4>
-        <form class="col-lg-12" [formGroup]="employeeForm" (ngSubmit)="onSubmit()">
+        <form class="col-lg-12" [formGroup]="clientForm" (ngSubmit)="onSubmit()">
           <div class="control-section accordion-control-section">
             <div class="e-sample-resize-container">
-              <!-- Render the Accoridon Component -->
               <ejs-accordion>
                 <e-accordionitems>
                   <e-accordionitem expanded='true'>
@@ -19,7 +18,11 @@
                         <div class="form-row">
                           <div class="col-md-4">
                               <label style="color: #000000;">FirstName</label>
-                            <input type="text" formControlName="firstname" placeholder="FirstName" class="form-control">
+                            <input type="text" formControlName="f_name" placeholder="FirstName" 
+                            [ngClass]="{ 'is-invalid': submitted && f.f_name .errors }" class="form-control" required>
+                             <div *ngIf="submitted && f.f_name .errors" class="invalid-feedback">
+                              <div *ngIf="f.f_name .errors.required">First Name is required</div>
+                            </div>
                              <span class="opt">Required</span>
                           </div>
                           
@@ -32,7 +35,14 @@
                         <div class="form-row" style="margin-top: 10px;">
                           <div class="col-md-4">
                             <label style="color: #000000;">Email</label>
-                            <input type="email" class="form-control" placeholder="Email">
+                           <input type="email" name="email" formControlName="email" id="inputEmail" 
+                            [ngClass]="{ 'is-invalid': submitted && f.email.errors }"
+                              class="form-control myformscontrol custominput" placeholder="Email Address" required>
+                            <div *ngIf="submitted && f.email.errors" class="invalid-feedback">
+                              <div *ngIf="f.email.errors.required">Email is required</div>
+                              <div *ngIf="f.email.errors.email">Email must be a valid email address</div>
+                            </div>
+
                             <span class="opt">Required</span>
                           </div>
                           <div class="col-md-4">
@@ -50,7 +60,6 @@
           </div>
           <div class="control-section accordion-control-section" style="margin-top: 20px;">
             <div class="e-sample-resize-container">
-              <!-- Render the Accoridon Component -->
               <ejs-accordion>
                 <e-accordionitems>
                   <e-accordionitem>
@@ -62,8 +71,14 @@
                           <div class="form-row">
                              <div class="col-md-4">
                             <label style="color: #000000;">Mobile</label>
-                            <input type="text" class="form-control" 
+                            <input type="text" formControlName="mobile" class="form-control"  required
+                            [ngClass]="{ 'is-invalid': submitted && f.mobile .errors }"
                               placeholder="Mobile">
+                              <div *ngIf="submitted && f.mobile .errors" class="invalid-feedback">
+                              <div *ngIf="f.mobile .errors.required">Mobile is required</div>
+                              <div *ngIf="f.mobile.errors.pattern">Please Enter 10 digit number</div>
+                             </div>
+                             <span class="opt">Required</span>
                           </div>
                             <div class="col-md-4">
                               <label style="color: #000000;">Other Phone</label>
@@ -74,9 +89,17 @@
                           <div class="col-md-6">
                             <label style="color: #000000;">Gender</label>
                             <div class="roles">
-                             <input type="radio" class="inputgen" value="male" name="gender" > <label class="role">Male</label>
-                 <input type="radio" class="inputgen" value="female" name="gender"> <label class="role">Female</label>
-                 <input type="radio" class="inputgen" value="other" name="gender"><label class="role"> Other</label>
+                              <input type="radio" class="inputgen" formControlName="gender" value="male" 
+                                required>
+                              <label class="role" for="Male">Male</label>
+                              <input type="radio" class="inputgen" formControlName="gender" 
+                                value="Female" required>
+                              <label class="role" for="Female">Female</label>
+                              <input type="radio" class="inputgen" formControlName="gender" 
+                                value="Other" required>
+                              <label class="role" for="Other">Other</label>
+                              <br>
+                              <span class="opt">Optional</span>
 
                             </div>
                           </div>
@@ -86,7 +109,7 @@
                              <label style="color: #000000;">Date Of Birth</label>
                             <div class="input-group">
                               <input class="form-control" formControlName="birthday" placeholder="yyyy-mm-dd" 
-                              name="birthday" [(ngModel)]="model" ngbDatepicker
+                              name="birthday" [(ngModel)]="model" ngbDatepicker [minDate]="{year: 1980, month: 1, day: 1}" [maxDate]="{year: 2048, month: 12, day: 31}"
                                 #d="ngbDatepicker">
                               <div class="input-group-append">
                                 <button class="btn btn-outline-secondary calendar" (click)="d.toggle()" type="button">
@@ -99,17 +122,17 @@
                           <div class="form-row" style="margin-top: 10px;">
                             <div class="col-md-4">
                               <label style="color: #000000;">Preffered Employee </label>
-                            <select class="custom-select" formControlName="emp_level_id" required>
-                            <option selected>Select Level</option>
-                            <option >One</option>
+                            <select class="custom-select" formControlName="employee_id">
+                            <option [selected]="true" >Select Employee</option>
+                            <option *ngFor="let employee of currentEmployees" [value]="employee.id">{{employee.f_name}}</option>
                             </select>
                             <span class="opt">Optional</span>
                             </div>
                             <div class="col-md-4">
                              <label style="color: #000000;">Referred By</label>
-                            <select class="custom-select" formControlName="emp_level_id" required>
+                            <select class="custom-select" formControlName="referred_by">
                             <option selected>Select Level</option>
-                            <option >One</option>
+                            <option value="1">One</option>
                             </select>
                             <span class="opt">Optional</span>
                             </div>
@@ -117,15 +140,16 @@
                           <div class="form-row" style="margin-top: 10px;">
                             <div class="col-md-4">
                               <label style="color: #000000;">Referal Type</label>
-                            <select class="custom-select" formControlName="emp_level_id" required>
+                            <select class="custom-select" formControlName="refferral_type_id">
                             <option selected>Select Level</option>
-                            <option >One</option>
+                            <option value="1">One</option>
                             </select>
                             <span class="opt">Optional</span>
                             </div>
                             <div class="col-md-4">
                               <label style="color: #000000;">Barcode/Member No.</label>
-                              <input type="text" class="form-control" placeholder="Barcode/Member No.">
+                              <input type="text" class="form-control" formControlName="barcode_no" 
+                              placeholder="Barcode/Member No.">
                               <span class="opt">Optional</span>
                             </div>
                           </div>
@@ -138,7 +162,6 @@
           </div>
           <div class="control-section accordion-control-section" style="margin-top: 20px;">
             <div class="e-sample-resize-container">
-              <!-- Render the Accoridon Component -->
               <ejs-accordion>
                 <e-accordionitems>
                   <e-accordionitem>
@@ -147,43 +170,37 @@
                     </ng-template>
                     <ng-template #content>
                       <div class="card-body">
-                        <form>
                           <div class="form-row">
                             <div class="col-md-4">
                              <label style="color: #000000;">Address</label>
                             <input type="text" class="form-control" formControlName="address" 
                               placeholder="Address">
-                            <span class="opt">Required</span>
+                            <span class="opt">Optional</span>
                             </div>
                             <div class="col-md-4">
                              <label style="color: #000000;">Suburb</label>
                             <input type="text" class="form-control" formControlName="suburb" 
                               placeholder="Suburb">
-                            <span class="opt">Required</span>
+                            <span class="opt">Optional</span>
                             </div>
                           </div>
                           <div class="form-row" style="margin-top: 10px;">
                             <div class="col-md-4">
                               <label style="color: #000000;">Post Code</label>
                             <input type="text" class="form-control" formControlName="postcode" 
-                            [ngClass]="{ 'is-invalid': submitted && f.postcode.errors }"
                               placeholder="Post Code">
-                            <div *ngIf="submitted && f.postcode.errors" class="invalid-feedback">
-                              <div *ngIf="f.postcode.errors.required">Post Code is required</div>
-                            </div>
                             <span class="opt">Optional</span>
                             </div>
                             <div class="col-md-4">
                              <label style="color: #000000;">State</label>
-                            <select class="custom-select" formControlName="state_id" required>
-                            <option selected>Select State</option>
-                            <option >One</option>
-                            </select>
+                           <select class="custom-select" formControlName="state_id">
+                              <option [selected]="true">Select State </option>
+                              <option *ngFor="let state of stateList"  [value]="state.id">{{state.name}}</option>
+                                              
+                                             </select>
                             <span class="opt">Optional</span>
                             </div>
                           </div>
-                          <!--<label for="validationTooltip01" class="mylabel">Referral Type</label>-->
-                        </form>
                       </div>
                     </ng-template>
                   </e-accordionitem>
@@ -193,7 +210,6 @@
           </div>
           <div class="control-section accordion-control-section" style="margin-top: 20px;">
             <div class="e-sample-resize-container">
-              <!-- Render the Accoridon Component -->
               <ejs-accordion>
                 <e-accordionitems>
                   <e-accordionitem>
@@ -202,39 +218,41 @@
                     </ng-template>
                     <ng-template #content>
                       <div class="card-body">
-                        <form>
                           <div class="form-row">
                             <div class="col-md-4">
                               <b class="text-muted mb-3 d-block mylabel" style="color:#000000 !important; font-weight: 500;">Appointment Reminders</b>
                                <div class="custom-control custom-checkbox custom-control-inline">
-                                                <input type="radio" id="customRadio5" name="customRadio2" class="custom-control-input">
-                                                <label class="custom-control-label" for="customRadio5">SMS</label>
-                                            </div>
-                                            <div class="custom-control custom-checkbox custom-control-inline">
-                                                <input type="radio" checked id="customRadio4" name="customRadio2" class="custom-control-input">
-                                                <label class="custom-control-label" for="customRadio4">Email</label>
-                                            </div>
+                              <input type="checkbox" id="customRadio5" formControlName="appoints_sms" value="1"
+                              name="customRadio2" class="custom-control-input">
+                              <label class="custom-control-label" for="customRadio5">SMS</label>
+                          </div>
+                          <div class="custom-control custom-checkbox custom-control-inline">
+                              <input type="checkbox" [checked]="myModel" id="customRadio4" value="1"
+                              formControlName="appoints_email" name="customRadio2" class="custom-control-input">
+                              <label class="custom-control-label" for="customRadio4">Email</label>
+                          </div>
                                            
                               <b class="text-muted mb-3 d-block mylabel" style="color:#000000 !important; font-weight: 500; padding-top: 10px;"> Promotions</b>
                               <div class="custom-control custom-checkbox custom-control-inline">
-                                                <input type="radio" id="customRadio7" name="customRadio3" class="custom-control-input">
-                                                <label class="custom-control-label" for="customRadio7">SMS</label>
-                                            </div>
+                              <input type="checkbox" id="customRadio7" formControlName="promote_sms" 
+                              name="customRadio3" class="custom-control-input">
+                              <label class="custom-control-label" for="customRadio7">SMS</label>
+                          </div>
                                <div class="custom-control custom-checkbox custom-control-inline">
-                                                <input type="radio" checked id="customRadio6" name="customRadio3" class="custom-control-input">
-                                                <label class="custom-control-label" for="customRadio6">Email</label>
-                                            </div>
+                              <input type="checkbox" [checked]="myModel" id="customRadio6" formControlName="promote_email" 
+                              name="customRadio3" class="custom-control-input">
+                              <label class="custom-control-label" for="customRadio6">Email</label>
+                          </div>
                                
                               <b class="text-muted mb-3 d-block mylabel" style="color:#000000 !important; font-weight: 500; padding-top: 10px;">Online Booking </b>
                              <div class="custom-control custom-checkbox custom-control-inline">
                               <input type="checkbox" class="custom-control-input" value="1" 
-                              formControlName="appoint_email" id="customCheck9">
+                              formControlName="online_booking" id="customCheck9">
                               <label class="custom-control-label" for="customCheck9">Enable Online Booking</label>
 
                             </div>
                             </div>
                           </div>
-                        </form>
                       </div>
                     </ng-template>
                   </e-accordionitem>
@@ -244,7 +262,6 @@
           </div>
           <div class="control-section accordion-control-section" style="margin-top: 20px;">
             <div class="e-sample-resize-container">
-              <!-- Render the Accoridon Component -->
               <ejs-accordion>
                 <e-accordionitems>
                   <e-accordionitem>
@@ -256,7 +273,8 @@
                         <div class="form-row" >
                           <div class="col-md-4">
                             <label style="color: #000000;">Loyalty Points</label>
-                            <input type="text" class="form-control" placeholder="Loyalty Points">
+                            <input type="text" class="form-control" formControlName="loyalty_point" 
+                            placeholder="Loyalty Points">
                             <span class="opt">Optional</span>
                           </div>
                         </div>
@@ -280,23 +298,24 @@
                           <div class="form-row" style="margin-top: 10px;">
                             <div class="col-md-4">
                               <label style="color: #000000;" for="comment">Comment</label>
-                              <textarea ngModel name="comment" id="comment" cols="30" rows="10" type="text" class="form-control"></textarea>
+                              <textarea ngModel name="comment" formControlName="comments" id="comment" 
+                              cols="30" rows="10" type="text" class="form-control"></textarea>
                               <span class="opt">Optional</span>
                             </div>
                           </div>
-                          <div class="form-row" style="margin-top: 10px;">
+                          <!--<div class="form-row" style="margin-top: 10px;">
                             <div class="col-md-4">
                               <p class="text-muted mb-3 d-block mylabel" style="color:#000000 !important;font-weight: 
                             500;margin-top: 10px;">
                             </p>
                             <div class="custom-control custom-checkbox custom-control-inline">
                               <input type="checkbox" class="custom-control-input" value="1" 
-                              formControlName="appoint_email" id="customCheck6">
+                              formControlName="client_cat_ids" id="customCheck6">
                               <label class="custom-control-label" for="customCheck6">client category</label>
 
                             </div>
                             </div>
-                          </div>
+                          </div>-->
                       </div>
                     </ng-template>
                   </e-accordionitem>
@@ -314,17 +333,17 @@
                     </ng-template>
                     <ng-template #content>
                       <div class="card-body">
-                          <div class="form-row" style="margin-top: 10px;">
+                          <div class="form-row">
                             <div class="col-md-4">
                               <p class="text-muted mb-3 d-block mylabel" style="color:#000000 !important;font-weight: 
                             500;margin-top: 10px;">
                             </p>
-                            <div class="custom-control custom-checkbox custom-control-inline">
-                              <input type="checkbox" class="custom-control-input" value="1" 
-                              formControlName="appoint_email" id="customCheck6">
-                              <label class="custom-control-label" for="customCheck6">client category</label>
-
-                            </div>
+                            <div class="custom-control custom-checkbox custom-control-inline" 
+                            *ngFor="let clientCat of clientCats">
+                              <input type="checkbox" class="custom-control-input"
+                              formControlName="client_cat_ids" id="customCheck6" [(ngModel)]="clientCat.id">
+                              <label class="custom-control-label"  for="customCheck6">{{clientCat.name}}</label>
+                              </div>
                             </div>
                           </div>
                       </div>

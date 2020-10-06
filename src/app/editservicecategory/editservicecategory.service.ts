@@ -27,10 +27,7 @@ export class EditservicecategoryService {
 
 	public editServiceCat(serviceCatData): any {
 		let myResponse = this.http.patch(`${environment.BASE_URL}/editServiceCat` + '?', serviceCatData, {
-			headers: new HttpHeaders({ 'Access-Control-Allow-Origin': '*' }).set(
-				'SESSION-TOKEN',
-				localStorage.getItem('jwt_token')
-			)
+			headers: new HttpHeaders().set('SESSION-TOKEN',localStorage.getItem('jwt_token'))
 		});
 		console.log(serviceCatData);
 		return myResponse;

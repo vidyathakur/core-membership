@@ -48,6 +48,12 @@
           <ng-template #timeScaleMinorSlotTemplate let-data>
             <div class="minorTime">{{getMinorTime(data.date)}}</div>
           </ng-template>
+          <!--<ng-template #timeScaleMajorSlotTemplate let-data>
+            <div class="majorTime" *ngFor="let time of TimeArray">{{time.mom_start_time | time24to12Transform}}</div>
+          </ng-template>
+          <ng-template #timeScaleMinorSlotTemplate let-data>
+            <div class="minorTime" *ngFor="let time of TimeArray">{{time.mom_start_time | time24to12Transform}}</div>
+          </ng-template>-->
           <e-views>
             <e-view option="Day"></e-view>
             <!--<e-view option="WorkWeek"></e-view>

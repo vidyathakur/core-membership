@@ -20,6 +20,14 @@ import { EditservicecategoryComponent } from './editservicecategory/editservicec
 import { EdittaxrateComponent } from './edittaxrate/edittaxrate.component';
 import { EditpublicholidayComponent } from './editpublicholiday/editpublicholiday.component';
 import { EditclientcategoriesComponent } from './editclientcategories/editclientcategories.component';
+import { ResourcesComponent } from './resources/resources.component';
+import { EditresourcesComponent } from './editresources/editresources.component';
+import { ServicelevelComponent } from './servicelevel/servicelevel.component';
+import { EditservicelevelComponent } from './editservicelevel/editservicelevel.component';
+import { ServiceresourceComponent } from './serviceresource/serviceresource.component';
+import { EditserviceresourcesComponent } from './editserviceresources/editserviceresources.component';
+import { ServiceitemComponent } from 'src/app/serviceitem/serviceitem.component';
+import { EditserviceitemComponent } from './editserviceitem/editserviceitem.component';
 
 @NgModule({
   declarations: [
@@ -32,6 +40,14 @@ import { EditclientcategoriesComponent } from './editclientcategories/editclient
     EdittaxrateComponent,
     EditpublicholidayComponent,
     EditclientcategoriesComponent,
+    ResourcesComponent,
+    EditresourcesComponent,
+    ServicelevelComponent,
+    EditservicelevelComponent,
+    ServiceresourceComponent,
+    EditserviceresourcesComponent,
+    ServiceitemComponent,
+    EditserviceitemComponent
   ],
   imports: [
     BrowserModule,
@@ -58,6 +74,14 @@ import { EditclientcategoriesComponent } from './editclientcategories/editclient
     EdittaxrateComponent,
     EditpublicholidayComponent,
     EditclientcategoriesComponent,
+    ResourcesComponent,
+    EditresourcesComponent,
+    ServicelevelComponent,
+    EditservicelevelComponent,
+    ServiceresourceComponent,
+    EditserviceresourcesComponent,
+    ServiceitemComponent,
+    EditserviceitemComponent
   ],
   bootstrap: [AppComponent]
 })

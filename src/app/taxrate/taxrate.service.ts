@@ -18,8 +18,32 @@ export class TaxrateService {
 	public addTaxRates(data): Observable<any> {
 		console.log(data);
 		return this.http.post(`${environment.BASE_URL}/addTaxRates`, data, {
-			headers: new HttpHeaders({ 'Access-Control-Allow-Origin': '*' }).set('SESSION-TOKEN',localStorage.getItem('jwt_token')
+			headers: new HttpHeaders({ 'Access-Control-Allow-Origin': '*' }).set(
+				'SESSION-TOKEN',
+				localStorage.getItem('jwt_token')
 			)
 		});
+	}
+
+	public getTaxRatesById(taxrateId): any {
+		let myResponse = this.http.get(`${environment.BASE_URL}/getTaxRatesById` + '/' + taxrateId, {
+			headers: new HttpHeaders().set('SESSION-TOKEN', localStorage.getItem('jwt_token'))
+		});
+		console.log(taxrateId);
+		return myResponse;
+	}
+
+	public editTaxRate(taxrateData): Observable<any> {
+		return this.http.post(`${environment.BASE_URL}/editTaxRate`, taxrateData, {
+			headers: new HttpHeaders().set('SESSION-TOKEN', localStorage.getItem('jwt_token'))
+		});
+	}
+
+	public deleteTaxRate(taxrateData): any {
+		let myResponse = this.http.post(`${environment.BASE_URL}/deleteTaxRate`, taxrateData, {
+			headers: new HttpHeaders().set('SESSION-TOKEN', localStorage.getItem('jwt_token'))
+		});
+		console.log(myResponse);
+		return myResponse;
 	}
 }

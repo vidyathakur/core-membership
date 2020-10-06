@@ -23,19 +23,11 @@ export class AppointmentsService {
 		return myResponse;
 	}
 
-	/*public getEmployeesDetailsById(currentEmpId): any {
-		let myResponse = this.http.post(`${environment.BASE_URL}/getEmployeesDetailsById `, currentEmpId, {
-			headers: new HttpHeaders().set('SESSION-TOKEN', localStorage.getItem('jwt_token'))
-		});
-		console.log(currentEmpId);
-		return myResponse;
-	}
-
-	public getEmplevelByMechantId(data): any {
-		let myResponse = this.http.post(`${environment.BASE_URL}/getEmpDetailByMerchantId `, data, {
+	public getOpeningDay(): any {
+		let myResponse = this.http.get(`${environment.BASE_URL}/getOpeningDay `, {
 			headers: new HttpHeaders().set('SESSION-TOKEN', localStorage.getItem('jwt_token'))
 		});
 		console.log(myResponse);
 		return myResponse;
-	}*/
+	}
 }

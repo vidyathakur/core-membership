@@ -12,24 +12,57 @@ import { ServicecategoryComponent } from 'src/app/servicecategory/servicecategor
 import { TaxrateComponent } from 'src/app/taxrate/taxrate.component';
 import { EditservicecategoryComponent } from 'src/app/editservicecategory/editservicecategory.component';
 import { TabsetComponent, TabDirective } from 'ngx-bootstrap/tabs';
+import { ResourcesComponent } from 'src/app/resources/resources.component';
+import { EditresourcesComponent } from 'src/app/editresources/editresources.component';
+import { ServicelevelComponent } from 'src/app/servicelevel/servicelevel.component';
+import { ServicelevelService } from 'src/app/servicelevel/servicelevel.service';
+import { Input } from '@angular/core';
+import { EditservicelevelComponent } from 'src/app/editservicelevel/editservicelevel.component';
+import { ServiceresourceComponent } from 'src/app/serviceresource/serviceresource.component';
+import { ServiceresourceService } from 'src/app/serviceresource/serviceresource.service';
+import { EditserviceresourcesComponent } from 'src/app/editserviceresources/editserviceresources.component';
+import { ServiceitemComponent } from 'src/app/serviceitem/serviceitem.component';
+import { ServiceitemService } from 'src/app/serviceitem/serviceitem.service';
+import { EditserviceitemComponent } from 'src/app/editserviceitem/editserviceitem.component';
+import { EditclientcategoriesComponent } from 'src/app/editclientcategories/editclientcategories.component';
+import { ClientcategoriesService } from 'src/app/clientcategories/clientcategories.service';
+import { EdittaxrateComponent } from 'src/app/edittaxrate/edittaxrate.component';
+import { TaxrateService } from 'src/app/taxrate/taxrate.service';
+import { EditpublicholidayComponent } from 'src/app/editpublicholiday/editpublicholiday.component';
+import { PublicholidayService } from 'src/app/publicholiday/publicholiday.service';
 @Component({
 	selector: 'app-admin',
 	templateUrl: './admin.component.html',
 	styleUrls: ['./admin.component.css']
 })
 export class AdminComponent implements OnInit {
+	serviceLevelData: { price: ''; duration: '' };
+	@Input() public user_level_id;
+	service_level_id: any;
+	id: any;
+	levelid: any;
+	resourceid: any;
 	emplevel_id: any;
+	opening_hours_id: any;
 	closeResult: string;
 	empForm: FormGroup;
 	openingForm: FormGroup;
 	modalReference: NgbModalRef;
 	submitted = false;
 	public name: any;
+	public show: boolean = false;
+	public resourceshow: boolean = false;
+	public itemsshow: boolean = false;
+	public serviceshow: boolean = true;
 	public merchantid: any;
 	public emplevel_name: any;
+	public serviceitems: any;
 	public currentEmp: any;
+	public resources: any;
+	public servicelevels: any;
 	public clientCats: any;
 	public serviceCats: any;
+	public serviceresources: any;
 	public taxRate: any;
 	public services: any;
 	public publicHoliday: any;
@@ -264,7 +297,14 @@ export class AdminComponent implements OnInit {
 		public toastr: ToastrManager,
 		private jwtService: JwtService,
 		private _route: ActivatedRoute,
-		public adminService: AdminService
+		public adminService: AdminService,
+		private route: ActivatedRoute,
+		public servicelevelService: ServicelevelService,
+		public clientcategoriesService: ClientcategoriesService,
+		public serviceresourceService: ServiceresourceService,
+		public serviceitemService: ServiceitemService,
+		public taxrateService: TaxrateService,
+		public publicholidayService: PublicholidayService
 	) {
 		this.empForm = this.formBuilder.group({
 			id: new FormControl('', Validators.required),
@@ -286,13 +326,14 @@ export class AdminComponent implements OnInit {
 			sat_end_time: [''],
 			sun_start_time: [''],
 			sun_end_time: [''],
-			sunday_disable_option:[''],
-			monday_disable_option:[''],
-			tuesday_disable_option:[''],
-			wednesday_disable_option:[''],
-			thrusday_disable_option:[''],
-			friday_disable_option:[''],
-			saturday_disable_option:['']
+			sunday_disable_option: [''],
+			monday_disable_option: [''],
+			tuesday_disable_option: [''],
+			wednesday_disable_option: [''],
+			thrusday_disable_option: [''],
+			friday_disable_option: [''],
+			saturday_disable_option: [''],
+			opening_hours_id: ['']
 		});
 	}
 
@@ -327,6 +368,8 @@ export class AdminComponent implements OnInit {
 		} else {
 			this.activeTab = 'services-tab';
 		}
+		this.getOpeningDay();
+		this.getResource();
 		this.getServiceCatByMerchantId();
 		this.getEmployees();
 		this.getEmplevel();
@@ -338,6 +381,8 @@ export class AdminComponent implements OnInit {
 	OnChangeofOptions() {
 		console.log('changing');
 	}
+
+
 	onSubmit() {
 		this.submitted = true;
 		let response_data = this.empForm.value;
@@ -432,16 +477,23 @@ export class AdminComponent implements OnInit {
 			}
 		);
 	}
-	public getServiceCatByMerchantId(): any {}
+	public getServiceCatByMerchantId(): any {
+		this.adminService.getServiceCatByMerchantId({}).subscribe(
+			data => {
+				console.log(data);
+				this.serviceCats = data['data'];
+			},
+			error => {
+				console.log('some error occured');
+				this.toastr.errorToastr('some error occured');
+			}
+		);
+	}
 	public getServiceByMerchantId(): any {
-		this.SpinnerService.show();
 		this.adminService.getServiceByMerchantId().subscribe(
 			data => {
 				console.log(data);
 				this.services = data['data'];
-				setTimeout(() => {
-					this.SpinnerService.hide();
-				}, 2000);
 			},
 			error => {
 				console.log('some error occured');
@@ -465,6 +517,131 @@ export class AdminComponent implements OnInit {
 			}
 		);
 	}
+	public getResource(): any {
+		this.SpinnerService.show();
+		this.adminService.getResource().subscribe(
+			data => {
+				console.log(data);
+				this.resources = data['data'];
+				setTimeout(() => {
+					this.SpinnerService.hide();
+				}, 2000);
+			},
+			error => {
+				console.log('some error occured');
+				this.toastr.errorToastr('some error occured');
+			}
+		);
+	}
+	public getServiceEmpLevelByServiceId(id): any {
+		this.servicelevelService.getServiceEmpLevelByServiceId(id).subscribe(
+			data => {
+				console.log(data);
+				this.servicelevels = data['data'];
+			},
+			error => {
+				console.log('some error occured');
+				this.toastr.errorToastr('some error occured');
+			}
+		);
+	}
+
+	public getServiceResourceByServiceId(id): any {
+		this.serviceresourceService.getServiceResourceByServiceId(id).subscribe(
+			data => {
+				console.log(data);
+				this.serviceresources = data['data'];
+			},
+			error => {
+				console.log('some error occured');
+				this.toastr.errorToastr('some error occured');
+			}
+		);
+	}
+
+	public getServiceItemByServiceId(id): any {
+		this.serviceitemService.getServiceItemByServiceId(id).subscribe(
+			data => {
+				console.log(data);
+				this.serviceitems = data['data'];
+			},
+			error => {
+				console.log('some error occured');
+				this.toastr.errorToastr('some error occured');
+			}
+		);
+	}
+
+	public getOpeningDay(): any {
+		this.SpinnerService.show();
+		this.adminService.getOpeningDay().subscribe(
+			data => {
+				console.log(data);
+				let openingdata = data['data'][0];
+				if (openingdata.sun_start_time) {
+					this.openingForm.get('sun_start_time').enable();
+					this.openingForm.get('sun_end_time').enable();
+				}
+				if (openingdata.mom_start_time) {
+					this.openingForm.get('mom_start_time').enable();
+					this.openingForm.get('mom_end_time').enable();
+				}
+				if (openingdata.tue_start_time) {
+					this.openingForm.get('tue_start_time').enable();
+					this.openingForm.get('tue_end_time').enable();
+				}
+				if (openingdata.wed_start_time) {
+					this.openingForm.get('wed_start_time').enable();
+					this.openingForm.get('wed_end_time').enable();
+				}
+				if (openingdata.thur_start_time) {
+					this.openingForm.get('thur_start_time').enable();
+					this.openingForm.get('thur_end_time').enable();
+				}
+				if (openingdata.fri_start_time) {
+					this.openingForm.get('fri_start_time').enable();
+					this.openingForm.get('fri_end_time').enable();
+				}
+				if (openingdata.sat_start_time) {
+					this.openingForm.get('sat_start_time').enable();
+					this.openingForm.get('sat_end_time').enable();
+				}
+				this.openingForm = this.formBuilder.group({
+					sun_start_time: [openingdata.sun_start_time],
+					sun_end_time: openingdata.sun_end_time,
+					mom_start_time: openingdata.mom_start_time,
+					mom_end_time: openingdata.mom_end_time,
+					tue_start_time: openingdata.tue_start_time,
+					tue_end_time: openingdata.tue_end_time,
+					wed_start_time: openingdata.wed_start_time,
+					wed_end_time: openingdata.wed_end_time,
+					thur_start_time: openingdata.thur_start_time,
+					thur_end_time: openingdata.thur_end_time,
+					fri_start_time: openingdata.fri_start_time,
+					fri_end_time: openingdata.fri_end_time,
+					sat_start_time: openingdata.sat_start_time,
+					sat_end_time: openingdata.sat_end_time,
+					sunday_disable_option: [openingdata.sun_start_time ? 1 : 0],
+					monday_disable_option: [openingdata.mom_start_time ? 1 : 0],
+					tuesday_disable_option: [openingdata.tue_start_time ? 1 : 0],
+					wednesday_disable_option: [openingdata.wed_start_time ? 1 : 0],
+					thrusday_disable_option: [openingdata.thur_start_time ? 1 : 0],
+					friday_disable_option: [openingdata.fri_start_time ? 1 : 0],
+					saturday_disable_option: [openingdata.fri_end_time ? 1 : 0],
+					opening_hours_id: [openingdata.id]
+				});
+				console.log(openingdata);
+				setTimeout(() => {
+					this.SpinnerService.hide();
+				}, 2000);
+			},
+			error => {
+				console.log('some error occured');
+				this.toastr.errorToastr('some error occured');
+			}
+		);
+	}
+
 	open(content) {
 		this.modalService.open(content, { ariaLabelledBy: 'modal-basic-title' }).result.then(
 			result => {
@@ -501,6 +678,10 @@ export class AdminComponent implements OnInit {
 	// 		}
 	// 	);
 	// }
+	goToBackService() {
+		this.jwtService.setToken('tabId', 'services-tab');
+		this.router.navigate(['/admin']);
+	}
 	openservicecatModal(id) {
 		console.log(id);
 		const modalRef = this.modalService.open(EditservicecategoryComponent, {
@@ -514,6 +695,7 @@ export class AdminComponent implements OnInit {
 		modalRef.result.then(
 			result => {
 				this.getServiceCatByMerchantId();
+				console.log(result);
 			},
 			reason => {}
 		);
@@ -530,12 +712,48 @@ export class AdminComponent implements OnInit {
 			reason => {}
 		);
 	}
+	openEditholidayModel(id) {
+		const modalRef = this.modalService.open(EditpublicholidayComponent, { windowClass: 'myCustomModalClass' });
+		modalRef.componentInstance.holidayid = id;
+		console.log(id);
+		modalRef.result.then(
+			result => {
+				this.getHoliday();
+			},
+			reason => {}
+		);
+	}
 	openserviceModal() {
 		const modalRef = this.modalService.open(ServicecategoryComponent, { windowClass: 'myCustomModalClass' });
 		modalRef.result.then(
 			result => {
 				this.getServiceCatByMerchantId();
 				console.log(result);
+			},
+			reason => {}
+		);
+	}
+	openresourcesModal() {
+		const modalRef = this.modalService.open(ResourcesComponent, {
+			windowClass: 'myCustomModalClass'
+		});
+		modalRef.result.then(
+			result => {
+				this.getResource();
+				console.log(result);
+			},
+			reason => {}
+		);
+	}
+	openeditresourcesModal(id) {
+		const modalRef = this.modalService.open(EditresourcesComponent, {
+			windowClass: 'myCustomModalClass'
+		});
+		modalRef.componentInstance.resourceid = id;
+		console.log(id);
+		modalRef.result.then(
+			result => {
+				this.getResource();
 			},
 			reason => {}
 		);
@@ -550,14 +768,26 @@ export class AdminComponent implements OnInit {
 			reason => {}
 		);
 	}
-	openclientcatupdateModal() {
-		this.modalService.open(ClientcategoriesComponent, { ariaLabelledBy: 'modal-basic-title' }).result.then(
+	openedittaxModal(id) {
+		const modalRef = this.modalService.open(EdittaxrateComponent, { windowClass: 'myCustomModalClass' });
+		modalRef.componentInstance.taxid = id;
+		console.log(id);
+		modalRef.result.then(
 			result => {
-				this.closeResult = `Closed with: ${result}`;
+				this.getTaxRates();
 			},
-			reason => {
-				this.closeResult = `Dismissed ${this.getDismissReason(reason)}`;
-			}
+			reason => {}
+		);
+	}
+	openclientcatupdateModal(id) {
+		const modalRef = this.modalService.open(EditclientcategoriesComponent, { windowClass: 'myCustomModalClass' });
+		modalRef.componentInstance.clientcatid = id;
+		console.log(id);
+		modalRef.result.then(
+			result => {
+				this.getClientCategories();
+			},
+			reason => {}
 		);
 	}
 	opentaxmodal(content) {
@@ -582,6 +812,78 @@ export class AdminComponent implements OnInit {
 			}
 		);
 	}
+	openServicelevelModal(id) {
+		const modalRef = this.modalService.open(ServicelevelComponent, { windowClass: 'myCustomModalClass' });
+		modalRef.componentInstance.user_level_id = id;
+		modalRef.result.then(
+			result => {
+				this.getServiceEmpLevelByServiceId(id);
+			},
+			reason => {}
+		);
+	}
+
+	openServiceResourcesModal(id) {
+		const modalRef = this.modalService.open(ServiceresourceComponent, { windowClass: 'myCustomModalClass' });
+		modalRef.componentInstance.user_level_id = id;
+		modalRef.result.then(
+			result => {
+				this.getServiceResourceByServiceId(id);
+			},
+			reason => {}
+		);
+	}
+	openServiceItemsModal(id) {
+		const modalRef = this.modalService.open(ServiceitemComponent, { windowClass: 'myCustomModalClass' });
+		modalRef.componentInstance.user_level_id = id;
+		console.log(id);
+		modalRef.result.then(
+			result => {
+				this.getServiceItemByServiceId(id);
+			},
+			reason => {}
+		);
+	}
+
+	openEditservicelevelModal(id, service_id) {
+		const modalRef = this.modalService.open(EditservicelevelComponent, { windowClass: 'myCustomModalClass' });
+		modalRef.componentInstance.servicelevelId = id;
+		modalRef.componentInstance.user_level_id = service_id;
+		console.log(id);
+		modalRef.result.then(
+			result => {
+				this.getServiceEmpLevelByServiceId(service_id);
+			},
+			reason => {}
+		);
+	}
+
+	openEditserviceresourcesModal(id, service_id) {
+		const modalRef = this.modalService.open(EditserviceresourcesComponent, { windowClass: 'myCustomModalClass' });
+		modalRef.componentInstance.servicelevelId = id;
+		modalRef.componentInstance.user_level_id = service_id;
+		console.log(service_id);
+		modalRef.result.then(
+			result => {
+				this.getServiceResourceByServiceId(service_id);
+			},
+			reason => {}
+		);
+	}
+
+	openEditserviceitemModal(id, service_id) {
+		const modalRef = this.modalService.open(EditserviceitemComponent, { windowClass: 'myCustomModalClass' });
+		modalRef.componentInstance.servicelevelId = id;
+		modalRef.componentInstance.user_level_id = service_id;
+		console.log(service_id);
+		modalRef.result.then(
+			result => {
+				this.getServiceItemByServiceId(service_id);
+			},
+			reason => {}
+		);
+	}
+
 	openupdatemodal(content, id) {
 		let details = this.allEmpData[id];
 		content.emp_details = this.allEmpData[id];
@@ -675,13 +977,105 @@ export class AdminComponent implements OnInit {
 			}
 		);
 	}
+	public deleteResources(id): any {
+		this.adminService.deleteResource(id).subscribe(
+			data => {
+				console.log(data);
+				this.toastr.successToastr(' Resource Deleted Successfully');
+				this.ngOnInit();
+				this.getResource();
+			},
+			error => {
+				console.log('some error occured');
+				this.toastr.errorToastr('Some error occured', 'Oops!');
+			}
+		);
+	}
+	public deleteServicelevel(id, service_id): any {
+		this.servicelevelService.deleteServicelevel(id).subscribe(
+			data => {
+				console.log(data);
+				this.toastr.successToastr(' Service Level Deleted Successfully');
+				this.getServiceEmpLevelByServiceId(service_id);
+			},
+			error => {
+				console.log('some error occured');
+				this.toastr.errorToastr('Some error occured', 'Oops!');
+			}
+		);
+	}
+	public deleteServiceResource(id, service_id): any {
+		this.serviceresourceService.deleteServiceResource(id).subscribe(
+			data => {
+				console.log(data);
+				this.toastr.successToastr(' Service Resource Deleted Successfully');
+				this.getServiceResourceByServiceId(service_id);
+			},
+			error => {
+				console.log('some error occured');
+				this.toastr.errorToastr('Some error occured', 'Oops!');
+			}
+		);
+	}
+
+	public deleteServiceItem(id, service_id): any {
+		this.serviceitemService.deleteServiceItem(id).subscribe(
+			data => {
+				console.log(data);
+				this.toastr.successToastr(' Service Item Deleted Successfully');
+				this.getServiceItemByServiceId(service_id);
+			},
+			error => {
+				console.log('some error occured');
+				this.toastr.errorToastr('Some error occured', 'Oops!');
+			}
+		);
+	}
+	public deleteclientcatModal(clientCat_id): any {
+		this.clientcategoriesService.deleteClientCat({ clientCat_id: clientCat_id }).subscribe(
+			data => {
+				console.log(data);
+				this.toastr.successToastr(' Clientcategory Deleted Successfully');
+				this.getClientCategories();
+			},
+			error => {
+				console.log('some error occured');
+				this.toastr.errorToastr('Some error occured', 'Oops!');
+			}
+		);
+	}
+	public deleteHoliday(holiday_id): any {
+		this.publicholidayService.deleteHoliday({ holiday_id: holiday_id }).subscribe(
+			data => {
+				console.log(data);
+				this.toastr.successToastr(' Holiday Deleted Successfully');
+				this.getHoliday();
+			},
+			error => {
+				console.log('some error occured');
+				this.toastr.errorToastr('Some error occured', 'Oops!');
+			}
+		);
+	}
+
+	public deletEedittax(tax_rates_id): any {
+		this.taxrateService.deleteTaxRate({ tax_rates_id: tax_rates_id }).subscribe(
+			data => {
+				console.log(data);
+				this.toastr.successToastr(' Tax Deleted Successfully');
+				this.getTaxRates();
+			},
+			error => {
+				console.log('some error occured');
+				this.toastr.errorToastr('Some error occured', 'Oops!');
+			}
+		);
+	}
 
 	onChangeDate(event: any, disable_type_from, disable_type_to) {
 		if (event.target.checked) {
 			this.openingForm.get(disable_type_from).enable();
 			this.openingForm.get(disable_type_to).enable();
-			/*this[disable_type] = false;
-			console.log('false');*/
 		} else {
 			this.openingForm.get(disable_type_from).disable();
 			this.openingForm.get(disable_type_to).disable();
@@ -694,25 +1088,32 @@ export class AdminComponent implements OnInit {
 			let openingHours_data = this.openingForm.value;
 			console.log(openingHours_data);
 			let data = {
-				mom_start_time: (openingHours_data.monday_disable_option==1) ? openingHours_data.mom_start_time : '',
-				mom_end_time: (openingHours_data.monday_disable_option==1) ? openingHours_data.mom_end_time : '',
-				tue_start_time: (openingHours_data.tuesday_disable_option==1) ? openingHours_data.tue_start_time : '',
-				tue_end_time: (openingHours_data.tuesday_disable_option==1) ? openingHours_data.tue_end_time : '', 
-				wed_start_time: (openingHours_data.wednesday_disable_option==1) ? openingHours_data.wed_start_time : '',
-				wed_end_time: (openingHours_data.wednesday_disable_option==1) ? openingHours_data.wed_end_time : '',
-				thur_start_time: (openingHours_data.thrusday_disable_option==1) ? openingHours_data.thur_start_time : '',
-				thur_end_time: (openingHours_data.thrusday_disable_option==1) ? openingHours_data.thur_end_time : '',
-				fri_start_time: (openingHours_data.friday_disable_option==1) ? openingHours_data.fri_start_time : '',
-				fri_end_time: (openingHours_data.friday_disable_option==1) ? openingHours_data.fri_end_time : '',
-				sat_start_time: (openingHours_data.saturday_disable_option==1) ? openingHours_data.sat_start_time : '',
-				sat_end_time: (openingHours_data.saturday_disable_option==1) ?openingHours_data.sat_end_time : '',
-				sun_start_time: (openingHours_data.sunday_disable_option==1) ? openingHours_data.sun_start_time : '',
-				sun_end_time: (openingHours_data.sunday_disable_option==1) ? openingHours_data.sun_end_time : ''
+				mom_start_time: openingHours_data.monday_disable_option == 1 ? openingHours_data.mom_start_time : '',
+				mom_end_time: openingHours_data.monday_disable_option == 1 ? openingHours_data.mom_end_time : '',
+				tue_start_time: openingHours_data.tuesday_disable_option == 1 ? openingHours_data.tue_start_time : '',
+				tue_end_time: openingHours_data.tuesday_disable_option == 1 ? openingHours_data.tue_end_time : '',
+				wed_start_time: openingHours_data.wednesday_disable_option == 1 ? openingHours_data.wed_start_time : '',
+				wed_end_time: openingHours_data.wednesday_disable_option == 1 ? openingHours_data.wed_end_time : '',
+				thur_start_time:
+					openingHours_data.thrusday_disable_option == 1 ? openingHours_data.thur_start_time : '',
+				thur_end_time: openingHours_data.thrusday_disable_option == 1 ? openingHours_data.thur_end_time : '',
+				fri_start_time: openingHours_data.friday_disable_option == 1 ? openingHours_data.fri_start_time : '',
+				fri_end_time: openingHours_data.friday_disable_option == 1 ? openingHours_data.fri_end_time : '',
+				sat_start_time: openingHours_data.saturday_disable_option == 1 ? openingHours_data.sat_start_time : '',
+				sat_end_time: openingHours_data.saturday_disable_option == 1 ? openingHours_data.sat_end_time : '',
+				sun_start_time: openingHours_data.sunday_disable_option == 1 ? openingHours_data.sun_start_time : '',
+				sun_end_time: openingHours_data.sunday_disable_option == 1 ? openingHours_data.sun_end_time : ''
 			};
-			console.log(data); 
+			if (openingHours_data.opening_hours_id) {
+				data['opening_hours_id'] = openingHours_data.opening_hours_id;
+			}
 			this.adminService.addOpeningDay(data).subscribe(apiResponse => {
 				if (apiResponse.code === 200) {
-					this.toastr.successToastr('Openinghours Added Successfully');
+					if (openingHours_data.opening_hours_id) {
+						this.toastr.successToastr('Openinghours Updated Successfully');
+					} else {
+						this.toastr.successToastr('Openinghours Added Successfully');
+					}
 					this.router.navigate(['/admin']);
 				} else {
 					console.log('Hello');
@@ -720,6 +1121,115 @@ export class AdminComponent implements OnInit {
 				}
 			});
 		}
+	}
+
+	toggleLevel(id) {
+		this.show = true;
+		this.resourceshow = false;
+		this.itemsshow = false;
+		this.serviceshow = false;
+		console.log(id);
+		this.levelid = id;
+		let dataResponse = [];
+		let serviceData = this.services;
+		this.adminService.getServiceByMerchantId().subscribe(
+			data => {
+				console.log(data);
+				data['data'].forEach((item, key) => {
+					if (!dataResponse.hasOwnProperty(item.id)) {
+						dataResponse[item.id] = {};
+					}
+					let object = { service_name: ''};
+					object.service_name = item.service_name;
+					dataResponse[item.id] = object;
+				});
+				this.serviceLevelData = dataResponse[id];
+				console.log(this.serviceLevelData);
+			},
+			error => {
+				console.log('some error occured');
+				this.toastr.errorToastr('some error occured');
+			}
+		);
+
+		if (dataResponse[id]) {
+			console.log(dataResponse[id]);
+		}
+		this.getServiceEmpLevelByServiceId(id);
+	}
+	toggleBacktoService() {
+		this.serviceshow = true;
+		this.show = false;
+		this.resourceshow = false;
+		this.itemsshow = false;
+		this.getServiceByMerchantId();
+	}
+
+	toggleresources(id) {
+		this.resourceshow = true;
+		this.show = false;
+		this.serviceshow = false;
+		console.log(id);
+		this.levelid = id;
+				let dataResponse = [];
+		let serviceData = this.services;
+		this.adminService.getServiceByMerchantId().subscribe(
+			data => {
+				console.log(data);
+				data['data'].forEach((item, key) => {
+					if (!dataResponse.hasOwnProperty(item.id)) {
+						dataResponse[item.id] = {};
+					}
+					let object = { service_name: ''};
+					object.service_name = item.service_name;
+					dataResponse[item.id] = object;
+				});
+				this.serviceLevelData = dataResponse[id];
+				console.log(this.serviceLevelData);
+			},
+			error => {
+				console.log('some error occured');
+				this.toastr.errorToastr('some error occured');
+			}
+		);
+
+		if (dataResponse[id]) {
+			console.log(dataResponse[id]);
+		}
+		this.getServiceResourceByServiceId(id);
+	}
+	toggleItems(id) {
+		this.itemsshow = true;
+		this.show = false;
+		this.serviceshow = false;
+		console.log(id);
+		this.levelid = id;
+		let dataResponse = [];
+		let serviceData = this.services;
+		this.adminService.getServiceByMerchantId().subscribe(
+			data => {
+				console.log(data);
+				data['data'].forEach((item, key) => {
+					if (!dataResponse.hasOwnProperty(item.id)) {
+						dataResponse[item.id] = {};
+					}
+					let object = { service_name: ''};
+					object.service_name = item.service_name;
+					dataResponse[item.id] = object;
+				});
+				this.serviceLevelData = dataResponse[id];
+				console.log(this.serviceLevelData);
+			},
+			error => {
+				console.log('some error occured');
+				this.toastr.errorToastr('some error occured');
+			}
+		);
+
+		if (dataResponse[id]) {
+			console.log(dataResponse[id]);
+		}
+		this.getServiceItemByServiceId(id);
 	}
 
 	private getDismissReason(reason: any): string {

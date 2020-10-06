@@ -25,10 +25,7 @@ export class EditserviceService {
 
 	public editService(serviceData): any {
 		let myResponse = this.http.patch(`${environment.BASE_URL}/editService`+'?', serviceData, {
-			headers: new HttpHeaders({ 'Access-Control-Allow-Origin': '*' }).set(
-				'SESSION-TOKEN',
-				localStorage.getItem('jwt_token')
-			)
+			headers: new HttpHeaders().set('SESSION-TOKEN',localStorage.getItem('jwt_token'))
 		});
 		console.log(serviceData);
 		return myResponse;

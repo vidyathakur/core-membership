@@ -19,10 +19,7 @@ export class AdminService {
 	public createEmpLevel(data): Observable<any> {
 		console.log(data);
 		return this.http.post(`${environment.BASE_URL}/createEmpLevel`, data, {
-			headers: new HttpHeaders({ 'Access-Control-Allow-Origin': '*' }).set(
-				'SESSION-TOKEN',
-				localStorage.getItem('jwt_token')
-			)
+			headers: new HttpHeaders().set('SESSION-TOKEN', localStorage.getItem('jwt_token'))
 		});
 	}
 
@@ -99,11 +96,11 @@ export class AdminService {
 		return myResponse;
 	}
 
-	public getServiceById(data): any {
-		let myResponse = this.http.get(`${environment.BASE_URL}/getServiceById `, {
+	public getServiceById(serviceId): any {
+		let myResponse = this.http.get(`${environment.BASE_URL}/getServiceById` + '/' + serviceId, {
 			headers: new HttpHeaders().set('SESSION-TOKEN', localStorage.getItem('jwt_token'))
 		});
-		console.log(myResponse);
+		console.log(serviceId);
 		return myResponse;
 	}
 
@@ -133,11 +130,41 @@ export class AdminService {
 
 	public addOpeningDay(data): Observable<any> {
 		console.log(data);
-		return this.http.post(`${environment.BASE_URL}/addOpeningDay`, data, {
-			headers: new HttpHeaders({ 'Access-Control-Allow-Origin': '*' }).set(
-				'SESSION-TOKEN',
-				localStorage.getItem('jwt_token')
-			)
-		});
+		if(data.opening_hours_id){
+			return this.http.patch(`${environment.BASE_URL}/updateOpeningHour `, data, {
+				headers: new HttpHeaders().set('SESSION-TOKEN', localStorage.getItem('jwt_token'))
+			});
+		} else {
+			return this.http.post(`${environment.BASE_URL}/addOpeningDay`, data, {
+				headers: new HttpHeaders().set('SESSION-TOKEN', localStorage.getItem('jwt_token'))
+			});
+		}
+		
 	}
+
+	public getResource(): any {
+		let myResponse = this.http.get(`${environment.BASE_URL}/getResource `, {
+			headers: new HttpHeaders().set('SESSION-TOKEN', localStorage.getItem('jwt_token'))
+		});
+		console.log(myResponse);
+		return myResponse;
+	}
+
+	public deleteResource(resourceId): any {
+		let myResponse = this.http.delete(`${environment.BASE_URL}/deleteResource` + '/' + resourceId, {
+			headers: new HttpHeaders().set('SESSION-TOKEN', localStorage.getItem('jwt_token'))
+		});
+		console.log(myResponse);
+		return myResponse;
+	}
+
+	public getOpeningDay(): any {
+		let myResponse = this.http.get(`${environment.BASE_URL}/getOpeningDay `, {
+			headers: new HttpHeaders().set('SESSION-TOKEN', localStorage.getItem('jwt_token'))
+		});
+		console.log(myResponse);
+		return myResponse;
+	}
+
+
 }

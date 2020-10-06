@@ -8,6 +8,7 @@ import { AccordionModule } from '@syncfusion/ej2-angular-navigations';
 import { HttpClientModule } from '@angular/common/http';
 import { BsDatepickerModule } from 'ngx-bootstrap/datepicker';
 import { NgbModule } from '@ng-bootstrap/ng-bootstrap';
+import { ToastrModule } from 'ng6-toastr-notifications';
 
 @NgModule({
   declarations: [AddnewclientComponent],
@@ -17,6 +18,7 @@ import { NgbModule } from '@ng-bootstrap/ng-bootstrap';
     HttpClientModule,
     AccordionModule,
     ReactiveFormsModule,
+    ToastrModule.forRoot(),
     BsDatepickerModule.forRoot(),
     NgbModule,
     AddnewclientRoutingModule
