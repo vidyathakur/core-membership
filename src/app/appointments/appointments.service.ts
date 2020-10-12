@@ -1,3 +1,4 @@
+import { Observable } from 'rxjs';
 import { Injectable } from '@angular/core';
 import { HttpClient, HttpHeaders } from '@angular/common/http';
 import { JwtService } from 'src/app/login/jwt.service';
@@ -13,6 +14,16 @@ export class AppointmentsService {
 	}
 	setHeader() {
 		return new HttpHeaders().set('session_token', localStorage.getItem('jwt_token'));
+	}
+
+	public createAppointment(data): Observable<any> {
+		console.log(data);
+		return this.http.post(`${environment.BASE_URL}/createAppointment`, data, {
+			headers: new HttpHeaders().set(
+				'SESSION-TOKEN',
+				localStorage.getItem('jwt_token')
+			)
+		});
 	}
 
 	public getEmpDetailByMerchantId(data): any {

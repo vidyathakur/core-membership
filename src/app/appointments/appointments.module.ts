@@ -25,19 +25,24 @@ import { FormsModule, ReactiveFormsModule } from '@angular/forms';
 import { NgxSpinnerModule } from 'ngx-spinner';
 import { HttpClientModule } from '@angular/common/http';
 import { ToastrModule } from 'ng6-toastr-notifications';
-import { Time24to12Format } from 'src/app/pipe/time24to12.pipe';
+import { SharedModule } from 'src/app/shared/shared.module';
+import { RadioButtonModule } from '@syncfusion/ej2-angular-buttons';
 
 @NgModule({
-  declarations: [AppointmentsComponent,Time24to12Format],
+  declarations: [AppointmentsComponent],
   imports: [
     CommonModule,
-		HttpClientModule,
-		 NgxSpinnerModule,
-		 ToastrModule.forRoot(),
+		FormsModule,
+		ReactiveFormsModule,
+    HttpClientModule,
+		NgxSpinnerModule,
+		ToastrModule.forRoot(),
     ScheduleAllModule,
+		SharedModule,
 		RecurrenceEditorAllModule,
 		NumericTextBoxAllModule,
 		TextBoxAllModule,
+		RadioButtonModule, 
 		DatePickerAllModule,
 		TimePickerAllModule,
 		DateTimePickerAllModule,

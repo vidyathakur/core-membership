@@ -131,7 +131,7 @@
                             <div class="col-md-4">
                              <label style="color: #000000;">Referred By</label>
                             <select class="custom-select" formControlName="referred_by">
-                            <option selected>Select Level</option>
+                            <option value="">Select Level</option>
                             <option value="1">One</option>
                             </select>
                             <span class="opt">Optional</span>
@@ -140,10 +140,40 @@
                           <div class="form-row" style="margin-top: 10px;">
                             <div class="col-md-4">
                               <label style="color: #000000;">Referal Type</label>
-                            <select class="custom-select" formControlName="refferral_type_id">
-                            <option selected>Select Level</option>
-                            <option value="1">One</option>
-                            </select>
+                             <select class="custom-select" formControlName="refferral_type_id">
+                            <option value="">Select Level</option>
+                            <option value="0">-</option>
+                            <option value="28">Digital Advertising</option>
+                            <option value="7">Direct Mail</option>
+                            <option value="2">Email</option>
+                            <option value="18">Event</option>
+                            <option value="19">Existing Client</option>
+                            <option value="16">Facebook</option>
+                            <option value="14">Flyer/Brochure</option>
+                            <option value="1">Friend</option>
+                            <option value="22">Gift Certificate</option>
+                            <option value="23">Instagram</option>
+                            <option value="15">Internet Ad</option>
+                            <option value="6">Internet Search</option>
+                            <option value="4">Magazine</option>
+                            <option value="5">Newspaper</option>
+                            <option value="8">Other</option>
+                            <option value="25">Other Website</option>
+                            <option value="26">Partner Business</option>
+                            <option value="27">Payment Provider</option>
+                            <option value="21">Pinterest</option>
+                            <option value="12">Radio</option>
+                            <option value="3">SMS</option>
+                            <option value="29">Social Media</option>
+                            <option value="20">Staff Referral</option>
+                            <option value="24">Supplier</option>
+                            <option value="17">Twitter</option>
+                            <option value="10">Walk By</option>
+                            <option value="13">Web Site</option>
+                            <option value="11">Word of Mouth</option>
+                            <option value="9">Yellow Pages</option>
+
+	                          </select>
                             <span class="opt">Optional</span>
                             </div>
                             <div class="col-md-4">
@@ -339,11 +369,13 @@
                             500;margin-top: 10px;">
                             </p>
                             <div class="custom-control custom-checkbox custom-control-inline" 
-                            *ngFor="let clientCat of clientCats">
-                              <input type="checkbox" class="custom-control-input"
-                              formControlName="client_cat_ids" id="customCheck6" [(ngModel)]="clientCat.id">
-                              <label class="custom-control-label"  for="customCheck6">{{clientCat.name}}</label>
+                            *ngFor="let clientCat of clientCats;let i = index">
+                              <input type="checkbox" class="custom-control-input" 
+                              formControlName="client_cat_ids" id="customCheck{{i}}" 
+                              (change)="checkBoxChanged($event.target.checked, clientCat)" [checked]="checked(clientCat)">
+                              <label class="custom-control-label"  for="customCheck{{i}}">{{clientCat.name}}</label>
                               </div>
+          
                             </div>
                           </div>
                       </div>

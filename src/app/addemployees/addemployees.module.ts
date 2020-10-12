@@ -9,7 +9,6 @@ import { HttpClientModule } from '@angular/common/http';
 import { ToastrModule } from 'ng6-toastr-notifications';
 import { AccordionModule } from '@syncfusion/ej2-angular-navigations';
 import { BsDatepickerModule } from 'ngx-bootstrap/datepicker';
-// import { DpDatePickerModule } from 'ng2-date-picker';
 
 @NgModule({
   declarations: [AddemployeesComponent],

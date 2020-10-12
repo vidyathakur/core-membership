@@ -30,18 +30,29 @@ import { EdittaxrateComponent } from 'src/app/edittaxrate/edittaxrate.component'
 import { TaxrateService } from 'src/app/taxrate/taxrate.service';
 import { EditpublicholidayComponent } from 'src/app/editpublicholiday/editpublicholiday.component';
 import { PublicholidayService } from 'src/app/publicholiday/publicholiday.service';
+import { ProductbrandComponent } from 'src/app/productbrand/productbrand.component';
+import { ProductbrandService } from 'src/app/productbrand/productbrand.service';
+import { EditproductbrandComponent } from 'src/app/editproductbrand/editproductbrand.component';
+import { SupplierComponent } from 'src/app/supplier/supplier.component';
+import { SupplierService } from 'src/app/supplier/supplier.service';
+import { EditsupplierComponent } from 'src/app/editsupplier/editsupplier.component';
+import { EmployeehoursComponent } from 'src/app/employeehours/employeehours.component';
+import { ProductService } from 'src/app/product/product.service';
+import { EmployeehoursService } from 'src/app/employeehours/employeehours.service';
 @Component({
 	selector: 'app-admin',
 	templateUrl: './admin.component.html',
 	styleUrls: ['./admin.component.css']
 })
 export class AdminComponent implements OnInit {
+	roster_id: any;
 	serviceLevelData: { price: ''; duration: '' };
 	@Input() public user_level_id;
 	service_level_id: any;
 	id: any;
 	levelid: any;
 	resourceid: any;
+	productBrands: any;
 	emplevel_id: any;
 	opening_hours_id: any;
 	closeResult: string;
@@ -69,7 +80,10 @@ export class AdminComponent implements OnInit {
 	public currentEmployees: any;
 	public allEmpData: any;
 	public responseData: any;
+	public suppliers: any;
 	public activeTab;
+	public empRosters: any;
+	public products: any;
 	isSundayDisabled = true;
 	isMondayDisabled = true;
 	isTuesdayDisabled = true;
@@ -304,7 +318,11 @@ export class AdminComponent implements OnInit {
 		public serviceresourceService: ServiceresourceService,
 		public serviceitemService: ServiceitemService,
 		public taxrateService: TaxrateService,
-		public publicholidayService: PublicholidayService
+		public publicholidayService: PublicholidayService,
+		public productbrandService: ProductbrandService,
+		public supplierService: SupplierService,
+		public productService: ProductService,
+		private employeehoursservice: EmployeehoursService
 	) {
 		this.empForm = this.formBuilder.group({
 			id: new FormControl('', Validators.required),
@@ -368,6 +386,10 @@ export class AdminComponent implements OnInit {
 		} else {
 			this.activeTab = 'services-tab';
 		}
+		this.getEmpRosterHoursByMechantId();
+		this.getProducts();
+		this.getSupplier();
+		this.getProductbrand();
 		this.getOpeningDay();
 		this.getResource();
 		this.getServiceCatByMerchantId();
@@ -381,7 +403,6 @@ export class AdminComponent implements OnInit {
 	OnChangeofOptions() {
 		console.log('changing');
 	}
-
 
 	onSubmit() {
 		this.submitted = true;
@@ -533,6 +554,54 @@ export class AdminComponent implements OnInit {
 			}
 		);
 	}
+	public getProductbrand(): any {
+		this.SpinnerService.show();
+		this.productbrandService.getProductBrandByMerchantId().subscribe(
+			data => {
+				console.log(data);
+				this.productBrands = data['data'];
+				setTimeout(() => {
+					this.SpinnerService.hide();
+				}, 2000);
+			},
+			error => {
+				console.log('some error occured');
+				this.toastr.errorToastr('some error occured');
+			}
+		);
+	}
+	public getSupplier(): any {
+		this.SpinnerService.show();
+		this.supplierService.getSupplierDetailByMerchantId().subscribe(
+			data => {
+				console.log(data);
+				this.suppliers = data['data'];
+				setTimeout(() => {
+					this.SpinnerService.hide();
+				}, 2000);
+			},
+			error => {
+				console.log('some error occured');
+				this.toastr.errorToastr('some error occured');
+			}
+		);
+	}
+	public getProducts(): any {
+		this.SpinnerService.show();
+		this.productService.getProductByMerchantId().subscribe(
+			data => {
+				console.log(data);
+				this.products = data['data'];
+				setTimeout(() => {
+					this.SpinnerService.hide();
+				}, 2000);
+			},
+			error => {
+				console.log('some error occured');
+				this.toastr.errorToastr('some error occured');
+			}
+		);
+	}
 	public getServiceEmpLevelByServiceId(id): any {
 		this.servicelevelService.getServiceEmpLevelByServiceId(id).subscribe(
 			data => {
@@ -641,6 +710,19 @@ export class AdminComponent implements OnInit {
 			}
 		);
 	}
+	public getEmpRosterHoursByMechantId(): any {
+		this.employeehoursservice.getEmpRosterHoursByMechantId().subscribe(
+			data => {
+				console.log(data);
+				this.empRosters = data['data'];
+				console.log(this.empRosters);
+			},
+			error => {
+				console.log('some error occured');
+				this.toastr.errorToastr('some error occured');
+			}
+		);
+	}
 
 	open(content) {
 		this.modalService.open(content, { ariaLabelledBy: 'modal-basic-title' }).result.then(
@@ -663,21 +745,6 @@ export class AdminComponent implements OnInit {
 			reason => {}
 		);
 	}
-	// onNoClick(): void {
-	// 	this.getEmployees();
-	// }
-	// onServicecatClick(): void {
-	// 	this.adminService.getServiceCatByMerchantId({}).subscribe(
-	// 		data => {
-	// 			console.log(data);
-	// 			this.serviceCats = data['data'];
-	// 		},
-	// 		error => {
-	// 			console.log('some error occured');
-	// 			this.toastr.errorToastr('some error occured');
-	// 		}
-	// 	);
-	// }
 	goToBackService() {
 		this.jwtService.setToken('tabId', 'services-tab');
 		this.router.navigate(['/admin']);
@@ -700,13 +767,109 @@ export class AdminComponent implements OnInit {
 			reason => {}
 		);
 	}
-	openholidayModal() {
-		const modalRef = this.modalService.open(PublicholidayComponent, {
+	openbrandModal() {
+		const modalRef = this.modalService.open(ProductbrandComponent, {
 			windowClass: 'myCustomModalClass'
 		});
 		modalRef.result.then(
 			result => {
-				this.getHoliday();
+				this.getProductbrand();
+				console.log(result);
+			},
+			reason => {}
+		);
+	}
+
+	opensuppliersModal() {
+		const modalRef = this.modalService.open(SupplierComponent, {
+			windowClass: 'myCustomModalClass'
+		});
+		modalRef.result.then(
+			result => {
+				this.getSupplier();
+				console.log(result);
+			},
+			reason => {}
+		);
+	}
+	employeehoursModel(id) {
+		this.employeehoursservice.getEmpRosterHoursByEmpId(id).subscribe(
+			data => {
+				console.log(data);
+				let emproasterdata = data['data'];
+				this.roster_id = emproasterdata.id;
+				if (emproasterdata.sun_start_time) {
+					this.openingForm.get('sun_start_time').enable();
+					this.openingForm.get('sun_end_time').enable();
+				}
+				if (emproasterdata.mom_start_time) {
+					this.openingForm.get('mom_start_time').enable();
+					this.openingForm.get('mom_end_time').enable();
+				}
+				if (emproasterdata.tue_start_time) {
+					this.openingForm.get('tue_start_time').enable();
+					this.openingForm.get('tue_end_time').enable();
+				}
+				if (emproasterdata.wed_start_time) {
+					this.openingForm.get('wed_start_time').enable();
+					this.openingForm.get('wed_end_time').enable();
+				}
+				if (emproasterdata.thur_start_time) {
+					this.openingForm.get('thur_start_time').enable();
+					this.openingForm.get('thur_end_time').enable();
+				}
+				if (emproasterdata.fri_start_time) {
+					this.openingForm.get('fri_start_time').enable();
+					this.openingForm.get('fri_end_time').enable();
+				}
+				if (emproasterdata.sat_start_time) {
+					this.openingForm.get('sat_start_time').enable();
+					this.openingForm.get('sat_end_time').enable();
+				}
+				if (emproasterdata.emp_id) {
+					this.opening_hours_id = emproasterdata.id;
+				}
+				this.openingForm = this.formBuilder.group({
+					sun_start_time: [emproasterdata.sun_start_time],
+					sun_end_time: emproasterdata.sun_end_time,
+					mom_start_time: emproasterdata.mom_start_time,
+					mom_end_time: emproasterdata.mom_end_time,
+					tue_start_time: emproasterdata.tue_start_time,
+					tue_end_time: emproasterdata.tue_end_time,
+					wed_start_time: emproasterdata.wed_start_time,
+					wed_end_time: emproasterdata.wed_end_time,
+					thur_start_time: emproasterdata.thur_start_time,
+					thur_end_time: emproasterdata.thur_end_time,
+					fri_start_time: emproasterdata.fri_start_time,
+					fri_end_time: emproasterdata.fri_end_time,
+					sat_start_time: emproasterdata.sat_start_time,
+					sat_end_time: emproasterdata.sat_end_time,
+					sunday_disable_option: [emproasterdata.sun_start_time ? 1 : 0],
+					monday_disable_option: [emproasterdata.mom_start_time ? 1 : 0],
+					tuesday_disable_option: [emproasterdata.tue_start_time ? 1 : 0],
+					wednesday_disable_option: [emproasterdata.wed_start_time ? 1 : 0],
+					thrusday_disable_option: [emproasterdata.thur_start_time ? 1 : 0],
+					friday_disable_option: [emproasterdata.fri_start_time ? 1 : 0],
+					saturday_disable_option: [emproasterdata.fri_end_time ? 1 : 0],
+					empRosterhours_id: [emproasterdata.id]
+				});
+				console.log(emproasterdata);
+			},
+			error => {
+				console.log('some error occured');
+				this.toastr.errorToastr('some error occured');
+			}
+		);
+		const modalRef = this.modalService.open(EmployeehoursComponent, {
+			windowClass: 'myCustomModalClass',
+			size: 'lg'
+		});
+		modalRef.componentInstance.emproster_id = id;
+		modalRef.componentInstance.roster_id = this.roster_id;
+		console.log(id);
+		modalRef.result.then(
+			result => {
+				this.getEmpRosterHoursByMechantId();
 				console.log(result);
 			},
 			reason => {}
@@ -883,6 +1046,29 @@ export class AdminComponent implements OnInit {
 			reason => {}
 		);
 	}
+	openEditproductbrandModal(id) {
+		const modalRef = this.modalService.open(EditproductbrandComponent, { windowClass: 'myCustomModalClass' });
+		modalRef.componentInstance.productbrandId = id;
+		console.log(id);
+		modalRef.result.then(
+			result => {
+				this.getProductbrand();
+			},
+			reason => {}
+		);
+	}
+
+	openeditsupplierModal(id) {
+		const modalRef = this.modalService.open(EditsupplierComponent, { windowClass: 'myCustomModalClass' });
+		modalRef.componentInstance.supplierId = id;
+		console.log(id);
+		modalRef.result.then(
+			result => {
+				this.getSupplier();
+			},
+			reason => {}
+		);
+	}
 
 	openupdatemodal(content, id) {
 		let details = this.allEmpData[id];
@@ -896,6 +1082,32 @@ export class AdminComponent implements OnInit {
 			reason => {
 				this.closeResult = `Dismissed ${this.getDismissReason(reason)}`;
 			}
+		);
+	}
+	openholidayModal() {
+		const modalRef = this.modalService.open(PublicholidayComponent, {
+			windowClass: 'myCustomModalClass'
+		});
+		modalRef.result.then(
+			result => {
+				this.getHoliday();
+				console.log(result);
+			},
+			reason => {}
+		);
+	}
+	openRosterModal(id) {
+		const modalRef = this.modalService.open(EmployeehoursComponent, {
+			windowClass: 'myCustomModalClass',
+			size: 'lg'
+		});
+		modalRef.componentInstance.emproster_id = id;
+		modalRef.result.then(
+			result => {
+				//	this.getEmpRosterHoursByMechantId();
+				console.log(result);
+			},
+			reason => {}
 		);
 	}
 	public updateEmpLevel(): any {
@@ -1072,6 +1284,48 @@ export class AdminComponent implements OnInit {
 		);
 	}
 
+	public deleteProductbrand(id): any {
+		this.productbrandService.deleteProductBrand(id).subscribe(
+			data => {
+				console.log(data);
+				this.toastr.successToastr(' Product Brand Deleted Successfully');
+				this.getProductbrand();
+			},
+			error => {
+				console.log('some error occured');
+				this.toastr.errorToastr('Some error occured', 'Oops!');
+			}
+		);
+	}
+
+	public deleteSupplier(id): any {
+		this.supplierService.deleteSupplier(id).subscribe(
+			data => {
+				console.log(data);
+				this.toastr.successToastr(' Supplier Deleted Successfully');
+				this.getSupplier();
+			},
+			error => {
+				console.log('some error occured');
+				this.toastr.errorToastr('Some error occured', 'Oops!');
+			}
+		);
+	}
+
+	public deleteProduct(id): any {
+		this.productService.deleteProduct(id).subscribe(
+			data => {
+				console.log(data);
+				this.toastr.successToastr(' Product Deleted Successfully');
+				this.getProducts();
+			},
+			error => {
+				console.log('some error occured');
+				this.toastr.errorToastr('Some error occured', 'Oops!');
+			}
+		);
+	}
+
 	onChangeDate(event: any, disable_type_from, disable_type_to) {
 		if (event.target.checked) {
 			this.openingForm.get(disable_type_from).enable();
@@ -1139,7 +1393,7 @@ export class AdminComponent implements OnInit {
 					if (!dataResponse.hasOwnProperty(item.id)) {
 						dataResponse[item.id] = {};
 					}
-					let object = { service_name: ''};
+					let object = { service_name: '' };
 					object.service_name = item.service_name;
 					dataResponse[item.id] = object;
 				});
@@ -1171,7 +1425,7 @@ export class AdminComponent implements OnInit {
 		this.serviceshow = false;
 		console.log(id);
 		this.levelid = id;
-				let dataResponse = [];
+		let dataResponse = [];
 		let serviceData = this.services;
 		this.adminService.getServiceByMerchantId().subscribe(
 			data => {
@@ -1180,7 +1434,7 @@ export class AdminComponent implements OnInit {
 					if (!dataResponse.hasOwnProperty(item.id)) {
 						dataResponse[item.id] = {};
 					}
-					let object = { service_name: ''};
+					let object = { service_name: '' };
 					object.service_name = item.service_name;
 					dataResponse[item.id] = object;
 				});
@@ -1213,7 +1467,7 @@ export class AdminComponent implements OnInit {
 					if (!dataResponse.hasOwnProperty(item.id)) {
 						dataResponse[item.id] = {};
 					}
-					let object = { service_name: ''};
+					let object = { service_name: '' };
 					object.service_name = item.service_name;
 					dataResponse[item.id] = object;
 				});

@@ -1,3 +1,8 @@
+import { EmployeehoursComponent } from './employeehours/employeehours.component';
+import { EditsupplierComponent } from './editsupplier/editsupplier.component';
+import { SupplierComponent } from './supplier/supplier.component';
+import { EditproductbrandComponent } from 'src/app/editproductbrand/editproductbrand.component';
+import { ProductbrandComponent } from './productbrand/productbrand.component';
 import { HttpInterceptorService } from './http-interceptor.service';
 import { LayoutModule } from './layout/layout.module';
 import { BrowserModule } from '@angular/platform-browser';
@@ -47,7 +52,12 @@ import { EditserviceitemComponent } from './editserviceitem/editserviceitem.comp
     ServiceresourceComponent,
     EditserviceresourcesComponent,
     ServiceitemComponent,
-    EditserviceitemComponent
+    EditserviceitemComponent,
+    ProductbrandComponent,
+    EditproductbrandComponent,
+    SupplierComponent,
+    EditsupplierComponent,
+    EmployeehoursComponent
   ],
   imports: [
     BrowserModule,
@@ -81,7 +91,12 @@ import { EditserviceitemComponent } from './editserviceitem/editserviceitem.comp
     ServiceresourceComponent,
     EditserviceresourcesComponent,
     ServiceitemComponent,
-    EditserviceitemComponent
+    EditserviceitemComponent,
+    ProductbrandComponent,
+    EditproductbrandComponent,
+    SupplierComponent,
+    EditsupplierComponent,
+    EmployeehoursComponent,
   ],
   bootstrap: [AppComponent]
 })

@@ -1,0 +1,22 @@
+<div class="modal-header">
+  <h5 class="modal-title">Add Product Brand</h5>
+  <button type="button" class="close" data-dismiss="modal" (click)="closeModal('dismiss')">
+        <span aria-hidden="true">&times;</span>
+    </button>
+</div>
+<div class="modal-body">
+  <form [formGroup]="productbrandForm" (ngSubmit)="onSubmit()">
+    <div class="form-group form-label-group">
+      <input type="text" formControlName="brand_name" [ngClass]="{ 'is-invalid': submitted && f.brand_name.errors }" name="brand_name"
+        id="brand_name" placeholder="Enter Brand Name" class="form-control myformscontrol custominput" required autofocus>
+      <label for="brand_name" class="floating-label">Enter Brand Name</label>
+      <div *ngIf="submitted && f.brand_name.errors" class="invalid-feedback">
+        <div *ngIf="f.brand_name.errors.required">Brand Name is required</div>
+      </div>
+    </div>
+    <div class="modal-footer">
+      <button type="button" class="btn mb-3 canc" data-dismiss="modal" (click)="closeModal('close')">Cancel</button>
+      <button type="submit" class="btn mb-3 sub">Submit</button>
+    </div>
+  </form>
+</div>

@@ -35,10 +35,10 @@
                 <span>KPIs</span></a>
 
             </li>
-            <li (mouseenter)="changeText3=true" (mouseleave)="changeText3=false">
-              <a [routerLink]="" aria-expanded="true" id="htmls4">
-                <img src="assets/img/Pos.png" id="def_pos" *ngIf="!changeText3">
-                <img src="assets/img/Pos-1.png" id="def_pos" *ngIf="changeText3">
+            <li [routerLinkActive]="['active']" (mouseenter)="changeText3=true" (mouseleave)="changeText3=false">
+              <a [routerLink]="['/pos']" (click)="changeText=true" aria-expanded="true" id="htmls4">
+                <img src="assets/img/Pos.png" id="def_pos" *ngIf="!changeText3 && active!='/pos'">
+                <img src="assets/img/Pos-1.png" id="def_pos" *ngIf="changeText3 || active=='/pos'">
                 <span>Pos</span></a>
 
             </li>

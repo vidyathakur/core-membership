@@ -1,0 +1,141 @@
+<div class="page-container">
+  <form class="col-lg-12" [formGroup]="productForm" (ngSubmit)="onSubmit()">
+    <div class="main-content-inner">
+      <div class="col-12 ">
+        <h4 class="header-title" style="color: #c89628; cursor: pointer;" (click)="goToProduct()">Back </h4>
+        <h4 class="header-title">Add Product </h4>
+        <div class="card">
+          <div class="header-title myheadtitle">Product Details</div>
+          <div class="main-content-inner">
+           <div class="form-row">
+                  <div class="col-md-5">
+                    <label style="color: #000000;">Brand</label>
+                    <select class="custom-select" [ngClass]="{ 'is-invalid': submitted && f.brand_id.errors }" 
+                    formControlName="brand_id">
+              <option value="" selected="">Select</option>
+              <option *ngFor="let productBrand of productBrands" [value]="productBrand.id">{{productBrand.brand_name}}</option>
+              </select>
+              <div *ngIf="submitted && f.brand_id.errors" class="invalid-feedback">
+                      <div *ngIf="f.brand_id.errors.required">Brand is required</div>
+                    </div>
+              <span class="req">Required</span>
+                  </div>
+                  <div class="col-md-4" style="margin-top: 30px;">
+                    <button type="button" class="btn mybtn" (click)="goToProductBrand()">ADD NEW</button>
+                  </div>
+                </div>
+                 <div class="form-row" style="padding-top: 10px;">
+                  <div class="col-md-5">
+                    <label style="color: #000000;">Product Name</label>
+                    <input type="text" class="form-control"  
+                    [ngClass]="{ 'is-invalid': submitted && f.product_name.errors }" formControlName="product_name"
+                      placeholder="Product Name">
+                    <div *ngIf="submitted && f.product_name.errors" class="invalid-feedback">
+                      <div *ngIf="f.product_name.errors.required">Product Name is required</div>
+                    </div>
+                    <span class="req">Required</span>
+                  </div>
+                </div>
+                <div class="form-row" style="padding-top: 10px;">
+                  <div class="col-md-2">
+                    <label style="color: #000000;">Quantity</label>
+                    <input type="text" class="form-control" formControlName="min_qty"
+                      placeholder="Min Qty">
+                      <span class="req">Optional</span>
+                  </div>
+                  <div class="col-md-2">
+                    <label style="color: #000000; visibility: hidden;">Quantity</label>
+                    <input type="text" class="form-control" formControlName="max_qty" placeholder="Max Qty">
+                    
+                  </div>
+
+                  <div class="col-md-2">
+                    <label style="color: #000000;">Quantity</label>
+                    <input type="text" [ngClass]="{ 'is-invalid': submitted && f.qty.errors }"
+                     class="form-control" formControlName="qty" placeholder="Qty">
+                     <div *ngIf="submitted && f.qty.errors" class="invalid-feedback">
+                      <div *ngIf="f.qty.errors.required"> Qty is required</div>
+                    </div>
+                    <span class="req">Required</span>
+                  </div>
+                </div>
+                <div class="form-row" style="padding-top: 10px;">
+                  <div class="col-md-2">
+                    <label style="color: #000000;">Retail Price: ($)</label>
+                    <input type="text" class="form-control" [ngClass]="{ 'is-invalid': submitted && f.retail_pice.errors }"
+                     formControlName="retail_pice"
+                      placeholder="Retail Price: ($)">
+                      <div *ngIf="submitted && f.retail_pice.errors" class="invalid-feedback">
+                      <div *ngIf="f.retail_pice.errors.required"> Retail Price is required</div>
+                    </div>
+                      <span class="req">Required</span>
+                  </div>
+                  <div class="col-md-2">
+                    <label style="color: #000000; visibility: hidden;">Wholesale Price: ($)</label>
+                    <input type="text" class="form-control" formControlName="wholesale_price" 
+                    placeholder="Wholesale Price: ($)">
+                    <span class="req">Optional</span>
+                  </div>
+                </div>
+                <div class="form-row"  style="padding-top: 10px;">
+                  <div class="col-md-5">
+                    <label style="color: #000000;">Supplier</label>
+                    <select class="custom-select" [ngClass]="{ 'is-invalid': submitted && f.supplier_id.errors }" 
+                    formControlName="supplier_id">
+              <option value="" selected="">Select Supplier</option>
+              <option *ngFor="let supplier of suppliers" [value]="supplier.id">{{supplier.supplier_name}}</option>
+              </select>
+              <div *ngIf="submitted && f.supplier_id.errors" class="invalid-feedback">
+                      <div *ngIf="f.supplier_id.errors.required"> Supplier is required</div>
+                    </div>
+              <span class="req">Required</span>
+                  </div>
+                  <div class="col-md-2">
+                   <label style="color: #000000;">Supplier Code</label>
+                    <input type="text" class="form-control" formControlName="supplier_code"
+                      placeholder="Supplier Code">
+                      <span class="req">Optional</span>
+                  </div>
+                </div>
+                <div class="form-row" style="padding-top: 10px;">
+                  <div class="col-md-5">
+                    <label style="color: #000000;">Barcode</label>
+                    <input type="text" class="form-control" formControlName="barcode"
+                      placeholder="Barcode">
+                      <span class="req">Optional</span>
+                  </div>
+                </div>
+                <div class="form-row">
+                  <div class="col-md-4">
+                    <label style="color: #000000; padding-top: 10px;">Loyalty Points Earned: </label>
+                    <input type="text" class="form-control" formControlName="loyalty_point" placeholder="Loyalty Points Earned">
+                    <span class="req">Optional</span>
+                  </div>
+                  <div class="col-md-4">
+                    <label style="color: #000000; padding-top: 10px;">Loyalty Points Redeem:</label>
+                    <input type="text" class="form-control" formControlName="loyalty_point" placeholder="Loyalty Points Redeem">
+                    <span class="req">Optional</span>
+                  </div>
+                </div>
+                <div class="form-row" style="padding-top: 10px;">
+                  <div class="custom-control custom-checkbox custom-control-inline">
+                    <input type="checkbox" class="custom-control-input" formControlName="salon_use" value="1" id="customCheck0">
+                    <label class="custom-control-label" for="customCheck0" style="font-size: 14px; color: #000;">Salon use only</label>
+                  </div>
+                </div>
+                <div class="form-row" style=" padding-top: 10px;">
+                  <div class="custom-control custom-checkbox custom-control-inline">
+                    <input type="checkbox" class="custom-control-input" formControlName="tax_free" value="1" id="customCheck01">
+                    <label class="custom-control-label" for="customCheck01" style="font-size: 14px; color: #000;">GST Free</label>
+                  </div>
+                </div>
+          </div>
+        </div>
+      </div>
+    </div>
+    <div class="footrcard">
+      <button type="button" class="btn mb-3 canc" (click)="onCancel()">Cancel</button>
+      <button type="submit" class="btn mb-3 sub">Submit</button>
+    </div>
+  </form>
+</div>

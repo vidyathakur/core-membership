@@ -1,0 +1,80 @@
+<div class="modal-header">
+  <h5 class="modal-title">Add Supplier</h5>
+  <button type="button" class="close" data-dismiss="modal" (click)="closeModal('dismiss')">
+        <span aria-hidden="true">&times;</span>
+    </button>
+</div>
+<div class="modal-body">
+  <form [formGroup]="supplierForm" (ngSubmit)="onSubmit()">
+    <div class="form-group form-label-group">
+  <input type="text" class="form-control myformscontrol custominput" name="supplier_name" 
+  id="supplier_name" formControlName="supplier_name" [ngClass]="{ 'is-invalid': submitted && f.supplier_name.errors }"
+    placeholder="Enter Supplier Name" required autofocus>
+  <div *ngIf="submitted && f.supplier_name.errors" class="invalid-feedback">
+    <div *ngIf="f.supplier_name.errors.required"> Supplier Name is required</div>
+  </div>
+  <label for="supplier_name" class="floating-label"> Supplier Name</label>
+</div>
+<div class="form-group form-label-group">
+  <input type="text" class="form-control myformscontrol custominput" name="contact_name" id="contact_name" formControlName="contact_name"
+     placeholder="Enter Contact Name"  autofocus>
+ <label for="contact_name" class="floating-label"> Contact Name</label>
+</div>
+<div class="form-group form-label-group">
+  <input type="text" class="form-control myformscontrol custominput" name="phone_no" id="phone_no" formControlName="phone_no"
+    placeholder="Enter Phone No."  autofocus>
+  <label for="phone_no" class="floating-label"> Enter Phone No</label>
+</div>
+<div class="form-group form-label-group">
+  <input type="email" class="form-control myformscontrol custominput" name="email" id="email" formControlName="email"
+    [ngClass]="{ 'is-invalid': submitted && f.email.errors }" placeholder="Enter Email" required autofocus>
+  <div *ngIf="submitted && f.email.errors" class="invalid-feedback">
+    <div *ngIf="f.email.errors.required"> Email is required</div>
+    <div *ngIf="f.email.errors.email">Email must be a valid email address</div>
+  </div>
+  <label for="email" class="floating-label">Enter Email </label>
+</div>
+<div class="form-group form-label-group">
+  <input type="text" class="form-control myformscontrol custominput" name="mobile" id="mobile" formControlName="mobile"
+    [ngClass]="{ 'is-invalid': submitted && f.mobile.errors }" placeholder="Enter Mobile" required autofocus>
+  <div *ngIf="submitted && f.mobile.errors" class="invalid-feedback">
+    <div *ngIf="f.mobile.errors.required"> Mobile is required</div>
+  </div>
+  <label for="mobile" class="floating-label">Enter Mobile</label>
+</div>
+<div class="form-group form-label-group">
+  <input type="text" class="form-control myformscontrol custominput" name="fax" id="fax" formControlName="fax"
+    placeholder="Enter Fax"  autofocus>
+  <label for="fax" class="floating-label">Enter Fax</label>
+</div>
+<div class="form-group form-label-group">
+  <input type="text" class="form-control myformscontrol custominput" name="address" id="address" formControlName="address"
+    [ngClass]="{ 'is-invalid': submitted && f.address.errors }" placeholder="Enter Address" required autofocus>
+  <div *ngIf="submitted && f.address.errors" class="invalid-feedback">
+    <div *ngIf="f.address.errors.required">Address is required</div>
+  </div>
+  <label for="address" class="floating-label">Enter Address</label>
+</div>
+<div class="form-group form-label-group">
+  <input type="text" class="form-control myformscontrol custominput" name="suburb" id="suburb" formControlName="suburb"
+   placeholder="Enter Suburb" autofocus>
+ <label for="suburb" class="floating-label"> Enter Suburb</label>
+</div>
+<div class="form-group form-label-group">
+  <input type="text" class="form-control myformscontrol custominput" name="postcode" id="postcode" formControlName="postcode"
+ placeholder="Enter postcode" autofocus>
+  <label for="postcode" class="floating-label"> Enter Postcode</label>
+</div>
+<div class="form-group">
+  <label style="color: #000000;">Select State</label>
+<select class="custom-select" formControlName="state">
+<option [selected]="true">Select State </option>
+<option *ngFor="let states of stateList" [value]="states.id">{{states.name}}</option>
+</select>
+</div>
+    <div class="modal-footer">
+      <button type="button" class="btn mb-3 canc" data-dismiss="modal" (click)="closeModal('close')">Cancel</button>
+      <button type="submit" class="btn mb-3 sub">Submit</button>
+    </div>
+  </form>
+</div>

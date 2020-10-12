@@ -9,20 +9,22 @@ import { HttpClientModule } from '@angular/common/http';
 import { NgxSpinnerModule } from 'ngx-spinner'; 
 import { UiSwitchModule } from 'ngx-toggle-switch';
 import { BsDatepickerModule } from 'ngx-bootstrap/datepicker';
+import { SharedModule } from 'src/app/shared/shared.module';
 
 @NgModule({
   declarations: [AdminComponent],
   imports: [
     CommonModule,
-      FormsModule,
-      NgbModule,
-      HttpClientModule,
-      UiSwitchModule,
-      BsDatepickerModule.forRoot(),
-      NgxSpinnerModule,
+    FormsModule,
+    NgbModule,
+    HttpClientModule,
+    UiSwitchModule,
+    SharedModule,
+    BsDatepickerModule.forRoot(),
+    NgxSpinnerModule,
     ReactiveFormsModule,
     ToastrModule.forRoot(),
     AdminRoutingModule
-  ]
+  ],
 })
 export class AdminModule { }

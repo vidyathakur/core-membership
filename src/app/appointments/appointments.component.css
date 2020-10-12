@@ -55,6 +55,8 @@ b { /* used for event dates/times */
   background-color: #C89628; border-color: #C89628; color:#fff;
            border-radius: 4px; height: 33px; font-size: 11px;  font-weight: 500;
 }
+
+
 .myheader{
   font-size: 15px; color: #000000; margin-bottom: 2px;
 }
@@ -145,4 +147,7 @@ b { /* used for event dates/times */
     border-width: 0 0 1px 1px;
     color: rgba(0, 0, 0, 0.87);
     text-align: left;*/
+}
+.e-textlabel-td{
+  padding-top: 10px !important;
 }

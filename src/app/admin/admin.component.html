@@ -218,6 +218,7 @@
                               <th scope="col">Email</th>
                               <th scope="col">Services</th>
                               <th scope="col">Roster Rates</th>
+                              <th scope="col">Roster</th>
                               <th scope="col">action</th>
                             </tr>
                           </thead>
@@ -230,6 +231,7 @@
                               <td class="levl">{{employee.email}}</td>
                               <td class="levl">Services</td>
                               <td class="levl">Roster Rates</td>
+                              <td class="levl" (click)="openRosterModal(employee.id)">Roster</td>
                               <td><a class="editt" [routerLink]="['/editemployee', employee.id]">Edit</a>
                                 <a class="del" (click)="deleteEmployee(employee.id)">Delete</a>
                               </td>
@@ -693,6 +695,7 @@
                                        <option value="three">Tax Rates</option>
                                        <option value="four">Public Holidays</option>
                                        <option value="five">Resources</option>
+                                       <option value="six">Suppliers</option>
                                        </select>
                         </div>
                         <div class="col">
@@ -728,6 +731,11 @@
                         <div class="col-lg-2" [hidden]="myDropDown !=='five'">
                           <div class="user-profile pull-right">
                             <button type="button" class="btn btnstand btn-sm mybtn" (click)="openresourcesModal()" style="margin-top: -17px;">ADD NEW RESOURCES</button>
+                          </div>
+                        </div>
+                        <div class="col-lg-2" [hidden]="myDropDown !=='six'">
+                          <div class="user-profile pull-right">
+                            <button type="button" class="btn btnstand btn-sm mybtn" (click)="opensuppliersModal()" style="margin-top: -17px;">ADD NEW SUPPLIER</button>
                           </div>
                         </div>
                       </div>
@@ -976,27 +984,221 @@
                     </div>
                   </div>
                 </div>
+                <div class="row" [hidden]="myDropDown !=='six'">
+                  <div class="col-12">
+                    <div class="card">
+                      <div class="card-body">
+                        <div class="single-table">
+                          <div class="table-responsive">
+                            <table class="table text-center">
+                              <thead class="text-uppercase bg-secondary">
+                                <tr class="text-white">
+                                  <th scope="col">Name</th>
+                                  <th scope="col">Contact Name</th>
+                                  <th scope="col">Phone</th>
+                                  <th scope="col">Mobile</th>
+                                  <th scope="col">Email</th>
+                                  <th scope="col">action</th>
+                                </tr>
+                              </thead>
+                              <tbody *ngFor="let supplier of suppliers">
+                                <tr>
+                                  <th scope="row" class="rowcont">{{supplier.supplier_name}}</th>
+                                  <td class="rowcont">{{supplier.contact_name}}</td>
+                                  <th scope="row" class="rowcont">{{supplier.phone_no}}</th>
+                                  <th scope="row" class="rowcont">{{supplier.mobile}}</th>
+                                  <th scope="row" class="rowcont">{{supplier.email}}</th>
+                                  <td><a class="editt" (click)="openeditsupplierModal(supplier.id)">Edit</a>
+                                    <a class="del" (click)="deleteSupplier(supplier.id)">Delete</a>
+                                  </td>
+                                </tr>
+                              </tbody>
+                            </table>
+                          </div>
+                        </div>
+                      </div>
+                    </div>
+                  </div>
+                  <div class="col-lg-12 mt-5">
+                    <div class="card">
+                      <div class="card-body" style="margin-top: 90px;">
+                        <nav aria-label="Page navigation example">
+                          <ul class="pagination justify-content-center">
+                            <li class="page-item disabled">
+                              <a class="page-link " href="#" tabindex="-1">Previous</a>
+                            </li>
+                            <li class="page-item mypagelink"><a class="page-link" style="color: #fff !important;" href="#">1</a></li>
+                            <li class="page-item"><a class="page-link" href="#">2</a></li>
+                            <li class="page-item"><a class="page-link" href="#">3</a></li>
+                            <li class="page-item">
+                              <a class="page-link" href="#">Next</a>
+                            </li>
+                          </ul>
+                        </nav>
+                      </div>
+                    </div>
+                  </div>
+                </div>
               </div>
-              <div class="tab-pane fade" [ngClass]="{ 'active':activeTab==='products-tab'}" id="products" role="tabpanel" aria-labelledby="products-tab">
-                <p>Lorem, ipsum dolor sit amet consectetur adipisicing elit. Dicta soluta doloribus, ullam, ut obcaecati laboriosam
-                  eos, officia dolores voluptatum quas impedit placeat cumque animi quos odio quibusdam voluptatibus magnam
-                  minima facilis necessitatibus libero! Error velit veritatis veniam ipsa? Reiciendis quas qui neque atque
-                  repudiandae quidem incidunt, a consectetur ipsam impedit.
-                </p>
+              <div class="tab-pane fade" [ngClass]="{ 'show active':activeTab==='products-tab'}" id="products" role="tabpanel" aria-labelledby="products-tab">
+                <div class="card">
+                  <div class="card-body">
+                    <div class="row">
+                      <div class="col-md-auto">
+                      </div>
+                      <div class="col">
+                        <div class="row">
+                          <div class=" col-sm-10 ressearch">
+                            <input type="text" class="form-control search-slt" placeholder="Search...">
+                          </div>
+                          <div class=" col-sm-2">
+                            <button type="button" class="btn btnstand btn-sm mybtn2">SEARCH</button>
+                          </div>
+                        </div>
+                      </div>
+                      <div class="col-lg-2">
+                        <div class=" pull-right">
+                          <button type="button" class="btn btnstand btn-sm mybtn" [routerLink]="['/product']">ADD NEW PRODUCT</button>
+                        </div>
+                      </div>
+                    </div>
+                    <div class="single-table" style="margin-top: 15px;">
+                      <div class="table-responsive">
+                        <table class="table text-center">
+                          <thead class="text-uppercase bg-secondary">
+                            <tr class="text-white">
+                              <th scope="col">Product Name</th>
+                              <th scope="col">QTY</th>
+                              <th scope="col">Price</th>
+                              <th scope="col">action</th>
+                            </tr>
+                          </thead>
+                          <tbody *ngFor="let product of products">
+                            <tr>
+                              <th scope="row" class="rowcont">{{product.product_name}}</th>
+                              <td class="rowcont">{{product.qty}}</td>
+                              <td class="rowcont">{{product.retail_pice | currency}}</td>
+                              <td><a class="editt" [routerLink]="['/editproduct', product.id]">Edit</a>
+                                <a class="del" (click)="deleteProduct(product.id)">Delete</a>
+                              </td>
+                            </tr>
+                          </tbody>
+                        </table>
+                      </div>
+                    </div>
+                  </div>
+                </div>
               </div>
-              <div class="tab-pane fade" [ngClass]="{ 'active':activeTab==='brands-tab'}" id="brands" role="tabpanel" aria-labelledby="brands-tab">
-                <p>Lorem, ipsum dolor sit amet consectetur adipisicing elit. Dicta soluta doloribus, ullam, ut obcaecati laboriosam
-                  eos, officia dolores voluptatum quas impedit placeat cumque animi quos odio quibusdam voluptatibus magnam
-                  minima facilis necessitatibus libero! Error velit veritatis veniam ipsa? Reiciendis quas qui neque atque
-                  repudiandae quidem incidunt, a consectetur ipsam impedit.
-                </p>
+              <div class="tab-pane fade" [ngClass]="{ 'show active':activeTab==='brands-tab'}" id="brands" role="tabpanel" aria-labelledby="brands-tab">
+                <div class="card">
+                  <div class="card-body">
+                    <div class="row">
+                      <div class="col-md-auto">
+                      </div>
+                      <div class="col">
+                        <div class="row">
+                          <div class=" col-sm-10 ressearch">
+                            <input type="text" class="form-control search-slt" placeholder="Search...">
+                          </div>
+                          <div class=" col-sm-2">
+                            <button type="button" class="btn btnstand btn-sm mybtn2">SEARCH</button>
+                          </div>
+                        </div>
+                      </div>
+                      <div class="col-lg-2">
+                        <div class=" pull-right">
+                          <button type="button" class="btn btnstand btn-sm mybtn" (click)="openbrandModal()">ADD NEW BRAND</button>
+                        </div>
+                      </div>
+                    </div>
+                    <div class="single-table" style="margin-top: 15px;">
+                      <div class="table-responsive">
+                        <table class="table text-center">
+                          <thead class="text-uppercase bg-secondary">
+                            <tr class="text-white">
+                              <th scope="col" style="text-align: left;">Brand Name</th>
+                              <th scope="col" style="text-align: right;">action</th>
+                            </tr>
+                          </thead>
+                          <tbody *ngFor="let productBrand of productBrands">
+                            <tr>
+                              <td class="rowcont" style="text-align: left;">{{productBrand.brand_name}}</td>
+                              <td style="text-align: right;"><a class="editt" (click)="openEditproductbrandModal(productBrand.id)">Edit</a>
+                                <a class="del" (click)="deleteProductbrand(productBrand.id)">Delete</a>
+                              </td>
+                            </tr>
+                          </tbody>
+                        </table>
+                      </div>
+                    </div>
+                  </div>
+                </div>
               </div>
-              <div class="tab-pane fade show" [ngClass]="{ 'active':activeTab==='emphours-tab'}" id="emphours" role="tabpanel" aria-labelledby="emphours-tab">
-                <p>Lorem, ipsum dolor sit amet consectetur adipisicing elit. Dicta soluta doloribus, ullam, ut obcaecati laboriosam
-                  eos, officia dolores voluptatum quas impedit placeat cumque animi quos odio quibusdam voluptatibus magnam
-                  minima facilis necessitatibus libero! Error velit veritatis veniam ipsa? Reiciendis quas qui neque atque
-                  repudiandae quidem incidunt, a consectetur ipsam impedit.
-                </p>
+              <div class="tab-pane fade show" [ngClass]="{ 'show active':activeTab==='emphours-tab'}" id="emphours" role="tabpanel" aria-labelledby="emphours-tab">
+                <div class="card">
+                  <div class="card-body">
+                    <div class="row">
+                      <div class="col-md-auto">
+                      </div>
+                      <div class="col">
+                        <div class="row">
+                          <div class=" col-sm-10 ressearch">
+                            <input type="text" class="form-control search-slt" placeholder="Search...">
+                          </div>
+                          <div class=" col-sm-2">
+                            <button type="button" class="btn btnstand btn-sm mybtn2">SEARCH</button>
+                          </div>
+                        </div>
+                      </div>
+                    </div>
+                    <div class="single-table" style="margin-top: 15px;">
+                      <div class="table-responsive">
+                        <table class="table text-center">
+                          <thead class="text-uppercase bg-secondary">
+                            <tr class="text-white">
+                              <th scope="col">
+                                <div class="custom-control custom-checkbox custom-control-inline">
+                                <input type="checkbox" class="custom-control-input" id="customCheck11">
+                                <label class="custom-control-label" for="customCheck11"></label>
+                              </div></th>
+                              <th scope="col">Employees Name</th>
+                              <th scope="col">Monday</th>
+                              <th scope="col">Tuesday</th>
+                              <th scope="col">Wednesday</th>
+                              <th scope="col">Thursday</th>
+                              <th scope="col">Friday</th>
+                              <th scope="col">Saturday</th>
+                              <th scope="col">Sunday</th>
+                            </tr> 
+                          </thead>
+                          <tbody>
+                            <tr *ngFor="let empRoster of empRosters" >
+                               <td class="rowcont"><div class="custom-control custom-checkbox custom-control-inline">
+                                <input type="checkbox" class="custom-control-input" id="customCheck12">
+                                <label class="custom-control-label" for="customCheck12"></label>
+                              </div></td>
+                              <th scope="row" class="rowcont"><img src="https://image.ibb.co/jw55Ex/def_face.jpg" 
+                              class="img img-rounded img-fluid" /> <p style="padding-top: 10px;">{{empRoster.employees ? empRoster.employees.f_name : ''}}</p></th>
+                             <td class="rowcont"><button type="button" (click)="employeehoursModel(empRoster.emp_id)" 
+                             class="btn btn-danger btn-xs mb-3 mysmallbtn">{{empRoster.mom_start_time | time24to12Transform}}-{{empRoster.mom_end_time | time24to12Transform}}</button></td>
+                              <td class="rowcont"><button type="button" (click)="employeehoursModel(empRoster.emp_id)" 
+                              class="btn btn-xs mb-3 mysmallbtn">{{empRoster.tue_start_time | time24to12Transform}}-{{empRoster.tue_end_time | time24to12Transform}}</button></td>
+                              <td class="rowcont"><button type="button" (click)="employeehoursModel(empRoster.emp_id)" 
+                              class="btn btn-xs mb-3 mysmallbtn">{{empRoster.wed_start_time | time24to12Transform}}-{{empRoster.wed_end_time | time24to12Transform}}</button></td>
+                              <td class="rowcont"><button type="button" (click)="employeehoursModel(empRoster.emp_id)" 
+                              class="btn btn-xs mb-3 mysmallbtn">{{empRoster.thur_start_time | time24to12Transform}}-{{empRoster.thur_end_time | time24to12Transform}}</button></td>
+                              <td class="rowcont"><button type="button" (click)="employeehoursModel(empRoster.emp_id)" 
+                              class="btn btn-xs mb-3 mysmallbtn">{{empRoster.fri_start_time | time24to12Transform}}-{{empRoster.fri_end_time | time24to12Transform}}</button></td>
+                              <td class="rowcont"><button type="button" (click)="employeehoursModel(empRoster.emp_id)" 
+                              class="btn btn-xs mb-3 mysmallbtn">{{empRoster.sat_start_time | time24to12Transform}}-{{empRoster.sat_end_time | time24to12Transform}}</button></td>
+                             <td class="rowcont"><button type="button" class="btn btn-xs mb-3  closebtn">Closed</button></td>
+                          </tr>
+                          </tbody>
+                        </table>
+                      </div>
+                    </div>
+                  </div>
+                </div>
               </div>
               <div class="tab-pane fade" [ngClass]="{ 'show active':activeTab==='openhours-tab'}" id="openhours" role="tabpanel" aria-labelledby="openhours-tab"
                 style="padding: 20px;">

@@ -469,3 +469,30 @@ span.switch-label:after {
     color: #fff; 
     opacity: 1;
 }
+.img-fluid {
+    max-width: 40%;
+    height: auto;
+    float: left;
+    margin-left: -11px;
+}
+.mysmallbtn{
+    font-size: 10px !important;
+    color: #000;
+    background-color: #e3ca92;
+    border-color: #e3ca92;
+    font-weight: 700;
+    height: 30px;
+}
+.btn-danger:hover {
+     color: #000 !important; 
+     background-color: #e3ca92 !important; 
+    border-color: #e3ca92 !important; 
+}
+.closebtn{
+    font-size: 10px !important;
+    color: #bbbcbe !important;
+    background-color: #EEEFF1 !important;
+    border-color: #EEEFF1;
+    font-weight: 700;
+    height: 30px;
+}

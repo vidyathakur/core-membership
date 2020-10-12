@@ -1,5 +1,5 @@
 import { Component, OnInit } from '@angular/core';
-import { FormGroup, FormControl, Validators, FormBuilder } from '@angular/forms';
+import { FormGroup, FormControl, Validators, FormBuilder, FormArray } from '@angular/forms';
 import { Router, ActivatedRoute } from '@angular/router';
 import { JwtService } from 'src/app/login/jwt.service';
 import { ToastrManager } from 'ng6-toastr-notifications';
@@ -16,8 +16,9 @@ export class AddnewclientComponent implements OnInit {
 	clientForm: FormGroup;
 	submitted = false;
 	public stateList: any;
-	myModel = true;
-	public clientCats: any;
+	//myModel = true;
+	public clientCats = [];
+	selected = [];
 	public currentEmployees: any;
 	constructor(
 		private formBuilder: FormBuilder,
@@ -71,6 +72,18 @@ export class AddnewclientComponent implements OnInit {
 			let birthday = client_data.birthday
 				? client_data.birthday.year + '/' + client_data.birthday.month + '/' + client_data.birthday.day
 				: '';
+				if(this.selected.length > 0){
+					client_data.client_cat_ids = [];
+					let cat_id = this.selected;
+					console.log(cat_id);
+				
+					for(let i in cat_id){
+						  let object = {};
+							object['id'] = cat_id[i].id;
+							console.log(object);
+							client_data.client_cat_ids.push(object);
+					}
+				}
 			let data = {
 				f_name: client_data.f_name || '',
 				state_id: client_data.state_id || '',
@@ -127,6 +140,13 @@ export class AddnewclientComponent implements OnInit {
 			data => {
 				console.log(data);
 				this.clientCats = data['data'];
+				if (data['data']) {
+					data['data'].forEach((item, key) => {
+						let object = {};
+						object['id'] = item.id
+						this.selected.push(object);
+					});
+				}
 			},
 			error => {
 				console.log('some error occured');
@@ -134,6 +154,22 @@ export class AddnewclientComponent implements OnInit {
 			}
 		);
 	}
+
+	checked(item) {
+		if (this.clientCats.indexOf(item) != -1) {
+			return true;
+		}
+	}
+
+	checkBoxChanged(checked, item) {
+		if (checked) {
+			this.selected.push(item);
+		} else {
+			this.selected.splice(this.selected.indexOf(item), 1);
+		}
+	}
+
+	
 
 	public getStates(): any {
 		let country_id = this.jwtService.getTokenByParams('country_id');
