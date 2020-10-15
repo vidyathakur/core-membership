@@ -113,6 +113,7 @@ export class EditemployeeComponent implements OnInit {
 				let employee_details = data['data'];
 				console.log(employee_details);
 				let birthday_data = employee_details.birthday ? employee_details.birthday.split('-') : ['0', '0', '0'];
+				console.log(birthday_data);
 				this.employeeForm = this.formBuilder.group({
 					display_name: [employee_details.display_name, Validators.required],
 					order: [employee_details.order, [Validators.pattern('^[0-9]*$')]],

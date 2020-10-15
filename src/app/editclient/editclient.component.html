@@ -3,8 +3,9 @@
     <div class="main-content">
       <div class="main-content-inner">
         <h4 class="header-title2" style="color: #c89628; cursor: pointer; margin-left: 20px;" (click)="goToClient()">Back </h4>
-        <h4 class="header-titles2">Add New Client</h4>
-        <form class="col-lg-12" [formGroup]="clientForm" (ngSubmit)="onSubmit()">
+        <h4 class="header-titles2">Update New Client</h4>
+        <form class="col-lg-12" [formGroup]="clientForm" (ngSubmit)="updateClient()">
+          <input type="hidden" class="form-control" formControlName="client_id">
           <div class="control-section accordion-control-section">
             <div class="e-sample-resize-container">
               <ejs-accordion>
@@ -28,8 +29,8 @@
 
                           <div class="col-md-4">
                             <label style="color: #000000;">Surname</label>
-                            <input type="text" class="form-control" formControlName="surname"  placeholder="Surname">
-                            <span class="opt">Optional</span>
+                            <input type="text" class="form-control" formControlName="surname" required placeholder="Surname">
+                            <span class="opt">Required</span>
                           </div>
                         </div>
                         <div class="form-row" style="margin-top: 10px;">
@@ -87,13 +88,16 @@
                           <div class="col-md-6">
                             <label style="color: #000000;">Gender</label>
                             <div class="roles">
-                              <input type="radio" class="inputgen" formControlName="gender" [ngClass]="{ 'is-invalid': submitted && f.gender.errors }"
+                              <input type="radio" class="inputgen" formControlName="gender" 
+                              [ngClass]="{ 'is-invalid': submitted && f.gender.errors }"
                                 value="male" required>
                               <label class="role" for="Male">Male</label>
-                              <input type="radio" class="inputgen" formControlName="gender" [ngClass]="{ 'is-invalid': submitted && f.gender.errors }"
+                              <input type="radio" class="inputgen" formControlName="gender" 
+                              [ngClass]="{ 'is-invalid': submitted && f.gender.errors }"
                                 value="Female" required>
                               <label class="role" for="Female">Female</label>
-                              <input type="radio" class="inputgen" formControlName="gender" [ngClass]="{ 'is-invalid': submitted && f.gender.errors }"
+                              <input type="radio" class="inputgen" formControlName="gender" 
+                              [ngClass]="{ 'is-invalid': submitted && f.gender.errors }"
                                 value="Other" required>
                               <label class="role" for="Other">Other</label>
                               <div *ngIf="submitted && f.gender.errors" class="invalid-feedback">
@@ -106,11 +110,10 @@
                           </div>
                         </div>
                         <div class="form-row">
-                           <div class="col-md-4">
+                          <div class="col-md-4">
                             <label style="color: #000000;">Date Of Birth</label>
                             <div class="input-group">
-                              <input class="form-control" formControlName="birthday" placeholder="yyyy-mm-dd" 
-                              name="birthday" [(ngModel)]="model" ngbDatepicker [minDate]="{year: 1980, month: 1, day: 1}" [maxDate]="{year: 2048, month: 12, day: 31}"
+                              <input class="form-control" formControlName="birthday" placeholder="yyyy-mm-dd" name="birthday" [(ngModel)]="model" ngbDatepicker
                                 #d="ngbDatepicker">
                               <div class="input-group-append">
                                 <button class="btn btn-outline-secondary calendar" (click)="d.toggle()" type="button">
@@ -124,7 +127,7 @@
                           <div class="col-md-4">
                             <label style="color: #000000;">Preffered Employee </label>
                             <select class="custom-select" formControlName="employee_id">
-                            <option [selected]="true" >Select Employee</option>
+                            <option value="" selected="">Select Employee</option>
                             <option *ngFor="let employee of currentEmployees" [value]="employee.id">{{employee.f_name}}</option>
                             </select>
                             <span class="opt">Optional</span>
@@ -221,7 +224,7 @@
                           <div class="col-md-4">
                             <label style="color: #000000;">State</label>
                             <select class="custom-select" formControlName="state_id">
-                              <option [selected]="true">Select State </option>
+                              <option>Select State </option>
                               <option *ngFor="let state of stateList"  [value]="state.id">{{state.name}}</option>
                                               
                                              </select>
@@ -249,11 +252,11 @@
                           <div class="col-md-4">
                             <b class="text-muted mb-3 d-block mylabel" style="color:#000000 !important; font-weight: 500;">Appointment Reminders</b>
                             <div class="custom-control custom-checkbox custom-control-inline">
-                              <input type="checkbox" id="customRadio5" formControlName="appoints_sms"  name="customRadio2" class="custom-control-input">
+                              <input type="checkbox" id="customRadio5" formControlName="appoints_sms" value="1" name="customRadio2" class="custom-control-input">
                               <label class="custom-control-label" for="customRadio5">SMS</label>
                             </div>
                             <div class="custom-control custom-checkbox custom-control-inline">
-                              <input type="checkbox" [checked]="myModel"   id="customRadio4"  formControlName="appoints_email" name="customRadio2"
+                              <input type="checkbox" [checked]="myModel" id="customRadio4" value="1" formControlName="appoints_email" name="customRadio2"
                                 class="custom-control-input">
                               <label class="custom-control-label" for="customRadio4">Email</label>
                             </div>
@@ -264,14 +267,13 @@
                               <label class="custom-control-label" for="customRadio7">SMS</label>
                             </div>
                             <div class="custom-control custom-checkbox custom-control-inline">
-                              <input type="checkbox" [checked]="myModel"   id="customRadio6" formControlName="promote_email"
-                               name="customRadio3" class="custom-control-input">
+                              <input type="checkbox" [checked]="myModel" id="customRadio6" formControlName="promote_email" name="customRadio3" class="custom-control-input">
                               <label class="custom-control-label" for="customRadio6">Email</label>
                             </div>
 
                             <b class="text-muted mb-3 d-block mylabel" style="color:#000000 !important; font-weight: 500; padding-top: 10px;">Online Booking </b>
                             <div class="custom-control custom-checkbox custom-control-inline">
-                              <input type="checkbox" class="custom-control-input" formControlName="online_booking" id="customCheck9">
+                              <input type="checkbox" class="custom-control-input" value="1" formControlName="online_booking" id="customCheck9">
                               <label class="custom-control-label" for="customCheck9">Enable Online Booking</label>
 
                             </div>
@@ -360,15 +362,6 @@
                             <p class="text-muted mb-3 d-block mylabel" style="color:#000000 !important;font-weight: 
                             500;margin-top: 10px;">
                             </p>
-                            <!--<div class="custom-control custom-checkbox custom-control-inline" *ngFor="let clientCat of clientCats;let i = index">
-                              <input type="checkbox" class="custom-control-input" [ngClass]="{ 'is-invalid': submitted && f.client_cat_ids.errors }" required formControlName="client_cat_ids"
-                                id="customCheck{{i}}" (change)="checkBoxChanged($event.target.checked, clientCat)" 
-                                [checked]="checked(clientCat)">
-                              <label class="custom-control-label" for="customCheck{{i}}">{{clientCat.name}}</label>
-                              <div *ngIf="submitted && f.client_cat_ids.errors" class="invalid-feedback">
-                                <div *ngIf="f.client_cat_ids.errors?.required">Client Category is required</div>
-                              </div>
-                            </div>-->
                             <div class="custom-control custom-checkbox custom-control-inline" *ngFor="let clientCat of clientCats;let i = index">
                               <input type="checkbox" class="custom-control-input" [ngClass]="{ 'is-invalid': submitted && f.client_cat_ids.errors }" required id={{i}} value="clientCat" 
                               (change)="onChange(clientCat,$event.target.checked)" id="customCheck{{i}}"
@@ -378,7 +371,7 @@
                                 <div *ngIf="f.client_cat_ids.errors?.required">Client Category is required</div>
                               </div>
                             </div>
-                                 <span class="opt">Required</span>
+
                           </div>
                         </div>
                       </div>
@@ -389,7 +382,7 @@
             </div>
           </div>
           <button type="button" class="btn mb-3 canc" (click)="onReset()">Cancel</button>
-          <button type="submit" class="btn mb-3 sub">Submit</button>
+          <button type="submit" class="btn mb-3 sub">Update</button>
         </form>
       </div>
     </div>

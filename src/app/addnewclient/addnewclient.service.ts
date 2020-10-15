@@ -20,9 +20,7 @@ export class AddnewclientService {
 	public createClient(data): Observable<any> {
 		console.log(data);
 		return this.http.post(`${environment.BASE_URL}/createClient`, data, {
-			headers: new HttpHeaders().set('SESSION-TOKEN',
-				localStorage.getItem('jwt_token')
-			)
+			headers: new HttpHeaders().set('SESSION-TOKEN', localStorage.getItem('jwt_token'))
 		});
 	}
 
@@ -38,5 +36,36 @@ export class AddnewclientService {
 		let myResponse = this.http.post(`${environment.BASE_URL}/getStates `, currentCountryId);
 		console.log(currentCountryId);
 		return myResponse;
+	}
+
+	public getClientDetailsByMerchantID(data): any {
+		let myResponse = this.http.post(`${environment.BASE_URL}/getClientDetailsByMerchantID `, data, {
+			headers: new HttpHeaders().set('SESSION-TOKEN', localStorage.getItem('jwt_token'))
+		});
+		console.log(myResponse);
+		return myResponse;
+	}
+
+	public deleteClient(clientId): any {
+		let myResponse = this.http.delete(`${environment.BASE_URL}/deleteClient` + '/' + clientId, {
+			headers: new HttpHeaders().set('SESSION-TOKEN', localStorage.getItem('jwt_token'))
+		});
+		console.log(myResponse);
+		return myResponse;
+	}
+
+	public getClientDetails(clientId): any {
+		let myResponse = this.http.get(`${environment.BASE_URL}/getClientDetails` + '/' + clientId, {
+			headers: new HttpHeaders().set('SESSION-TOKEN', localStorage.getItem('jwt_token'))
+		});
+		console.log(myResponse);
+		return myResponse;
+	}
+
+	public editClient(data): Observable<any> {
+		console.log(data);
+		return this.http.patch(`${environment.BASE_URL}/editClient`, data, {
+			headers: new HttpHeaders().set('SESSION-TOKEN', localStorage.getItem('jwt_token'))
+		});
 	}
 }

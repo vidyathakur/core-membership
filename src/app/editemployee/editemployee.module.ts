@@ -7,7 +7,6 @@ import { FormsModule, ReactiveFormsModule } from '@angular/forms';
 import { HttpClientModule } from '@angular/common/http';
 import { ToastrModule } from 'ng6-toastr-notifications';
 import { NgbModule } from '@ng-bootstrap/ng-bootstrap';
-import { BsDatepickerModule } from 'ngx-bootstrap/datepicker';
 import { AccordionModule } from '@syncfusion/ej2-angular-navigations';
 
 @NgModule({
@@ -19,7 +18,6 @@ import { AccordionModule } from '@syncfusion/ej2-angular-navigations';
     HttpClientModule,
     AccordionModule,
     NgbModule,
-     BsDatepickerModule.forRoot(),
     ToastrModule.forRoot(),
     EditemployeeRoutingModule
   ]

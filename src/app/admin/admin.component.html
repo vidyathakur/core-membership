@@ -143,18 +143,20 @@
                                     <th scope="col">Name</th>
                                     <th scope="col">Mobile</th>
                                     <th scope="col">Email</th>
-                                    <th scope="col">Barcode / Member No.</th>
+                                    <th scope="col">Preffered Employee</th>
+                                    <th scope="col">Address</th>
                                     <th scope="col">Action</th>
                                   </tr>
                                 </thead>
                                 <tbody>
-                                  <tr>
-                                    <th scope="row" class="rowcont">1</th>
-                                    <td class="rowcont">Mark</td>
-                                    <td class="rowcont">1234567890</td>
-                                    <td class="levl">dummy@gmail.com</td>
-                                    <td class="rowcont">1234567890</td>
-                                    <td><a class="editt">Edit</a> <a class="del">Delete</a></td>
+                                  <tr *ngFor="let client of clients;let i = index;">
+                                    <th scope="row" class="rowcont">{{i+1}}</th>
+                                    <td class="rowcont">{{client.f_name}}</td>
+                                    <td class="rowcont">{{client.mobile}}</td>
+                                    <td class="levl">{{client.email}}</td>
+                                    <td class="rowcont">{{client.employee ? client.employee.f_name : ''}}</td>
+                                    <td class="rowcont">{{client.address}}</td>
+                                    <td><a class="editt" [routerLink]="['/editclient', client.id]">Edit</a> <a class="del" (click)="deleteClient(client.id)">Delete</a></td>
                                   </tr>
                                 </tbody>
                               </table>

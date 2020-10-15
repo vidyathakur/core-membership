@@ -3,11 +3,24 @@ import { CommonModule } from '@angular/common';
 
 import { AddappointmentsRoutingModule } from './addappointments-routing.module';
 import { AddappointmentsComponent } from './addappointments.component';
+import { FormsModule, ReactiveFormsModule } from '@angular/forms';
+import { NgbModule } from '@ng-bootstrap/ng-bootstrap';
+import { HttpClientModule } from '@angular/common/http';
+import { ToastrModule } from 'ng6-toastr-notifications';
+import { AccordionModule } from '@syncfusion/ej2-angular-navigations';
+import { BsDatepickerModule } from 'ngx-bootstrap/datepicker';
 
 @NgModule({
   declarations: [AddappointmentsComponent],
   imports: [
     CommonModule,
+    FormsModule,
+    ReactiveFormsModule,
+    HttpClientModule,
+    AccordionModule,
+    ToastrModule.forRoot(),
+    BsDatepickerModule.forRoot(),
+    NgbModule,
     AddappointmentsRoutingModule
   ]
 })

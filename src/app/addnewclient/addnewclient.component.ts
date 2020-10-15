@@ -16,9 +16,8 @@ export class AddnewclientComponent implements OnInit {
 	clientForm: FormGroup;
 	submitted = false;
 	public stateList: any;
-	//myModel = true;
+	myModel = true;
 	public clientCats = [];
-	selected = [];
 	public currentEmployees: any;
 	constructor(
 		private formBuilder: FormBuilder,
@@ -42,8 +41,8 @@ export class AddnewclientComponent implements OnInit {
 			twitter: new FormControl(''),
 			phone_no: new FormControl(''),
 			email: new FormControl('', [Validators.required, Validators.email]),
-			gender: new FormControl(''),
-			birthday: new FormControl(''),
+			gender: new FormControl('', Validators.required),
+			birthday: [''],
 			employee_id: new FormControl(''),
 			referred_by: new FormControl(''),
 			refferral_type_id: new FormControl(''),
@@ -59,7 +58,7 @@ export class AddnewclientComponent implements OnInit {
 			promote_email: new FormControl(''),
 			online_booking: new FormControl(''),
 			loyalty_point: new FormControl(''),
-			client_cat_ids: new FormControl('')
+			client_cat_ids: this.formBuilder.array([],[Validators.required])
 		});
 	}
 	get f() {
@@ -72,18 +71,6 @@ export class AddnewclientComponent implements OnInit {
 			let birthday = client_data.birthday
 				? client_data.birthday.year + '/' + client_data.birthday.month + '/' + client_data.birthday.day
 				: '';
-				if(this.selected.length > 0){
-					client_data.client_cat_ids = [];
-					let cat_id = this.selected;
-					console.log(cat_id);
-				
-					for(let i in cat_id){
-						  let object = {};
-							object['id'] = cat_id[i].id;
-							console.log(object);
-							client_data.client_cat_ids.push(object);
-					}
-				}
 			let data = {
 				f_name: client_data.f_name || '',
 				state_id: client_data.state_id || '',
@@ -95,18 +82,20 @@ export class AddnewclientComponent implements OnInit {
 				email: client_data.email || '',
 				birthday: birthday || '',
 				address: client_data.address || '',
+				twitter: client_data.twitter || '',
 				postcode: client_data.postcode || '',
 				comments: client_data.comments || '',
+				barcode_no: client_data.barcode_no || '',
 				referred_by: client_data.referred_by || '',
 				refferral_type_id: client_data.state_id || '',
-				appoints_sms: client_data.appoints_sms || true ? 1 : 0,
-				appoints_email: client_data.appoints_email || true ? 1 : 0,
-				promote_sms: client_data.promote_sms || true ? 1 : 0,
-				promote_email: client_data.promote_email || true ? 1 : 0,
-				online_booking: client_data.online_booking || '',
+				appoints_sms: client_data.appoints_sms == true ? 1 : 0,
+				appoints_email: client_data.appoints_email == true ? 1 : 0,
+				promote_sms: client_data.promote_sms == true ? 1 : 0,
+				promote_email: client_data.promote_email == true ? 1 : 0,
+				online_booking: client_data.online_booking == true ? 1 : 0,
 				loyalty_point: client_data.loyalty_point || '',
 				employee_id: client_data.employee_id,
-				client_cat_ids: client_data.client_cat_ids || ''
+				client_cat_ids: client_data.client_cat_ids || '',
 			};
 			console.log(data);
 			this.addnewclientService.createClient(data).subscribe(apiResponse => {
@@ -140,13 +129,6 @@ export class AddnewclientComponent implements OnInit {
 			data => {
 				console.log(data);
 				this.clientCats = data['data'];
-				if (data['data']) {
-					data['data'].forEach((item, key) => {
-						let object = {};
-						object['id'] = item.id
-						this.selected.push(object);
-					});
-				}
 			},
 			error => {
 				console.log('some error occured');
@@ -155,21 +137,28 @@ export class AddnewclientComponent implements OnInit {
 		);
 	}
 
-	checked(item) {
-		if (this.clientCats.indexOf(item) != -1) {
-			return true;
+	// checked(item) {
+	// 	if (this.clientCats.indexOf(item) != -1) {
+	// 		return true;
+	// 	}
+	// }
+
+	// checkBoxChanged(checked, item) {
+	// 	if (checked) {
+	// 		this.selected.push(item);
+	// 	} else {
+	// 		this.selected.splice(this.selected.indexOf(item), 1);
+	// 	}
+	// }
+	onChange(clientCat:any,isChecked:boolean) {
+		const control = <FormArray>this.clientForm.controls.client_cat_ids;
+		if(isChecked){
+			control.push(new FormControl(clientCat));
+		} else{
+			const index = control.controls.findIndex(x => x.value === clientCat);
+			control.removeAt(index);
 		}
 	}
-
-	checkBoxChanged(checked, item) {
-		if (checked) {
-			this.selected.push(item);
-		} else {
-			this.selected.splice(this.selected.indexOf(item), 1);
-		}
-	}
-
-	
 
 	public getStates(): any {
 		let country_id = this.jwtService.getTokenByParams('country_id');

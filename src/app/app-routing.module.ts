@@ -13,6 +13,7 @@ const routes: Routes = [
   { path: 'appointments', loadChildren: './appointments/appointments.module#AppointmentsModule', canActivate:[AuthGuardService] },
   { path: 'addemployees', loadChildren: './addemployees/addemployees.module#AddemployeesModule',canActivate:[AuthGuardService] },
   { path: 'addnewclient', loadChildren: './addnewclient/addnewclient.module#AddnewclientModule',canActivate:[AuthGuardService] },
+  { path: 'editclient/:id', loadChildren: './editclient/editclient.module#EditclientModule',canActivate:[AuthGuardService] },
   { path: 'admin', loadChildren: './admin/admin.module#AdminModule',canActivate:[AuthGuardService] },
   { path: 'product', loadChildren: './product/product.module#ProductModule',canActivate:[AuthGuardService] },
   { path: 'editemployee/:id', loadChildren: './editemployee/editemployee.module#EditemployeeModule',canActivate:[AuthGuardService] },

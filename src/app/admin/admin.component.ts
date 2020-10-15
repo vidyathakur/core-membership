@@ -39,6 +39,7 @@ import { EditsupplierComponent } from 'src/app/editsupplier/editsupplier.compone
 import { EmployeehoursComponent } from 'src/app/employeehours/employeehours.component';
 import { ProductService } from 'src/app/product/product.service';
 import { EmployeehoursService } from 'src/app/employeehours/employeehours.service';
+import { AddnewclientService } from 'src/app/addnewclient/addnewclient.service';
 @Component({
 	selector: 'app-admin',
 	templateUrl: './admin.component.html',
@@ -69,6 +70,7 @@ export class AdminComponent implements OnInit {
 	public emplevel_name: any;
 	public serviceitems: any;
 	public currentEmp: any;
+	public clients: any;
 	public resources: any;
 	public servicelevels: any;
 	public clientCats: any;
@@ -322,7 +324,8 @@ export class AdminComponent implements OnInit {
 		public productbrandService: ProductbrandService,
 		public supplierService: SupplierService,
 		public productService: ProductService,
-		private employeehoursservice: EmployeehoursService
+		private employeehoursservice: EmployeehoursService,
+		public addnewclientService: AddnewclientService
 	) {
 		this.empForm = this.formBuilder.group({
 			id: new FormControl('', Validators.required),
@@ -386,6 +389,7 @@ export class AdminComponent implements OnInit {
 		} else {
 			this.activeTab = 'services-tab';
 		}
+		this.getClientDetailsByMerchantID();
 		this.getEmpRosterHoursByMechantId();
 		this.getProducts();
 		this.getSupplier();
@@ -472,6 +476,22 @@ export class AdminComponent implements OnInit {
 			data => {
 				console.log(data);
 				this.clientCats = data['data'];
+				setTimeout(() => {
+					this.SpinnerService.hide();
+				}, 2000);
+			},
+			error => {
+				console.log('some error occured');
+				this.toastr.errorToastr('some error occured');
+			}
+		);
+	}
+	public getClientDetailsByMerchantID(): any {
+		this.SpinnerService.show();
+		this.addnewclientService.getClientDetailsByMerchantID({}).subscribe(
+			data => {
+				console.log(data);
+				this.clients = data['data'];
 				setTimeout(() => {
 					this.SpinnerService.hide();
 				}, 2000);
@@ -1318,6 +1338,20 @@ export class AdminComponent implements OnInit {
 				console.log(data);
 				this.toastr.successToastr(' Product Deleted Successfully');
 				this.getProducts();
+			},
+			error => {
+				console.log('some error occured');
+				this.toastr.errorToastr('Some error occured', 'Oops!');
+			}
+		);
+	}
+
+	public deleteClient(id): any {
+		this.addnewclientService.deleteClient(id).subscribe(
+			data => {
+				console.log(data);
+				this.toastr.successToastr(' Client Deleted Successfully');
+				this.getClientDetailsByMerchantID();
 			},
 			error => {
 				console.log('some error occured');
