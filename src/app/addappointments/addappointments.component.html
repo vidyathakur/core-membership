@@ -4,28 +4,28 @@
       <div class="row">
         <div class="col-md-12 ">
           <form [formGroup]="addappointmentForm" (ngSubmit)="onSubmit()">
-          <h4 class="header-title" style="color: #c89628;cursor: pointer;" [routerLink]="['/appointments']">Back </h4>
-          <h4 class="header-title">Add Appointments </h4>
-          <div class="card">
-            <div class="header-title myheadtitle">Select Client Details and Services</div>
-            <div class="main-content-inner">
-              <div class="row">
-               
+            <h4 class="header-title" style="color: #c89628;cursor: pointer;" [routerLink]="['/appointments']">Back </h4>
+            <h4 class="header-title">Add Appointments </h4>
+            <div class="card">
+              <div class="header-title myheadtitle">Select Client Details and Services</div>
+              <div class="main-content-inner">
+                <div class="row">
+
                   <div class="col-md-6">
                     <div class="form-row">
-                          <div class="col-md-9">
-                            <div class="form-group mysubgroup">
-                            <label class="col-form-label myappoinlabel">Select Client</label>
-                      <select class="custom-select mycustom" formControlName="client_id">
+                      <div class="col-md-9">
+                        <div class="form-group mysubgroup">
+                          <label class="col-form-label myappoinlabel">Select Client</label>
+                          <select class="custom-select mycustom" formControlName="client_id">
                                  <option value="" selected="">Open this select menu</option>
                                  <option *ngFor="let client of clients" [value]=client.id>{{client.f_name}}</option>
                               </select>
-                          </div>
-                          </div>
-                          <div class="col-md-3" style="padding-top: 25px;">
-                            <button type="button" class="btn mybtn" [routerLink]="['/addnewclient']">ADD NEW CLIENT</button>
-                          </div>
                         </div>
+                      </div>
+                      <div class="col-md-3" style="padding-top: 25px;">
+                        <button type="button" class="btn mybtn" [routerLink]="['/addnewclient']">ADD NEW CLIENT</button>
+                      </div>
+                    </div>
                     <div class="form-group mysubgroup">
                       <label class="col-form-label myappoinlabel">Select Staff</label>
                       <select class="custom-select mycustom" formControlName="employee_id">
@@ -33,22 +33,22 @@
                                  <option *ngFor="let employee of currentEmployees" [value]=employee.id>{{employee.f_name}}</option>
                               </select>
                     </div>
-                     <div class="form-row">
-                          <div class="col-md-6">
-                            <label class="col-form-label myappoinlabel">Date</label>
-                            <div class="input-group">
-                              <input class="form-control mycustom" formControlName="birthday" placeholder="yyyy-mm-dd" 
-                              name="birthday" [(ngModel)]="model" ngbDatepicker [minDate]="{year: 1980, month: 1, day: 1}" [maxDate]="{year: 2048, month: 12, day: 31}"
-                                #d="ngbDatepicker">
-                              <div class="input-group-append">
-                                <button class="btn btn-outline-secondary calendar mycustom" (click)="d.toggle()" type="button">
+                    <div class="form-row">
+                      <div class="col-md-6">
+                        <label class="col-form-label myappoinlabel">Date</label>
+                        <div class="input-group">
+                          <input class="form-control mycustom" (ngModelChange)="select(model)"  formControlName="start_date" placeholder="yyyy-mm-dd" name="start_date" [(ngModel)]="model"
+                            ngbDatepicker [minDate]="{year: 1980, month: 1, day: 1}" [maxDate]="{year: 2048, month: 12, day: 31}"
+                            #d="ngbDatepicker">
+                          <div class="input-group-append">
+                            <button class="btn btn-outline-secondary calendar mycustom" (click)="d.toggle()" type="button">
                                   <i class="fa fa-calendar"></i></button>
-                              </div>
-                            </div>
                           </div>
-                          <div class="col-md-6">
-                            <label class="col-form-label myappoinlabel">Time </label>
-                            <select class="custom-select mycustom" [(ngModel)]="selectedValue" formControlName="duration">
+                        </div>
+                      </div>
+                      <div class="col-md-6">
+                        <label class="col-form-label myappoinlabel">Time </label>
+                        <select class="custom-select mycustom" [(ngModel)]="selectedValue" formControlName="duration">
                             <option value="09">9 AM</option>
                             <option value="10">10 AM</option>
                             <option value="11">11 AM</option>
@@ -63,41 +63,47 @@
                             <option value="20">8 PM</option>
                             <option value="21">9 PM</option>
                           </select>
-                          </div>
-                        </div>
+                      </div>
+                    </div>
                     <div class="form-group">
                       <label class="col-form-label myappoinlabel">Service Category </label>
-                      <select class="custom-select mycustom" (change)="changeServiceCat($event)" 
-                      formControlName="service_cat_id">
+                      <select class="custom-select mycustom" (change)="changeServiceCat($event)" formControlName="service_cat_id">
                       <option value="" selected="">Open this select menu</option>
                       <option *ngFor="let serviceCat of serviceCats" [value]=serviceCat.id>{{serviceCat.name}}</option>
                   </select>
                     </div>
                     <div class="card scrollbar4" id="style-3" style="margin-top: 10px; background-color: #f3f4f9;">
                       <div class="card-body ">
-                    <div class="form-row">
-                  <div class="col-md-10" *ngFor="let service of services">
-                    <input type="checkbox" id="vehicle1" name="vehicle1" value="Bike">
-                        <label for="vehicle1" class="mycheckbox">{{service.service_name}}</label>
-                    <button type="button" class="btn addbtn" style="float: right;">ADD</button>
-                  </div>
-                  
-                </div>
+                        <div class="form-row">
+                          <div class="col-md-10" *ngFor="let service of services">
+                            <input type="checkbox" id="vehicle1" name="vehicle1" value="Bike" 
+                            (change)="onCheckboxChange($event,service.id)">
+                            <label for="vehicle1" class="mycheckbox">{{service.service_name}}</label>
+                            <button type="button" class="btn addbtn" (onClick)="addService(service.id)" style="float: right;">ADD</button>
+                          </div>
+
+                        </div>
                       </div>
                     </div>
                     <b class="text-muted mb-3 mt-4 d-block flagappoint">Flag As</b>
-                    <div class="custom-control custom-checkbox custom-control-inline">
-                      <input type="checkbox" checked class="custom-control-input" id="customCheck5">
-                      <label class="custom-control-label" for="customCheck5" style="font-size: 14px; color: #000;">Requested</label>
+                    <!--<div class="custom-control custom-checkbox custom-control-inline">
+                      <input type="radio" checked class="custom-control-input" id="customCheck5">
+                      <label class="custom-control-label" for="customCheck5" 
+                      style="font-size: 14px; color: #000;">Requested</label>
                     </div>
                     <div class="custom-control custom-checkbox custom-control-inline">
-                      <input type="checkbox" class="custom-control-input" id="customCheck6">
-                      <label class="custom-control-label" for="customCheck6" style="font-size: 14px; color: #000;">Confirmed</label>
+                      <input type="radio" class="custom-control-input" id="customCheck6">
+                      <label class="custom-control-label" for="customCheck6" 
+                      style="font-size: 14px; color: #000;">Confirmed</label>
                     </div>
                     <div class="custom-control custom-checkbox custom-control-inline">
-                      <input type="checkbox" class="custom-control-input" id="customCheck7">
-                      <label class="custom-control-label" for="customCheck7" style="font-size: 14px; color: #000;">VIP</label>
-                    </div>
+                      <input type="radio" class="custom-control-input" id="customCheck7">
+                      <label class="custom-control-label" for="customCheck7" 
+                      style="font-size: 14px; color: #000;">VIP</label>
+                    </div>-->
+                    <input id="flag_as" type="radio" value="1" name="flag_as"/> Requested
+                    <input id="flag_as" type="radio" value="1" name="flag_as"/> Confirmed
+                    <input id="flag_as" type="radio" value="1" name="flag_as"/> VIP
                     <div class="card-body">
                       <textarea>Some text...</textarea>
                     </div>
@@ -119,8 +125,7 @@
                             <p style="color: #000; font-size: 13px; font-weight: 600;"><i class="fa fa-phone-square" style="color: #c89628; font-size: 20px;"></i> +01 1234567894</p>
                             <p style="color: #000; font-size: 13px; font-weight: 600;"><i class="fa fa-envelope-square" style="color: #c89628; font-size: 20px;"></i> devon@gmail.com</p>
                             <p style="color: #000; font-size: 13px; font-weight: 600;"><img src="assets/img/icon-map.png" style="width: 5%; font-size: 20px;">1100 New Heaven Road,<br>
-                              <span
-                                style="padding-left: 20px;">Naugatuck CT 6670</span>
+                              <span style="padding-left: 20px;">Naugatuck CT 6670</span>
                             </p>
                             <p>
                               <a class="editt">View History</a>
@@ -131,9 +136,9 @@
                     </div>
                     <h2 class="appoints">Services </h2>
                     <div class="card scrollbar3" id="style-3" style="margin-top: 10px;">
-                      <div class="card-body myborder" *ngFor="let service of services">
-                        <h5 class="mysubheader">{{service.duration}}-{{service.service_name}} </h5>
-                        <span class="subicon"><i class="fa fa-times-circle"></i></span>
+                      <div class="card-body myborder" *ngFor="let service of checkOutputDta">
+                        <h5 class="mysubheader">{{service.duration }} - {{service.service_name}} </h5>
+                        <span class="subicon"><i class="fa fa-times-circle" (click)="removeServices(service.id)"></i></span>
                       </div>
                     </div>
                     <div class="card-body" style="padding-left: 0px;">
@@ -152,10 +157,10 @@
                       </div>
                     </div>
                   </div>
-               
+
+                </div>
               </div>
             </div>
-          </div>
           </form>
         </div>
       </div>

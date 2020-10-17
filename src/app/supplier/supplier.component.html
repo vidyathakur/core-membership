@@ -68,7 +68,7 @@
 <div class="form-group">
   <label style="color: #000000;">Select State</label>
 <select class="custom-select" formControlName="state">
-<option [selected]="true">Select State </option>
+<option [value]="null">Select State </option>
 <option *ngFor="let states of stateList" [value]="states.id">{{states.name}}</option>
 </select>
 </div>

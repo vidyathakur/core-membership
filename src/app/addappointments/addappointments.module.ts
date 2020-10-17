@@ -9,6 +9,7 @@ import { HttpClientModule } from '@angular/common/http';
 import { ToastrModule } from 'ng6-toastr-notifications';
 import { AccordionModule } from '@syncfusion/ej2-angular-navigations';
 import { BsDatepickerModule } from 'ngx-bootstrap/datepicker';
+import { SharedModule } from 'src/app/shared/shared.module';
 
 @NgModule({
   declarations: [AddappointmentsComponent],
@@ -17,6 +18,7 @@ import { BsDatepickerModule } from 'ngx-bootstrap/datepicker';
     FormsModule,
     ReactiveFormsModule,
     HttpClientModule,
+    SharedModule,
     AccordionModule,
     ToastrModule.forRoot(),
     BsDatepickerModule.forRoot(),

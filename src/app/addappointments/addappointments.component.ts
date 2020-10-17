@@ -15,6 +15,10 @@ import { AddappointmentsService } from 'src/app/addappointments/addappointments.
 	styleUrls: ['./addappointments.component.css']
 })
 export class AddappointmentsComponent implements OnInit {
+	checkedList: [];
+	servicesData: {};
+	selectedItems: [];
+	model;
 	addappointmentForm: FormGroup;
 	closeResult: string;
 	@Input() fromParent;
@@ -24,6 +28,8 @@ export class AddappointmentsComponent implements OnInit {
 	selectedValue = '09';
 	public clients: any;
 	public currentEmployees: any;
+	checkOutputDta: any[];
+	events: string[] = [];
 	constructor(
 		private SpinnerService: NgxSpinnerService,
 		public router: Router,
@@ -40,8 +46,10 @@ export class AddappointmentsComponent implements OnInit {
 			service_cat_id: [''],
 			client_id: [''],
 			employee_id: [''],
+			start_date: [''],
 			duration: ['']
 		});
+		this.selectedItems = [];
 	}
 
 	onSubmit() {
@@ -53,7 +61,8 @@ export class AddappointmentsComponent implements OnInit {
 				service_cat_id: appoint_data.service_cat_id,
 				client_id: appoint_data.client_id,
 				employee_id: appoint_data.employee_id,
-				duration: appoint_data.duration
+				duration: appoint_data.duration,
+				start_date: appoint_data.start_date
 			};
 			console.log(data);
 			this.appointmentsService.createAppointment(data).subscribe(apiResponse => {
@@ -73,44 +82,63 @@ export class AddappointmentsComponent implements OnInit {
 		this.getEmployees();
 	}
 
-	// public getServiceByMerchantId(): any {
-	// 	this.adminService.getServiceByMerchantId().subscribe(
-	// 		data => {
-	// 			console.log(data);
-	// 			this.services = data['data'];
-	// 		},
-	// 		error => {
-	// 			console.log('some error occured');
-	// 			this.toastr.errorToastr('some error occured');
-	// 		}
-	// 	);
-	// }
-	// filterForeCasts(filterVal: any) {
-	// 	if (filterVal == '0') this.forecasts = this.cacheForecasts;
-	// 	else this.forecasts = this.cacheForecasts.filter(item => item.summary == filterVal);
-	// }
-	public getServiceByCatId(id): any {
-		this.addappointmentsservice.getServiceByCatId(id).subscribe(data => {
+	changeServiceCat(e) {
+		let id = e.target.value;
+		this.addappointmentsservice.getServiceByCatId(id).subscribe(
+			data => {
 				console.log(data);
+				let responseData = {};
+				data['data'].forEach(item => {
+					responseData[item.id] = item;
+				});
+				this.servicesData = responseData;
 				this.services = data['data'];
-			}, error => {
+			},
+			error => {
 				console.log('some error occured');
 				this.toastr.errorToastr('some error occured');
-			});
+			}
+		);
+
+		console.log(e.target.value);
 	}
 
-	changeServiceCat(e,id) {
-			// this.services = [e.target.value];
-			// console.log(this.services);
-			this.addappointmentsservice.getServiceByCatId(id).subscribe(data => {
-					console.log(data);
-					this.services = data['data'];
-				}, error => {
-					console.log('some error occured');
-					this.toastr.errorToastr('some error occured');
-				});
-	
-		console.log(e.target.value);
+	// 	onCheckboxChange(option, event) {
+	// 		console.log(option);
+	// 		let data = [];
+	// 		if(event.target.checked) {
+	// 			data.push(option.id);
+	// 		}
+	// 	 	console.log(data);
+	//    }
+	select(d,id:string) {
+		console.log(d);
+		
+	}
+	onCheckboxChange(e: any, id: string) {
+		if (e.target.checked) {
+			this.selectedItems.push(id);
+		} else {
+			console.log(id + ' unchecked');
+			this.selectedItems = this.selectedItems.filter(m => m != id);
+		}
+		let arrayData = [];
+		for (let i in this.selectedItems) {
+			console.log(this.selectedItems[i]);
+			arrayData.push(this.servicesData[this.selectedItems[i]]);
+		}
+		this.checkOutputDta = arrayData;
+	}
+
+	removeServices(id) {
+		console.log(id);
+		this.selectedItems = this.selectedItems.filter(m => m != id);
+		let arrayData = [];
+		for (let i in this.selectedItems) {
+			console.log(this.selectedItems[i]);
+			arrayData.push(this.servicesData[this.selectedItems[i]]);
+		}
+		this.checkOutputDta = arrayData;
 	}
 
 	public getServiceCatByMerchantId(): any {

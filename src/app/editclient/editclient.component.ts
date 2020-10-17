@@ -53,12 +53,12 @@ export class EditclientComponent implements OnInit {
 			promote_email: new FormControl(''),
 			online_booking: new FormControl(''),
 			loyalty_point: new FormControl(''),
-		client_cat_ids: this.formBuilder.array([],[Validators.required]),
+			client_cat_ids: this.formBuilder.array([], [Validators.required]),
 			client_id: new FormControl()
 		});
 	}
 
-	ngOnInit() {
+	ngOnInit(): void {
 		this.getClientCategories();
 		this.getEmployees();
 		this.getStates();
@@ -102,7 +102,7 @@ export class EditclientComponent implements OnInit {
 					online_booking: [client_details.online_booking],
 					loyalty_point: [client_details.loyalty_point],
 					client_id: [id],
-					client_cat_ids: [client_details.client_cat_ids, Validators.required]
+					client_cat_ids: this.formBuilder.array([], [Validators.required])
 				});
 				console.log(this.clientForm);
 			},

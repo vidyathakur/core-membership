@@ -34,4 +34,26 @@ export class AddappointmentsService {
 		console.log(myResponse);
 		return myResponse;
 	}
+
+	// public getTimeSlotForAppointByEmpId(EmpId, date): any {
+	// 	let myResponse = this.http.get(
+	// 		`${environment.BASE_URL}/getTimeSlotForAppointByEmpId` + '/' + EmpId + `{day} '/' + {month} + '/' + {year}`,
+	// 		{
+	// 			headers: new HttpHeaders().set('SESSION-TOKEN', localStorage.getItem('jwt_token'))
+	// 		}
+	// 	);
+	// 	console.log(date);
+	// 	return myResponse;
+	// }
+
+	public getTimeSlotForAppointByEmpId(EmpId, start_date): any {
+		let myResponse = this.http.get(
+			`${environment.BASE_URL}/getTimeSlotForAppointByEmpId` + '/' + EmpId + start_date,
+			{
+				headers: new HttpHeaders().set('SESSION-TOKEN', localStorage.getItem('jwt_token'))
+			}
+		);
+		console.log(start_date);
+		return myResponse;
+	}
 }

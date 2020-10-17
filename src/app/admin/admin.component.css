@@ -465,10 +465,10 @@ span.switch-label:after {
     color: #c89628;
     font-weight: 600;
 }
-.close {
+/*.close {
     color: #fff; 
     opacity: 1;
-}
+}*/
 .img-fluid {
     max-width: 40%;
     height: auto;
