@@ -1,3 +1,4 @@
+import { EmployeehoursService } from '../employeehours/employeehours.service';
 import { AddnewclientService } from '../addnewclient/addnewclient.service';
 import { Component, Input, OnInit, ViewEncapsulation } from '@angular/core';
 import { extend, isNullOrUndefined, Browser, Internationalization, L10n } from '@syncfusion/ej2-base';
@@ -23,7 +24,7 @@ import { ToastrManager } from 'ng6-toastr-notifications';
 import { Router, ActivatedRoute } from '@angular/router';
 import { JwtService } from 'src/app/login/jwt.service';
 import { NgxSpinnerService } from 'ngx-spinner';
-import { roomData, resourceConferenceData, scheduleData, doctorData } from 'src/app/appointments/data';
+import { doctorData } from 'src/app/appointments/data';
 import { AppointmentsService } from 'src/app/appointments/appointments.service';
 
 import {
@@ -31,23 +32,34 @@ import {
 	WeekService,
 	WorkWeekService,
 	MonthService,
-	AgendaService
+	AgendaService,
+	Schedule,
+	TimelineViews,
+	TimelineMonth,
+	DragAndDrop,
+	Resize,
+	Day
 } from '@syncfusion/ej2-angular-schedule';
+
+/**
+ * schedule block events sample
+ */
+Schedule.Inject(Day, TimelineViews, TimelineMonth, Resize, DragAndDrop);
+// tslint:disable-next-line:max-func-body-length
+
 import { FormControl, FormGroup, Validators, FormBuilder } from '@angular/forms';
 import { NgbActiveModal } from '@ng-bootstrap/ng-bootstrap';
-import { RadioButton,Button } from '@syncfusion/ej2-buttons';
 L10n.load({
-  'en-US': {
-      'schedule': {
-          'saveButton': 'Save',
-          'cancelButton': 'Close',
-          'deleteButton': 'Remove',
-          'newEvent': 'Add Appointments',
-      },
-  }
+	'en-US': {
+		schedule: {
+			saveButton: 'Save',
+			cancelButton: 'Close',
+			deleteButton: 'Remove',
+			newEvent: 'Add Appointments'
+		}
+	}
 });
-let radioButton: RadioButton = new RadioButton({label: 'Credit/Debit Card', name: 'payment', value: 'credit/debit', checked: true});
-radioButton.appendTo('#radio1');
+
 @Component({
 	selector: 'app-appointments',
 	templateUrl: './appointments.component.html',
@@ -61,7 +73,7 @@ export class AppointmentsComponent implements OnInit {
 	public empLevelNames: any;
 	public currentEmployees: any;
 	public TimeArray: any;
-	public data: Object[] = <Object[]>extend([], resourceConferenceData, null, true);
+	public data: Object[] = <Object[]>extend([], [], null, true);
 	//public selectedDate: Date = new Date();
 	public timeScale: TimeScaleModel = {
 		enable: true,
@@ -79,7 +91,8 @@ export class AppointmentsComponent implements OnInit {
 	getMinorTime(date: Date): string {
 		return this.instance.formatDate(date, { skeleton: 'hm' });
 	}
-	public selectedDate: Date = new Date(2018, 3, 5);
+
+	public selectedDate: Date = new Date(new Date().getFullYear(),new Date().getMonth(),new Date().getDate());
 	public views: Array<string> = ['Week', 'Month', 'TimelineWeek', 'TimelineMonth', 'Agenda'];
 	public eventSettings: EventSettingsModel = {
 		dataSource: doctorData
@@ -135,39 +148,32 @@ export class AppointmentsComponent implements OnInit {
 		private _route: ActivatedRoute,
 		public appointmentsService: AppointmentsService,
 		public adminService: AdminService,
-		public addnewclientService: AddnewclientService
+		public addnewclientService: AddnewclientService,
+		public employeehoursservice: EmployeehoursService
 	) {
-		this.appointmentForm = this.formBuilder.group({
-			client_id: new FormControl('', Validators.required),
-			service_id: new FormControl('', Validators.required),
-			price: new FormControl(''),
-			comment: new FormControl(''),
-			flag_as: new FormControl(''),
-			duration: new FormControl(''),
-			start_date: new FormControl(''),
-			Subject: new FormControl('')
-		});
+		// this.appointmentForm = this.formBuilder.group({
+		// 	client_id: new FormControl('', Validators.required),
+		// 	service_id: new FormControl('', Validators.required),
+		// 	price: new FormControl(''),
+		// 	comment: new FormControl(''),
+		// 	flag_as: new FormControl(''),
+		// 	duration: new FormControl(''),
+		// 	start_date: new FormControl(''),
+		// 	Subject: new FormControl(''),
+		// 	Location: new FormControl('')
+		// });
 	}
 
-	// getEmployeeName(value: ResourceDetails | TreeViewArgs): string {
-	// 	return (value as ResourceDetails).resourceData
-	// 		? (value as ResourceDetails).resourceData[(value as ResourceDetails).resource.textField] as string
-	// 		: (value as TreeViewArgs).resourceName;
-	// }
-	// getEmployeeDesignation(value: ResourceDetails | TreeViewArgs): string {
-	// 	return (value as ResourceDetails).resourceData
-	// 		? (value as ResourceDetails).resourceData[(value as ResourceDetails).resource.idField] as string
-	// 		: (value as TreeViewArgs).resourceName;
-	// }
-	// getEmployeeImage(value: ResourceDetails | TreeViewArgs): string {
-	// 	let resourceName: string = this.resourceData(value);
-	// 	return resourceName.replace(' ', '-').toLowerCase();
-	// }
-
 	ngOnInit() {
-		//this.getOpeningDay();
-		this.getClientDetailsByMerchantID();
-		this.getServiceByMerchantId();
+		let data = new Date();
+		let year = data.getFullYear();
+		let month = data.getMonth() + 1;
+		let day = data.getDate();
+		let current_date = day + '-' + month + '-' + year;
+		console.log(current_date);
+		this.getCalendarData(current_date);
+		// this.getServiceByMerchantId();
+		// this.getClientDetailsByMerchantID();
 		this.appointmentsService.getEmpDetailByMerchantId({}).subscribe(
 			data => {
 				console.log(data);
@@ -197,98 +203,159 @@ export class AppointmentsComponent implements OnInit {
 		);
 	}
 
-	
-
-	public getServiceByMerchantId(): any {
-		this.adminService.getServiceByMerchantId().subscribe(
-			data => {
-				console.log(data);
-				let currentEmployees = data['data'];
-				let finalArrayData = [];
-				currentEmployees.forEach((item, key) => {
-					console.log(item);
-					let object = { text: '', id: '' };
-					object.text = item.service_name;
-					object.id = item.id;
-					if (item.emp_levels) {
-						object.text = item.emp_levels.service_name;
-					}
-					finalArrayData.push(object);
-				});
-				this.ServiceData = finalArrayData;
-				console.log(this.ServiceData);
-			},
-			error => {
-				console.log('some error occured');
-				this.toastr.errorToastr('some error occured');
-			}
-		);
-	}
+	// public getServiceByMerchantId(): any {
+	// 	this.adminService.getServiceByMerchantId().subscribe(
+	// 		data => {
+	// 			console.log(data);
+	// 			let currentEmployees = data['data'];
+	// 			let finalArrayData = [];
+	// 			currentEmployees.forEach((item, key) => {
+	// 				console.log(item);
+	// 				let object = { text: '', id: '' };
+	// 				object.text = item.service_name;
+	// 				object.id = item.id;
+	// 				if (item.emp_levels) {
+	// 					object.text = item.emp_levels.service_name;
+	// 				}
+	// 				finalArrayData.push(object);
+	// 			});
+	// 			this.ServiceData = finalArrayData;
+	// 			console.log(this.ServiceData);
+	// 		},
+	// 		error => {
+	// 			console.log('some error occured');
+	// 			this.toastr.errorToastr('some error occured');
+	// 		}
+	// 	);
+	// }
 	public clientChange(argsss): void {
 		console.log(argsss);
 		let clientId = argsss.itemData;
 		this.clientId = clientId.id;
 	}
 
-	
 	public serviceChange(argsss): void {
 		console.log(argsss);
 		let serviceId = argsss.itemData;
 		this.service_id = serviceId.id;
 	}
 
+	// onActionBegin(args: ActionEventArgs): void {
+	// 	if (args.requestType === 'eventChange') {
+	// 		//while editing the existing event
+	// 		console.log('event edit');
+	// 	}
 
+	// 	if (args.requestType === 'eventCreate') {
+	// 		let data = args.data[0];
+	// 		console.log(data);
+	// 		let postData = {
+	// 			client_id: this.clientId || '',
+	// 			service_id: this.service_id || '',
+	// 			comment: data.comment || '',
+	// 			flag_as: data.flag_as || '',
+	// 			duration: data.duration || '',
+	// 			endTime: data.EndTime || '',
+	// 			startTime: data.start_date || '',
+	// 			employee_id: data.DoctorId || ''
+	// 		};
+	// 		console.log(postData);
+	// 		this.appointmentsService.createAppointment(data).subscribe(apiResponse => {
+	// 			if (apiResponse.code === 200) {
+	// 				this.toastr.successToastr('Appointment Added Successfully');
+	// 			} else {
+	// 				console.log('Hello');
+	// 				this.toastr.errorToastr(apiResponse.message);
+	// 			}
+	// 		});
+	// 		console.log('event create');
+	// 	}
+	// }
 
-	onActionBegin(args: ActionEventArgs): void {
-		if (args.requestType === 'eventChange') {
-			//while editing the existing event
-			console.log('event edit');
-		}
+	// public getClientDetailsByMerchantID(): any {
+	// 	this.addnewclientService.getClientDetailsByMerchantID({}).subscribe(
+	// 		data => {
+	// 			console.log(data);
+	// 			let currentEmployees = data['data'];
+	// 			let finalArrayData = [];
+	// 			currentEmployees.forEach((item, key) => {
+	// 				console.log(item);
+	// 				let object = { text: '', id: '' };
+	// 				object.text = item.f_name;
+	// 				object.id = item.id;
+	// 				if (item.emp_levels) {
+	// 					object.text = item.emp_levels.f_name;
+	// 				}
+	// 				finalArrayData.push(object);
+	// 			});
+	// 			this.ClientData = finalArrayData;
+	// 			console.log(this.ClientData);
+	// 		},
+	// 		error => {
+	// 			console.log('some error occured');
+	// 			this.toastr.errorToastr('some error occured');
+	// 		}
+	// 	);
+	// }
 
-		if (args.requestType === 'eventCreate') {
-			let data = args.data[0];
-			console.log(data);
-			let postData = {
-				client_id: this.clientId || '',
-				service_id: this.service_id || '',
-				comment: data.comment || '',
-				flag_as: data.flag_as || '',
-				duration: data.duration || '',
-				endTime: data.EndTime || '',
-				startTime : data.start_date || '',
-				employee_id : data.DoctorId || ''
-			};
-			console.log(postData);
-				this.appointmentsService.createAppointment(data).subscribe(apiResponse => {
-					if (apiResponse.code === 200) {
-						this.toastr.successToastr('Appointment Added Successfully');
-					} else {
-						console.log('Hello');
-						this.toastr.errorToastr(apiResponse.message);
-					}
-				});
-			console.log('event create');
-		}
+	actionBegin(args){
+		console.log(args);
 	}
+
+	actionComplete(args){
+	    let scheduleElement: HTMLElement = document.getElementById('schedule') as HTMLElement;
+
+			if (args.requestType === 'toolBarItemRendered') {
+				let userIconEle: HTMLElement = scheduleElement.querySelector('.e-tbar-btn-text') as HTMLElement;
+				console.log(userIconEle);
+			}
+	}
+
 	
-	public getClientDetailsByMerchantID(): any {
-		this.addnewclientService.getClientDetailsByMerchantID({}).subscribe(
+
+	public getCalendarData(start_date): any {
+		console.log(start_date);
+		this.appointmentsService.getCalendarData(start_date).subscribe(
 			data => {
-				console.log(data);
-				let currentEmployees = data['data'];
-				let finalArrayData = [];
-				currentEmployees.forEach((item, key) => {
-					console.log(item);
-					let object = { text: '', id: '' };
-					object.text = item.f_name;
-					object.id = item.id;
-					if (item.emp_levels) {
-						object.text = item.emp_levels.f_name;
+					let currentEmployees = data['data'];
+					let finalArrayData = [];
+					let k=1;
+					for(let i in currentEmployees){
+						let employees = currentEmployees[i];
+						let [start_time_hours,start_time_minute,start_time_sec] = (employees.start_time).split(':');
+						let [end_time_hours,end_time_minute,end_time_sec] = (employees.end_time).split(':');
+						let [day,month,year] = start_date.split('-');
+						let object = { Id: k,Subject: '',StartTime:
+						new Date(year,month-1,day,start_time_hours,start_time_minute) ,
+						EndTime: new Date(year,month-1,day,end_time_hours,end_time_minute),IsAllDay: false,DoctorId: employees.id};
+						if(currentEmployees[i].services){
+							let services = currentEmployees[i].services;
+							for(let j in services) {
+								object.Subject = employees.client + '<br />' + services[j].service_name + '<br />';
+								//object.Subject = 'New Title - '+employees.employee_name;
+								finalArrayData.push(object);
+							}
+						}
 					}
-					finalArrayData.push(object);
-				});
-				this.ClientData = finalArrayData;
-				console.log(this.ClientData);
+					console.log(finalArrayData);
+				/*	currentEmployees.forEach((item, key) => {
+						console.log(item);
+						let object = { Subject: '', DoctorId: '',StartTime:'', EndTime:''};
+						object.Subject = item.client;
+						object.DoctorId = item.id;
+						object.StartTime = item.start_time;
+						object.EndTime = item.end_time;
+						if (item.emp_levels) {
+							object.Subject = item.emp_levels.client;
+						}
+						finalArrayData.push(object);
+					});*/
+					// this.eventSettings: EventSettingsModel = {
+					// 	dataSource: finalArrayData
+					// };
+					console.log(this.eventSettings = {dataSource:finalArrayData});
+					//this.doctorData = finalArrayData;
+					console.log(this.doctorData);
 			},
 			error => {
 				console.log('some error occured');

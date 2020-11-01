@@ -78,7 +78,7 @@ input:not(:focus):valid ~ .floating-label{
 .floating-label {
  position: absolute !important;
     pointer-events: none !important;
-    top: 5px !important;
+    top: 0px !important;
     transition: 0.2s ease all;
    left: 1px !important;
 }

@@ -3,7 +3,7 @@
     <div class="main-content">
       <div class="main-content-inner">
         <h4 class="header-title2" style="color: #c89628; cursor: pointer; margin-left: 20px;" (click)="goToClient()">Back </h4>
-        <h4 class="header-titles2">Update New Client</h4>
+        <h4 class="header-titles2">Update Client</h4>
         <form class="col-lg-12" [formGroup]="clientForm" (ngSubmit)="updateClient()">
           <input type="hidden" class="form-control" formControlName="client_id">
           <div class="control-section accordion-control-section">
@@ -29,8 +29,8 @@
 
                           <div class="col-md-4">
                             <label style="color: #000000;">Surname</label>
-                            <input type="text" class="form-control" formControlName="surname" required placeholder="Surname">
-                            <span class="opt">Required</span>
+                            <input type="text" class="form-control" formControlName="surname"  placeholder="Surname">
+                            <span class="opt">Optional</span>
                           </div>
                         </div>
                         <div class="form-row" style="margin-top: 10px;">
@@ -98,7 +98,7 @@
                               <label class="role" for="Female">Female</label>
                               <input type="radio" class="inputgen" formControlName="gender" 
                               [ngClass]="{ 'is-invalid': submitted && f.gender.errors }"
-                                value="Other" required>
+                                value="Others" required>
                               <label class="role" for="Other">Other</label>
                               <div *ngIf="submitted && f.gender.errors" class="invalid-feedback">
                                 <div *ngIf="f.gender.errors?.required">Gender is required</div>
@@ -110,13 +110,14 @@
                           </div>
                         </div>
                         <div class="form-row">
-                          <div class="col-md-4">
+                          <div class="col-md-4" style="margin-top: 25px;">
                             <label style="color: #000000;">Date Of Birth</label>
-                            <div class="input-group">
-                              <input class="form-control" formControlName="birthday" placeholder="yyyy-mm-dd" name="birthday" [(ngModel)]="model" ngbDatepicker
+                            <div class="input-group" >
+                              <input class="form-control" formControlName="birthday" placeholder="yyyy-mm-dd" name="birthday" ngbDatepicker 
+                              [minDate]="{year: 1980, month: 1, day: 1}" [maxDate]="{year: 2048, month: 12, day: 31}"
                                 #d="ngbDatepicker">
                               <div class="input-group-append">
-                                <button class="btn btn-outline-secondary calendar" (click)="d.toggle()" type="button">
+                                <button class="btn btn-outline-secondary calendar" style="font-size: 13px;" (click)="d.toggle()" type="button">
                                   <i class="fa fa-calendar"></i></button>
                               </div>
                             </div>
@@ -127,17 +128,21 @@
                           <div class="col-md-4">
                             <label style="color: #000000;">Preffered Employee </label>
                             <select class="custom-select" formControlName="employee_id">
-                            <option value="" selected="">Select Employee</option>
-                            <option *ngFor="let employee of currentEmployees" [value]="employee.id">{{employee.f_name}}</option>
-                            </select>
+                              <option value="" selected="">Select Employee </option>
+                              <option *ngFor="let employee of currentEmployees"  
+                              [value]="employee.id">{{employee.f_name}}</option>
+
+                                             </select>
                             <span class="opt">Optional</span>
                           </div>
                           <div class="col-md-4">
                             <label style="color: #000000;">Referred By</label>
-                            <select class="custom-select" formControlName="referred_by">
-                            <option value="">Select Level</option>
-                            <option value="1">One</option>
-                            </select>
+                           <input type="text" formControlName="referred_by" 
+                            [ngClass]="{ 'is-invalid': f.referred_by.errors }" placeholder="Enter Referral Code" 
+                            class="form-control">
+                            <div *ngIf=" f.referred_by.errors" class="invalid-feedback">
+                              <div *ngIf="f.referred_by.errors.pattern">Please Enter only number</div>
+                            </div>
                             <span class="opt">Optional</span>
                           </div>
                         </div>
@@ -145,37 +150,36 @@
                           <div class="col-md-4">
                             <label style="color: #000000;">Referal Type</label>
                             <select class="custom-select" formControlName="refferral_type_id">
-                            <option value="">Select Level</option>
-                            <option value="0">-</option>
-                            <option value="28">Digital Advertising</option>
-                            <option value="7">Direct Mail</option>
-                            <option value="2">Email</option>
-                            <option value="18">Event</option>
-                            <option value="19">Existing Client</option>
-                            <option value="16">Facebook</option>
-                            <option value="14">Flyer/Brochure</option>
-                            <option value="1">Friend</option>
-                            <option value="22">Gift Certificate</option>
-                            <option value="23">Instagram</option>
-                            <option value="15">Internet Ad</option>
-                            <option value="6">Internet Search</option>
-                            <option value="4">Magazine</option>
-                            <option value="5">Newspaper</option>
-                            <option value="8">Other</option>
-                            <option value="25">Other Website</option>
-                            <option value="26">Partner Business</option>
-                            <option value="27">Payment Provider</option>
-                            <option value="21">Pinterest</option>
-                            <option value="12">Radio</option>
-                            <option value="3">SMS</option>
-                            <option value="29">Social Media</option>
-                            <option value="20">Staff Referral</option>
+                            <option value="" title="">Select Level</option>
+                            <option value="1">Digital Advertising</option>
+                            <option value="2">Direct Mail</option>
+                            <option value="3">Email</option>
+                            <option value="4">Event</option>
+                            <option value="5 ">Existing Client</option>
+                            <option value="6">Facebook</option>
+                            <option value="7">Flyer/Brochure</option>
+                            <option value="8">Friend</option>
+                            <option value="9 ">Gift Certificate</option>
+                            <option value="10">Instagram</option>
+                            <option value="11 ">Internet Ad</option>
+                            <option value="12 ">Internet Search</option>
+                            <option value="13">Magazine</option>
+                            <option value="14">Newspaper</option>
+                            <option value="15">Other</option>
+                            <option value="16 ">Other Website</option>
+                            <option value="17 ">Partner Business</option>
+                            <option value="18">Payment Provider</option>
+                            <option value="19">Pinterest</option>
+                            <option value="20">Radio</option>
+                            <option value="21">SMS</option>
+                            <option value="22 ">Social Media</option>
+                            <option value="23 ">Staff Referral</option>
                             <option value="24">Supplier</option>
-                            <option value="17">Twitter</option>
-                            <option value="10">Walk By</option>
-                            <option value="13">Web Site</option>
-                            <option value="11">Word of Mouth</option>
-                            <option value="9">Yellow Pages</option>
+                            <option value="25">Twitter</option>
+                            <option value="26 ">Walk By</option>
+                            <option value="27 ">Web Site</option>
+                            <option value="28">Word of Mouth</option>
+                            <option value="29">Yellow Pages</option>
 
 	                          </select>
                             <span class="opt">Optional</span>
@@ -362,10 +366,23 @@
                             <p class="text-muted mb-3 d-block mylabel" style="color:#000000 !important;font-weight: 
                             500;margin-top: 10px;">
                             </p>
-                             <div class="custom-control custom-checkbox custom-control-inline" *ngFor="let clientCat of clientCats;let i = index">
+                             <!--<div class="custom-control custom-checkbox custom-control-inline" *ngFor="let clientCat of clientCats;let i = index">
                               <input type="checkbox" class="custom-control-input" [ngClass]="{ 'is-invalid': submitted && f.client_cat_ids.errors }" required id={{i}} value="clientCat" 
                               (change)="onChange(clientCat,$event.target.checked)" id="customCheck{{i}}"
-                              [checked]="clientForm.controls.client_cat_ids.value.indexOf(clientCat)">
+                              checked>
+                              <label class="custom-control-label" for="customCheck{{i}}">{{clientCat.name}}</label><br/>
+                              <div *ngIf="submitted && f.client_cat_ids.errors" class="invalid-feedback">
+                                <div *ngIf="f.client_cat_ids.errors?.required">Client Category is required</div>
+                              </div>
+                            </div><br/>-->
+                            <div class="custom-control custom-checkbox custom-control-inline" 
+                            *ngFor="let clientCat of clientCats;let i = index">
+                              <input type="checkbox" class="custom-control-input" 
+                              [ngClass]="{ 'is-invalid': submitted && f.client_cat_ids.errors }" 
+                              required id={{i}} value="clientCat" 
+                              (change)="onChange(clientCat,clientCat.checked ? 1 : $event.target.checked)" 
+                              id="customCheck{{i}}"
+                              [checked]="clientForm.controls.client_cat_ids.value.indexOf(clientCat)>=0">
                               <label class="custom-control-label" for="customCheck{{i}}">{{clientCat.name}}</label>
                               <div *ngIf="submitted && f.client_cat_ids.errors" class="invalid-feedback">
                                 <div *ngIf="f.client_cat_ids.errors?.required">Client Category is required</div>

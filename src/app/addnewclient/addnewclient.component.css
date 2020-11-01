@@ -112,3 +112,8 @@ input[type='radio'] {
     text-transform: capitalize;
     margin-bottom: 10px;
 }
+.e-accordion .e-acrdn-item .e-acrdn-panel .e-acrdn-content > * {
+    overflow: initial;
+    text-overflow: ellipsis;
+    margin-top: 0px !important;
+}

@@ -155,3 +155,10 @@ body { margin: 0; font-family: Roboto, "Helvetica Neue", sans-serif; }
     .switch.checked   .on {
       opacity:1;
     }
+
+    .form-control {
+    font-size: 14px !important;
+}
+.custom-select {
+    font-size: 14px !important;
+}

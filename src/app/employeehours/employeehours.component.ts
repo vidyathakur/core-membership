@@ -1,3 +1,5 @@
+
+import { startTimeArray, endTimeArray } from './data';
 import { Component, OnInit } from '@angular/core';
 import { FormGroup, Validators, FormControl, FormBuilder } from '@angular/forms';
 import { NgbModal, ModalDismissReasons, NgbModalRef } from '@ng-bootstrap/ng-bootstrap';
@@ -9,7 +11,7 @@ import { NgxSpinnerService } from 'ngx-spinner';
 import { EmployeehoursService } from 'src/app/employeehours/employeehours.service';
 import { Input } from '@angular/core';
 import { NgbActiveModal } from '@ng-bootstrap/ng-bootstrap';
-
+import * as data from '../../assets/data.json';
 @Component({
 	selector: 'app-employeehours',
 	templateUrl: './employeehours.component.html',
@@ -21,6 +23,7 @@ export class EmployeehoursComponent implements OnInit {
 	@Input() public emproster_id;
 	@Input() public roster_id;
 	empForm: FormGroup;
+	public empRosters: any;
 	openingForm: FormGroup;
 	modalReference: NgbModalRef;
 	submitted = false;
@@ -31,7 +34,9 @@ export class EmployeehoursComponent implements OnInit {
 	isThurDisabled = true;
 	isFridDisabled = true;
 	isSatDisabled = true;
-
+	f_name: string;
+	// public endTimeArray: Object[] = [];
+	// public startTimeArray :any = data;
 	public startTimeArray = [
 		{ start: '00:00:00', value: 'Midnight' },
 		{ start: '00:15:00', value: '12:15 AM' },
@@ -82,53 +87,53 @@ export class EmployeehoursComponent implements OnInit {
 		{ start: '11:30:00', value: '11:30 AM' },
 		{ start: '11:45:00', value: '11:45 AM' },
 		{ start: '12:00:00', value: 'Noon' },
-		{ start: '00:15:00', value: '12:15 PM' },
-		{ start: '00:30:00', value: '12:30 PM' },
-		{ start: '00:45:00', value: '12:45 PM' },
-		{ start: '01:00:00', value: '1:00 PM' },
-		{ start: '01:15:00', value: '1:15 PM' },
-		{ start: '01:30:00', value: '1:30 PM' },
-		{ start: '01:45:00', value: '1:45 PM' },
-		{ start: '02:00:00', value: '2:00 PM' },
-		{ start: '02:15:00', value: '2:15 PM' },
-		{ start: '02:30:00', value: '2:30 PM' },
-		{ start: '02:45:00', value: '2:45 PM' },
-		{ start: '03:00:00', value: '3:00 PM' },
-		{ start: '03:15:00', value: '3:15 PM' },
-		{ start: '03:30:00', value: '3:30 PM' },
-		{ start: '03:45:00', value: '3:45 PM' },
-		{ start: '04:00:00', value: '4:00 PM' },
-		{ start: '04:15:00', value: '4:15 PM' },
-		{ start: '04:30:00', value: '4:30 PM' },
-		{ start: '04:45:00', value: '4:45 PM' },
-		{ start: '05:00:00', value: '5:00 PM' },
-		{ start: '05:15:00', value: '5:15 PM' },
-		{ start: '05:30:00', value: '5:30 PM' },
-		{ start: '05:45:00', value: '5:45 PM' },
-		{ start: '06:00:00', value: '6:00 PM' },
-		{ start: '06:15:00', value: '6:15 PM' },
-		{ start: '06:30:00', value: '6:30 PM' },
-		{ start: '06:45:00', value: '6:45 PM' },
-		{ start: '07:00:00', value: '7:00 PM' },
-		{ start: '07:15:00', value: '7:15 PM' },
-		{ start: '07:30:00', value: '7:30 PM' },
-		{ start: '07:45:00', value: '7:45 PM' },
-		{ start: '08:00:00', value: '8:00 PM' },
-		{ start: '08:15:00', value: '8:15 PM' },
-		{ start: '08:30:00', value: '8:30 PM' },
-		{ start: '08:45:00', value: '8:45 PM' },
-		{ start: '09:00:00', value: '9:00 PM' },
-		{ start: '09:15:00', value: '9:15 PM' },
-		{ start: '09:30:00', value: '9:30 PM' },
-		{ start: '09:45:00', value: '9:45 PM' },
-		{ start: '10:00:00', value: '10:00 PM' },
-		{ start: '10:15:00', value: '10:15 PM' },
-		{ start: '10:30:00', value: '10:30 PM' },
-		{ start: '10:45:00', value: '10:45 PM' },
-		{ start: '11:00:00', value: '11:00 PM' },
-		{ start: '11:15:00', value: '11:15 PM' },
-		{ start: '11:30:00', value: '11:30 PM' },
-		{ start: '11:45:00', value: '11:45 PM' },
+		{ start: '12:15:00', value: '12:15 PM' },
+		{ start: '12:30:00', value: '12:30 PM' },
+		{ start: '12:45:00', value: '12:45 PM' },
+		{ start: '13:00:00', value: '1:00 PM' },
+		{ start: '13:15:00', value: '1:15 PM' },
+		{ start: '13:30:00', value: '1:30 PM' },
+		{ start: '13:45:00', value: '1:45 PM' },
+		{ start: '14:00:00', value: '2:00 PM' },
+		{ start: '14:15:00', value: '2:15 PM' },
+		{ start: '14:30:00', value: '2:30 PM' },
+		{ start: '14:45:00', value: '2:45 PM' },
+		{ start: '15:00:00', value: '3:00 PM' },
+		{ start: '15:15:00', value: '3:15 PM' },
+		{ start: '15:30:00', value: '3:30 PM' },
+		{ start: '15:45:00', value: '3:45 PM' },
+		{ start: '16:00:00', value: '4:00 PM' },
+		{ start: '16:15:00', value: '4:15 PM' },
+		{ start: '16:30:00', value: '4:30 PM' },
+		{ start: '16:45:00', value: '4:45 PM' },
+		{ start: '17:00:00', value: '5:00 PM' },
+		{ start: '17:15:00', value: '5:15 PM' },
+		{ start: '17:30:00', value: '5:30 PM' },
+		{ start: '17:45:00', value: '5:45 PM' },
+		{ start: '18:00:00', value: '6:00 PM' },
+		{ start: '18:15:00', value: '6:15 PM' },
+		{ start: '18:30:00', value: '6:30 PM' },
+		{ start: '18:45:00', value: '6:45 PM' },
+		{ start: '19:00:00', value: '7:00 PM' },
+		{ start: '19:15:00', value: '7:15 PM' },
+		{ start: '19:30:00', value: '7:30 PM' },
+		{ start: '19:45:00', value: '7:45 PM' },
+		{ start: '20:00:00', value: '8:00 PM' },
+		{ start: '20:15:00', value: '8:15 PM' },
+		{ start: '20:30:00', value: '8:30 PM' },
+		{ start: '20:45:00', value: '8:45 PM' },
+		{ start: '21:00:00', value: '9:00 PM' },
+		{ start: '21:15:00', value: '9:15 PM' },
+		{ start: '21:30:00', value: '9:30 PM' },
+		{ start: '21:45:00', value: '9:45 PM' },
+		{ start: '22:00:00', value: '10:00 PM' },
+		{ start: '22:15:00', value: '10:15 PM' },
+		{ start: '22:30:00', value: '10:30 PM' },
+		{ start: '22:45:00', value: '10:45 PM' },
+		{ start: '23:00:00', value: '11:00 PM' },
+		{ start: '23:15:00', value: '11:15 PM' },
+		{ start: '23:30:00', value: '11:30 PM' },
+		{ start: '23:45:00', value: '11:45 PM' },
 		{ start: '00:00:00', value: 'Midnight' }
 	];
 	public endTimeArray = [
@@ -181,9 +186,9 @@ export class EmployeehoursComponent implements OnInit {
 		{ start: '11:30:00', value: '11:30 AM' },
 		{ start: '11:45:00', value: '11:45 AM' },
 		{ start: '12:00:00', value: 'Noon' },
-		{ start: '00:15:00', value: '12:15 PM' },
-		{ start: '00:30:00', value: '12:30 PM' },
-		{ start: '00:45:00', value: '12:45 PM' },
+		{ start: '12:15:00', value: '12:15 PM' },
+		{ start: '12:30:00', value: '12:30 PM' },
+		{ start: '12:45:00', value: '12:45 PM' },
 		{ start: '13:00:00', value: '1:00 PM' },
 		{ start: '13:15:00', value: '1:15 PM' },
 		{ start: '13:30:00', value: '1:30 PM' },
@@ -282,7 +287,9 @@ export class EmployeehoursComponent implements OnInit {
 				if (emproasterdata.emp_id) {
 					this.opening_hours_id = emproasterdata.id;
 				}
+				this.f_name = emproasterdata.employees.f_name;
 				this.openingForm = this.formBuilder.group({
+					f_name: [emproasterdata.employees.f_name],
 					sun_start_time: [emproasterdata.sun_start_time],
 					sun_end_time: emproasterdata.sun_end_time,
 					mom_start_time: emproasterdata.mom_start_time,
@@ -314,6 +321,7 @@ export class EmployeehoursComponent implements OnInit {
 			}
 		);
 		this.openingForm = this.formBuilder.group({
+			f_name: [''],
 			mom_start_time: [''],
 			mom_end_time: [''],
 			tue_start_time: [''],
@@ -377,7 +385,7 @@ export class EmployeehoursComponent implements OnInit {
 			if (this.opening_hours_id) {
 				data['empRosterhours_id'] = this.opening_hours_id;
 			}
-			if(this.roster_id){
+			if (this.roster_id) {
 				data['empRosterhours_id'] = this.roster_id;
 			}
 			console.log(data);
@@ -397,6 +405,21 @@ export class EmployeehoursComponent implements OnInit {
 			});
 		}
 	}
+
+	public getEmpRosterHoursByMechantId(): any {
+		this.employeehoursservice.getEmpRosterHoursByMechantId().subscribe(
+			data => {
+				console.log(data);
+				this.empRosters = data['data'];
+				console.log(this.empRosters);
+			},
+			error => {
+				console.log('some error occured');
+				this.toastr.errorToastr('some error occured');
+			}
+		);
+	}
+
 	closeModal() {
 		this.activeModal.close();
 	}

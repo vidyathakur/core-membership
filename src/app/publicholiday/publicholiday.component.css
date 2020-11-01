@@ -21,7 +21,7 @@
   border-radius: .25rem;
   transition: all .1s ease-in-out;
   padding: 0.375rem 0.75rem;
-  font-size: 15px;
+  font-size: 14px;
 }
 
 .form-label-group input::-webkit-input-placeholder {
@@ -60,8 +60,7 @@
     padding-left: 12px !important;
 }
 
-input:focus ~ .floating-label,
-input:not(:focus):valid ~ .floating-label{
+input:focus ~ .floating-label, .floating-label{
   top: 8px;
   bottom: 10px;
   left: 20px;
@@ -78,7 +77,7 @@ input:not(:focus):valid ~ .floating-label{
 .floating-label {
  position: absolute !important;
     pointer-events: none !important;
-    top: 3px !important;
+    top: 0px !important;
     transition: 0.2s ease all;
    left: 1px !important;
 }

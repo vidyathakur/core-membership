@@ -19,10 +19,7 @@ export class AppointmentsService {
 	public createAppointment(data): Observable<any> {
 		console.log(data);
 		return this.http.post(`${environment.BASE_URL}/createAppointment`, data, {
-			headers: new HttpHeaders().set(
-				'SESSION-TOKEN',
-				localStorage.getItem('jwt_token')
-			)
+			headers: new HttpHeaders().set('SESSION-TOKEN', localStorage.getItem('jwt_token'))
 		});
 	}
 
@@ -36,6 +33,14 @@ export class AppointmentsService {
 
 	public getOpeningDay(): any {
 		let myResponse = this.http.get(`${environment.BASE_URL}/getOpeningDay `, {
+			headers: new HttpHeaders().set('SESSION-TOKEN', localStorage.getItem('jwt_token'))
+		});
+		console.log(myResponse);
+		return myResponse;
+	}
+
+	public getCalendarData(date): any {
+		let myResponse = this.http.get(`${environment.BASE_URL}/getCalendarData` + '/' + date, {
 			headers: new HttpHeaders().set('SESSION-TOKEN', localStorage.getItem('jwt_token'))
 		});
 		console.log(myResponse);

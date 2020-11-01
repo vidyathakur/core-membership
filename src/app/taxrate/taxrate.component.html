@@ -1,6 +1,6 @@
 <div class="modal-header">
   <h4 class="modal-title" id="modal-basic-title" style="font-size: 17px;"> Tax Rate Details</h4>
-  <button type="button" class="close" style="border: 0px solid #ffffff !important;" aria-label="Close" (click)="modal.dismiss('Cross click')">
+  <button type="button" class="close" style="border: 0px solid #ffffff !important;" aria-label="Close" (click)="closeModal('dismiss')">
       <span aria-hidden="true">×</span>
     </button>
 </div>
@@ -29,7 +29,7 @@
           <div class="form-group form-label-group">
             <input type="text" formControlName="tax_amount" name="tax_amount" [ngClass]="{ 'is-invalid': submitted && f.tax_amount.errors }" id="name"
               placeholder="Tax Amount" class="form-control myformscontrol custominput" required autofocus>
-            <label for="tax_amount" class="floating-label">Tax Amount: (in %)</label>
+            <label for="tax_amount" class="floating-label">Tax Amount</label>
             <div *ngIf="submitted && f.tax_amount.errors" class="invalid-feedback">
               <div *ngIf="f.tax_amount.errors.required">Tax Amount is required</div>
             </div>
@@ -38,7 +38,7 @@
       </div>
     </div>
     <div class="modal-footer">
-      <button type="button" class="btn mb-3 canc" (click)="modal.close('Save click')">Cancel</button>
+      <button type="button" class="btn mb-3 canc" (click)="closeModal('close')">Cancel</button>
       <button type="submit" class="btn mb-3 sub">Submit</button>
     </div>
   </form>

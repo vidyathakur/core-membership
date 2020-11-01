@@ -7,11 +7,11 @@
 <div class="modal-body">
   <form [formGroup]="clientcatForm" (ngSubmit)="onSubmit()">
   <div class="form-group form-label-group">
-  <input type="text" id="name" formControlName="name" [ngClass]="{ 'is-invalid': submitted && f.name.errors }" placeholder="Enter Name"
+  <input type="text" id="name" formControlName="name" [ngClass]="{ 'is-invalid': submitted && f.name.errors }" placeholder="Enter Client Name"
     class="form-control myformscontrol custominput" required autofocus>
-  <label for="name" class="floating-label">Enter Name</label>
+  <label for="name" class="floating-label">Enter Client Name</label>
   <div *ngIf="submitted && f.name.errors" class="invalid-feedback">
-    <div *ngIf="f.name.errors.required">Name is required</div>
+    <div *ngIf="f.name.errors.required">Client Name is required</div>
   </div>
 
 </div>

@@ -1,6 +1,6 @@
 <div class="modal-header">
   <h4 class="modal-title" id="modal-basic-title" style="font-size: 17px;">Update Tax Rate Details</h4>
-  <button type="button" class="close" style="border: 0px solid #ffffff !important;" aria-label="Close" (click)="modal.dismiss('Cross click')">
+  <button type="button" class="close" style="border: 0px solid #ffffff !important;" aria-label="Close" (click)="closeModal('dismiss')">
       <span aria-hidden="true">×</span>
     </button>
 </div>
@@ -39,7 +39,7 @@
       </div>
     </div>
     <div class="modal-footer">
-      <button type="button" class="btn mb-3 canc" (click)="modal.close('Save click')">Cancel</button>
+      <button type="button" class="btn mb-3 canc" (click)="closeModal('close')">Cancel</button>
       <button type="submit" class="btn mb-3 sub">Update</button>
     </div>
   </form>

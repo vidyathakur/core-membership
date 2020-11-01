@@ -47,6 +47,7 @@ export class ProductComponent implements OnInit {
 			wholesale_price: [''],
 			supplier_code: [''],
 			loyalty_point: [],
+			loyalty_point_redeeme:['',[Validators.pattern('^[0-9]*$')]],
 			barcode: [''],
 			salon_use: [''],
 			tax_free: ['']
@@ -68,13 +69,14 @@ export class ProductComponent implements OnInit {
 			console.log(product_data);
 			let data = {
 				product_name: product_data.product_name || '',
-				min_qty: product_data.min_qty || '',
-				max_qty: product_data.max_qty || '',
+				min_qty: product_data.min_qty || 0,
+				max_qty: product_data.max_qty || 0,
 				qty: product_data.qty || '',
 				retail_pice: product_data.retail_pice || '',
-				wholesale_price: product_data.wholesale_price || '',
+				wholesale_price: product_data.wholesale_price || 0,
 				supplier_code: product_data.supplier_code || '',
-				loyalty_point: product_data.loyalty_point || '',
+				loyalty_point: product_data.loyalty_point || 0,
+				loyalty_point_redeeme:product_data.loyalty_point_redeeme || 0 ,
 				barcode: product_data.barcode || '',
 				salon_use: product_data.salon_use == true ? 1 : 0,
 				tax_free: product_data.tax_free == true ? 1 : 0,

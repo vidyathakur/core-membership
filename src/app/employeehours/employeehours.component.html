@@ -1,44 +1,15 @@
 <div class="modal-header">
     <img src="https://image.ibb.co/jw55Ex/def_face.jpg" class="img img-rounded img-fluid" />
-<p class="emptext">John Doe</p>
+<p class="emptext">{{f_name}}</p>
 <button type="button" class="close" data-dismiss="modal" (click)="closeModal('dismiss')">
         <span aria-hidden="true">&times;</span>
     </button>
 </div>
-<div class="modal-body" style="padding: 0rem !important;">
-<form class="col-lg-12" [formGroup]="openingForm" (ngSubmit)="addEmpRoster()">
+<div class="modal-body">
+<form [formGroup]="openingForm" (ngSubmit)="addEmpRoster()">
+
   <div class="form-row">
-    <div class="col-md-4">
-      <label style="color: #000000;">Sunday</label>
-      <select class="custom-select"  formControlName="sun_start_time" [disabled]="true">
-              <option [value]="type.start" *ngFor="let type of startTimeArray; let i = index">
-              {{type.value}}
-              </option>   
-              </select>
-    </div>
-    <span class="timepick">TO</span>
-    <div class="col-md-4">
-      <label style="visibility: hidden;">Sunday</label>
-      <select class="custom-select"  formControlName="sun_end_time" [disabled]="true">
-              <option [value]="type.start" *ngFor="let type of endTimeArray">
-              {{type.value}}
-              </option>
-              </select>
-    </div>
-    <div class="col-md-2" style="padding-left: 10px;">
-      <label style="color: #000000;">States</label>
-      <div class="nepal">
-        <label class="switch switch-left-right">
-                <input class="switch-input" type="checkbox" value="1" formControlName="sunday_disable_option" 
-                (change)="onChangeDate($event,'sun_start_time','sun_end_time')"> 
-                <span class="switch-label" data-on="OPEN" data-off="CLOSE"></span> 
-                <span class="switch-handle"></span> 
-                </label>
-      </div>
-    </div>
-  </div>
-  <div class="form-row">
-    <div class="col-md-4">
+    <div class="col">
       <label style="color: #000000;">Monday</label>
       <select class="custom-select"  formControlName="mom_start_time" 
       [disabled]="isMondayDisabled">
@@ -48,7 +19,7 @@
               </select>
     </div>
     <span class="timepick">TO</span>
-    <div class="col-md-4">
+    <div class="col">
       <label style="visibility: hidden;">Monday</label>
       <select class="custom-select"  formControlName="mom_end_time" 
       [disabled]="isMondayDisabled">
@@ -57,7 +28,8 @@
               </option>
               </select>
     </div>
-    <div class="col-md-2" style="padding-left: 10px; padding-top: 30px;">
+    <div class="col-md-2" style="padding-left: 10px;">
+      <label style="color: #000000;">States</label>
       <div class="nepal">
         <label class="switch switch-left-right">
                 <input class="switch-input" type="checkbox" value="1" formControlName="monday_disable_option" 
@@ -69,7 +41,7 @@
     </div>
   </div>
   <div class="form-row">
-    <div class="col-md-4">
+    <div class="col">
       <label style="color: #000000;">Tuesday</label>
       <select class="custom-select"  formControlName="tue_start_time" 
       [disabled]="isTuesdayDisabled">
@@ -79,7 +51,7 @@
               </select>
     </div>
     <span class="timepick">TO</span>
-    <div class="col-md-4">
+    <div class="col">
       <label style="visibility: hidden;">Tuesday</label>
       <select class="custom-select"  formControlName="tue_end_time" 
       [disabled]="isTuesdayDisabled">
@@ -100,7 +72,7 @@
     </div>
   </div>
   <div class="form-row">
-    <div class="col-md-4">
+    <div class="col">
       <label style="color: #000000;">Wednesday</label>
       <select class="custom-select"  formControlName="wed_start_time" 
       [disabled]="isWedDisabled">
@@ -110,7 +82,7 @@
               </select>
     </div>
     <span class="timepick">TO</span>
-    <div class="col-md-4">
+    <div class="col">
       <label style="visibility: hidden;">Wednesday</label>
       <select class="custom-select"  formControlName="wed_end_time" 
       [disabled]="isWedDisabled">
@@ -131,7 +103,7 @@
     </div>
   </div>
   <div class="form-row">
-    <div class="col-md-4">
+    <div class="col">
       <label style="color: #000000;">Thursday</label>
       <select class="custom-select"  formControlName="thur_start_time" 
       [disabled]="isThurDisabled">
@@ -141,7 +113,7 @@
               </select>
     </div>
     <span class="timepick">TO</span>
-    <div class="col-md-4">
+    <div class="col">
       <label style="visibility: hidden;">Thursday</label>
       <select class="custom-select"  formControlName="thur_end_time" 
       [disabled]="isThurDisabled">
@@ -162,7 +134,7 @@
     </div>
   </div>
   <div class="form-row">
-    <div class="col-md-4">
+    <div class="col">
       <label style="color: #000000;">Friday</label>
       <select class="custom-select"  formControlName="fri_start_time" 
       [disabled]="isFridDisabled">
@@ -172,7 +144,7 @@
               </select>
     </div>
     <span class="timepick">TO</span>
-    <div class="col-md-4">
+    <div class="col">
       <label style="visibility: hidden;">Friday</label>
       <select class="custom-select"  formControlName="fri_end_time" 
       [disabled]="isFridDisabled">
@@ -193,7 +165,7 @@
     </div>
   </div>
   <div class="form-row">
-    <div class="col-md-4">
+    <div class="col">
       <label style="color: #000000;">Saturday</label>
       <select class="custom-select"  formControlName="sat_start_time" 
       [disabled]="isSatDisabled">
@@ -203,7 +175,7 @@
               </select>
     </div>
     <span class="timepick">TO</span>
-    <div class="col-md-4">
+    <div class="col">
       <label style="visibility: hidden;">Saturday</label>
       <select class="custom-select"  formControlName="sat_end_time" 
       [disabled]="isSatDisabled">
@@ -223,9 +195,39 @@
       </div>
     </div>
   </div>
+
+    <div class="form-row">
+    <div class="col">
+      <label style="color: #000000;">Sunday</label>
+      <select class="custom-select"  formControlName="sun_start_time" [disabled]="isSundayDisabled">
+              <option [value]="type.start" *ngFor="let type of startTimeArray; let i = index">
+              {{type.value}}
+              </option>   
+              </select>
+    </div>
+    <span class="timepick">TO</span>
+    <div class="col">
+      <label style="visibility: hidden;">Sunday</label>
+      <select class="custom-select"  formControlName="sun_end_time" [disabled]="isSundayDisabled">
+              <option [value]="type.start" *ngFor="let type of endTimeArray">
+              {{type.value}}
+              </option>
+              </select>
+    </div>
+    <div class="col-md-2" style="padding-left: 10px;padding-top: 30px;">
+     <div class="nepal">
+        <label class="switch switch-left-right">
+                <input class="switch-input" type="checkbox" value="1" formControlName="sunday_disable_option" 
+                (change)="onChangeDate($event,'sun_start_time','sun_end_time')"> 
+                <span class="switch-label" data-on="OPEN" data-off="CLOSE"></span> 
+                <span class="switch-handle"></span> 
+                </label>
+      </div>
+    </div>
+  </div>
   <div class="footrcard">
     <input type="hidden" formControlName="empRosterhours_id" value="">
-    <button type="button" (click)="modal.close()" class="btn mb-3 canc">Cancel</button>
+    <button type="button"(click)="closeModal('close')" class="btn mb-3 canc">Cancel</button>
     <button type="submit" class="btn mb-3 sub">Save</button>
   </div>
 </form>

@@ -16,8 +16,10 @@ export class EditclientComponent implements OnInit {
 	clientForm: FormGroup;
 	submitted = false;
 	public stateList: any;
+	public clients: any;
 	//myModel = true;
 	public clientCats = [];
+	selectedValue = '0';
 	public currentEmployees: any;
 	constructor(
 		private formBuilder: FormBuilder,
@@ -39,7 +41,7 @@ export class EditclientComponent implements OnInit {
 			gender: new FormControl('', Validators.required),
 			birthday: new FormControl(),
 			employee_id: new FormControl(),
-			referred_by: new FormControl(''),
+			referred_by: new FormControl('',[Validators.pattern('^[0-9]*$')]),
 			refferral_type_id: new FormControl(''),
 			barcode_no: new FormControl(''),
 			address: new FormControl(''),
@@ -59,15 +61,25 @@ export class EditclientComponent implements OnInit {
 	}
 
 	ngOnInit(): void {
-		this.getClientCategories();
+		this.getClientDetailsByMerchantID();
 		this.getEmployees();
 		this.getStates();
 		let id = this._route.snapshot.paramMap.get('id');
+
+			this.adminService.getClientCatDetailsByMerchantId({}).subscribe(data => {
+					console.log(data);
+					this.clientCats = data['data'];
+				}, error => {
+					console.log('some error occurred');
+					this.toastr.errorToastr('some error occurred');
+			});
+
 		this.addnewclientService.getClientDetails(id).subscribe(
 			data => {
 				let client_details = data['data'];
 				console.log(client_details);
 				let birthday_data = client_details.birthday ? client_details.birthday.split('-') : ['0', '0', '0'];
+				console.log(birthday_data);
 				this.clientForm = this.formBuilder.group({
 					f_name: [client_details.f_name, Validators.required],
 					surname: [client_details.surname],
@@ -104,12 +116,30 @@ export class EditclientComponent implements OnInit {
 					client_id: [id],
 					client_cat_ids: this.formBuilder.array([], [Validators.required])
 				});
-				console.log(this.clientForm);
+				let aa = [];
+				if(client_details.client_cats.length > 0){
+					for(let i in client_details.client_cats){
+						let id = client_details.client_cats[i].pivot.cat_id;
+						aa.push(id);
+					}
+				}
+				let tagsArray = [];
+				let cat_data = this.clientCats;
+				for(let k in cat_data){
+					let object_data = cat_data[k];
+				  if(aa.includes(cat_data[k].id)){						
+						tagsArray.push(cat_data[k]);
+					}
+				}
+				this.clientForm.setControl('client_cat_ids', this.formBuilder.array(tagsArray || []));
 			},
 			error => {
-				console.log('some error occured');
+				console.log('some error occurred');
 			}
 		);
+
+		
+	
 	}
 	get f() {
 		return this.clientForm.controls;
@@ -139,17 +169,17 @@ export class EditclientComponent implements OnInit {
 			comments: client_data.comments || '',
 			barcode_no: client_data.barcode_no || '',
 			referred_by: client_data.referred_by || '',
-			refferral_type_id: client_data.state_id || '',
+			refferral_type_id: client_data.refferral_type_id || '',
 			appoints_sms: client_data.appoints_sms,
 			appoints_email: client_data.appoints_email,
 			promote_sms: client_data.promote_sms,
 			promote_email: client_data.promote_email,
-			online_booking: client_data.online_booking || '',
+			online_booking: client_data.online_booking,
 			loyalty_point: client_data.loyalty_point || '',
-			employee_id: client_data.employee_id,
+			employee_id: client_data.employee_id || '',
 			client_cat_ids: client_data.client_cat_ids
 		};
-		console.log(data);
+		
 		this.addnewclientService.editClient(data).subscribe(
 			data => {
 				console.log(data);
@@ -158,7 +188,20 @@ export class EditclientComponent implements OnInit {
 				this.router.navigate(['/admin']);
 			},
 			er => {
-				this.toastr.errorToastr('some error occured');
+				this.toastr.errorToastr('some error occurred');
+			}
+		);
+	}
+
+	public getClientDetailsByMerchantID(): any {
+		this.addnewclientService.getClientDetailsByMerchantID({}).subscribe(
+			data => {
+				console.log(data);
+				this.clients = data['data'];
+			},
+			error => {
+				console.log('some error occurred');
+				this.toastr.errorToastr('some error occurred');
 			}
 		);
 	}
@@ -170,24 +213,13 @@ export class EditclientComponent implements OnInit {
 				this.currentEmployees = data['data'];
 			},
 			error => {
-				console.log('some error occured');
-				this.toastr.errorToastr('some error occured');
+				console.log('some error occurred');
+				this.toastr.errorToastr('some error occurred');
 			}
 		);
 	}
 
-	public getClientCategories(): any {
-		this.adminService.getClientCatDetailsByMerchantId({}).subscribe(
-			data => {
-				console.log(data);
-				this.clientCats = data['data'];
-			},
-			error => {
-				console.log('some error occured');
-				this.toastr.errorToastr('some error occured');
-			}
-		);
-	}
+	
 
 	onChange(clientCat: any, isChecked: boolean) {
 		const control = <FormArray>this.clientForm.controls.client_cat_ids;
@@ -211,8 +243,8 @@ export class EditclientComponent implements OnInit {
 				this.stateList = data['data'];
 			},
 			error => {
-				console.log('some error occured');
-				this.toastr.errorToastr('some error occured');
+				console.log('some error occurred');
+				this.toastr.errorToastr('some error occurred');
 			}
 		);
 	}

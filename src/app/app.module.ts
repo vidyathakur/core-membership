@@ -18,7 +18,7 @@ import { BrowserAnimationsModule } from '@angular/platform-browser/animations';
 import { HTTP_INTERCEPTORS } from '@angular/common/http';
 import { ClientcategoriesComponent } from './clientcategories/clientcategories.component';
 import { PublicholidayComponent } from './publicholiday/publicholiday.component';
-import { NgbModule } from '@ng-bootstrap/ng-bootstrap';
+import { NgbModule, NgbActiveModal } from '@ng-bootstrap/ng-bootstrap';
 import { ServicecategoryComponent } from './servicecategory/servicecategory.component';
 import { TaxrateComponent } from './taxrate/taxrate.component';
 import { EditservicecategoryComponent } from './editservicecategory/editservicecategory.component';
@@ -33,6 +33,7 @@ import { ServiceresourceComponent } from './serviceresource/serviceresource.comp
 import { EditserviceresourcesComponent } from './editserviceresources/editserviceresources.component';
 import { ServiceitemComponent } from 'src/app/serviceitem/serviceitem.component';
 import { EditserviceitemComponent } from './editserviceitem/editserviceitem.component';
+import { ConfirmDialogComponent } from 'src/app/confirm-dialog/confirm-dialog.component';
 
 @NgModule({
   declarations: [
@@ -57,7 +58,8 @@ import { EditserviceitemComponent } from './editserviceitem/editserviceitem.comp
     EditproductbrandComponent,
     SupplierComponent,
     EditsupplierComponent,
-    EmployeehoursComponent
+    EmployeehoursComponent,
+    ConfirmDialogComponent
   ],
   imports: [
     BrowserModule,
@@ -72,9 +74,7 @@ import { EditserviceitemComponent } from './editserviceitem/editserviceitem.comp
     AppRoutingModule
   ],
   
-  providers: [
-    { provide: HTTP_INTERCEPTORS, useClass: HttpInterceptorService, multi: true }
-  ],
+  providers: [{ provide: HTTP_INTERCEPTORS, useClass: HttpInterceptorService, multi: true }, NgbActiveModal],
    entryComponents:[
     ClientcategoriesComponent,
     PublicholidayComponent,
@@ -97,6 +97,7 @@ import { EditserviceitemComponent } from './editserviceitem/editserviceitem.comp
     SupplierComponent,
     EditsupplierComponent,
     EmployeehoursComponent,
+    ConfirmDialogComponent
   ],
   bootstrap: [AppComponent]
 })

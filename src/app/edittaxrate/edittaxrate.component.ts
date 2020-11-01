@@ -52,7 +52,7 @@ export class EdittaxrateComponent implements OnInit {
 				});
 			},
 			error => {
-				console.log('some error occured');
+				console.log('some error occurred');
 			}
 		);
 	}
@@ -77,8 +77,8 @@ export class EdittaxrateComponent implements OnInit {
 				this.ngOnInit();
 			},
 			error => {
-				console.log('some error occured');
-				this.toastr.errorToastr('Some error occured', 'Oops!');
+				console.log('some error occurred');
+				this.toastr.errorToastr('Some error occurred', 'Oops!');
 			}
 		);
 	}

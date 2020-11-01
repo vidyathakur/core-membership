@@ -32,7 +32,7 @@ export class EditclientcategoriesComponent implements OnInit {
 	) {
 		this.clientcatForm = this.formBuilder.group({
 			client_cat_id: new FormControl('', Validators.required),
-      clientCat_id:new FormControl('', Validators.required),
+			clientCat_id: new FormControl('', Validators.required),
 			name: new FormControl('', Validators.required)
 		});
 	}
@@ -51,7 +51,7 @@ export class EditclientcategoriesComponent implements OnInit {
 				this.clientcatForm = this.formBuilder.group({
 					name: [clientCat_details.name],
 					clientCat_id: [id],
-          client_cat_id:clientCat_details.client_cat_id
+					client_cat_id: clientCat_details.client_cat_id
 				});
 			},
 			error => {
@@ -60,25 +60,32 @@ export class EditclientcategoriesComponent implements OnInit {
 		);
 	}
 
+	closeModal() {
+		this.activeModal.close();
+	}
+
 	public updateClientcat(): any {
 		this.submitted = true;
 		let clientCat_data = this.clientcatForm.value;
 		console.log(clientCat_data);
 		let data = {
 			clientCat_id: clientCat_data.clientCat_id,
-      client_cat_id:clientCat_data.client_cat_id,
-			name: clientCat_data.name || '',
+			client_cat_id: clientCat_data.client_cat_id,
+			name: clientCat_data.name || ''
 		};
 		console.log(data);
-		this.clientcategoriesService.editClientCat(data).subscribe(data => {
+		this.clientcategoriesService.editClientCat(data).subscribe(
+			data => {
 				console.log(data);
 				this.toastr.successToastr(' Clientcategory Updated Successfully');
 				this.router.navigate(['/admin']);
 				this.activeModal.close();
 				this.ngOnInit();
-			}, error => {
+			},
+			error => {
 				console.log('some error occured');
 				this.toastr.errorToastr('Some error occured', 'Oops!');
-			});
+			}
+		);
 	}
 }

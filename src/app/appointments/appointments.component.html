@@ -30,7 +30,7 @@
     <div class="control-section">
       <div class="col-lg-12 content-wrapper">
         <ejs-schedule cssClass='schedule-group-editing' width='100%' height='560px' [group]="group" [selectedDate]="selectedDate"
-          (actionBegin)="onActionBegin($event)" [eventSettings]="eventSettings" [timeScale]="timeScale" [currentView]="currentView">
+         [eventSettings]="eventSettings" [timeScale]="timeScale" [currentView]="currentView" (actionBegin)="actionBegin($event)" (actionComplete)="actionComplete($event)">
           <ng-template #resourceHeaderTemplate let-data>
             <div class='template-wrap'>
               <div class="resource-image">
@@ -49,18 +49,15 @@
             <div class="minorTime">{{getMinorTime(data.date)}}</div>
           </ng-template>
           <e-view option="Day"></e-view>
-          <ng-template #quickInfoTemplatesContent let-data>
-            <ng-container [ngTemplateOutlet]="data.elementType == 'cell' ? cellContent : eventContent" [ngTemplateOutletContext]="{data:data}"></ng-container>
-          </ng-template>
-          <form [formGroup]="appointmentForm" class="e-schedule-form">
-            <ng-template #cellContent let-data="data">
-              <div class="e-cell-content">
+          <!--<ng-template #quickInfoTemplatesContent let-data>
+            <div *ngIf="data.elementType == 'cell'" class="e-cell-content">
+              <form class="e-schedule-form">
                 <table class="custom-event-editor" width="100%" cellpadding="5">
                   <tbody>
                     <tr style=" height: 10px;">
                       <td class="e-textlabel">Services</td>
                       <td colspan="4">
-                        <ejs-dropdownlist id='Service' style="padding-top: 10px;" class="e-field" name="service_id" data-name="service_id" placeholder='Select Service'
+                        <ejs-dropdownlist id='Service' style="padding-top: 10px;" class="e-field" name="Subject" data-name="Subject" placeholder='Select Service'
                           formControlName="service_id" [dataSource]='ServiceData' [fields]='serviceFields' (change)="clientChange($event)">
                         </ejs-dropdownlist>
                       </td>
@@ -68,7 +65,7 @@
                     <tr style=" height: 10px;">
                       <td class="e-textlabel">Clients</td>
                       <td colspan="4">
-                        <ejs-dropdownlist id='Client' style="padding-top: 10px;" name="client_id" class="e-field" data-name="client_id" placeholder='Select Client'
+                        <ejs-dropdownlist id='Client' style="padding-top: 10px;" name="Location" class="e-field" data-name="Location" placeholder='Select Client'
                           [dataSource]='ClientData' formControlName="client_id" [fields]='clientFields' (change)="serviceChange($event)">
                         </ejs-dropdownlist>
                       </td>
@@ -84,8 +81,8 @@
                     <tr style=" height: 10px;">
                       <td class="e-textlabel">Duration</td>
                       <td colspan="4">
-                        <ejs-dropdownlist id='duration' style="padding-top: 10px;" formControlName="duration" class="e-field" data-name="duration" placeholder='Select Duration'
-                          [dataSource]='DurationData' [fields]='durationFields' value='{{data.duration}}'>
+                        <ejs-dropdownlist id='duration' style="padding-top: 10px;" formControlName="duration" class="e-field" data-name="duration"
+                          placeholder='Select Duration' [dataSource]='DurationData' [fields]='durationFields' value='{{data.duration}}'>
                         </ejs-dropdownlist>
                       </td>
                     </tr>
@@ -111,12 +108,6 @@
                     <tr style=" height: 50px;">
                       <td class="e-textlabel">Flag as</td>
                       <td colspan="4">
-                        <!--<input id="flag_as" style="padding-top: 10px;" class="e-field e-input" type="radio" value="1"
-                                name="flag_as"  />Requested
-                                <input id="flag_as" style="padding-top: 10px;" class="e-field e-input"  type="radio" value="1"
-                                name="flag_as"  />Confirmed
-                                <input id="flag_as" style="padding-top: 10px;" class="e-field e-input" type="radio" value="1"
-                                name="flag_as"  />VIP-->
                         <ejs-radiobutton label="Requested" class="e-field e-input" value="Requested" name="flag_as"></ejs-radiobutton>
                         <ejs-radiobutton label="Confirmed" class="e-field e-input" value="Confirmed" style="margin-left: 11px;" name="flag_as"></ejs-radiobutton>
                         <ejs-radiobutton label="VIP" class="e-field e-input" style="margin-left: 11px;" value="VIP" name="flag_as"></ejs-radiobutton>
@@ -124,79 +115,21 @@
                     </tr>
                   </tbody>
                 </table>
-              </div>
-            </ng-template>
-
-            <!-- <ng-template #editorTemplate let-data>
-              <table *ngIf="data != undefined" class="custom-event-editor" width="100%" cellpadding="5">
-                <tbody>
-                  <tr style=" height: 10px;">
-                    <td class="e-textlabel">Services</td>
-                    <td colspan="4">
-                      <ejs-dropdownlist id='Service'  style="padding-top: 10px;" class="e-field" name="service_id" data-name="service_id" placeholder='Select Service'
-                        formControlName="service_id" [dataSource]='ServiceData' [fields]='serviceFields' (change)="clientChange($event)">
-                      </ejs-dropdownlist>
-                    </td>
-                  </tr>
-                  <tr style=" height: 10px;">
-                    <td class="e-textlabel">Clients</td>
-                    <td colspan="4">
-                      <ejs-dropdownlist id='Client' style="padding-top: 10px;" name="client_id" class="e-field" data-name="client_id" placeholder='Select Client'
-                        [dataSource]='ClientData' formControlName="client_id" [fields]='clientFields' (change)="serviceChange($event)">
-                      </ejs-dropdownlist>
-                    </td>
-                  </tr>
-                  <tr style=" height: 10px;">
-                    <td class="e-textlabel">Date</td>
-                    <td colspan="4">
-                      <ejs-datetimepicker id="StartTime" style="padding-top: 10px;" class="e-field" data-name="StartTime" format="M/dd/yy h:mm a"
-                        [value]="dateParser(data.startTime || data.StartTime)">
-                      </ejs-datetimepicker>
-                    </td>
-                  </tr>
-                  <tr style=" height: 10px;">
-                    <td class="e-textlabel">Duration</td>
-                    <td colspan="4">
-                      <ejs-dropdownlist id='Duration' style="padding-top: 10px;" class="e-field" data-name="Duration" placeholder='Select Duration'
-                        [dataSource]='DurationData' [fields]='durationFields' value='{{data.Duration}}'>
-                      </ejs-dropdownlist>
-                    </td>
-                  </tr>
-                  <tr style=" height: 10px;">
-                    <td class="e-textlabel">Price</td>
-                    <td colspan="4">
-                      <input id="price" style="padding-top: 10px;" class="e-field e-input" type="text" value="{{data.price}}" name="price" style="width: 100%"
-                      />
-                    </td>
-                  </tr>
-                  <tr style=" height: 10px;">
-                    <td colspan="4">
-                        <input id="DoctorId" style="padding-top: 10px;" class="e-field e-input" type="hidden" value="{{data.DoctorId}}"
-                            name="DoctorId" style="width: 100%" />
-                    </td>
-                </tr>
-                  <tr style=" height: 10px;">
-                    <td class="e-textlabel">Comment</td>
-                    <td colspan="4">
-                      <textarea id="comment" class="e-field e-input" name="comment" rows="3" cols="50" value="{{data.comment}}" style="width: 100%; height: 40px !important; resize: vertical"></textarea>
-                    </td>
-                  </tr>
-                  <tr style=" height: 50px;">
-                    <td class="e-textlabel">Flag as</td>
-                    <td colspan="4">
-                   
-                    <ejs-radiobutton label="Requested" class="e-field e-input"  value="Requested" name="flag_as"></ejs-radiobutton>
-                    <ejs-radiobutton label="Confirmed" class="e-field e-input" value="Confirmed"  style="margin-left: 11px;" name="flag_as"></ejs-radiobutton>
-                    <ejs-radiobutton label="VIP" class="e-field e-input" style="margin-left: 11px;" value="VIP" name="flag_as"></ejs-radiobutton>
-                    </td>
-                  </tr>
-                </tbody>
-              </table>
-            </ng-template> -->
-          </form>
+              </form>
+            </div>
+            <div *ngIf="data.elementType == 'event'" class="e-event-content">
+              <div class="subject">{{data.service_id}}</div>
+              <div class="location">{{data.client_id}}</div>
+              <div class="price">Price: {{data.price}}</div>
+              <div class="start-time">Start: {{data.StartTime.toLocaleString()}}</div>
+              <div class="end-time">End: {{data.EndTime.toLocaleString()}}</div>
+              <div *ngIf="data.Location != undefined && data.Location != ''" class="location">Location: {{data.Location}}</div>
+              <div *ngIf="data.Description != undefined && data.Description != ''" class="description">Description: {{data.Description}}</div>
+            </div>
+          </ng-template>-->
           <e-resources>
             <e-resource field="DoctorId" title="Doctor Name" name="Doctors" [dataSource]="doctorDataSource" textField='text' idField='id'
-              colorField='color' designationField='designation'>
+              colorField='color' designationField='designation' >
             </e-resource>
           </e-resources>
         </ejs-schedule>

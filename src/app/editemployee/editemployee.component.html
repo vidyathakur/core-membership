@@ -5,7 +5,7 @@
         <div class="row">
           <div class="col">
             <h4 class="header-title" style="color: #c89628; cursor: pointer; margin-left: 20px;" (click)="goToEditEmp()">Back </h4>
-            <h4 class="header-titles">Update Employees</h4>
+            <h4 class="header-titles">Update Employee</h4>
             <form class="col-lg-12" [formGroup]="employeeForm" (ngSubmit)="updateEmployee()">
               <input type="hidden" formControlName="employee_id" class="form-control">
               <div class="control-section accordion-control-section" style="margin-top: 20px;">
@@ -60,15 +60,18 @@
                               <div class="col-md-6">
                                 <label style="color: #000000;">Gender</label>
                                 <div class="roles">
-                                  <input type="radio" class="inputgen" formControlName="gender" value="Male" [ngClass]="{ 'is-invalid': submitted && f.gender.errors }"
+                                  <input type="radio" class="inputgen" formControlName="gender" 
+                                  value="Male" [ngClass]="{ 'is-invalid': submitted && f.gender.errors }"
                                     required>
                                   <label class="role" for="Male">Male</label>
-                                  <input type="radio" class="inputgen" formControlName="gender" [ngClass]="{ 'is-invalid': submitted && f.gender.errors }"
+                                  <input type="radio" class="inputgen" formControlName="gender" 
+                                  [ngClass]="{ 'is-invalid': submitted && f.gender.errors }"
                                     value="Female" required>
                                   <label class="role" for="Female">Female</label>
-                                  <input type="radio" class="inputgen" formControlName="gender" [ngClass]="{ 'is-invalid': submitted && f.gender.errors }"
-                                    value="Other" required>
-                                  <label class="role" for="Other">Other</label>
+                                  <input type="radio" class="inputgen" formControlName="gender" 
+                                  [ngClass]="{ 'is-invalid': submitted && f.gender.errors }"
+                                    value="Others" required>
+                                  <label class="role" for="Others">Other</label>
                                   <div *ngIf="submitted && f.gender.errors" class="invalid-feedback">
                                     <div *ngIf="f.gender.errors?.required">Gender is required</div>
                                   </div>
@@ -83,25 +86,25 @@
                               <div class="col-md-4">
                                 <label style="color: #000000;">Date Of Birth</label>
                                 <div class="input-group">
-                                 <input class="form-control" formControlName="birthday" placeholder="yyyy-mm-dd" 
-                              name="birthday" [(ngModel)]="model" ngbDatepicker
-                                #d="ngbDatepicker">
-                              <div class="input-group-append">
-                                <button class="btn btn-outline-secondary calendar" (click)="d.toggle()" type="button">
+                                  <input class="form-control" formControlName="birthday" placeholder="yyyy-mm-dd" name="birthday" [(ngModel)]="model" ngbDatepicker
+                                    [minDate]="{year: 1980, month: 1, day: 1}" [maxDate]="{year: 2048, month: 12, day: 31}"
+                                    #d="ngbDatepicker">
+                                  <div class="input-group-append">
+                                    <button class="btn btn-outline-secondary calendar" style="font-size: 13px;" (click)="d.toggle()" type="button">
                                   <i class="fa fa-calendar"></i></button>
-                              </div>
+                                  </div>
                                 </div>
                                 <span class="opt">Optional</span>
                               </div>
                               <div class="col-md-4">
                                 <label style="color: #000000;">Employee Level</label>
-                                 <select class="custom-select" formControlName="emp_level_id" required [ngClass]="{ 'is-invalid': submitted && f.emp_level_id.errors }">
+                                <select class="custom-select" formControlName="emp_level_id" required [ngClass]="{ 'is-invalid': submitted && f.emp_level_id.errors }">
                             <option value="" selected="">Select Level</option>
                             <option *ngFor="let empName of empLevelNames"  [value]="empName.id">{{empName.name}}</option>
                             </select>
-                             <div *ngIf="submitted && f.emp_level_id.errors" class="invalid-feedback">
-                                <div *ngIf="f.emp_level_id.errors.required">Employee Level is required</div>
-                              </div>
+                                <div *ngIf="submitted && f.emp_level_id.errors" class="invalid-feedback">
+                                  <div *ngIf="f.emp_level_id.errors.required">Employee Level is required</div>
+                                </div>
                                 <span class="opt">Required</span>
                               </div>
                             </div>
@@ -473,5 +476,3 @@
     </div>
   </div>
 </div>
-
-

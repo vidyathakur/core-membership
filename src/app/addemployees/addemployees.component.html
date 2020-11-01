@@ -72,8 +72,8 @@
                               <label class="role" for="Female">Female</label>
                               <input type="radio" class="inputgen" formControlName="gender" 
                               [ngClass]="{ 'is-invalid': submitted && f.gender.errors }"
-                                value="Other" required>
-                              <label class="role" for="Other">Other</label>
+                                value="others" required>
+                              <label class="role" for="Others">Other</label>
                               <div *ngIf="submitted && f.gender.errors" class="invalid-feedback">
                                 <div *ngIf="f.gender.errors?.required">Gender is required</div>
                               </div>
@@ -92,7 +92,7 @@
                               name="birthday" [(ngModel)]="model" ngbDatepicker [minDate]="{year: 1980, month: 1, day: 1}" [maxDate]="{year: 2048, month: 12, day: 31}"
                                 #d="ngbDatepicker">
                               <div class="input-group-append">
-                                <button class="btn btn-outline-secondary calendar" (click)="d.toggle()" type="button">
+                                <button class="btn btn-outline-secondary calendar" style="font-size: 13px;" (click)="d.toggle()" type="button">
                                   <i class="fa fa-calendar"></i></button>
                               </div>
                             </div>
@@ -210,6 +210,7 @@
                               placeholder="Post Code">
                             <div *ngIf="submitted && f.postcode.errors" class="invalid-feedback">
                               <div *ngIf="f.postcode.errors.required">Post Code is required</div>
+                              <div *ngIf="f.postcode.errors.pattern">Please Enter only number</div>
                             </div>
                             <span class="opt">Required</span>
                           </div>

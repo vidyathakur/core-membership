@@ -55,15 +55,19 @@
               <ul class="nav nav-tabs" id="myTab" role="tablist">
                 <li class="nav-item">
                   <a class="nav-link  myreboot" [ngClass]="{ 'active':activeTab==='clients-tab'}" id="clients-tab" data-toggle="tab" href="#clients"
-                    role="tab" aria-controls="clients" aria-selected="true">Clients</a>
+                    role="tab" aria-controls="clients" aria-selected="true" (click)="callClientApi()">Clients</a>
                 </li>
                 <li class="nav-item">
                   <a class="nav-link" [ngClass]="{ 'active':activeTab==='employees-tab'}" id="employees-tab" data-toggle="tab" href="#employees"
-                    role="tab" aria-controls="employees" aria-selected="false">Employees</a>
+                    role="tab" aria-controls="employees" aria-selected="false" (click)="callEmployeeApi()">Employees</a>
+                </li>
+                <li class="nav-item">
+                  <a class="nav-link " [ngClass]="{ 'active':activeTab==='emphours-tab'}" id="emphours-tab" data-toggle="tab" href="#emphours"
+                    role="tab" aria-controls="emphours" aria-selected="true" (click)="callEmpHoursApi()">Employee Hours</a>
                 </li>
                 <li class="nav-item">
                   <a class="nav-link" [ngClass]="{ 'active':activeTab==='category-tab'}" id="category-tab" data-toggle="tab" href="#category"
-                    role="tab" aria-controls="category" aria-selected="false">Service Category</a>
+                    role="tab" aria-controls="category" aria-selected="false" (click)="callServiceCatApi()">Service Category</a>
                 </li>
                 <li class="nav-item">
                   <a class="nav-link " [ngClass]="{ 'active':activeTab==='services-tab'}" id="services-tab" data-toggle="tab" href="#services"
@@ -71,23 +75,19 @@
                 </li>
                 <li class="nav-item">
                   <a class="nav-link" [ngClass]="{ 'active':activeTab==='lists-tab'}" id="lists-tab" data-toggle="tab" href="#lists" role="tab"
-                    aria-controls="lists" aria-selected="true">Lists</a>
-                </li>
-                <li class="nav-item">
-                  <a class="nav-link" [ngClass]="{ 'active':activeTab==='products-tab'}" id="products-tab" data-toggle="tab" href="#products"
-                    role="tab" aria-controls="products" aria-selected="false">Products</a>
+                    aria-controls="lists" aria-selected="true" (click)="callListApi()">Lists</a>
                 </li>
                 <li class="nav-item">
                   <a class="nav-link" [ngClass]="{ 'active':activeTab==='brands-tab'}" id="brands-tab" data-toggle="tab" href="#brands" role="tab"
-                    aria-controls="brands" aria-selected="false">Brands</a>
+                    aria-controls="brands" aria-selected="false" (click)="callBrandsApi()">Brands</a>
                 </li>
                 <li class="nav-item">
-                  <a class="nav-link " [ngClass]="{ 'active':activeTab==='emphours-tab'}" id="emphours-tab" data-toggle="tab" href="#emphours"
-                    role="tab" aria-controls="emphours" aria-selected="true">Employee Hours</a>
+                  <a class="nav-link" [ngClass]="{ 'active':activeTab==='products-tab'}" id="products-tab" data-toggle="tab" href="#products"
+                    role="tab" aria-controls="products" aria-selected="false" (click)="callProductsApi()">Products</a>
                 </li>
                 <li class="nav-item">
                   <a class="nav-link" [ngClass]="{ 'active':activeTab==='openhours-tab'}" id="openhours-tab" data-toggle="tab" href="#openhours"
-                    role="tab" aria-controls="openhours" aria-selected="false">Opening Hours</a>
+                    role="tab" aria-controls="openhours" aria-selected="false" (click)="callOpenHoursApi()">Opening Hours</a>
                 </li>
               </ul>
               <div class="tab-content mt-3" id="myTabContent">
@@ -156,7 +156,9 @@
                                     <td class="levl">{{client.email}}</td>
                                     <td class="rowcont">{{client.employee ? client.employee.f_name : ''}}</td>
                                     <td class="rowcont">{{client.address}}</td>
-                                    <td><a class="editt" [routerLink]="['/editclient', client.id]">Edit</a> <a class="del" (click)="deleteClient(client.id)">Delete</a></td>
+                                    <td><a class="editt" [routerLink]="['/editclient', client.id]">Edit</a> 
+                                    <a class="del" (click)="deleteClient(client.id)">Delete</a></td>
+                                    <!--<a class="del" (click)="openConfirmationDialog()">Delete</a></td>-->
                                   </tr>
                                 </tbody>
                               </table>
@@ -168,7 +170,7 @@
                     <div class="col-lg-12 mt-5">
                       <div class="card">
                         <div class="card-body" style="margin-top: 90px;">
-                          <nav aria-label="Page navigation example">
+                          <!--<nav aria-label="Page navigation example">
                             <ul class="pagination justify-content-center">
                               <li class="page-item disabled">
                                 <a class="page-link " href="#" tabindex="-1">Previous</a>
@@ -180,7 +182,7 @@
                                 <a class="page-link" href="#">Next</a>
                               </li>
                             </ul>
-                          </nav>
+                          </nav>-->
                         </div>
                       </div>
                     </div>
@@ -220,7 +222,7 @@
                               <th scope="col">Email</th>
                               <th scope="col">Services</th>
                               <th scope="col">Roster Rates</th>
-                              <th scope="col">Roster</th>
+                              <!--<th scope="col">Roster</th>-->
                               <th scope="col">action</th>
                             </tr>
                           </thead>
@@ -233,7 +235,7 @@
                               <td class="levl">{{employee.email}}</td>
                               <td class="levl">Services</td>
                               <td class="levl">Roster Rates</td>
-                              <td class="levl" (click)="openRosterModal(employee.id)">Roster</td>
+                              <!--<td class="levl" (click)="openRosterModal(employee.id)">Roster</td>-->
                               <td><a class="editt" [routerLink]="['/editemployee', employee.id]">Edit</a>
                                 <a class="del" (click)="deleteEmployee(employee.id)">Delete</a>
                               </td>
@@ -354,9 +356,13 @@
                                   <td class="rowcont">{{service.service_name}}</td>
                                   <td class="rowcont">{{service.price | currency}}</td>
                                   <td class="rowcont">{{service.duration}}</td>
-                                  <td class="levl" (click)="toggleItems(service.id)">{{service.group_service === 1 ? 'Items' : '' }}</td>
-                                  <td class="levl" (click)="toggleLevel(service.id)">{{service.group_service === 0 ? 'Levels' : '' }}</td>
-                                  <th class="levl" (click)="toggleresources(service.id)">{{service.require_resource === 1 ? 'Resources' : '' }}</th>
+
+                                  <td class="levl" *ngIf="service.group_service" (click)="toggleItems(service.id)">{{service.group_service === 1 ? 'Items' : '' }}</td>
+                                  <td class="levl" *ngIf="!service.group_service">{{service.group_service === 1 ? 'Items' : '' }}</td>
+                                  <td class="levl" *ngIf="!service.group_service" (click)="toggleLevel(service.id)">{{service.group_service === 0 ? 'Levels' : '' }}</td>
+                                  <td class="levl" *ngIf="service.group_service">{{service.group_service === 0 ? 'Levels' : '' }}</td>
+                                  <th class="levl" *ngIf="service.require_resource" (click)="toggleresources(service.id)">{{service.require_resource === 1 ? 'Resources' : '' }}</th>
+                                  <th class="levl" *ngIf="!service.require_resource">{{service.require_resource === 1 ? 'Resources' : '' }}</th>
                                   <td><a class="editt" [routerLink]="['/editservice',service.id]">Edit</a>
                                     <a class="del" (click)="deleteService(service.id)">Delete</a>
                                   </td>
@@ -371,7 +377,7 @@
                   <div class="col-lg-12 mt-5" *ngIf="serviceshow">
                     <div class="card">
                       <div class="card-body" style="margin-top: 90px;">
-                        <nav aria-label="Page navigation example">
+                        <!--<nav aria-label="Page navigation example">
                           <ul class="pagination justify-content-center">
                             <li class="page-item disabled">
                               <a class="page-link " href="#" tabindex="-1">Previous</a>
@@ -383,7 +389,7 @@
                               <a class="page-link" href="#">Next</a>
                             </li>
                           </ul>
-                        </nav>
+                        </nav>-->
                       </div>
                     </div>
                   </div>
@@ -471,7 +477,7 @@
                   <div class="col-lg-12 mt-5">
                     <div class="card">
                       <div class="card-body" style="margin-top: 90px;">
-                        <nav aria-label="Page navigation example">
+                        <!--<nav aria-label="Page navigation example">
                           <ul class="pagination justify-content-center">
                             <li class="page-item disabled">
                               <a class="page-link " href="#" tabindex="-1">Previous</a>
@@ -483,7 +489,7 @@
                               <a class="page-link" href="#">Next</a>
                             </li>
                           </ul>
-                        </nav>
+                        </nav>-->
                       </div>
                     </div>
                   </div>
@@ -565,7 +571,7 @@
                   <div class="col-lg-12 mt-5">
                     <div class="card">
                       <div class="card-body" style="margin-top: 90px;">
-                        <nav aria-label="Page navigation example">
+                        <!--<nav aria-label="Page navigation example">
                           <ul class="pagination justify-content-center">
                             <li class="page-item disabled">
                               <a class="page-link " href="#" tabindex="-1">Previous</a>
@@ -577,7 +583,7 @@
                               <a class="page-link" href="#">Next</a>
                             </li>
                           </ul>
-                        </nav>
+                        </nav>-->
                       </div>
                     </div>
                   </div>
@@ -666,7 +672,7 @@
                   <div class="col-lg-12 mt-5">
                     <div class="card">
                       <div class="card-body" style="margin-top: 90px;">
-                        <nav aria-label="Page navigation example">
+                        <!--<nav aria-label="Page navigation example">
                           <ul class="pagination justify-content-center">
                             <li class="page-item disabled">
                               <a class="page-link " href="#" tabindex="-1">Previous</a>
@@ -678,7 +684,7 @@
                               <a class="page-link" href="#">Next</a>
                             </li>
                           </ul>
-                        </nav>
+                        </nav>-->
                       </div>
                     </div>
                   </div>
@@ -774,7 +780,7 @@
                   <div class="col-lg-12 mt-5">
                     <div class="card">
                       <div class="card-body" style="margin-top: 90px;">
-                        <nav aria-label="Page navigation example">
+                        <!--<nav aria-label="Page navigation example">
                           <ul class="pagination justify-content-center">
                             <li class="page-item disabled">
                               <a class="page-link " href="#" tabindex="-1">Previous</a>
@@ -786,7 +792,7 @@
                               <a class="page-link" href="#">Next</a>
                             </li>
                           </ul>
-                        </nav>
+                        </nav>-->
                       </div>
                     </div>
                   </div>
@@ -820,7 +826,7 @@
                   <div class="col-lg-12 mt-5">
                     <div class="card">
                       <div class="card-body" style="margin-top: 90px;">
-                        <nav aria-label="Page navigation example">
+                        <!--<nav aria-label="Page navigation example">
                           <ul class="pagination justify-content-center">
                             <li class="page-item disabled">
                               <a class="page-link " href="#" tabindex="-1">Previous</a>
@@ -832,7 +838,7 @@
                               <a class="page-link" href="#">Next</a>
                             </li>
                           </ul>
-                        </nav>
+                        </nav>-->
                       </div>
                     </div>
                   </div>
@@ -871,7 +877,7 @@
                   <div class="col-lg-12 mt-5">
                     <div class="card">
                       <div class="card-body" style="margin-top: 90px;">
-                        <nav aria-label="Page navigation example">
+                        <!--<nav aria-label="Page navigation example">
                           <ul class="pagination justify-content-center">
                             <li class="page-item disabled">
                               <a class="page-link " href="#" tabindex="-1">Previous</a>
@@ -883,7 +889,7 @@
                               <a class="page-link" href="#">Next</a>
                             </li>
                           </ul>
-                        </nav>
+                        </nav>-->
                       </div>
                     </div>
                   </div>
@@ -920,7 +926,7 @@
                   <div class="col-lg-12 mt-5">
                     <div class="card">
                       <div class="card-body" style="margin-top: 90px;">
-                        <nav aria-label="Page navigation example">
+                        <!--<nav aria-label="Page navigation example">
                           <ul class="pagination justify-content-center">
                             <li class="page-item disabled">
                               <a class="page-link " href="#" tabindex="-1">Previous</a>
@@ -932,7 +938,7 @@
                               <a class="page-link" href="#">Next</a>
                             </li>
                           </ul>
-                        </nav>
+                        </nav>-->
                       </div>
                     </div>
                   </div>
@@ -969,7 +975,7 @@
                   <div class="col-lg-12 mt-5">
                     <div class="card">
                       <div class="card-body" style="margin-top: 90px;">
-                        <nav aria-label="Page navigation example">
+                        <!--<nav aria-label="Page navigation example">
                           <ul class="pagination justify-content-center">
                             <li class="page-item disabled">
                               <a class="page-link " href="#" tabindex="-1">Previous</a>
@@ -981,7 +987,7 @@
                               <a class="page-link" href="#">Next</a>
                             </li>
                           </ul>
-                        </nav>
+                        </nav>-->
                       </div>
                     </div>
                   </div>
@@ -1024,7 +1030,7 @@
                   <div class="col-lg-12 mt-5">
                     <div class="card">
                       <div class="card-body" style="margin-top: 90px;">
-                        <nav aria-label="Page navigation example">
+                        <!--<nav aria-label="Page navigation example">
                           <ul class="pagination justify-content-center">
                             <li class="page-item disabled">
                               <a class="page-link " href="#" tabindex="-1">Previous</a>
@@ -1036,7 +1042,7 @@
                               <a class="page-link" href="#">Next</a>
                             </li>
                           </ul>
-                        </nav>
+                        </nav>-->
                       </div>
                     </div>
                   </div>
@@ -1174,10 +1180,10 @@
                             </tr> 
                           </thead>
                           <tbody>
-                            <tr *ngFor="let empRoster of empRosters" >
+                            <tr *ngFor="let empRoster of empRosters; let i =index;" >
                                <td class="rowcont"><div class="custom-control custom-checkbox custom-control-inline">
-                                <input type="checkbox" class="custom-control-input" id="customCheck12">
-                                <label class="custom-control-label" for="customCheck12"></label>
+                                <input type="checkbox" class="custom-control-input" id="customCheck12{{i}}">
+                                <label class="custom-control-label" for="customCheck12{{i}}"></label>
                               </div></td>
                               <th scope="row" class="rowcont"><img src="https://image.ibb.co/jw55Ex/def_face.jpg" 
                               class="img img-rounded img-fluid" /> <p style="padding-top: 10px;">{{empRoster.employees ? empRoster.employees.f_name : ''}}</p></th>
@@ -1193,7 +1199,9 @@
                               class="btn btn-xs mb-3 mysmallbtn">{{empRoster.fri_start_time | time24to12Transform}}-{{empRoster.fri_end_time | time24to12Transform}}</button></td>
                               <td class="rowcont"><button type="button" (click)="employeehoursModel(empRoster.emp_id)" 
                               class="btn btn-xs mb-3 mysmallbtn">{{empRoster.sat_start_time | time24to12Transform}}-{{empRoster.sat_end_time | time24to12Transform}}</button></td>
-                             <td class="rowcont"><button type="button" class="btn btn-xs mb-3  closebtn">Closed</button></td>
+                             <td class="rowcont"><button type="button" (click)="employeehoursModel(empRoster.emp_id)" 
+                              class="btn btn-xs mb-3 mysmallbtn">{{empRoster.sun_start_time | time24to12Transform}}-{{empRoster.sun_end_time | time24to12Transform}}</button></td>
+                             <!--<td class="rowcont"><button type="button" class="btn btn-xs mb-3  closebtn">Closed</button></td>-->
                           </tr>
                           </tbody>
                         </table>
@@ -1206,197 +1214,225 @@
                 style="padding: 20px;">
                 <h4 class="header-title" style="font-size: 16px;">Opening Hours </h4>
                 <form class="col-lg-12" [formGroup]="openingForm" (ngSubmit)="addOpening()">
-                  <div class="form-row">
-                    <div class="col-md-2">
+                 
+                  <div class="form-row" style="margin-top: 10px;">
+                    <div class="col-md-4">
+                      <label style="color: #000000;">Monday</label>
+                      <select class="custom-select" [(ngModel)]="selectedMonstartTime" 
+                      formControlName="mom_start_time" [disabled]="isMondayDisabled">
+                              <option [value]="type.start" *ngFor="let type of startTimeArray; let i = index">
+                              {{type.value}}
+                              </option>
+                              </select>
+                    </div>
+                    <span class="timepick">TO</span>
+                    <div class="col-md-4">
+                      <label style="visibility: hidden;">Monday</label>
+                      <select class="custom-select" [(ngModel)]="selectedMonendTime" 
+                      formControlName="mom_end_time" [disabled]="isMondayDisabled">
+                              <option [value]="type.start" *ngFor="let type of endTimeArray">
+                              {{type.value}}
+                              </option>
+                              </select>
+                    </div>
+                    <div class="col-md-2" style="padding-left: 40px;">
+                      <label style="color: #000000;">States</label>
+                      <div class="nepal">
+                        <label class="switch switch-left-right">
+                        <input class="switch-input" type="checkbox" value="1" 
+                        formControlName="monday_disable_option" 
+                        (change)="onChangeDate($event,'mom_start_time','mom_end_time')"> 
+                        <span class="switch-label" data-on="OPEN" data-off="CLOSE"></span> 
+                        <span class="switch-handle"></span> 
+                        </label>
+                      </div>
+                    </div>
+                  </div>
+                  <div class="form-row" style="margin-top: 10px; ">
+                    <div class="col-md-4">
+                      <label style="color: #000000;">Tuesday</label>
+                      <select class="custom-select" [(ngModel)]="selectedTuestartTime" 
+                      formControlName="tue_start_time" [disabled]="isTuesdayDisabled">
+                              <option [value]="type.start" *ngFor="let type of startTimeArray; let i = index">
+                              {{type.value}}
+                              </option>
+                              </select>
+                    </div>
+                    <span class="timepick">TO</span>
+                    <div class="col-md-4">
+                      <label style="visibility: hidden;">Tuesday</label>
+                      <select class="custom-select" [(ngModel)]="selectedTueendTime" 
+                      formControlName="tue_end_time" [disabled]="isTuesdayDisabled">
+                              <option [value]="type.start" *ngFor="let type of endTimeArray">
+                              {{type.value}}
+                              </option>
+                              </select>
+                    </div>
+                    <div class="col-md-2" style="padding-left: 40px; padding-top: 30px;">
+                      <div class="nepal">
+                        <label class="switch switch-left-right">
+                        <input class="switch-input" type="checkbox" value="1" 
+                        formControlName="tuesday_disable_option" (change)="onChangeDate($event,'tue_start_time','tue_end_time')"> 
+                        <span class="switch-label" data-on="OPEN" data-off="CLOSE"></span> 
+                        <span class="switch-handle"></span> 
+                        </label>
+                      </div>
+                    </div>
+                  </div>
+                  <div class="form-row" style="margin-top: 10px;">
+                    <div class="col-md-4">
+                      <label style="color: #000000;">Wednesday</label>
+                      <select class="custom-select" [(ngModel)]="selectedWedstartTime" 
+                      formControlName="wed_start_time" [disabled]="isWedDisabled">
+                              <option [value]="type.start" *ngFor="let type of startTimeArray; let i = index">
+                              {{type.value}}
+                              </option>
+                              </select>
+                    </div>
+                    <span class="timepick">TO</span>
+                    <div class="col-md-4">
+                      <label style="visibility: hidden;">Wednesday</label>
+                      <select class="custom-select" [(ngModel)]="selectedWedendTime" 
+                      formControlName="wed_end_time" [disabled]="isWedDisabled">
+                              <option [value]="type.start" *ngFor="let type of endTimeArray">
+                              {{type.value}}
+                              </option>
+                              </select>
+                    </div>
+                    <div class="col-md-2" style="padding-left: 40px; padding-top: 30px;">
+                      <div class="nepal">
+                        <label class="switch switch-left-right">
+                                 <input class="switch-input" type="checkbox" value="1" 
+                                 formControlName="wednesday_disable_option" 
+                                 (change)="onChangeDate($event,'wed_start_time','wed_end_time')"> 
+                                 <span class="switch-label" data-on="OPEN" data-off="CLOSE"></span> 
+                                 <span class="switch-handle"></span> 
+                                 </label>
+                      </div>
+                    </div>
+                  </div>
+                  <div class="form-row" style="margin-top: 10px;">
+                    <div class="col-md-4">
+                      <label style="color: #000000;">Thursday</label>
+                      <select class="custom-select" [(ngModel)]="selectedThurstartTime" 
+                      formControlName="thur_start_time" [disabled]="isThurDisabled">
+                              <option [value]="type.start" *ngFor="let type of startTimeArray; let i = index">
+                              {{type.value}}
+                              </option>
+                              </select>
+                    </div>
+                    <span class="timepick">TO</span>
+                    <div class="col-md-4">
+                      <label style="visibility: hidden;">Thursday</label>
+                      <select class="custom-select" [(ngModel)]="selectedThurendTime" 
+                      formControlName="thur_end_time" [disabled]="isThurDisabled">
+                              <option [value]="type.start" *ngFor="let type of endTimeArray">
+                              {{type.value}}
+                              </option>
+                              </select>
+                    </div>
+                    <div class="col-md-2" style="padding-left: 40px; padding-top: 30px;">
+                      <div class="nepal">
+                        <label class="switch switch-left-right">
+                                 <input class="switch-input" type="checkbox" value="1" 
+                                 formControlName="thrusday_disable_option" 
+                                 (change)="onChangeDate($event,'thur_start_time','thur_end_time')"> 
+                                 <span class="switch-label" data-on="OPEN" data-off="CLOSE"></span> 
+                                 <span class="switch-handle"></span> 
+                                 </label>
+                      </div>
+                    </div>
+                  </div>
+                  <div class="form-row" style="margin-top: 10px;">
+                    <div class="col-md-4">
+                      <label style="color: #000000;">Friday</label>
+                      <select class="custom-select" [(ngModel)]="selectedFristartTime" 
+                      formControlName="fri_start_time" [disabled]="isFridDisabled">
+                              <option [value]="type.start" *ngFor="let type of startTimeArray; let i = index">
+                              {{type.value}}
+                              </option>
+                              </select>
+                    </div>
+                    <span class="timepick">TO</span>
+                    <div class="col-md-4">
+                      <label style="visibility: hidden;">Friday</label>
+                      <select class="custom-select" [(ngModel)]="selectedFriendTime" 
+                      formControlName="fri_end_time" [disabled]="isFridDisabled">
+                              <option [value]="type.start" *ngFor="let type of endTimeArray">
+                              {{type.value}}
+                              </option>
+                              </select>
+                    </div>
+                    <div class="col-md-2" style="padding-left: 40px; padding-top: 30px;">
+                      <div class="nepal">
+                        <label class="switch switch-left-right">
+                                 <input class="switch-input" type="checkbox" value="1" 
+                                 formControlName="friday_disable_option" 
+                                 (change)="onChangeDate($event,'fri_start_time','fri_end_time')"> 
+                                 <span class="switch-label" data-on="OPEN" data-off="CLOSE"></span> 
+                                 <span class="switch-handle"></span> 
+                                 </label>
+                      </div>
+                    </div>
+                  </div>
+                  <div class="form-row" style="margin-top: 10px;">
+                    <div class="col-md-4">
+                      <label style="color: #000000;">Saturday</label>
+                      <select class="custom-select" [(ngModel)]="selectedSatstartTime" 
+                      formControlName="sat_start_time" [disabled]="isSatDisabled">
+                              <option [value]="type.start" *ngFor="let type of startTimeArray; let i = index">
+                              {{type.value}}
+                              </option>
+                              </select>
+                    </div>
+                    <span class="timepick">TO</span>
+                    <div class="col-md-4">
+                      <label style="visibility: hidden;">Saturday</label>
+                      <select class="custom-select" [(ngModel)]="selectedSatendTime" 
+                      formControlName="sat_end_time" [disabled]="isSatDisabled">
+                              <option [value]="type.start" *ngFor="let type of endTimeArray">
+                              {{type.value}}
+                              </option>
+                              </select>
+                    </div>
+                    <div class="col-md-2" style="padding-left: 40px; padding-top: 30px;">
+                      <div class="nepal">
+                        <label class="switch switch-left-right">
+                                 <input class="switch-input" type="checkbox" value="1" 
+                                 formControlName="saturday_disable_option" 
+                                 (change)="onChangeDate($event,'sat_start_time','sat_end_time')"> 
+                                 <span class="switch-label" data-on="OPEN" data-off="CLOSE"></span> 
+                                 <span class="switch-handle"></span> 
+                                 </label>
+                      </div>
+                    </div>
+                  </div>
+                   <div class="form-row">
+                    <div class="col-md-4">
                       <label style="color: #000000;">Sunday</label>
-                      <select class="custom-select" [(ngModel)]="selectedstartTime" formControlName="sun_start_time" [disabled]="true">
+                      <select class="custom-select" [(ngModel)]="selectedstartTime" 
+                      formControlName="sun_start_time" [disabled]="true">
                               <option [value]="type.start" *ngFor="let type of startTimeArray; let i = index">
                               {{type.value}}
                               </option>   
                               </select>
                     </div>
                     <span class="timepick">TO</span>
-                    <div class="col-md-2">
+                    <div class="col-md-4">
                       <label style="visibility: hidden;">Sunday</label>
-                      <select class="custom-select" [(ngModel)]="selectedendTime" formControlName="sun_end_time" [disabled]="true">
+                      <select class="custom-select" [(ngModel)]="selectedendTime" 
+                      formControlName="sun_end_time" [disabled]="true">
                               <option [value]="type.start" *ngFor="let type of endTimeArray">
                               {{type.value}}
                               </option>
                               </select>
                     </div>
-                    <div class="col-md-4" style="padding-left: 40px;">
-                      <label style="color: #000000;">States</label>
+                    <div class="col-md-2" style="padding-left: 40px; padding-top: 30px;">
                       <div class="nepal">
                         <label class="switch switch-left-right">
-                                 <input class="switch-input" type="checkbox" value="1" formControlName="sunday_disable_option" (change)="onChangeDate($event,'sun_start_time','sun_end_time')"> 
-                                 <span class="switch-label" data-on="OPEN" data-off="CLOSE"></span> 
-                                 <span class="switch-handle"></span> 
-                                 </label>
-                      </div>
-                    </div>
-                  </div>
-                  <div class="form-row" style="margin-top: 10px;">
-                    <div class="col-md-2">
-                      <label style="color: #000000;">Monday</label>
-                      <select class="custom-select" [(ngModel)]="selectedMonstartTime" formControlName="mom_start_time" [disabled]="isMondayDisabled">
-                              <option [value]="type.start" *ngFor="let type of startTimeArray; let i = index">
-                              {{type.value}}
-                              </option>
-                              </select>
-                    </div>
-                    <span class="timepick">TO</span>
-                    <div class="col-md-2">
-                      <label style="visibility: hidden;">Monday</label>
-                      <select class="custom-select" [(ngModel)]="selectedMonendTime" formControlName="mom_end_time" [disabled]="isMondayDisabled">
-                              <option [value]="type.start" *ngFor="let type of endTimeArray">
-                              {{type.value}}
-                              </option>
-                              </select>
-                    </div>
-                    <div class="col-md-4" style="padding-left: 40px; padding-top: 30px;">
-                      <div class="nepal">
-                        <label class="switch switch-left-right">
-                                 <input class="switch-input" type="checkbox" value="1" formControlName="monday_disable_option" (change)="onChangeDate($event,'mom_start_time','mom_end_time')"> 
-                                 <span class="switch-label" data-on="OPEN" data-off="CLOSE"></span> 
-                                 <span class="switch-handle"></span> 
-                                 </label>
-                      </div>
-                    </div>
-                  </div>
-                  <div class="form-row" style="margin-top: 10px; ">
-                    <div class="col-md-2">
-                      <label style="color: #000000;">Tuesday</label>
-                      <select class="custom-select" [(ngModel)]="selectedTuestartTime" formControlName="tue_start_time" [disabled]="isTuesdayDisabled">
-                              <option [value]="type.start" *ngFor="let type of startTimeArray; let i = index">
-                              {{type.value}}
-                              </option>
-                              </select>
-                    </div>
-                    <span class="timepick">TO</span>
-                    <div class="col-md-2">
-                      <label style="visibility: hidden;">Tuesday</label>
-                      <select class="custom-select" [(ngModel)]="selectedTueendTime" formControlName="tue_end_time" [disabled]="isTuesdayDisabled">
-                              <option [value]="type.start" *ngFor="let type of endTimeArray">
-                              {{type.value}}
-                              </option>
-                              </select>
-                    </div>
-                    <div class="col-md-4" style="padding-left: 40px; padding-top: 30px;">
-                      <div class="nepal">
-                        <label class="switch switch-left-right">
-                                 <input class="switch-input" type="checkbox" value="1" formControlName="tuesday_disable_option" (change)="onChangeDate($event,'tue_start_time','tue_end_time')"> 
-                                 <span class="switch-label" data-on="OPEN" data-off="CLOSE"></span> 
-                                 <span class="switch-handle"></span> 
-                                 </label>
-                      </div>
-                    </div>
-                  </div>
-                  <div class="form-row" style="margin-top: 10px;">
-                    <div class="col-md-2">
-                      <label style="color: #000000;">Wednesday</label>
-                      <select class="custom-select" [(ngModel)]="selectedWedstartTime" formControlName="wed_start_time" [disabled]="isWedDisabled">
-                              <option [value]="type.start" *ngFor="let type of startTimeArray; let i = index">
-                              {{type.value}}
-                              </option>
-                              </select>
-                    </div>
-                    <span class="timepick">TO</span>
-                    <div class="col-md-2">
-                      <label style="visibility: hidden;">Wednesday</label>
-                      <select class="custom-select" [(ngModel)]="selectedWedendTime" formControlName="wed_end_time" [disabled]="isWedDisabled">
-                              <option [value]="type.start" *ngFor="let type of endTimeArray">
-                              {{type.value}}
-                              </option>
-                              </select>
-                    </div>
-                    <div class="col-md-4" style="padding-left: 40px; padding-top: 30px;">
-                      <div class="nepal">
-                        <label class="switch switch-left-right">
-                                 <input class="switch-input" type="checkbox" value="1" formControlName="wednesday_disable_option" (change)="onChangeDate($event,'wed_start_time','wed_end_time')"> 
-                                 <span class="switch-label" data-on="OPEN" data-off="CLOSE"></span> 
-                                 <span class="switch-handle"></span> 
-                                 </label>
-                      </div>
-                    </div>
-                  </div>
-                  <div class="form-row" style="margin-top: 10px;">
-                    <div class="col-md-2">
-                      <label style="color: #000000;">Thursday</label>
-                      <select class="custom-select" [(ngModel)]="selectedThurstartTime" formControlName="thur_start_time" [disabled]="isThurDisabled">
-                              <option [value]="type.start" *ngFor="let type of startTimeArray; let i = index">
-                              {{type.value}}
-                              </option>
-                              </select>
-                    </div>
-                    <span class="timepick">TO</span>
-                    <div class="col-md-2">
-                      <label style="visibility: hidden;">Thursday</label>
-                      <select class="custom-select" [(ngModel)]="selectedThurendTime" formControlName="thur_end_time" [disabled]="isThurDisabled">
-                              <option [value]="type.start" *ngFor="let type of endTimeArray">
-                              {{type.value}}
-                              </option>
-                              </select>
-                    </div>
-                    <div class="col-md-4" style="padding-left: 40px; padding-top: 30px;">
-                      <div class="nepal">
-                        <label class="switch switch-left-right">
-                                 <input class="switch-input" type="checkbox" value="1" formControlName="thrusday_disable_option" (change)="onChangeDate($event,'thur_start_time','thur_end_time')"> 
-                                 <span class="switch-label" data-on="OPEN" data-off="CLOSE"></span> 
-                                 <span class="switch-handle"></span> 
-                                 </label>
-                      </div>
-                    </div>
-                  </div>
-                  <div class="form-row" style="margin-top: 10px;">
-                    <div class="col-md-2">
-                      <label style="color: #000000;">Friday</label>
-                      <select class="custom-select" [(ngModel)]="selectedFristartTime" formControlName="fri_start_time" [disabled]="isFridDisabled">
-                              <option [value]="type.start" *ngFor="let type of startTimeArray; let i = index">
-                              {{type.value}}
-                              </option>
-                              </select>
-                    </div>
-                    <span class="timepick">TO</span>
-                    <div class="col-md-2">
-                      <label style="visibility: hidden;">Friday</label>
-                      <select class="custom-select" [(ngModel)]="selectedFriendTime" formControlName="fri_end_time" [disabled]="isFridDisabled">
-                              <option [value]="type.start" *ngFor="let type of endTimeArray">
-                              {{type.value}}
-                              </option>
-                              </select>
-                    </div>
-                    <div class="col-md-4" style="padding-left: 40px; padding-top: 30px;">
-                      <div class="nepal">
-                        <label class="switch switch-left-right">
-                                 <input class="switch-input" type="checkbox" value="1" formControlName="friday_disable_option" (change)="onChangeDate($event,'fri_start_time','fri_end_time')"> 
-                                 <span class="switch-label" data-on="OPEN" data-off="CLOSE"></span> 
-                                 <span class="switch-handle"></span> 
-                                 </label>
-                      </div>
-                    </div>
-                  </div>
-                  <div class="form-row" style="margin-top: 10px;">
-                    <div class="col-md-2">
-                      <label style="color: #000000;">Saturday</label>
-                      <select class="custom-select" [(ngModel)]="selectedSatstartTime" formControlName="sat_start_time" [disabled]="isSatDisabled">
-                              <option [value]="type.start" *ngFor="let type of startTimeArray; let i = index">
-                              {{type.value}}
-                              </option>
-                              </select>
-                    </div>
-                    <span class="timepick">TO</span>
-                    <div class="col-md-2">
-                      <label style="visibility: hidden;">Saturday</label>
-                      <select class="custom-select" [(ngModel)]="selectedSatendTime" formControlName="sat_end_time" [disabled]="isSatDisabled">
-                              <option [value]="type.start" *ngFor="let type of endTimeArray">
-                              {{type.value}}
-                              </option>
-                              </select>
-                    </div>
-                    <div class="col-md-4" style="padding-left: 40px; padding-top: 30px;">
-                      <div class="nepal">
-                        <label class="switch switch-left-right">
-                                 <input class="switch-input" type="checkbox" value="1" formControlName="saturday_disable_option" (change)="onChangeDate($event,'sat_start_time','sat_end_time')"> 
+                                 <input class="switch-input" type="checkbox" value="1" 
+                                 formControlName="sunday_disable_option" 
+                                 (change)="onChangeDate($event,'sun_start_time','sun_end_time')"> 
                                  <span class="switch-label" data-on="OPEN" data-off="CLOSE"></span> 
                                  <span class="switch-handle"></span> 
                                  </label>
@@ -1405,7 +1441,7 @@
                   </div>
                   <div class="footrcard">
                     <input type="hidden" formControlName="opening_hours_id" value="">
-                    <button type="button" class="btn mb-3 canc">Cancel</button>
+                    <button type="button" (click)="closeModal('close')" class="btn mb-3 canc">Cancel</button>
                     <button type="submit" class="btn mb-3 sub">Save</button>
                   </div>
                 </form>

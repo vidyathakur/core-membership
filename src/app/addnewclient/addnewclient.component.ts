@@ -17,6 +17,7 @@ export class AddnewclientComponent implements OnInit {
 	submitted = false;
 	public stateList: any;
 	myModel = true;
+	public clients: any;
 	public clientCats = [];
 	public currentEmployees: any;
 	constructor(
@@ -44,7 +45,7 @@ export class AddnewclientComponent implements OnInit {
 			gender: new FormControl('', Validators.required),
 			birthday: [''],
 			employee_id: new FormControl(''),
-			referred_by: new FormControl(''),
+			referred_by: new FormControl('',[Validators.pattern('^[0-9]*$')]),
 			refferral_type_id: new FormControl(''),
 			barcode_no: new FormControl(''),
 			address: new FormControl(''),
@@ -58,7 +59,7 @@ export class AddnewclientComponent implements OnInit {
 			promote_email: new FormControl(''),
 			online_booking: new FormControl(''),
 			loyalty_point: new FormControl(''),
-			client_cat_ids: this.formBuilder.array([],[Validators.required])
+			client_cat_ids: this.formBuilder.array([], [Validators.required])
 		});
 	}
 	get f() {
@@ -87,7 +88,7 @@ export class AddnewclientComponent implements OnInit {
 				comments: client_data.comments || '',
 				barcode_no: client_data.barcode_no || '',
 				referred_by: client_data.referred_by || '',
-				refferral_type_id: client_data.state_id || '',
+				refferral_type_id: client_data.refferral_type_id || '',
 				appoints_sms: client_data.appoints_sms == true ? 1 : 0,
 				appoints_email: client_data.appoints_email == true ? 1 : 0,
 				promote_sms: client_data.promote_sms == true ? 1 : 0,
@@ -95,7 +96,7 @@ export class AddnewclientComponent implements OnInit {
 				online_booking: client_data.online_booking == true ? 1 : 0,
 				loyalty_point: client_data.loyalty_point || '',
 				employee_id: client_data.employee_id,
-				client_cat_ids: client_data.client_cat_ids || '',
+				client_cat_ids: client_data.client_cat_ids || ''
 			};
 			console.log(data);
 			this.addnewclientService.createClient(data).subscribe(apiResponse => {
@@ -118,8 +119,8 @@ export class AddnewclientComponent implements OnInit {
 				this.currentEmployees = data['data'];
 			},
 			error => {
-				console.log('some error occured');
-				this.toastr.errorToastr('some error occured');
+				console.log('some error occurred');
+				this.toastr.errorToastr('some error occurred');
 			}
 		);
 	}
@@ -131,8 +132,8 @@ export class AddnewclientComponent implements OnInit {
 				this.clientCats = data['data'];
 			},
 			error => {
-				console.log('some error occured');
-				this.toastr.errorToastr('some error occured');
+				console.log('some error occurred');
+				this.toastr.errorToastr('some error occurred');
 			}
 		);
 	}
@@ -150,11 +151,11 @@ export class AddnewclientComponent implements OnInit {
 	// 		this.selected.splice(this.selected.indexOf(item), 1);
 	// 	}
 	// }
-	onChange(clientCat:any,isChecked:boolean) {
+	onChange(clientCat: any, isChecked: boolean) {
 		const control = <FormArray>this.clientForm.controls.client_cat_ids;
-		if(isChecked){
+		if (isChecked) {
 			control.push(new FormControl(clientCat));
-		} else{
+		} else {
 			const index = control.controls.findIndex(x => x.value === clientCat);
 			control.removeAt(index);
 		}
@@ -172,18 +173,32 @@ export class AddnewclientComponent implements OnInit {
 				this.stateList = data['data'];
 			},
 			error => {
-				console.log('some error occured');
-				this.toastr.errorToastr('some error occured');
+				console.log('some error occurred');
+				this.toastr.errorToastr('some error occurred');
 			}
 		);
 	}
-
+	public getClientDetailsByMerchantID(): any {
+		this.addnewclientService.getClientDetailsByMerchantID({}).subscribe(
+			data => {
+				console.log(data);
+				this.clients = data['data'];
+			},
+			error => {
+				console.log('some error occurred');
+				this.toastr.errorToastr('some error occurred');
+			}
+		);
+	}
 	goToClient() {
 		this.jwtService.setToken('tabId', 'clients-tab');
 		this.router.navigate(['/admin']);
+		this.getClientDetailsByMerchantID();
+		console.log('hello clients');
 	}
 	onCancel() {
 		this.jwtService.setToken('tabId', 'clients-tab');
-		this.router.navigate(['/admin']);
+		this.router.navigate(['/admin', { previousUrl: 'my-current-route' }]);
+		//this.router.navigate(['/admin']);
 	}
 }

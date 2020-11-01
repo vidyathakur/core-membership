@@ -172,7 +172,7 @@ export class EditemployeeComponent implements OnInit {
 				});
 			},
 			error => {
-				console.log('some error occured');
+				console.log('some error occurred');
 			}
 		);
 	}
@@ -184,8 +184,8 @@ export class EditemployeeComponent implements OnInit {
 				this.empLevelNames = data['data'];
 			},
 			error => {
-				console.log('some error occured');
-				this.toastr.errorToastr('some error occured');
+				console.log('some error occurred');
+				this.toastr.errorToastr('some error occurred');
 			}
 		);
 	}
@@ -202,8 +202,8 @@ export class EditemployeeComponent implements OnInit {
 				this.stateList = data['data'];
 			},
 			error => {
-				console.log('some error occured');
-				this.toastr.errorToastr('some error occured');
+				console.log('some error occurred');
+				this.toastr.errorToastr('some error occurred');
 			}
 		);
 	}
@@ -262,7 +262,7 @@ export class EditemployeeComponent implements OnInit {
 				// console.log(er.error.errors);
 				// console.log(er.error.errors['order']);
 				// this.toastr.errorToastr(er.error.errors['order'][0]);
-				this.toastr.errorToastr('some error occured');
+				this.toastr.errorToastr('some error occurred');
 			}
 		);
 	}

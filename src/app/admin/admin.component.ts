@@ -1,6 +1,7 @@
-import { Component, OnInit, ViewChild } from '@angular/core';
+import { ConfirmDialogService } from '../confirm-dialog/confirm-dialog.service';
+import { Component, ContentChild, OnInit, ViewChild } from '@angular/core';
 import { FormGroup, Validators, FormControl, FormBuilder } from '@angular/forms';
-import { NgbModal, ModalDismissReasons, NgbModalRef } from '@ng-bootstrap/ng-bootstrap';
+import { NgbModal, ModalDismissReasons, NgbModalRef, NgbActiveModal } from '@ng-bootstrap/ng-bootstrap';
 import { AdminService } from 'src/app/admin/admin.service';
 import { ToastrManager } from 'ng6-toastr-notifications';
 import { Router, ActivatedRoute } from '@angular/router';
@@ -40,12 +41,14 @@ import { EmployeehoursComponent } from 'src/app/employeehours/employeehours.comp
 import { ProductService } from 'src/app/product/product.service';
 import { EmployeehoursService } from 'src/app/employeehours/employeehours.service';
 import { AddnewclientService } from 'src/app/addnewclient/addnewclient.service';
+import * as data from '../../assets/data.json';
 @Component({
 	selector: 'app-admin',
 	templateUrl: './admin.component.html',
 	styleUrls: ['./admin.component.css']
 })
 export class AdminComponent implements OnInit {
+	private _jsonURL = 'assets/data.json';
 	roster_id: any;
 	serviceLevelData: { price: ''; duration: '' };
 	@Input() public user_level_id;
@@ -61,6 +64,7 @@ export class AdminComponent implements OnInit {
 	openingForm: FormGroup;
 	modalReference: NgbModalRef;
 	submitted = false;
+	currentRouter = this.router.url;
 	public name: any;
 	public show: boolean = false;
 	public resourceshow: boolean = false;
@@ -157,53 +161,53 @@ export class AdminComponent implements OnInit {
 		{ start: '11:30:00', value: '11:30 AM' },
 		{ start: '11:45:00', value: '11:45 AM' },
 		{ start: '12:00:00', value: 'Noon' },
-		{ start: '00:15:00', value: '12:15 PM' },
-		{ start: '00:30:00', value: '12:30 PM' },
-		{ start: '00:45:00', value: '12:45 PM' },
-		{ start: '01:00:00', value: '1:00 PM' },
-		{ start: '01:15:00', value: '1:15 PM' },
-		{ start: '01:30:00', value: '1:30 PM' },
-		{ start: '01:45:00', value: '1:45 PM' },
-		{ start: '02:00:00', value: '2:00 PM' },
-		{ start: '02:15:00', value: '2:15 PM' },
-		{ start: '02:30:00', value: '2:30 PM' },
-		{ start: '02:45:00', value: '2:45 PM' },
-		{ start: '03:00:00', value: '3:00 PM' },
-		{ start: '03:15:00', value: '3:15 PM' },
-		{ start: '03:30:00', value: '3:30 PM' },
-		{ start: '03:45:00', value: '3:45 PM' },
-		{ start: '04:00:00', value: '4:00 PM' },
-		{ start: '04:15:00', value: '4:15 PM' },
-		{ start: '04:30:00', value: '4:30 PM' },
-		{ start: '04:45:00', value: '4:45 PM' },
-		{ start: '05:00:00', value: '5:00 PM' },
-		{ start: '05:15:00', value: '5:15 PM' },
-		{ start: '05:30:00', value: '5:30 PM' },
-		{ start: '05:45:00', value: '5:45 PM' },
-		{ start: '06:00:00', value: '6:00 PM' },
-		{ start: '06:15:00', value: '6:15 PM' },
-		{ start: '06:30:00', value: '6:30 PM' },
-		{ start: '06:45:00', value: '6:45 PM' },
-		{ start: '07:00:00', value: '7:00 PM' },
-		{ start: '07:15:00', value: '7:15 PM' },
-		{ start: '07:30:00', value: '7:30 PM' },
-		{ start: '07:45:00', value: '7:45 PM' },
-		{ start: '08:00:00', value: '8:00 PM' },
-		{ start: '08:15:00', value: '8:15 PM' },
-		{ start: '08:30:00', value: '8:30 PM' },
-		{ start: '08:45:00', value: '8:45 PM' },
-		{ start: '09:00:00', value: '9:00 PM' },
-		{ start: '09:15:00', value: '9:15 PM' },
-		{ start: '09:30:00', value: '9:30 PM' },
-		{ start: '09:45:00', value: '9:45 PM' },
-		{ start: '10:00:00', value: '10:00 PM' },
-		{ start: '10:15:00', value: '10:15 PM' },
-		{ start: '10:30:00', value: '10:30 PM' },
-		{ start: '10:45:00', value: '10:45 PM' },
-		{ start: '11:00:00', value: '11:00 PM' },
-		{ start: '11:15:00', value: '11:15 PM' },
-		{ start: '11:30:00', value: '11:30 PM' },
-		{ start: '11:45:00', value: '11:45 PM' },
+		{ start: '12:15:00', value: '12:15 PM' },
+		{ start: '12:30:00', value: '12:30 PM' },
+		{ start: '12:45:00', value: '12:45 PM' },
+		{ start: '13:00:00', value: '1:00 PM' },
+		{ start: '13:15:00', value: '1:15 PM' },
+		{ start: '13:30:00', value: '1:30 PM' },
+		{ start: '13:45:00', value: '1:45 PM' },
+		{ start: '14:00:00', value: '2:00 PM' },
+		{ start: '14:15:00', value: '2:15 PM' },
+		{ start: '14:30:00', value: '2:30 PM' },
+		{ start: '14:45:00', value: '2:45 PM' },
+		{ start: '15:00:00', value: '3:00 PM' },
+		{ start: '15:15:00', value: '3:15 PM' },
+		{ start: '15:30:00', value: '3:30 PM' },
+		{ start: '15:45:00', value: '3:45 PM' },
+		{ start: '16:00:00', value: '4:00 PM' },
+		{ start: '16:15:00', value: '4:15 PM' },
+		{ start: '16:30:00', value: '4:30 PM' },
+		{ start: '16:45:00', value: '4:45 PM' },
+		{ start: '17:00:00', value: '5:00 PM' },
+		{ start: '17:15:00', value: '5:15 PM' },
+		{ start: '17:30:00', value: '5:30 PM' },
+		{ start: '17:45:00', value: '5:45 PM' },
+		{ start: '18:00:00', value: '6:00 PM' },
+		{ start: '18:15:00', value: '6:15 PM' },
+		{ start: '18:30:00', value: '6:30 PM' },
+		{ start: '18:45:00', value: '6:45 PM' },
+		{ start: '19:00:00', value: '7:00 PM' },
+		{ start: '19:15:00', value: '7:15 PM' },
+		{ start: '19:30:00', value: '7:30 PM' },
+		{ start: '19:45:00', value: '7:45 PM' },
+		{ start: '20:00:00', value: '8:00 PM' },
+		{ start: '20:15:00', value: '8:15 PM' },
+		{ start: '20:30:00', value: '8:30 PM' },
+		{ start: '20:45:00', value: '8:45 PM' },
+		{ start: '21:00:00', value: '9:00 PM' },
+		{ start: '21:15:00', value: '9:15 PM' },
+		{ start: '21:30:00', value: '9:30 PM' },
+		{ start: '21:45:00', value: '9:45 PM' },
+		{ start: '22:00:00', value: '10:00 PM' },
+		{ start: '22:15:00', value: '10:15 PM' },
+		{ start: '22:30:00', value: '10:30 PM' },
+		{ start: '22:45:00', value: '10:45 PM' },
+		{ start: '23:00:00', value: '11:00 PM' },
+		{ start: '23:15:00', value: '11:15 PM' },
+		{ start: '23:30:00', value: '11:30 PM' },
+		{ start: '23:45:00', value: '11:45 PM' },
 		{ start: '00:00:00', value: 'Midnight' }
 	];
 	public endTimeArray = [
@@ -256,9 +260,9 @@ export class AdminComponent implements OnInit {
 		{ start: '11:30:00', value: '11:30 AM' },
 		{ start: '11:45:00', value: '11:45 AM' },
 		{ start: '12:00:00', value: 'Noon' },
-		{ start: '00:15:00', value: '12:15 PM' },
-		{ start: '00:30:00', value: '12:30 PM' },
-		{ start: '00:45:00', value: '12:45 PM' },
+		{ start: '12:15:00', value: '12:15 PM' },
+		{ start: '12:30:00', value: '12:30 PM' },
+		{ start: '12:45:00', value: '12:45 PM' },
 		{ start: '13:00:00', value: '1:00 PM' },
 		{ start: '13:15:00', value: '1:15 PM' },
 		{ start: '13:30:00', value: '1:30 PM' },
@@ -306,6 +310,7 @@ export class AdminComponent implements OnInit {
 		{ start: '00:00:00', value: 'Midnight' }
 	];
 	constructor(
+		public activeModal: NgbActiveModal,
 		private SpinnerService: NgxSpinnerService,
 		private modalService: NgbModal,
 		public router: Router,
@@ -315,6 +320,7 @@ export class AdminComponent implements OnInit {
 		private _route: ActivatedRoute,
 		public adminService: AdminService,
 		private route: ActivatedRoute,
+		private confirmDialogService: ConfirmDialogService,
 		public servicelevelService: ServicelevelService,
 		public clientcategoriesService: ClientcategoriesService,
 		public serviceresourceService: ServiceresourceService,
@@ -385,24 +391,36 @@ export class AdminComponent implements OnInit {
 		//console.log(tab_id);
 		if (tab_id) {
 			this.activeTab = tab_id;
+			console.log(this.activeTab);
+			if (this.activeTab == 'clients-tab') {
+				this.callClientApi();
+			}
+			if (this.activeTab == 'employees-tab') {
+				this.callEmployeeApi();
+			}
+			if (this.activeTab == 'category-tab') {
+				this.callServiceCatApi();
+			}
+			if (this.activeTab == 'products-tab') {
+				this.callProductsApi();
+			}
+			if (this.activeTab == 'brands-tab') {
+				this.callBrandsApi();
+			}
+			if (this.activeTab == 'emphours-tab') {
+				this.callEmpHoursApi();
+			}
+			if (this.activeTab == 'openhours-tab') {
+				this.callOpenHoursApi();
+			}
+			if (this.activeTab == 'lists-tab') {
+				this.callListApi();
+			}
 			this.jwtService.destroyTokenTab('tabId');
 		} else {
 			this.activeTab = 'services-tab';
 		}
-		this.getClientDetailsByMerchantID();
-		this.getEmpRosterHoursByMechantId();
-		this.getProducts();
-		this.getSupplier();
-		this.getProductbrand();
-		this.getOpeningDay();
-		this.getResource();
-		this.getServiceCatByMerchantId();
-		this.getEmployees();
-		this.getEmplevel();
-		this.getClientCategories();
-		this.getHoliday();
 		this.getServiceByMerchantId();
-		this.getTaxRates();
 	}
 	OnChangeofOptions() {
 		console.log('changing');
@@ -662,7 +680,6 @@ export class AdminComponent implements OnInit {
 	}
 
 	public getOpeningDay(): any {
-		this.SpinnerService.show();
 		this.adminService.getOpeningDay().subscribe(
 			data => {
 				console.log(data);
@@ -720,9 +737,6 @@ export class AdminComponent implements OnInit {
 					opening_hours_id: [openingdata.id]
 				});
 				console.log(openingdata);
-				setTimeout(() => {
-					this.SpinnerService.hide();
-				}, 2000);
 			},
 			error => {
 				console.log('some error occured');
@@ -747,13 +761,18 @@ export class AdminComponent implements OnInit {
 	open(content) {
 		this.modalService.open(content, { ariaLabelledBy: 'modal-basic-title' }).result.then(
 			result => {
+				this.getEmplevel();
 				this.closeResult = `Closed with: ${result}`;
+				console.log(this.getEmplevel);
 			},
 			reason => {
+				this.getEmplevel();
+				console.log(this.getEmplevel);
 				this.closeResult = `Dismissed ${this.getDismissReason(reason)}`;
 			}
 		);
 	}
+
 	openmyModal() {
 		const modalRef = this.modalService.open(ClientcategoriesComponent, {
 			windowClass: 'myCustomModalClass'
@@ -850,6 +869,7 @@ export class AdminComponent implements OnInit {
 					this.opening_hours_id = emproasterdata.id;
 				}
 				this.openingForm = this.formBuilder.group({
+					f_name: [emproasterdata.f_name],
 					sun_start_time: [emproasterdata.sun_start_time],
 					sun_end_time: emproasterdata.sun_end_time,
 					mom_start_time: emproasterdata.mom_start_time,
@@ -1174,6 +1194,8 @@ export class AdminComponent implements OnInit {
 				this.toastr.successToastr(' Employee Deleted Successfully');
 				this.ngOnInit();
 				this.getEmployees();
+				this.jwtService.setToken('tabId', 'employees-tab');
+				this.router.navigate(['/admin']);
 			},
 			error => {
 				console.log('some error occured');
@@ -1263,19 +1285,7 @@ export class AdminComponent implements OnInit {
 			}
 		);
 	}
-	public deleteclientcatModal(clientCat_id): any {
-		this.clientcategoriesService.deleteClientCat({ clientCat_id: clientCat_id }).subscribe(
-			data => {
-				console.log(data);
-				this.toastr.successToastr(' Clientcategory Deleted Successfully');
-				this.getClientCategories();
-			},
-			error => {
-				console.log('some error occured');
-				this.toastr.errorToastr('Some error occured', 'Oops!');
-			}
-		);
-	}
+
 	public deleteHoliday(holiday_id): any {
 		this.publicholidayService.deleteHoliday({ holiday_id: holiday_id }).subscribe(
 			data => {
@@ -1395,14 +1405,18 @@ export class AdminComponent implements OnInit {
 			if (openingHours_data.opening_hours_id) {
 				data['opening_hours_id'] = openingHours_data.opening_hours_id;
 			}
+			console.log(data);
 			this.adminService.addOpeningDay(data).subscribe(apiResponse => {
+				console.log(apiResponse);
 				if (apiResponse.code === 200) {
+					this.openingForm.controls.opening_hours_id.setValue(apiResponse.data.id);
 					if (openingHours_data.opening_hours_id) {
 						this.toastr.successToastr('Openinghours Updated Successfully');
 					} else {
 						this.toastr.successToastr('Openinghours Added Successfully');
 					}
-					this.router.navigate(['/admin']);
+
+					console.log(this.router.url);
 				} else {
 					console.log('Hello');
 					this.toastr.errorToastr(apiResponse.message);
@@ -1411,6 +1425,9 @@ export class AdminComponent implements OnInit {
 		}
 	}
 
+	closeModal(sendData) {
+		this.activeModal.close(sendData);
+	}
 	toggleLevel(id) {
 		this.show = true;
 		this.resourceshow = false;
@@ -1518,6 +1535,66 @@ export class AdminComponent implements OnInit {
 			console.log(dataResponse[id]);
 		}
 		this.getServiceItemByServiceId(id);
+	}
+
+	callClientApi() {
+		this.getClientDetailsByMerchantID();
+	}
+	callEmployeeApi() {
+		this.getEmployees();
+	}
+	callServiceCatApi() {
+		this.getServiceCatByMerchantId();
+	}
+	// callServicesApi() {
+	// 	this.getServiceByMerchantId();
+	// }
+	callProductsApi() {
+		this.getProducts();
+	}
+	callBrandsApi() {
+		this.getProductbrand();
+	}
+	callEmpHoursApi() {
+		this.getEmpRosterHoursByMechantId();
+	}
+	callOpenHoursApi() {
+		this.getOpeningDay();
+	}
+	callListApi() {
+		this.getSupplier();
+
+		this.getResource();
+		this.getEmplevel();
+		this.getClientCategories();
+		this.getHoliday();
+
+		this.getTaxRates();
+	}
+
+	// public openConfirmationDialog() {
+	// 	this.confirmDialogService
+	// 		.confirm('Please confirm..', 'Are you really want to Delete this... ?')
+	// 		.then(confirmed => console.log('User confirmed:', confirmed))
+	// 		.catch(() =>
+	// 			console.log(
+	// 				'User dismissed the dialog (e.g., by using ESC, clicking the cross icon, or clicking outside the dialog)'
+	// 			)
+	// 		);
+	// }
+
+	public deleteclientcatModal(clientCat_id): any {
+		this.clientcategoriesService.deleteClientCat({ clientCat_id: clientCat_id }).subscribe(
+			data => {
+				console.log(data);
+				this.toastr.successToastr(' Clientcategory Deleted Successfully');
+				this.getClientCategories();
+			},
+			error => {
+				console.log('some error occured');
+				this.toastr.errorToastr('Some error occured', 'Oops!');
+			}
+		);
 	}
 
 	private getDismissReason(reason: any): string {

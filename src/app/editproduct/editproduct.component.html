@@ -98,14 +98,18 @@
               </div>
             </div>
             <div class="form-row">
-              <div class="col-md-4">
+              <div class="col-md-5">
                 <label style="color: #000000; padding-top: 10px;">Loyalty Points Earned: </label>
                 <input type="text" class="form-control" formControlName="loyalty_point" placeholder="Loyalty Points Earned">
                 <span class="req">Optional</span>
               </div>
               <div class="col-md-4">
                 <label style="color: #000000; padding-top: 10px;">Loyalty Points Redeem:</label>
-                <input type="text" class="form-control" formControlName="loyalty_point" placeholder="Loyalty Points Redeem">
+                <input type="text" class="form-control" formControlName="loyalty_point_redeeme" 
+                [ngClass]="{ 'is-invalid': f.loyalty_point_redeeme.errors }" placeholder="Loyalty Points Redeem">
+                <div *ngIf="f.loyalty_point_redeeme.errors" class="invalid-feedback">
+                    <div *ngIf="f.loyalty_point_redeeme.errors.pattern">Please Enter only number</div>
+                  </div>
                 <span class="req">Optional</span>
               </div>
             </div>

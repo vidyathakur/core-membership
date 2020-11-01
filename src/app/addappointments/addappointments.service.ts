@@ -46,9 +46,9 @@ export class AddappointmentsService {
 	// 	return myResponse;
 	// }
 
-	public getTimeSlotForAppointByEmpId(EmpId, start_date): any {
-		let myResponse = this.http.get(
-			`${environment.BASE_URL}/getTimeSlotForAppointByEmpId` + '/' + EmpId + start_date,
+	public getTimeSlotForAppointByEmpId(start_date): any {
+		let myResponse = this.http.get
+		(`${environment.BASE_URL}/getTimeSlotForAppointByEmpId` + '/' + `{start_date.toISOString()}`,
 			{
 				headers: new HttpHeaders().set('SESSION-TOKEN', localStorage.getItem('jwt_token'))
 			}

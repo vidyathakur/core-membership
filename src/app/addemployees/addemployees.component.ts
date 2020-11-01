@@ -49,7 +49,6 @@ export class AddemployeesComponent implements OnInit {
 	public stateList: any;
 	myModel = true;
 
-	genders = [{ id: 1, name: 'Email' }, { id: 2, name: 'Phone' }];
 
 	constructor(
 		private formBuilder: FormBuilder,
@@ -72,7 +71,7 @@ export class AddemployeesComponent implements OnInit {
 			gender: ['', Validators.required],
 			birthday: [''],
 			address: ['', Validators.required],
-			postcode: ['', Validators.required],
+			postcode: ['', [Validators.required, Validators.pattern('^[0-9]*$')]],
 			service: ['', [Validators.pattern('^[0-9]*$')]],
 			product_revenue: ['', [Validators.pattern('^[0-9]*$')]],
 			product_profit: ['', [Validators.pattern('^[0-9]*$')]],

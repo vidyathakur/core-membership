@@ -1,3 +1,4 @@
+import { parseIntAutoRadix } from '@angular/common/src/i18n/format_number';
 import { AddnewclientService } from '../addnewclient/addnewclient.service';
 import { AppointmentsService } from '../appointments/appointments.service';
 import { FormBuilder, FormGroup } from '@angular/forms';
@@ -15,9 +16,13 @@ import { AddappointmentsService } from 'src/app/addappointments/addappointments.
 	styleUrls: ['./addappointments.component.css']
 })
 export class AddappointmentsComponent implements OnInit {
-	checkedList: [];
-	servicesData: {};
-	selectedItems: [];
+	price: number;
+	totalTime: number;
+	//selectedItems: {};
+	//checkedList: [];
+	servicesData:any;
+	selectedItems:any;
+	checked = true;
 	model;
 	addappointmentForm: FormGroup;
 	closeResult: string;
@@ -88,11 +93,16 @@ export class AddappointmentsComponent implements OnInit {
 			data => {
 				console.log(data);
 				let responseData = {};
+				let responseArray = [];
 				data['data'].forEach(item => {
 					responseData[item.id] = item;
+					Object.assign(item, { checked: false });
+					responseArray.push(item);
 				});
 				this.servicesData = responseData;
-				this.services = data['data'];
+				//this.services = data['data'];
+				console.log(responseArray);
+				this.services = responseArray;
 			},
 			error => {
 				console.log('some error occured');
@@ -111,34 +121,58 @@ export class AddappointmentsComponent implements OnInit {
 	// 		}
 	// 	 	console.log(data);
 	//    }
-	select(d,id:string) {
+	select(d, id: string) {
 		console.log(d);
-		
 	}
 	onCheckboxChange(e: any, id: string) {
-		if (e.target.checked) {
+		if (e.target.checked == true) {
 			this.selectedItems.push(id);
 		} else {
 			console.log(id + ' unchecked');
 			this.selectedItems = this.selectedItems.filter(m => m != id);
 		}
 		let arrayData = [];
+		let totalTime = 0;
+		let price = 0;
+		console.log(this.selectedItems);
 		for (let i in this.selectedItems) {
-			console.log(this.selectedItems[i]);
-			arrayData.push(this.servicesData[this.selectedItems[i]]);
+			let items = this.selectedItems[i];
+			let splitsData = this.servicesData[items].duration.split(':');
+			price += parseInt(this.servicesData[items].price);
+			totalTime += parseInt(splitsData[0]) * 60 + parseInt(splitsData[1]);
+			arrayData.push(this.servicesData[items]);
 		}
 		this.checkOutputDta = arrayData;
+		this.totalTime = totalTime;
+		this.price = price;
 	}
 
-	removeServices(id) {
-		console.log(id);
-		this.selectedItems = this.selectedItems.filter(m => m != id);
-		let arrayData = [];
-		for (let i in this.selectedItems) {
-			console.log(this.selectedItems[i]);
-			arrayData.push(this.servicesData[this.selectedItems[i]]);
+	removeServices(id, index) {
+		let service_id = id;
+		let objectsData = [];
+		this.checkOutputDta = [];
+		this.selectedItems = [];
+		let totalTime = 0;
+		let price = 0;
+		for (let k in this.services) {
+			let item = this.services[k];
+			if (service_id == item.id) {
+				item.checked = false;
+			} else {
+				if (item.checked == true) {
+					let splitsData = item.duration.split(':');
+					price += parseInt(item.price);
+					totalTime += parseInt(splitsData[0]) * 60 + parseInt(splitsData[1]);
+					this.selectedItems.push(item);
+					this.checkOutputDta.push(item);
+				}
+			}
+			objectsData.push(item);
 		}
-		this.checkOutputDta = arrayData;
+		this.totalTime = totalTime;
+		this.services = objectsData;
+		console.log(this.services);
+		this.price = price;
 	}
 
 	public getServiceCatByMerchantId(): any {

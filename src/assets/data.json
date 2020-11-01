@@ -1,0 +1,197 @@
+{
+  "startTimeArray": [
+{ "start": "00: 00: 00", "value": "Midnight"},
+{ "start": "00: 15: 00", "value": "12: 15 AM"
+},
+{ "start": "00: 30: 00", "value": "12: 30 AM"
+},
+{ "start": "00: 45: 00", "value": "12: 15 AM"
+},
+{ "start": "01: 00: 00", "value": "1: 00 AM"
+},
+{ "start": "01: 15: 00", "value": "1: 15 AM"
+},
+{ "start": "01: 30: 00", "value": "1: 30 AM"
+},
+{ "start": "01: 45: 00", "value": "1: 45 AM"
+},
+{ "start": "02: 00: 00", "value": "2: 00 AM"
+},
+{ "start": "02: 15: 00", "value": "2: 15 AM"
+},
+{ "start": "02: 30: 00", "value": "2: 30 AM"
+},
+{ "start": "02: 45: 00", "value": "2: 45 AM"
+},
+{ "start": "03: 00: 00", "value": "3: 00 AM"
+},
+{ "start": "03: 15: 00", "value": "3: 15 AM"
+},
+{ "start": "03: 30: 00", "value": "3: 30 AM"
+},
+{ "start": "03: 45: 00", "value": "3: 45 AM"
+},
+{ "start": "04: 00: 00", "value": "4: 00 AM"
+},
+{ "start": "04: 15: 00", "value": "4: 15 AM"
+},
+{ "start": "04: 30: 00", "value": "4: 30 AM"
+},
+{ "start": "04: 45: 00", "value": "4: 45 AM"
+},
+{ "start": "05: 00: 00", "value": "5: 00 AM"
+},
+{ "start": "05: 15: 00", "value": "5: 15 AM"
+},
+{ "start": "05: 30: 00", "value": "5: 30 AM"
+},
+{ "start": "05: 45: 00", "value": "5: 45 AM"
+},
+{ "start": "06: 00: 00", "value": "6: 00 AM"
+},
+{ "start": "06: 15: 00", "value": "6: 15 AM"
+},
+{ "start": "06: 30: 00", "value": "6: 30 AM"
+},
+{ "start": "06: 45: 00", "value": "6: 45 AM"
+},
+{ "start": "07: 00: 00", "value": "7: 00 AM"
+},
+{ "start": "07: 15: 00", "value": "7: 15 AM"
+},
+{ "start": "07: 30: 00", "value": "7: 30 AM"
+},
+{ "start": "07: 45: 00", "value": "7: 45 AM"
+},
+{ "start": "08: 00: 00", "value": "8: 00 AM"
+},
+{ "start": "08: 15: 00", "value": "8: 15 AM"
+},
+{ "start": "08: 30: 00", "value": "8: 30 AM"
+},
+{ "start": "08: 45: 00", "value": "8: 45 AM"
+},
+{ "start": "09: 00: 00", "value": "9: 00 AM"
+},
+{ "start": "09: 15: 00", "value": "9: 15 AM"
+},
+{ "start": "09: 30: 00", "value": "9: 30 AM"
+},
+{ "start": "09: 45: 00", "value": "9: 45 AM"
+},
+{ "start": "10: 00: 00", "value": "10: 00 AM"
+},
+{ "start": "10: 15: 00", "value": "10: 15 AM"
+},
+{ "start": "10: 30: 00", "value": "10: 30 AM"
+},
+{ "start": "10: 45: 00", "value": "10: 45 AM"
+},
+{ "start": "11: 00: 00", "value": "11: 00 AM"
+},
+{ "start": "11: 15: 00", "value": "11: 15 AM"
+},
+{ "start": "11: 30: 00", "value": "11: 30 AM"
+},
+{ "start": "11: 45: 00", "value": "11: 45 AM"
+},
+{ "start": "12: 00: 00", "value": "Noon"
+},
+{ "start": "12: 15: 00", "value": "12: 15 PM"
+},
+{ "start": "12: 30: 00", "value": "12: 30 PM"
+},
+{ "start": "12: 45: 00", "value": "12: 45 PM"
+},
+{ "start": "13: 00: 00", "value": "1: 00 PM"
+},
+{ "start": "13: 15: 00", "value": "1: 15 PM"
+},
+{ "start": "13: 30: 00", "value": "1: 30 PM"
+},
+{ "start": "13: 45: 00", "value": "1: 45 PM"
+},
+{ "start": "14: 00: 00", "value": "2: 00 PM"
+},
+{ "start": "14: 15: 00", "value": "2: 15 PM"
+},
+{ "start": "14: 30: 00", "value": "2: 30 PM"
+},
+{ "start": "14: 45: 00", "value": "2: 45 PM"
+},
+{ "start": "15: 00: 00", "value": "3: 00 PM"
+},
+{ "start": "15: 15: 00", "value": "3: 15 PM"
+},
+{ "start": "15: 30: 00", "value": "3: 30 PM"
+},
+{ "start": "15: 45: 00", "value": "3: 45 PM"
+},
+{ "start": "16: 00: 00", "value": "4: 00 PM"
+},
+{ "start": "16: 15: 00", "value": "4: 15 PM"
+},
+{ "start": "16: 30: 00", "value": "4: 30 PM"
+},
+{ "start": "16: 45: 00", "value": "4: 45 PM"
+},
+{ "start": "17: 00: 00", "value": "5: 00 PM"
+},
+{ "start": "17: 15: 00", "value": "5: 15 PM"
+},
+{ "start": "17: 30: 00", "value": "5: 30 PM"
+},
+{ "start": "17: 45: 00", "value": "5: 45 PM"
+},
+{ "start": "18: 00: 00", "value": "6: 00 PM"
+},
+{ "start": "18: 15: 00", "value": "6: 15 PM"
+},
+{ "start": "18: 30: 00", "value": "6: 30 PM"
+},
+{ "start": "18: 45: 00", "value": "6: 45 PM"
+},
+{ "start": "19: 00: 00", "value": "7: 00 PM"
+},
+{ "start": "19: 15: 00", "value": "7: 15 PM"
+},
+{ "start": "19: 30: 00", "value": "7: 30 PM"
+},
+{ "start": "19: 45: 00", "value": "7: 45 PM"
+},
+{ "start": "20: 00: 00", "value": "8: 00 PM"
+},
+{ "start": "20: 15: 00", "value": "8: 15 PM"
+},
+{ "start": "20: 30: 00", "value": "8: 30 PM"
+},
+{ "start": "20: 45: 00", "value": "8: 45 PM"
+},
+{ "start": "21: 00: 00", "value": "9: 00 PM"
+},
+{ "start": "21: 15: 00", "value": "9: 15 PM"
+},
+{ "start": "21: 30: 00", "value": "9: 30 PM"
+},
+{ "start": "21: 45: 00", "value": "9: 45 PM"
+},
+{ "start": "22: 00: 00", "value": "10: 00 PM"
+},
+{ "start": "22: 15: 00", "value": "10: 15 PM"
+},
+{ "start": "22: 30: 00", "value": "10: 30 PM"
+},
+{ "start": "22: 45: 00", "value": "10: 45 PM"
+},
+{ "start": "23: 00: 00", "value": "11: 00 PM"
+},
+{ "start": "23: 15: 00", "value": "11: 15 PM"
+},
+{ "start": "23: 30: 00", "value": "11: 30 PM"
+},
+{ "start": "23: 45: 00", "value":" 11: 45 PM"
+},
+{ "start": "00: 00: 00", "value": "Midnight"
+}
+]
+}

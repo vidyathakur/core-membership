@@ -37,9 +37,9 @@
                       <div class="col-md-6">
                         <label class="col-form-label myappoinlabel">Date</label>
                         <div class="input-group">
-                          <input class="form-control mycustom" (ngModelChange)="select(model)"  formControlName="start_date" placeholder="yyyy-mm-dd" name="start_date" [(ngModel)]="model"
-                            ngbDatepicker [minDate]="{year: 1980, month: 1, day: 1}" [maxDate]="{year: 2048, month: 12, day: 31}"
-                            #d="ngbDatepicker">
+                          <input class="form-control mycustom" (ngModelChange)="select(model)" formControlName="start_date" placeholder="yyyy-mm-dd"
+                            name="start_date" [(ngModel)]="model" ngbDatepicker [minDate]="{year: 1980, month: 1, day: 1}"
+                            [maxDate]="{year: 2048, month: 12, day: 31}" #d="ngbDatepicker">
                           <div class="input-group-append">
                             <button class="btn btn-outline-secondary calendar mycustom" (click)="d.toggle()" type="button">
                                   <i class="fa fa-calendar"></i></button>
@@ -75,9 +75,9 @@
                     <div class="card scrollbar4" id="style-3" style="margin-top: 10px; background-color: #f3f4f9;">
                       <div class="card-body ">
                         <div class="form-row">
-                          <div class="col-md-10" *ngFor="let service of services">
-                            <input type="checkbox" id="vehicle1" name="vehicle1" value="Bike" 
-                            (change)="onCheckboxChange($event,service.id)">
+                          <div class="col-md-10" *ngFor="let service of services; let i = index;">
+                            <input type="checkbox" id="vehicle1" value="Bike" [ngModelOptions]="{standalone: true}" [(ngModel)]="services[i].checked"
+                            (click)="onCheckboxChange($event,service.id)" >
                             <label for="vehicle1" class="mycheckbox">{{service.service_name}}</label>
                             <button type="button" class="btn addbtn" (onClick)="addService(service.id)" style="float: right;">ADD</button>
                           </div>
@@ -101,9 +101,9 @@
                       <label class="custom-control-label" for="customCheck7" 
                       style="font-size: 14px; color: #000;">VIP</label>
                     </div>-->
-                    <input id="flag_as" type="radio" value="1" name="flag_as"/> Requested
-                    <input id="flag_as" type="radio" value="1" name="flag_as"/> Confirmed
-                    <input id="flag_as" type="radio" value="1" name="flag_as"/> VIP
+                    <input id="flag_as" type="radio" value="1" name="flag_as" /> Requested
+                    <input id="flag_as" type="radio" value="1" name="flag_as" /> Confirmed
+                    <input id="flag_as" type="radio" value="1" name="flag_as" /> VIP
                     <div class="card-body">
                       <textarea>Some text...</textarea>
                     </div>
@@ -136,17 +136,17 @@
                     </div>
                     <h2 class="appoints">Services </h2>
                     <div class="card scrollbar3" id="style-3" style="margin-top: 10px;">
-                      <div class="card-body myborder" *ngFor="let service of checkOutputDta">
+                      <div class="card-body myborder" *ngFor="let service of checkOutputDta; let i=index;">
                         <h5 class="mysubheader">{{service.duration }} - {{service.service_name}} </h5>
-                        <span class="subicon"><i class="fa fa-times-circle" (click)="removeServices(service.id)"></i></span>
+                        <span class="subicon"><i class="fa fa-times-circle" (click)="removeServices(service.id,i)"></i></span>
                       </div>
                     </div>
                     <div class="card-body" style="padding-left: 0px;">
                       <h4 class="header-title" style="margin-bottom: 0px;">Total time:<span class="ride">override</span></h4>
-                      <h4>160 Mins</h4>
+                      <h4>{{totalTime ? totalTime + ' Minutes'  : '' }} </h4>
                       <br>
                       <h4 class="header-title" style="margin-bottom: 0px;">Total Price:</h4>
-                      <h4>$30.00</h4>
+                      <h4>{{ price  ?  '$'+price : ''}}</h4>
                       <div class="custom-control custom-checkbox custom-control-inline">
                         <input type="checkbox" checked class="custom-control-input" id="customCheck0">
                         <label class="custom-control-label" for="customCheck0" style="font-size: 14px; color: #000;">Send Email/SMS to client</label>
