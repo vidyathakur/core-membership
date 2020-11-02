@@ -157,8 +157,8 @@
                                     <td class="rowcont">{{client.employee ? client.employee.f_name : ''}}</td>
                                     <td class="rowcont">{{client.address}}</td>
                                     <td><a class="editt" [routerLink]="['/editclient', client.id]">Edit</a> 
-                                    <a class="del" (click)="deleteClient(client.id)">Delete</a></td>
-                                    <!--<a class="del" (click)="openConfirmationDialog()">Delete</a></td>-->
+                                    <!--<a class="del" (click)="deleteClient(client.id)">Delete</a></td>-->
+                                    <a class="del" (click)="openConfirmationDialog(client.id)">Delete</a></td>
                                   </tr>
                                 </tbody>
                               </table>
@@ -222,12 +222,11 @@
                               <th scope="col">Email</th>
                               <th scope="col">Services</th>
                               <th scope="col">Roster Rates</th>
-                              <!--<th scope="col">Roster</th>-->
                               <th scope="col">action</th>
                             </tr>
                           </thead>
-                          <tbody *ngFor="let employee of currentEmployees">
-                            <tr>
+                          <tbody>
+                            <tr *ngFor="let employee of currentEmployees">
                               <th scope="row" class="rowcont">{{employee.order}}</th>
                               <td class="rowcont">{{employee.f_name}}</td>
                               <td class="rowcont">{{employee.role}}</td>
@@ -235,9 +234,9 @@
                               <td class="levl">{{employee.email}}</td>
                               <td class="levl">Services</td>
                               <td class="levl">Roster Rates</td>
-                              <!--<td class="levl" (click)="openRosterModal(employee.id)">Roster</td>-->
                               <td><a class="editt" [routerLink]="['/editemployee', employee.id]">Edit</a>
                                 <a class="del" (click)="deleteEmployee(employee.id)">Delete</a>
+                                
                               </td>
                             </tr>
                           </tbody>
@@ -814,7 +813,8 @@
                                 <tr>
                                   <th scope="row" class="rowcont" style="text-align: left;">{{clientCat.name}}</th>
                                   <td style="text-align: right;"><a class="editt" (click)="openclientcatupdateModal(clientCat.id)">Edit</a> 
-                                  <a class="del" (click)="deleteclientcatModal(clientCat.id)">Delete</a></td>
+                                  <a class="del" (click)="deleteclientcatModal(clientCat.id)">Delete</a>
+                                  </td>
                                 </tr>
                               </tbody>
                             </table>
@@ -1087,7 +1087,8 @@
                               <td class="rowcont">{{product.qty}}</td>
                               <td class="rowcont">{{product.retail_pice | currency}}</td>
                               <td><a class="editt" [routerLink]="['/editproduct', product.id]">Edit</a>
-                                <a class="del" (click)="deleteProduct(product.id)">Delete</a>
+                                <!--<a class="del" (click)="deleteProduct(product.id)">Delete</a>-->
+                                <a class="del" (click)="openConfirmationDialog(product.id)">Delete</a>
                               </td>
                             </tr>
                           </tbody>
@@ -1188,19 +1189,19 @@
                               <th scope="row" class="rowcont"><img src="https://image.ibb.co/jw55Ex/def_face.jpg" 
                               class="img img-rounded img-fluid" /> <p style="padding-top: 10px;">{{empRoster.employees ? empRoster.employees.f_name : ''}}</p></th>
                              <td class="rowcont"><button type="button" (click)="employeehoursModel(empRoster.emp_id)" 
-                             class="btn btn-danger btn-xs mb-3 mysmallbtn">{{empRoster.mom_start_time | time24to12Transform}}-{{empRoster.mom_end_time | time24to12Transform}}</button></td>
+                             class="btn btn-danger btn-xs mb-3 mysmallbtn">{{empRoster.mom_start_time != null ? (empRoster.mom_start_time | time24to12Transform): '--'}}-{{empRoster.mom_end_time != null ? (empRoster.mom_end_time | time24to12Transform): '--'}}</button></td>
                               <td class="rowcont"><button type="button" (click)="employeehoursModel(empRoster.emp_id)" 
-                              class="btn btn-xs mb-3 mysmallbtn">{{empRoster.tue_start_time | time24to12Transform}}-{{empRoster.tue_end_time | time24to12Transform}}</button></td>
+                              class="btn btn-xs mb-3 mysmallbtn">{{empRoster.tue_start_time != null ? (empRoster.tue_start_time | time24to12Transform): '--'}}-{{empRoster.tue_end_time != null ? (empRoster.tue_end_time | time24to12Transform): '--'}}</button></td>
                               <td class="rowcont"><button type="button" (click)="employeehoursModel(empRoster.emp_id)" 
-                              class="btn btn-xs mb-3 mysmallbtn">{{empRoster.wed_start_time | time24to12Transform}}-{{empRoster.wed_end_time | time24to12Transform}}</button></td>
+                              class="btn btn-xs mb-3 mysmallbtn">{{empRoster.wed_start_time != null ? (empRoster.wed_start_time | time24to12Transform): '--'}}-{{empRoster.wed_end_time != null ? (empRoster.wed_end_time | time24to12Transform): '--'}}</button></td>
                               <td class="rowcont"><button type="button" (click)="employeehoursModel(empRoster.emp_id)" 
-                              class="btn btn-xs mb-3 mysmallbtn">{{empRoster.thur_start_time | time24to12Transform}}-{{empRoster.thur_end_time | time24to12Transform}}</button></td>
+                              class="btn btn-xs mb-3 mysmallbtn">{{empRoster.thur_start_time != null ? (empRoster.thur_start_time | time24to12Transform): '--'}}-{{empRoster.thur_end_time != null ? (empRoster.thur_end_time | time24to12Transform): '--'}}</button></td>
                               <td class="rowcont"><button type="button" (click)="employeehoursModel(empRoster.emp_id)" 
-                              class="btn btn-xs mb-3 mysmallbtn">{{empRoster.fri_start_time | time24to12Transform}}-{{empRoster.fri_end_time | time24to12Transform}}</button></td>
+                              class="btn btn-xs mb-3 mysmallbtn">{{empRoster.fri_start_time != null ? (empRoster.fri_start_time | time24to12Transform): '--'}}-{{empRoster.fri_end_time != null ? (empRoster.fri_end_time | time24to12Transform): '--'}}</button></td>
                               <td class="rowcont"><button type="button" (click)="employeehoursModel(empRoster.emp_id)" 
-                              class="btn btn-xs mb-3 mysmallbtn">{{empRoster.sat_start_time | time24to12Transform}}-{{empRoster.sat_end_time | time24to12Transform}}</button></td>
+                              class="btn btn-xs mb-3 mysmallbtn">{{ empRoster.sat_start_time != null ? (empRoster.sat_start_time | time24to12Transform): '--'}}-{{empRoster.sat_end_time != null ? (empRoster.sat_end_time | time24to12Transform): '--'}}</button></td>
                              <td class="rowcont"><button type="button" (click)="employeehoursModel(empRoster.emp_id)" 
-                              class="btn btn-xs mb-3 mysmallbtn">{{empRoster.sun_start_time | time24to12Transform}}-{{empRoster.sun_end_time | time24to12Transform}}</button></td>
+                              class="btn btn-xs mb-3 mysmallbtn">{{ empRoster.sun_start_time != null ? (empRoster.sun_start_time | time24to12Transform) : '--'}}-{{ empRoster.sun_end_time != null ? (empRoster.sun_end_time | time24to12Transform) : '--'}}</button></td>
                              <!--<td class="rowcont"><button type="button" class="btn btn-xs mb-3  closebtn">Closed</button></td>-->
                           </tr>
                           </tbody>

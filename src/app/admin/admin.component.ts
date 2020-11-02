@@ -467,8 +467,8 @@ export class AdminComponent implements OnInit {
 				}, 2000);
 			},
 			error => {
-				console.log('some error occured');
-				this.toastr.errorToastr('some error occured');
+				console.log('some error occurred');
+				this.toastr.errorToastr('some error occurred');
 			}
 		);
 	}
@@ -483,8 +483,8 @@ export class AdminComponent implements OnInit {
 				}, 2000);
 			},
 			error => {
-				console.log('some error occured');
-				this.toastr.errorToastr('some error occured');
+				console.log('some error occurred');
+				this.toastr.errorToastr('some error occurred');
 			}
 		);
 	}
@@ -499,8 +499,8 @@ export class AdminComponent implements OnInit {
 				}, 2000);
 			},
 			error => {
-				console.log('some error occured');
-				this.toastr.errorToastr('some error occured');
+				console.log('some error occurred');
+				this.toastr.errorToastr('some error occurred');
 			}
 		);
 	}
@@ -515,8 +515,8 @@ export class AdminComponent implements OnInit {
 				}, 2000);
 			},
 			error => {
-				console.log('some error occured');
-				this.toastr.errorToastr('some error occured');
+				console.log('some error occurred');
+				this.toastr.errorToastr('some error occurred');
 			}
 		);
 	}
@@ -531,8 +531,8 @@ export class AdminComponent implements OnInit {
 				}, 2000);
 			},
 			error => {
-				console.log('some error occured');
-				this.toastr.errorToastr('some error occured');
+				console.log('some error occurred');
+				this.toastr.errorToastr('some error occurred');
 			}
 		);
 	}
@@ -543,8 +543,8 @@ export class AdminComponent implements OnInit {
 				this.serviceCats = data['data'];
 			},
 			error => {
-				console.log('some error occured');
-				this.toastr.errorToastr('some error occured');
+				console.log('some error occurred');
+				this.toastr.errorToastr('some error occurred');
 			}
 		);
 	}
@@ -555,8 +555,8 @@ export class AdminComponent implements OnInit {
 				this.services = data['data'];
 			},
 			error => {
-				console.log('some error occured');
-				this.toastr.errorToastr('some error occured');
+				console.log('some error occurred');
+				this.toastr.errorToastr('some error occurred');
 			}
 		);
 	}
@@ -571,8 +571,8 @@ export class AdminComponent implements OnInit {
 				}, 2000);
 			},
 			error => {
-				console.log('some error occured');
-				this.toastr.errorToastr('some error occured');
+				console.log('some error occurred');
+				this.toastr.errorToastr('some error occurred');
 			}
 		);
 	}
@@ -587,8 +587,8 @@ export class AdminComponent implements OnInit {
 				}, 2000);
 			},
 			error => {
-				console.log('some error occured');
-				this.toastr.errorToastr('some error occured');
+				console.log('some error occurred');
+				this.toastr.errorToastr('some error occurred');
 			}
 		);
 	}
@@ -603,8 +603,8 @@ export class AdminComponent implements OnInit {
 				}, 2000);
 			},
 			error => {
-				console.log('some error occured');
-				this.toastr.errorToastr('some error occured');
+				console.log('some error occurred');
+				this.toastr.errorToastr('some error occurred');
 			}
 		);
 	}
@@ -619,8 +619,8 @@ export class AdminComponent implements OnInit {
 				}, 2000);
 			},
 			error => {
-				console.log('some error occured');
-				this.toastr.errorToastr('some error occured');
+				console.log('some error occurred');
+				this.toastr.errorToastr('some error occurred');
 			}
 		);
 	}
@@ -635,8 +635,8 @@ export class AdminComponent implements OnInit {
 				}, 2000);
 			},
 			error => {
-				console.log('some error occured');
-				this.toastr.errorToastr('some error occured');
+				console.log('some error occurred');
+				this.toastr.errorToastr('some error occurred');
 			}
 		);
 	}
@@ -647,8 +647,8 @@ export class AdminComponent implements OnInit {
 				this.servicelevels = data['data'];
 			},
 			error => {
-				console.log('some error occured');
-				this.toastr.errorToastr('some error occured');
+				console.log('some error occurred');
+				this.toastr.errorToastr('some error occurred');
 			}
 		);
 	}
@@ -660,8 +660,8 @@ export class AdminComponent implements OnInit {
 				this.serviceresources = data['data'];
 			},
 			error => {
-				console.log('some error occured');
-				this.toastr.errorToastr('some error occured');
+				console.log('some error occurred');
+				this.toastr.errorToastr('some error occurred');
 			}
 		);
 	}
@@ -673,8 +673,8 @@ export class AdminComponent implements OnInit {
 				this.serviceitems = data['data'];
 			},
 			error => {
-				console.log('some error occured');
-				this.toastr.errorToastr('some error occured');
+				console.log('some error occurred');
+				this.toastr.errorToastr('some error occurred');
 			}
 		);
 	}
@@ -739,8 +739,8 @@ export class AdminComponent implements OnInit {
 				console.log(openingdata);
 			},
 			error => {
-				console.log('some error occured');
-				this.toastr.errorToastr('some error occured');
+				console.log('some error occurred');
+				this.toastr.errorToastr('some error occurred');
 			}
 		);
 	}
@@ -752,8 +752,8 @@ export class AdminComponent implements OnInit {
 				console.log(this.empRosters);
 			},
 			error => {
-				console.log('some error occured');
-				this.toastr.errorToastr('some error occured');
+				console.log('some error occurred');
+				this.toastr.errorToastr('some error occurred');
 			}
 		);
 	}
@@ -896,8 +896,8 @@ export class AdminComponent implements OnInit {
 				console.log(emproasterdata);
 			},
 			error => {
-				console.log('some error occured');
-				this.toastr.errorToastr('some error occured');
+				console.log('some error occurred');
+				this.toastr.errorToastr('some error occurred');
 			}
 		);
 		const modalRef = this.modalService.open(EmployeehoursComponent, {
@@ -1164,8 +1164,8 @@ export class AdminComponent implements OnInit {
 				this.empForm.reset();
 			},
 			error => {
-				console.log('some error occured');
-				this.toastr.errorToastr('Some error occured', 'Oops!');
+				console.log('some error occurred');
+				this.toastr.errorToastr('Some error occurred', 'Oops!');
 			}
 		);
 	}
@@ -1182,8 +1182,8 @@ export class AdminComponent implements OnInit {
 					this.ngOnInit();
 				},
 				error => {
-					console.log('some error occured');
-					this.toastr.errorToastr('Some error occured', 'Oops!');
+					console.log('some error occurred');
+					this.toastr.errorToastr('Some error occurred', 'Oops!');
 				}
 			);
 	}
@@ -1192,14 +1192,11 @@ export class AdminComponent implements OnInit {
 			data => {
 				console.log(data);
 				this.toastr.successToastr(' Employee Deleted Successfully');
-				this.ngOnInit();
 				this.getEmployees();
-				this.jwtService.setToken('tabId', 'employees-tab');
-				this.router.navigate(['/admin']);
 			},
 			error => {
-				console.log('some error occured');
-				this.toastr.errorToastr('Some error occured', 'Oops!');
+				console.log('some error occurred');
+				this.toastr.errorToastr('Some error occurred', 'Oops!');
 			}
 		);
 	}
@@ -1212,8 +1209,8 @@ export class AdminComponent implements OnInit {
 				this.getServiceCatByMerchantId();
 			},
 			error => {
-				console.log('some error occured');
-				this.toastr.errorToastr('Some error occured', 'Oops!');
+				console.log('some error occurred');
+				this.toastr.errorToastr('Some error occurred', 'Oops!');
 			}
 		);
 	}
@@ -1226,8 +1223,8 @@ export class AdminComponent implements OnInit {
 				this.getServiceByMerchantId();
 			},
 			error => {
-				console.log('some error occured');
-				this.toastr.errorToastr('Some error occured', 'Oops!');
+				console.log('some error occurred');
+				this.toastr.errorToastr('Some error occurred', 'Oops!');
 			}
 		);
 	}
@@ -1240,8 +1237,8 @@ export class AdminComponent implements OnInit {
 				this.getResource();
 			},
 			error => {
-				console.log('some error occured');
-				this.toastr.errorToastr('Some error occured', 'Oops!');
+				console.log('some error occurred');
+				this.toastr.errorToastr('Some error occurred', 'Oops!');
 			}
 		);
 	}
@@ -1253,8 +1250,8 @@ export class AdminComponent implements OnInit {
 				this.getServiceEmpLevelByServiceId(service_id);
 			},
 			error => {
-				console.log('some error occured');
-				this.toastr.errorToastr('Some error occured', 'Oops!');
+				console.log('some error occurred');
+				this.toastr.errorToastr('Some error occurred', 'Oops!');
 			}
 		);
 	}
@@ -1266,8 +1263,8 @@ export class AdminComponent implements OnInit {
 				this.getServiceResourceByServiceId(service_id);
 			},
 			error => {
-				console.log('some error occured');
-				this.toastr.errorToastr('Some error occured', 'Oops!');
+				console.log('some error occurred');
+				this.toastr.errorToastr('Some error occurred', 'Oops!');
 			}
 		);
 	}
@@ -1280,8 +1277,8 @@ export class AdminComponent implements OnInit {
 				this.getServiceItemByServiceId(service_id);
 			},
 			error => {
-				console.log('some error occured');
-				this.toastr.errorToastr('Some error occured', 'Oops!');
+				console.log('some error occurred');
+				this.toastr.errorToastr('Some error occurred', 'Oops!');
 			}
 		);
 	}
@@ -1294,8 +1291,8 @@ export class AdminComponent implements OnInit {
 				this.getHoliday();
 			},
 			error => {
-				console.log('some error occured');
-				this.toastr.errorToastr('Some error occured', 'Oops!');
+				console.log('some error occurred');
+				this.toastr.errorToastr('Some error occurred', 'Oops!');
 			}
 		);
 	}
@@ -1308,8 +1305,8 @@ export class AdminComponent implements OnInit {
 				this.getTaxRates();
 			},
 			error => {
-				console.log('some error occured');
-				this.toastr.errorToastr('Some error occured', 'Oops!');
+				console.log('some error occurred');
+				this.toastr.errorToastr('Some error occurred', 'Oops!');
 			}
 		);
 	}
@@ -1322,8 +1319,8 @@ export class AdminComponent implements OnInit {
 				this.getProductbrand();
 			},
 			error => {
-				console.log('some error occured');
-				this.toastr.errorToastr('Some error occured', 'Oops!');
+				console.log('some error occurred');
+				this.toastr.errorToastr('Some error occurred', 'Oops!');
 			}
 		);
 	}
@@ -1336,8 +1333,8 @@ export class AdminComponent implements OnInit {
 				this.getSupplier();
 			},
 			error => {
-				console.log('some error occured');
-				this.toastr.errorToastr('Some error occured', 'Oops!');
+				console.log('some error occurred');
+				this.toastr.errorToastr('Some error occurred', 'Oops!');
 			}
 		);
 	}
@@ -1350,8 +1347,8 @@ export class AdminComponent implements OnInit {
 				this.getProducts();
 			},
 			error => {
-				console.log('some error occured');
-				this.toastr.errorToastr('Some error occured', 'Oops!');
+				console.log('some error occurred');
+				this.toastr.errorToastr('Some error occurred', 'Oops!');
 			}
 		);
 	}
@@ -1362,10 +1359,11 @@ export class AdminComponent implements OnInit {
 				console.log(data);
 				this.toastr.successToastr(' Client Deleted Successfully');
 				this.getClientDetailsByMerchantID();
+				this.activeModal.close();
 			},
 			error => {
-				console.log('some error occured');
-				this.toastr.errorToastr('Some error occured', 'Oops!');
+				console.log('some error occurred');
+				this.toastr.errorToastr('Some error occurred', 'Oops!');
 			}
 		);
 	}
@@ -1452,8 +1450,8 @@ export class AdminComponent implements OnInit {
 				console.log(this.serviceLevelData);
 			},
 			error => {
-				console.log('some error occured');
-				this.toastr.errorToastr('some error occured');
+				console.log('some error occurred');
+				this.toastr.errorToastr('some error occurred');
 			}
 		);
 
@@ -1493,8 +1491,8 @@ export class AdminComponent implements OnInit {
 				console.log(this.serviceLevelData);
 			},
 			error => {
-				console.log('some error occured');
-				this.toastr.errorToastr('some error occured');
+				console.log('some error occurred');
+				this.toastr.errorToastr('some error occurred');
 			}
 		);
 
@@ -1526,8 +1524,8 @@ export class AdminComponent implements OnInit {
 				console.log(this.serviceLevelData);
 			},
 			error => {
-				console.log('some error occured');
-				this.toastr.errorToastr('some error occured');
+				console.log('some error occurred');
+				this.toastr.errorToastr('some error occurred');
 			}
 		);
 
@@ -1572,16 +1570,17 @@ export class AdminComponent implements OnInit {
 		this.getTaxRates();
 	}
 
-	// public openConfirmationDialog() {
-	// 	this.confirmDialogService
-	// 		.confirm('Please confirm..', 'Are you really want to Delete this... ?')
-	// 		.then(confirmed => console.log('User confirmed:', confirmed))
-	// 		.catch(() =>
-	// 			console.log(
-	// 				'User dismissed the dialog (e.g., by using ESC, clicking the cross icon, or clicking outside the dialog)'
-	// 			)
-	// 		);
-	// }
+	public openConfirmationDialog(id) {
+		this.confirmDialogService
+			.confirm('Please confirm..', 'Are you really want to Delete this... ?')
+			.then(confirmed => 
+			this.deleteClient(id))
+			.catch(() =>
+				console.log(
+					'User dismissed the dialog (e.g., by using ESC, clicking the cross icon, or clicking outside the dialog)'
+				)
+			);
+	}
 
 	public deleteclientcatModal(clientCat_id): any {
 		this.clientcategoriesService.deleteClientCat({ clientCat_id: clientCat_id }).subscribe(
@@ -1591,8 +1590,8 @@ export class AdminComponent implements OnInit {
 				this.getClientCategories();
 			},
 			error => {
-				console.log('some error occured');
-				this.toastr.errorToastr('Some error occured', 'Oops!');
+				console.log('some error occurred');
+				this.toastr.errorToastr('Some error occurred', 'Oops!');
 			}
 		);
 	}

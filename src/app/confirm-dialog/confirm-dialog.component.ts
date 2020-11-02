@@ -18,14 +18,14 @@ export class ConfirmDialogComponent implements OnInit {
 	ngOnInit() {}
 
 	public decline() {
-		this.activeModal.close(false);
+		this.activeModal.dismiss();
 	}
 
 	public accept() {
 		this.activeModal.close(true);
 	}
 
-	public dismiss() {
-		this.activeModal.dismiss();
-	}
+	// public dismiss() {
+	// 	this.activeModal.dismiss();
+	// }
 }

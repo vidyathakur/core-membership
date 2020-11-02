@@ -79,7 +79,7 @@
                             <input type="checkbox" id="vehicle1" value="Bike" [ngModelOptions]="{standalone: true}" [(ngModel)]="services[i].checked"
                             (click)="onCheckboxChange($event,service.id)" >
                             <label for="vehicle1" class="mycheckbox">{{service.service_name}}</label>
-                            <button type="button" class="btn addbtn" (onClick)="addService(service.id)" style="float: right;">ADD</button>
+                            <button type="button" class="btn addbtn" (onClick)="addService(service.id)" style="float: right; margin-bottom: 5px;">ADD</button>
                           </div>
 
                         </div>
@@ -104,8 +104,12 @@
                     <input id="flag_as" type="radio" value="1" name="flag_as" /> Requested
                     <input id="flag_as" type="radio" value="1" name="flag_as" /> Confirmed
                     <input id="flag_as" type="radio" value="1" name="flag_as" /> VIP
-                    <div class="card-body">
-                      <textarea>Some text...</textarea>
+                   <div class="card-body">
+                      <div class="form-row">
+                        <div class="col-md-12">
+                     <textarea name="message" placeholder="Some Text...."></textarea>
+                      </div>
+                      </div>
                     </div>
                   </div>
                   <div class="col-md-6">

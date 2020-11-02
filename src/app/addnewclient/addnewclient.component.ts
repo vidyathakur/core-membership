@@ -59,7 +59,7 @@ export class AddnewclientComponent implements OnInit {
 			promote_email: new FormControl(''),
 			online_booking: new FormControl(''),
 			loyalty_point: new FormControl(''),
-			client_cat_ids: this.formBuilder.array([], [Validators.required])
+			client_cat_ids: this.formBuilder.array([])
 		});
 	}
 	get f() {

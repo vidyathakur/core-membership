@@ -14,7 +14,7 @@ export class ConfirmDialogService {
 	public confirm(
 		title: string,
 		message: string,
-		btnOkText: string = 'OK',
+		btnOkText: string = 'Yes',
 		btnCancelText: string = 'Cancel',
 		dialogSize: 'sm' | 'lg' = 'sm'
 	): Promise<boolean> {

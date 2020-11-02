@@ -378,17 +378,14 @@
                             <div class="custom-control custom-checkbox custom-control-inline" 
                             *ngFor="let clientCat of clientCats;let i = index">
                               <input type="checkbox" class="custom-control-input" 
-                              [ngClass]="{ 'is-invalid': submitted && f.client_cat_ids.errors }" 
-                              required id={{i}} value="clientCat" 
+                             id={{i}} value="clientCat" 
                               (change)="onChange(clientCat,clientCat.checked ? 1 : $event.target.checked)" 
                               id="customCheck{{i}}"
                               [checked]="clientForm.controls.client_cat_ids.value.indexOf(clientCat)>=0">
                               <label class="custom-control-label" for="customCheck{{i}}">{{clientCat.name}}</label>
-                              <div *ngIf="submitted && f.client_cat_ids.errors" class="invalid-feedback">
-                                <div *ngIf="f.client_cat_ids.errors?.required">Client Category is required</div>
-                              </div>
+                             
                             </div><br/>
-                                 <span class="opt">Required</span>
+                                 <span class="opt">Optional</span>
 
                           </div>
                         </div>

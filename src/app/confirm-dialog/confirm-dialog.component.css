@@ -1,5 +1,5 @@
 .custom-alert {  
-    width:300px;  
+    width:600px;  
 }  
   
 .modal-backdrop.in {  
@@ -30,7 +30,7 @@
 }  
   
 .btn-no {  
-    background-color: #f4516c;  
+    background-color: #C89628;  
     color:white;  
 }  
   
@@ -38,3 +38,4 @@
     background-color: #716aca;  
     color:white;  
 }   
+

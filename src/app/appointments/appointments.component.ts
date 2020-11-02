@@ -1,6 +1,6 @@
 import { EmployeehoursService } from '../employeehours/employeehours.service';
 import { AddnewclientService } from '../addnewclient/addnewclient.service';
-import { Component, Input, OnInit, ViewEncapsulation } from '@angular/core';
+import { Component, Input, OnInit, ViewEncapsulation,ElementRef } from '@angular/core';
 import { extend, isNullOrUndefined, Browser, Internationalization, L10n } from '@syncfusion/ej2-base';
 import {
 	ScheduleComponent,
@@ -49,6 +49,7 @@ Schedule.Inject(Day, TimelineViews, TimelineMonth, Resize, DragAndDrop);
 
 import { FormControl, FormGroup, Validators, FormBuilder } from '@angular/forms';
 import { NgbActiveModal } from '@ng-bootstrap/ng-bootstrap';
+import value from '*.json';
 L10n.load({
 	'en-US': {
 		schedule: {
@@ -93,14 +94,14 @@ export class AppointmentsComponent implements OnInit {
 	}
 
 	public selectedDate: Date = new Date(new Date().getFullYear(),new Date().getMonth(),new Date().getDate());
-	public views: Array<string> = ['Week', 'Month', 'TimelineWeek', 'TimelineMonth', 'Agenda'];
+	public views: Array<any> = ['Week', 'Month', 'TimelineWeek', 'TimelineMonth', 'Agenda'];
 	public eventSettings: EventSettingsModel = {
 		dataSource: doctorData
 	};
 	public group: GroupModel = {
 		resources: ['Doctors']
 	};
-	public allowMultipleDoctors: Boolean = true;
+	public allowMultipleDoctors: boolean = true;
 	public doctorDataSource: Object[] = [
 		// { text: 'Will Smith', id: 1, color: '#ea7a57', designation: 'Cardioligst' },
 		// { text: 'Alice', color: '#7fa900', designation: 'Neurologist' },
@@ -149,7 +150,8 @@ export class AppointmentsComponent implements OnInit {
 		public appointmentsService: AppointmentsService,
 		public adminService: AdminService,
 		public addnewclientService: AddnewclientService,
-		public employeehoursservice: EmployeehoursService
+		public employeehoursservice: EmployeehoursService,
+		private elRef:ElementRef
 	) {
 		// this.appointmentForm = this.formBuilder.group({
 		// 	client_id: new FormControl('', Validators.required),
@@ -298,17 +300,80 @@ export class AppointmentsComponent implements OnInit {
 	// 	);
 	// }
 
-	actionBegin(args){
-		console.log(args);
+	actionBegin(args: ActionEventArgs): void {
+
 	}
 
 	actionComplete(args){
-	    let scheduleElement: HTMLElement = document.getElementById('schedule') as HTMLElement;
-
-			if (args.requestType === 'toolBarItemRendered') {
-				let userIconEle: HTMLElement = scheduleElement.querySelector('.e-tbar-btn-text') as HTMLElement;
-				console.log(userIconEle);
+		let change_date = this.elRef.nativeElement.getElementsByTagName('ejs-schedule')[0].ariaLabel;
+		let dates = change_date.split(',');
+		let years = dates.pop();
+		let months_days = dates[0].split(' ');
+		let days = months_days.pop();
+		let month_name  = months_days[months_days.length-1];
+		let months = ['January', 'February', 'March', 'April', 'May', 'June', 'July', 'August', 'September', 'October', 'November', 'December'
+		  ];
+		let values = months.indexOf(month_name) + 1;
+		let month = (values >= 10)  ? values : '0'+values;
+		let current_date = days+ '-'+month+ '-'+years.trim();
+		this.appointmentsService.getCalendarData(current_date).subscribe(
+			data => {
+					let currentEmployees = data['data'];
+					
+					let finalArrayData = [];
+					let notAvailableData = [];
+					let k=1;
+					for(let i in currentEmployees){
+						console.log(typeof i);
+						let employees = currentEmployees[i];
+						let [start_time_hours,start_time_minute,start_time_sec] = (employees.start_time).split(':');
+						let [end_time_hours,end_time_minute,end_time_sec] = (employees.end_time).split(':');
+						let [day,month,year] = current_date.split('-');
+						if(currentEmployees[i].appointment){
+							let appointment = currentEmployees[i].appointment;
+							let object = { 
+								Id: k,
+								Subject: '',
+								StartTime: new Date(parseInt(year),parseInt(month)-1,parseInt(day),start_time_hours,start_time_minute) ,
+								EndTime: new Date(parseInt(year),parseInt(month)-1,parseInt(day),end_time_hours,end_time_minute),IsAllDay: false,IsBlock:false,DoctorId: employees.id};
+						    for(let j in appointment) {
+								let client_name = appointment[i].client.f_name +' '+appointment[i].client.surname;
+								let services = appointment[j].services;
+								let services_name = [];
+								for(let l in services){
+									let service = services[l];
+									services_name.push(service.service_name);
+								}
+								object.Subject = client_name + '<br />' + services_name.join('<br/>')+ '<br />';
+								finalArrayData.push(object);
+							}
+							let notAvailable = currentEmployees[i].is_available;
+							console.log(notAvailable.length);
+							for(let n in  notAvailable){
+								let employees = notAvailable[n];
+								if(employees.is_available==false){
+									let notAvailableObject = { Id: k,Subject: '',StartTime:new Date(),EndTime: new Date(),IsAllDay: false,IsBlock:true,DoctorId: currentEmployees[i].id};
+									let [start_time_hours,start_time_minute,start_time_sec] = (employees.istart_time).split(':');
+									let [end_time_hours,end_time_minute,end_time_sec] = (employees.iend_time).split(':');
+									let [day,month,year] = current_date.split('-');
+									notAvailableObject.StartTime = new Date(parseInt(year),parseInt(month)-1,parseInt(day),start_time_hours,start_time_minute);
+									notAvailableObject.EndTime = new Date(parseInt(year),parseInt(month)-1,parseInt(day),end_time_hours,end_time_minute);
+									notAvailableObject.Subject = 'Not Available';
+									notAvailableData.push(notAvailableObject);
+								k++;}								
+							}
+						}
+					}
+				
+					let finalShowData = [...finalArrayData, ...notAvailableData];
+					this.eventSettings = {dataSource:finalShowData};
+			},
+			error => {
+				console.log('some error occurred');
+				this.toastr.errorToastr('some error occurred');
 			}
+		);
+	  
 	}
 
 	
@@ -358,8 +423,8 @@ export class AppointmentsComponent implements OnInit {
 					console.log(this.doctorData);
 			},
 			error => {
-				console.log('some error occured');
-				this.toastr.errorToastr('some error occured');
+				console.log('some error occurred');
+				this.toastr.errorToastr('some error occurred');
 			}
 		);
 	}

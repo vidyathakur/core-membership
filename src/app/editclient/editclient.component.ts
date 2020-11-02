@@ -55,7 +55,7 @@ export class EditclientComponent implements OnInit {
 			promote_email: new FormControl(''),
 			online_booking: new FormControl(''),
 			loyalty_point: new FormControl(''),
-			client_cat_ids: this.formBuilder.array([], [Validators.required]),
+			client_cat_ids: this.formBuilder.array([]),
 			client_id: new FormControl()
 		});
 	}
@@ -114,7 +114,7 @@ export class EditclientComponent implements OnInit {
 					online_booking: [client_details.online_booking],
 					loyalty_point: [client_details.loyalty_point],
 					client_id: [id],
-					client_cat_ids: this.formBuilder.array([], [Validators.required])
+					client_cat_ids: this.formBuilder.array([])
 				});
 				let aa = [];
 				if(client_details.client_cats.length > 0){
