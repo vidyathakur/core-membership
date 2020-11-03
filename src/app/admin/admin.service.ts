@@ -130,7 +130,7 @@ export class AdminService {
 
 	public addOpeningDay(data): Observable<any> {
 		console.log(data);
-		if(data.opening_hours_id){
+		if (data.opening_hours_id) {
 			return this.http.patch(`${environment.BASE_URL}/updateOpeningHour `, data, {
 				headers: new HttpHeaders().set('SESSION-TOKEN', localStorage.getItem('jwt_token'))
 			});
@@ -139,7 +139,6 @@ export class AdminService {
 				headers: new HttpHeaders().set('SESSION-TOKEN', localStorage.getItem('jwt_token'))
 			});
 		}
-		
 	}
 
 	public getResource(): any {
@@ -166,5 +165,11 @@ export class AdminService {
 		return myResponse;
 	}
 
-
+	public getTotalCountData(): any {
+		let myResponse = this.http.get(`${environment.BASE_URL}/getTotalCountData `, {
+			headers: new HttpHeaders().set('SESSION-TOKEN', localStorage.getItem('jwt_token'))
+		});
+		console.log(myResponse);
+		return myResponse;
+	}
 }

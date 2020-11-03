@@ -379,53 +379,59 @@ export class AppointmentsComponent implements OnInit {
 	
 
 	public getCalendarData(start_date): any {
-		console.log(start_date);
-		this.appointmentsService.getCalendarData(start_date).subscribe(
-			data => {
-					let currentEmployees = data['data'];
-					let finalArrayData = [];
-					let k=1;
-					for(let i in currentEmployees){
-						let employees = currentEmployees[i];
-						let [start_time_hours,start_time_minute,start_time_sec] = (employees.start_time).split(':');
-						let [end_time_hours,end_time_minute,end_time_sec] = (employees.end_time).split(':');
-						let [day,month,year] = start_date.split('-');
-						let object = { Id: k,Subject: '',StartTime:
-						new Date(year,month-1,day,start_time_hours,start_time_minute) ,
-						EndTime: new Date(year,month-1,day,end_time_hours,end_time_minute),IsAllDay: false,DoctorId: employees.id};
-						if(currentEmployees[i].services){
-							let services = currentEmployees[i].services;
-							for(let j in services) {
-								object.Subject = employees.client + '<br />' + services[j].service_name + '<br />';
-								//object.Subject = 'New Title - '+employees.employee_name;
-								finalArrayData.push(object);
+		//console.log(start_date);
+		let current_date = start_date;
+	  this.appointmentsService.getCalendarData(current_date).subscribe(data => {
+				let currentEmployees = data['data'];
+
+				let finalArrayData = [];
+				let notAvailableData = [];
+				let k = 1;
+				for (let i in currentEmployees) {
+					console.log(typeof i);
+					let employees = currentEmployees[i];
+					let [start_time_hours, start_time_minute, start_time_sec] = employees.start_time.split(':');
+					let [end_time_hours, end_time_minute, end_time_sec] = employees.end_time.split(':');
+					let [day, month, year] = current_date.split('-');
+					if (currentEmployees[i].appointment) {
+						let appointment = currentEmployees[i].appointment;
+						let object = { Id: k, Subject: '', StartTime: new Date(parseInt(year), parseInt(month) - 1, parseInt(day), start_time_hours, start_time_minute), EndTime: new Date(parseInt(year), parseInt(month) - 1, parseInt(day), end_time_hours, end_time_minute), IsAllDay: false, IsBlock: false, DoctorId: employees.id };
+						for (let j in appointment) {
+							let client_name = appointment[i].client.f_name + ' ' + appointment[i].client.surname;
+							let services = appointment[j].services;
+							let services_name = [];
+							for (let l in services) {
+								let service = services[l];
+								services_name.push(service.service_name);
+							}
+							object.Subject = client_name + '<br />' + services_name.join('<br/>') + '<br />';
+							finalArrayData.push(object);
+						}
+						let notAvailable = currentEmployees[i].is_available;
+						console.log(notAvailable.length);
+						for (let n in notAvailable) {
+							let employees = notAvailable[n];
+							if (employees.is_available == false) {
+								let notAvailableObject = { Id: k, Subject: '', StartTime: new Date(), EndTime: new Date(), IsAllDay: false, IsBlock: true, DoctorId: currentEmployees[i].id };
+								let [start_time_hours, start_time_minute, start_time_sec] = employees.istart_time.split(':');
+								let [end_time_hours, end_time_minute, end_time_sec] = employees.iend_time.split(':');
+								let [day, month, year] = current_date.split('-');
+								notAvailableObject.StartTime = new Date(parseInt(year), parseInt(month) - 1, parseInt(day), start_time_hours, start_time_minute);
+								notAvailableObject.EndTime = new Date(parseInt(year), parseInt(month) - 1, parseInt(day), end_time_hours, end_time_minute);
+								notAvailableObject.Subject = 'Not Available';
+								notAvailableData.push(notAvailableObject);
+								k++;
 							}
 						}
 					}
-					console.log(finalArrayData);
-				/*	currentEmployees.forEach((item, key) => {
-						console.log(item);
-						let object = { Subject: '', DoctorId: '',StartTime:'', EndTime:''};
-						object.Subject = item.client;
-						object.DoctorId = item.id;
-						object.StartTime = item.start_time;
-						object.EndTime = item.end_time;
-						if (item.emp_levels) {
-							object.Subject = item.emp_levels.client;
-						}
-						finalArrayData.push(object);
-					});*/
-					// this.eventSettings: EventSettingsModel = {
-					// 	dataSource: finalArrayData
-					// };
-					console.log(this.eventSettings = {dataSource:finalArrayData});
-					//this.doctorData = finalArrayData;
-					console.log(this.doctorData);
-			},
-			error => {
+				}
+				console.log("Hell");
+        console.log(notAvailableData);
+				let finalShowData = [...finalArrayData, ...notAvailableData];
+				this.eventSettings = { dataSource: finalShowData };
+			}, error => {
 				console.log('some error occurred');
 				this.toastr.errorToastr('some error occurred');
-			}
-		);
+			});
 	}
 }

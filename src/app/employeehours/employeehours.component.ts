@@ -316,8 +316,8 @@ export class EmployeehoursComponent implements OnInit {
 				console.log(emproasterdata);
 			},
 			error => {
-				console.log('some error occured');
-				this.toastr.errorToastr('some error occured');
+				console.log('some error occurred');
+				this.toastr.errorToastr('some error occurred');
 			}
 		);
 		this.openingForm = this.formBuilder.group({

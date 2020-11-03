@@ -496,3 +496,7 @@ span.switch-label:after {
     font-weight: 700;
     height: 30px;
 }
+.records{
+    text-align: center;
+    margin-top: 35px;
+}

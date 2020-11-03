@@ -90,6 +90,7 @@ export class AdminComponent implements OnInit {
 	public activeTab;
 	public empRosters: any;
 	public products: any;
+	public totalCountData:{};
 	isSundayDisabled = true;
 	isMondayDisabled = true;
 	isTuesdayDisabled = true;
@@ -373,6 +374,7 @@ export class AdminComponent implements OnInit {
 		this.empForm.reset();
 	}
 	ngOnInit(): void {
+		this.getTotalCountData();
 		this.openingForm.get('mom_start_time').disable();
 		this.openingForm.get('mom_end_time').disable();
 		this.openingForm.get('sun_end_time').disable();
@@ -1179,7 +1181,7 @@ export class AdminComponent implements OnInit {
 					console.log(data);
 					this.toastr.successToastr(' Employee Level Deleted Successfully');
 					this.modalService.dismissAll('Cross click');
-					this.ngOnInit();
+					this.getEmplevel();
 				},
 				error => {
 					console.log('some error occurred');
@@ -1570,16 +1572,100 @@ export class AdminComponent implements OnInit {
 		this.getTaxRates();
 	}
 
-	public openConfirmationDialog(id) {
-		this.confirmDialogService
-			.confirm('Please confirm..', 'Are you really want to Delete this... ?')
-			.then(confirmed => 
-			this.deleteClient(id))
-			.catch(() =>
-				console.log(
-					'User dismissed the dialog (e.g., by using ESC, clicking the cross icon, or clicking outside the dialog)'
-				)
-			);
+	public openConfirmationDialog(id, type, parentId = false) {
+		switch (type) {
+			case 'client':
+				this.confirmDialogService
+					.confirm('Please confirm..', 'Are you really want to Delete this... ?')
+					.then(confirmed => this.deleteClient(id))
+					.catch(() => console.log(type));
+				break;
+			case 'employee':
+				this.confirmDialogService
+					.confirm('Please confirm..', 'Are you really want to Delete this... ?')
+					.then(confirmed => this.deleteEmployee(id))
+					.catch(() => console.log(type));
+				break;
+			case 'serviceCat':
+				this.confirmDialogService
+					.confirm('Please confirm..', 'Are you really want to Delete this... ?')
+					.then(confirmed => this.deleteServiceCat(id))
+					.catch(() => console.log(type));
+				break;
+			case 'service':
+				this.confirmDialogService
+					.confirm('Please confirm..', 'Are you really want to Delete this... ?')
+					.then(confirmed => this.deleteService(id))
+					.catch(() => console.log(type));
+				break;
+			case 'servicelevel':
+				this.confirmDialogService
+					.confirm('Please confirm..', 'Are you really want to Delete this... ?')
+					.then(confirmed => this.deleteServicelevel(id, parentId))
+					.catch(() => console.log(type));
+				break;
+			case 'serviceresource':
+				this.confirmDialogService
+					.confirm('Please confirm..', 'Are you really want to Delete this... ?')
+					.then(confirmed => this.deleteServiceResource(id, parentId))
+					.catch(() => console.log(type));
+				break;
+			case 'serviceitem':
+				this.confirmDialogService
+					.confirm('Please confirm..', 'Are you really want to Delete this... ?')
+					.then(confirmed => this.deleteServiceItem(id, parentId))
+					.catch(() => console.log(type));
+				break;
+			case 'emp':
+				this.confirmDialogService
+					.confirm('Please confirm..', 'Are you really want to Delete this... ?')
+					.then(confirmed => this.deleteEmpLevel(id))
+					.catch(() => console.log(type));
+				break;
+			case 'clientCat':
+				this.confirmDialogService
+					.confirm('Please confirm..', 'Are you really want to Delete this... ?')
+					.then(confirmed => this.deleteclientcatModal(id))
+					.catch(() => console.log(type));
+				break;
+			case 'tax':
+				this.confirmDialogService
+					.confirm('Please confirm..', 'Are you really want to Delete this... ?')
+					.then(confirmed => this.deletEedittax(id))
+					.catch(() => console.log(type));
+				break;
+			case 'holiday':
+				this.confirmDialogService
+					.confirm('Please confirm..', 'Are you really want to Delete this... ?')
+					.then(confirmed => this.deleteHoliday(id))
+					.catch(() => console.log(type));
+				break;
+			case 'resource':
+				this.confirmDialogService
+					.confirm('Please confirm..', 'Are you really want to Delete this... ?')
+					.then(confirmed => this.deleteResources(id))
+					.catch(() => console.log(type));
+				break;
+			case 'supplier':
+				this.confirmDialogService
+					.confirm('Please confirm..', 'Are you really want to Delete this... ?')
+					.then(confirmed => this.deleteSupplier(id))
+					.catch(() => console.log(type));
+				break;
+			case 'productBrand':
+				this.confirmDialogService
+					.confirm('Please confirm..', 'Are you really want to Delete this... ?')
+					.then(confirmed => this.deleteProductbrand(id))
+					.catch(() => console.log(type));
+				break;
+			case 'product':
+				this.confirmDialogService
+					.confirm('Please confirm..', 'Are you really want to Delete this... ?')
+					.then(confirmed => this.deleteProduct(id))
+					.catch(() => console.log(type));
+			default:
+				break;
+		}
 	}
 
 	public deleteclientcatModal(clientCat_id): any {
@@ -1592,6 +1678,19 @@ export class AdminComponent implements OnInit {
 			error => {
 				console.log('some error occurred');
 				this.toastr.errorToastr('Some error occurred', 'Oops!');
+			}
+		);
+	}
+
+	public getTotalCountData(): any {
+		this.adminService.getTotalCountData().subscribe(
+			data => {
+				console.log(data);
+				this.totalCountData = data;
+			},
+			error => {
+				console.log('some error occurred');
+				this.toastr.errorToastr('some error occurred');
 			}
 		);
 	}

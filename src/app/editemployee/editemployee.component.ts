@@ -131,7 +131,7 @@ export class EditemployeeComponent implements OnInit {
 					suburb: [employee_details.suburb, Validators.required],
 					email: [employee_details.email, Validators.required],
 					f_name: [employee_details.f_name, Validators.required],
-					surname: [employee_details.surname, Validators.required],
+					surname: [employee_details.surname],
 					mobile: [
 						employee_details.mobile,
 						[Validators.required, Validators.pattern('^((\\+91-?)|0)?[0-9]{10}$')]
