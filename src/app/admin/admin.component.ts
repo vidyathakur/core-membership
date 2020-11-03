@@ -48,6 +48,7 @@ import * as data from '../../assets/data.json';
 	styleUrls: ['./admin.component.css']
 })
 export class AdminComponent implements OnInit {
+	totalCounts: any;
 	private _jsonURL = 'assets/data.json';
 	roster_id: any;
 	serviceLevelData: { price: ''; duration: '' };
@@ -90,7 +91,7 @@ export class AdminComponent implements OnInit {
 	public activeTab;
 	public empRosters: any;
 	public products: any;
-	public totalCountData:{};
+	public totalCountData: {};
 	isSundayDisabled = true;
 	isMondayDisabled = true;
 	isTuesdayDisabled = true;
@@ -1411,9 +1412,9 @@ export class AdminComponent implements OnInit {
 				if (apiResponse.code === 200) {
 					this.openingForm.controls.opening_hours_id.setValue(apiResponse.data.id);
 					if (openingHours_data.opening_hours_id) {
-						this.toastr.successToastr('Openinghours Updated Successfully');
+						this.toastr.successToastr('Opening Hours updated successfully');
 					} else {
-						this.toastr.successToastr('Openinghours Added Successfully');
+						this.toastr.successToastr('Opening Hours Added Successfully');
 					}
 
 					console.log(this.router.url);
@@ -1685,8 +1686,7 @@ export class AdminComponent implements OnInit {
 	public getTotalCountData(): any {
 		this.adminService.getTotalCountData().subscribe(
 			data => {
-				console.log(data);
-				this.totalCountData = data;
+				this.totalCounts = data['data'];
 			},
 			error => {
 				console.log('some error occurred');

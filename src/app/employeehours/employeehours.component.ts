@@ -392,9 +392,9 @@ export class EmployeehoursComponent implements OnInit {
 			this.employeehoursservice.addEmpRosterHours(data).subscribe(apiResponse => {
 				if (apiResponse.code === 200) {
 					if (this.opening_hours_id) {
-						this.toastr.successToastr('Employee Roaster Hours Updated Successfully');
+						this.toastr.successToastr('Employee Hours updated successfully');
 					} else {
-						this.toastr.successToastr('Employee Roaster Hours Added Successfully');
+						this.toastr.successToastr('Employee Hours Added Successfully');
 					}
 					this.router.navigate(['/admin']);
 					this.activeModal.close();

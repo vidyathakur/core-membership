@@ -352,7 +352,7 @@ export class AppointmentsComponent implements OnInit {
 							for(let n in  notAvailable){
 								let employees = notAvailable[n];
 								if(employees.is_available==false){
-									let notAvailableObject = { Id: k,Subject: '',StartTime:new Date(),EndTime: new Date(),IsAllDay: false,IsBlock:true,DoctorId: currentEmployees[i].id};
+									let notAvailableObject = { Id: k,Subject: '',StartTime:new Date(),EndTime: new Date(),IsAllDay: false,IsReadonly: true,DoctorId: currentEmployees[i].id,SecondaryColor: '#357cd2'};
 									let [start_time_hours,start_time_minute,start_time_sec] = (employees.istart_time).split(':');
 									let [end_time_hours,end_time_minute,end_time_sec] = (employees.iend_time).split(':');
 									let [day,month,year] = current_date.split('-');
@@ -412,7 +412,7 @@ export class AppointmentsComponent implements OnInit {
 						for (let n in notAvailable) {
 							let employees = notAvailable[n];
 							if (employees.is_available == false) {
-								let notAvailableObject = { Id: k, Subject: '', StartTime: new Date(), EndTime: new Date(), IsAllDay: false, IsBlock: true, DoctorId: currentEmployees[i].id };
+								let notAvailableObject = { Id: k, Subject: '', StartTime: new Date(), EndTime: new Date(), IsAllDay: false, IsReadonly: true, DoctorId: currentEmployees[i].id };
 								let [start_time_hours, start_time_minute, start_time_sec] = employees.istart_time.split(':');
 								let [end_time_hours, end_time_minute, end_time_sec] = employees.iend_time.split(':');
 								let [day, month, year] = current_date.split('-');
@@ -425,8 +425,9 @@ export class AppointmentsComponent implements OnInit {
 						}
 					}
 				}
-				console.log("Hell");
+				console.log("Hello");
         console.log(notAvailableData);
+				
 				let finalShowData = [...finalArrayData, ...notAvailableData];
 				this.eventSettings = { dataSource: finalShowData };
 			}, error => {

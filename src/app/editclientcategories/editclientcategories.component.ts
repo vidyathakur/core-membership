@@ -55,7 +55,7 @@ export class EditclientcategoriesComponent implements OnInit {
 				});
 			},
 			error => {
-				console.log('some error occured');
+				console.log('some error occurred');
 			}
 		);
 	}
@@ -77,14 +77,14 @@ export class EditclientcategoriesComponent implements OnInit {
 		this.clientcategoriesService.editClientCat(data).subscribe(
 			data => {
 				console.log(data);
-				this.toastr.successToastr(' Clientcategory Updated Successfully');
+				this.toastr.successToastr(' Client Category updated successfully');
 				this.router.navigate(['/admin']);
 				this.activeModal.close();
 				this.ngOnInit();
 			},
 			error => {
-				console.log('some error occured');
-				this.toastr.errorToastr('Some error occured', 'Oops!');
+				console.log('some error occurred');
+				this.toastr.errorToastr('Some error occurred', 'Oops!');
 			}
 		);
 	}

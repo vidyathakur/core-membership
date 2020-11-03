@@ -71,7 +71,7 @@ export class EdittaxrateComponent implements OnInit {
 		this.taxrateService.editTaxRate(data).subscribe(
 			data => {
 				console.log(data);
-				this.toastr.successToastr(' Taxrate Updated Successfully');
+				this.toastr.successToastr(' Tax Rates updated successfully');
 				this.router.navigate(['/admin']);
 				this.activeModal.close();
 				this.ngOnInit();
