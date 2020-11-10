@@ -21,7 +21,8 @@
         </div>
         <div class="col-12">
           <div class="form-group form-label-group">
-            <input type="text" formControlName="tax_description" name="tax_description" placeholder="Tax Description" class="form-control myformscontrol custominput"
+            <input type="text" formControlName="tax_description" name="tax_description"
+             placeholder="Tax Description" class="form-control myformscontrol custominput"
                >
             <label for="tax_description" class="floating-label">Tax Description</label>
           </div>
@@ -30,7 +31,7 @@
           <div class="form-group form-label-group">
             <input type="text" formControlName="tax_amount" name="tax_amount" [ngClass]="{ 'is-invalid': submitted && f.tax_amount.errors }"
               id="name" placeholder="Tax Amount" class="form-control myformscontrol custominput" required autofocus>
-            <label for="tax_amount" class="floating-label">Tax Amount: (in %)</label>
+            <label for="tax_amount" class="floating-label">Tax Amount</label>
             <div *ngIf="submitted && f.tax_amount.errors" class="invalid-feedback">
               <div *ngIf="f.tax_amount.errors.required">Tax Amount is required</div>
             </div>

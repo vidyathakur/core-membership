@@ -2,10 +2,8 @@
     width:600px;  
 }  
 .modal-dialog {
- 
-          width: 560px !important;
- 
-        }
+  width: 560px !important;
+ }
   
 .modal-backdrop.in {  
     opacity: 0.9;  

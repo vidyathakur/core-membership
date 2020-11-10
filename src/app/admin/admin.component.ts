@@ -370,10 +370,10 @@ export class AdminComponent implements OnInit {
 		return this.empForm.controls;
 	}
 	@ViewChild('tabset') tabset: TabsetComponent;
-	onReset() {
-		this.submitted = false;
-		this.empForm.reset();
-	}
+	// onReset() {
+	// 	this.submitted = false;
+	// 	this.empForm.reset();
+	// }
 	ngOnInit(): void {
 		this.getTotalCountData();
 		this.openingForm.get('mom_start_time').disable();
@@ -834,7 +834,7 @@ export class AdminComponent implements OnInit {
 			reason => {}
 		);
 	}
-	employeehoursModel(id) {
+	employeehoursModel(id, roster_id) {
 		this.employeehoursservice.getEmpRosterHoursByEmpId(id).subscribe(
 			data => {
 				console.log(data);
@@ -908,7 +908,7 @@ export class AdminComponent implements OnInit {
 			size: 'lg'
 		});
 		modalRef.componentInstance.emproster_id = id;
-		modalRef.componentInstance.roster_id = this.roster_id;
+		modalRef.componentInstance.roster_id = roster_id;
 		console.log(id);
 		modalRef.result.then(
 			result => {
@@ -934,6 +934,7 @@ export class AdminComponent implements OnInit {
 		modalRef.result.then(
 			result => {
 				this.getServiceCatByMerchantId();
+				this.getTotalCountData();
 				console.log(result);
 			},
 			reason => {}
@@ -1196,6 +1197,7 @@ export class AdminComponent implements OnInit {
 				console.log(data);
 				this.toastr.successToastr(' Employee Deleted Successfully');
 				this.getEmployees();
+				this.getTotalCountData();
 			},
 			error => {
 				console.log('some error occurred');
@@ -1210,6 +1212,7 @@ export class AdminComponent implements OnInit {
 				this.toastr.successToastr(' Service Category Deleted Successfully');
 				this.ngOnInit();
 				this.getServiceCatByMerchantId();
+				this.getTotalCountData();
 			},
 			error => {
 				console.log('some error occurred');
@@ -1224,6 +1227,7 @@ export class AdminComponent implements OnInit {
 				this.toastr.successToastr(' Service Deleted Successfully');
 				this.ngOnInit();
 				this.getServiceByMerchantId();
+				this.getTotalCountData();
 			},
 			error => {
 				console.log('some error occurred');
@@ -1348,6 +1352,7 @@ export class AdminComponent implements OnInit {
 				console.log(data);
 				this.toastr.successToastr(' Product Deleted Successfully');
 				this.getProducts();
+				this.getTotalCountData();
 			},
 			error => {
 				console.log('some error occurred');
@@ -1363,6 +1368,7 @@ export class AdminComponent implements OnInit {
 				this.toastr.successToastr(' Client Deleted Successfully');
 				this.getClientDetailsByMerchantID();
 				this.activeModal.close();
+				this.getTotalCountData();
 			},
 			error => {
 				console.log('some error occurred');
@@ -1703,5 +1709,10 @@ export class AdminComponent implements OnInit {
 		} else {
 			return `with: ${reason}`;
 		}
+	}
+
+	onReset() {
+		this.submitted = false;
+		this.openingForm.reset();
 	}
 }

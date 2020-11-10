@@ -30,8 +30,8 @@ export class TaxrateComponent implements OnInit {
 		public taxrateService: TaxrateService
 	) {
 		this.taxrateForm = this.formBuilder.group({
-			tax_name: new FormControl(''),
-			tax_amount: new FormControl(''),
+			tax_name: new FormControl('', Validators.required),
+			tax_amount: new FormControl('', Validators.required),
 			tax_description: new FormControl('')
 		});
 	}
@@ -58,7 +58,7 @@ export class TaxrateComponent implements OnInit {
 			console.log(data);
 			this.taxrateService.addTaxRates(data).subscribe(apiResponse => {
 				if (apiResponse.code === 200) {
-					this.toastr.successToastr('Tax Added Successfully');
+					this.toastr.successToastr('Tax Rate Added Successfully');
 					this.activeModal.close(data);
 					this.taxrateForm.reset();
 					this.router.navigate(['/admin']);

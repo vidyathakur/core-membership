@@ -8,7 +8,6 @@
 @import "assets/mycss/themify-icons.css";
 @import "assets/mycss/bootstrap.min.css";
 @import "assets/mycss/font-awesome.min.css";
-@import "assets/mycss/material.css";
 
 html, body { height: 100%; }
 body { margin: 0; font-family: Roboto, "Helvetica Neue", sans-serif; }

@@ -198,7 +198,6 @@ export class AddnewclientComponent implements OnInit {
 	}
 	onCancel() {
 		this.jwtService.setToken('tabId', 'clients-tab');
-		this.router.navigate(['/admin', { previousUrl: 'my-current-route' }]);
-		//this.router.navigate(['/admin']);
+		this.router.navigate(['/admin']);
 	}
 }

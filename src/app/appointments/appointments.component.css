@@ -155,3 +155,19 @@ b { /* used for event dates/times */
     color: #ffffff !important;
     text-decoration: none;
 }
+.e-schedule .e-vertical-view .e-header-cells.e-current-day {
+    color: #C89628;
+}
+.e-calendar .e-content td.e-today.e-selected span.e-day, .e-bigger.e-small .e-calendar .e-content td.e-today.e-selected span.e-day {
+   border: 1px solid #C89628 !important;
+    box-shadow: inset 0 0 0 2px #fff;
+}
+
+.e-calendar .e-content td.e-today.e-selected:hover span.e-day, .e-calendar .e-content td.e-selected:hover span.e-day, .e-calendar .e-content td.e-selected.e-focused-date span.e-day, .e-bigger.e-small .e-calendar .e-content td.e-today.e-selected:hover span.e-day, .e-bigger.e-small .e-calendar .e-content td.e-selected:hover span.e-day, .e-bigger.e-small .e-calendar .e-content td.e-selected.e-focused-date span.e-day {
+    background-color: #C89628 !important;
+    color: #fff;
+}
+.e-calendar .e-content td.e-today.e-selected span.e-day, .e-bigger.e-small .e-calendar .e-content td.e-today.e-selected span.e-day {
+    background-color: #C89628 !important;
+    color: #fff;
+}

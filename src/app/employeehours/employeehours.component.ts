@@ -365,28 +365,30 @@ export class EmployeehoursComponent implements OnInit {
 			let openingHours_data = this.openingForm.value;
 			console.log(openingHours_data);
 			let data = {
-				mom_start_time: openingHours_data.monday_disable_option == 1 ? openingHours_data.mom_start_time : '',
-				mom_end_time: openingHours_data.monday_disable_option == 1 ? openingHours_data.mom_end_time : '',
-				tue_start_time: openingHours_data.tuesday_disable_option == 1 ? openingHours_data.tue_start_time : '',
-				tue_end_time: openingHours_data.tuesday_disable_option == 1 ? openingHours_data.tue_end_time : '',
-				wed_start_time: openingHours_data.wednesday_disable_option == 1 ? openingHours_data.wed_start_time : '',
-				wed_end_time: openingHours_data.wednesday_disable_option == 1 ? openingHours_data.wed_end_time : '',
+				mom_start_time: openingHours_data.monday_disable_option == 1 ? openingHours_data.mom_start_time : null,
+				mom_end_time: openingHours_data.monday_disable_option == 1 ? openingHours_data.mom_end_time : null,
+				tue_start_time: openingHours_data.tuesday_disable_option == 1 ? openingHours_data.tue_start_time : null,
+				tue_end_time: openingHours_data.tuesday_disable_option == 1 ? openingHours_data.tue_end_time : null,
+				wed_start_time: openingHours_data.wednesday_disable_option == 1 ? openingHours_data.wed_start_time : null,
+				wed_end_time: openingHours_data.wednesday_disable_option == 1 ? openingHours_data.wed_end_time : null,
 				thur_start_time:
-					openingHours_data.thrusday_disable_option == 1 ? openingHours_data.thur_start_time : '',
-				thur_end_time: openingHours_data.thrusday_disable_option == 1 ? openingHours_data.thur_end_time : '',
-				fri_start_time: openingHours_data.friday_disable_option == 1 ? openingHours_data.fri_start_time : '',
-				fri_end_time: openingHours_data.friday_disable_option == 1 ? openingHours_data.fri_end_time : '',
-				sat_start_time: openingHours_data.saturday_disable_option == 1 ? openingHours_data.sat_start_time : '',
-				sat_end_time: openingHours_data.saturday_disable_option == 1 ? openingHours_data.sat_end_time : '',
-				sun_start_time: openingHours_data.sunday_disable_option == 1 ? openingHours_data.sun_start_time : '',
-				sun_end_time: openingHours_data.sunday_disable_option == 1 ? openingHours_data.sun_end_time : '',
+					openingHours_data.thrusday_disable_option == 1 ? openingHours_data.thur_start_time : null,
+				thur_end_time: openingHours_data.thrusday_disable_option == 1 ? openingHours_data.thur_end_time : null,
+				fri_start_time: openingHours_data.friday_disable_option == 1 ? openingHours_data.fri_start_time : null,
+				fri_end_time: openingHours_data.friday_disable_option == 1 ? openingHours_data.fri_end_time : null,
+				sat_start_time: openingHours_data.saturday_disable_option == 1 ? openingHours_data.sat_start_time : null,
+				sat_end_time: openingHours_data.saturday_disable_option == 1 ? openingHours_data.sat_end_time : null,
+				sun_start_time: openingHours_data.sunday_disable_option == 1 ? openingHours_data.sun_start_time : null,
+				sun_end_time: openingHours_data.sunday_disable_option == 1 ? openingHours_data.sun_end_time : null,
 				emp_id: id
 			};
 			if (this.opening_hours_id) {
 				data['empRosterhours_id'] = this.opening_hours_id;
+				console.log(this.opening_hours_id);
 			}
 			if (this.roster_id) {
 				data['empRosterhours_id'] = this.roster_id;
+				console.log(this.roster_id);
 			}
 			console.log(data);
 			this.employeehoursservice.addEmpRosterHours(data).subscribe(apiResponse => {

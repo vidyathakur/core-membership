@@ -16,6 +16,24 @@ export let doctorData: Object[] = [
     },
 ];
 
+export let blockDayData: object[] = [
+    { 
+        Subject: 'Not Available',
+        StartTime:'00:15:00',
+        EndTime: '00:30:00',
+        IsAllDay: false,
+        IsBlock: true,
+    },
+    { 
+        Subject: 'Not Available',
+        StartTime:'00:45:00',
+        EndTime: '01:00:00',
+        IsAllDay: false,
+        IsBlock: true,
+    }
+    
+];
+
 
 export let blockData: Object[] = [
     {
