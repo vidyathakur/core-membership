@@ -47,8 +47,20 @@ b { /* used for event dates/times */
 }*/
 .btnstand{
   color: #000000;
-    background-color: #ffffff;
-    border-color: #ffffff;
+    background-color: #f3f4f9;
+    border-color: #f3f4f9;
+     max-width: 100%;
+    padding: 6px 25px;
+}
+.dropdown-toggle::after {
+    display: inline-block;
+    margin-left: 4.255em;
+    vertical-align: .255em;
+    content: "";
+    border-top: .3em solid;
+    border-right: .3em solid transparent;
+    border-bottom: 0;
+    border-left: .3em solid transparent;
 }
 
 .mybtn{
@@ -130,7 +142,7 @@ b { /* used for event dates/times */
   padding-top: 10px !important;
 }
 .btn:hover {
-    color: #ffffff !important;
+    color: #000 !important;
     text-decoration: none;
 }
 .e-schedule .e-vertical-view .e-header-cells.e-current-day {
@@ -149,4 +161,82 @@ b { /* used for event dates/times */
     background-color: #C89628 !important;
     color: #fff;
 }
+/*.e-control, .e-control [class^='e-'], .e-control [class*=' e-'] {
+    box-sizing: border-box;
+    height: 40px;
+}*/
+.e-schedule .e-vertical-view .e-header-cells {
+    font-size: 12px;
+    height: 0px !important;
+    padding: 0px !important;
+}
+.e-schedule .e-vertical-view .e-header-cells.e-current-day {
+    color: #C89628;
+    display: none;
+}
+.e-schedule .e-schedule-toolbar .e-toolbar-items {
+    background: #ffffff;
+}
+/*.e-schedule .e-schedule-toolbar .e-toolbar-items.e-tbar-pos {
+    height: 42px;
+    min-height: 42px;
+    display: none;
+}
+*/
 
+/*.e-schedule .e-schedule-toolbar {
+    background: #ffffff !important;
+    border: 0;
+    border-bottom: 0;
+    box-shadow: 0 1px 2px rgba(0, 0, 0, 0.15);
+    margin-bottom: 3px;
+    min-height: 0px;
+}*/
+
+/*table tr th, table tr td {
+    border-top: 0px solid rgba(120, 130, 140, 0.13) !important;
+}*/
+.e-schedule .e-vertical-view .e-date-header-wrap table tbody td {
+    background-color: #f3f4f9;
+    border-color: rgba(0, 0, 0, 0.12);
+    border-style: solid;
+    border-width: 0 0 1px 1px;
+    color: rgba(0, 0, 0, 0.87);
+    text-align: left;
+}
+.e-schedule .e-vertical-view .e-left-indent-wrap table tbody td {
+    background-color: #f3f4f9;
+    border-color: rgba(0, 0, 0, 0.12);
+    border-style: solid;
+    border-width: 0 1px 1px 0;
+    color: rgba(0, 0, 0, 0.87);
+}
+.e-schedule .e-schedule-toolbar .e-tbar-btn {
+    background: #fff;
+}
+
+.align-items-center {
+    align-items: center!important;
+    margin-top: -15px;
+}
+.e-schedule .e-vertical-view .e-header-cells .e-header-day {
+    display: none;
+    font-size: 13px;
+}
+.e-schedule .e-vertical-view .e-header-cells .e-header-date {
+    cursor: pointer;
+    display: none;
+    font-size: 18px;
+}
+.e-calendar .e-content td.e-selected span.e-day, .e-bigger.e-small .e-calendar .e-content td.e-selected span.e-day {
+    background-color: #C89628;
+    border: none;
+    border-radius: 50%;
+    color: #fff;
+}
+.e-calendar .e-content td.e-today span.e-day, .e-calendar .e-content td.e-focused-date.e-today span.e-day, .e-bigger.e-small .e-calendar .e-content td.e-today span.e-day, .e-bigger.e-small .e-calendar .e-content td.e-focused-date.e-today span.e-day {
+    background: none;
+    border: 1px solid #C89628;
+    border-radius: 50%;
+    color: #C89628;
+}

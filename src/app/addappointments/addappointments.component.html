@@ -16,7 +16,7 @@
                       <div class="col-md-9">
                         <div class="form-group mysubgroup">
                           <label class="col-form-label myappoinlabel">Select Client</label>
-                          <select class="custom-select mycustom" formControlName="client_id">
+                          <select class="custom-select mycustom" (change)="changeServiceClient($event)" formControlName="client_id">
                                  <option value="" selected="">Open this select menu</option>
                                  <option *ngFor="let client of clients" [value]=client.id>{{client.f_name}}</option>
                               </select>
@@ -101,9 +101,12 @@
                       <label class="custom-control-label" for="customCheck7" 
                       style="font-size: 14px; color: #000;">VIP</label>
                     </div>-->
-                    <input id="flag_as" type="radio" value="1" name="flag_as" /> Requested
-                    <input id="flag_as" type="radio" value="1" name="flag_as" /> Confirmed
-                    <input id="flag_as" type="radio" value="1" name="flag_as" /> VIP
+                    <div class="roles">
+                    <input  type="radio" value="Requested" name="flag_as" class="role"/> Requested
+                    <input  type="radio" value="Confirmed" name="flag_as" class="role"/> Confirmed
+                    <input  type="radio" value="VIP" name="flag_as"  class="role"/> VIP
+                    </div>
+                    
                    <div class="card-body">
                       <div class="form-row">
                         <div class="col-md-12">
@@ -122,12 +125,12 @@
                           </div>
                           <div class="col-md-10">
                             <p>
-                              <a class="float-left" style="padding-bottom: 10px;"><strong>Devon</strong></a>
+                              <a class="float-left" style="padding-bottom: 10px;"><strong>{{clients.f_name}}</strong></a>
                               <img src="assets/img/like.png" style="width: 5%; float: right;">
                             </p>
                             <div class="clearfix"></div>
                             <p style="color: #000; font-size: 13px; font-weight: 600;"><i class="fa fa-phone-square" style="color: #c89628; font-size: 20px;"></i> +01 1234567894</p>
-                            <p style="color: #000; font-size: 13px; font-weight: 600;"><i class="fa fa-envelope-square" style="color: #c89628; font-size: 20px;"></i> devon@gmail.com</p>
+                            <p style="color: #000; font-size: 13px; font-weight: 600;"><i class="fa fa-envelope-square" style="color: #c89628; font-size: 20px;"></i>dummy@gmail.com</p>
                             <p style="color: #000; font-size: 13px; font-weight: 600;"><img src="assets/img/icon-map.png" style="width: 5%; font-size: 20px;">1100 New Heaven Road,<br>
                               <span style="padding-left: 20px;">Naugatuck CT 6670</span>
                             </p>
@@ -157,7 +160,7 @@
                       </div>
                       <div class="card-body" style="padding-left: 0px;">
                         <button type="button" class="btn mb-3 canc">Cancel</button>
-                        <button type="submit" [routerLink]="['/pos']" class="btn mb-3 sub">Submit</button>
+                        <button type="submit" (click)="openTimeslotsModel()" class="btn mb-3 sub">Pick Time</button>
                       </div>
                     </div>
                   </div>

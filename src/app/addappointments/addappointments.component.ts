@@ -1,3 +1,4 @@
+import { TimeslotsComponent } from './../timeslots/timeslots.component';
 import { parseIntAutoRadix } from '@angular/common/src/i18n/format_number';
 import { AddnewclientService } from '../addnewclient/addnewclient.service';
 import { AppointmentsService } from '../appointments/appointments.service';
@@ -9,6 +10,7 @@ import { Router, ActivatedRoute } from '@angular/router';
 import { JwtService } from 'src/app/login/jwt.service';
 import { NgxSpinnerService } from 'ngx-spinner';
 import { AddappointmentsService } from 'src/app/addappointments/addappointments.service';
+import { NgbModal } from '@ng-bootstrap/ng-bootstrap';
 
 @Component({
 	selector: 'app-addappointments',
@@ -20,8 +22,8 @@ export class AddappointmentsComponent implements OnInit {
 	totalTime: number;
 	//selectedItems: {};
 	//checkedList: [];
-	servicesData:any;
-	selectedItems:any;
+	servicesData: any;
+	selectedItems: any;
 	checked = true;
 	model;
 	addappointmentForm: FormGroup;
@@ -31,13 +33,14 @@ export class AddappointmentsComponent implements OnInit {
 	public serviceCats: any;
 	public services: any;
 	selectedValue = '09';
-	public clients: any;
+	clients: any;
 	public currentEmployees: any;
 	checkOutputDta: any[];
 	events: string[] = [];
 	constructor(
 		private SpinnerService: NgxSpinnerService,
 		public router: Router,
+		private modalService: NgbModal,
 		public toastr: ToastrManager,
 		private jwtService: JwtService,
 		private formBuilder: FormBuilder,
@@ -105,8 +108,34 @@ export class AddappointmentsComponent implements OnInit {
 				this.services = responseArray;
 			},
 			error => {
-				console.log('some error occured');
-				this.toastr.errorToastr('some error occured');
+				console.log('some error occurred');
+				this.toastr.errorToastr('some error occurred');
+			}
+		);
+
+		console.log(e.target.value);
+	}
+
+	changeServiceClient(e) {
+		let id = e.target.value;
+		this.addnewclientService.getClientDetailsByMerchantID(id).subscribe(
+			data => {
+				console.log(data);
+				let dataResponse = {};
+				data['data'].forEach((item, key) => {
+					if (!dataResponse.hasOwnProperty(item.id)) {
+						dataResponse[item.id] = [];
+					}
+					let object = { f_name: '' };
+					object.f_name = item.f_name;
+					dataResponse[item.id] = object;
+				});
+				this.clients = dataResponse[id];
+				console.log(this.clients);
+			},
+			error => {
+				console.log('some error occurred');
+				this.toastr.errorToastr('some error occurred');
 			}
 		);
 
@@ -194,13 +223,14 @@ export class AddappointmentsComponent implements OnInit {
 			data => {
 				console.log(data);
 				this.clients = data['data'];
+				console.log(this.clients);
 				setTimeout(() => {
 					this.SpinnerService.hide();
 				}, 2000);
 			},
 			error => {
-				console.log('some error occured');
-				this.toastr.errorToastr('some error occured');
+				console.log('some error occurred');
+				this.toastr.errorToastr('some error occurred');
 			}
 		);
 	}
@@ -217,4 +247,14 @@ export class AddappointmentsComponent implements OnInit {
 			}
 		);
 	}
+
+	openTimeslotsModel() {
+		const modalRef = this.modalService.open(TimeslotsComponent, {size: 'lg', windowClass: 'myCustomModalClass' });
+		modalRef.result.then(
+			result => {
+			},
+			reason => {}
+		);
+	}
 }
+

@@ -1086,7 +1086,11 @@
                                   <img src="https://image.ibb.co/jw55Ex/def_face.jpg" class="img img-rounded img-fluid" />
                                   <p style="padding-top: 10px;">{{empRoster.employees ? empRoster.employees.f_name : ''}}</p>
                                 </th>
-                               <td class="rowcont"><button type="button" (click)="employeehoursModel(empRoster.emp_id,empRoster.id)" class="btn btn-danger btn-xs mb-3 mysmallbtn">{{empRoster.mom_start_time != null ? (empRoster.mom_start_time | time24to12Transform): '--'}}-{{empRoster.mom_end_time != null ? (empRoster.mom_end_time | time24to12Transform): '--'}}</button></td>
+                               <td class="rowcont"><button type="button" 
+                               (click)="employeehoursModel(empRoster.emp_id,empRoster.id)" 
+                               class="btn btn-danger btn-xs mb-3 mysmallbtn">
+                               {{empRoster.mom_start_time != null ? (empRoster.mom_start_time | time24to12Transform): '--'}}-
+                               {{empRoster.mom_end_time != null ? (empRoster.mom_end_time | time24to12Transform): '--'}}</button></td>
                               <td class="rowcont"><button type="button" (click)="employeehoursModel(empRoster.emp_id,empRoster.id)" class="btn btn-xs mb-3 mysmallbtn">{{empRoster.tue_start_time != null ? (empRoster.tue_start_time | time24to12Transform): '--'}}-{{empRoster.tue_end_time != null ? (empRoster.tue_end_time | time24to12Transform): '--'}}</button></td>
                               <td class="rowcont"><button type="button" (click)="employeehoursModel(empRoster.emp_id,empRoster.id)" class="btn btn-xs mb-3 mysmallbtn">{{empRoster.wed_start_time != null ? (empRoster.wed_start_time | time24to12Transform): '--'}}-{{empRoster.wed_end_time != null ? (empRoster.wed_end_time | time24to12Transform): '--'}}</button></td>
                               <td class="rowcont"><button type="button" (click)="employeehoursModel(empRoster.emp_id,empRoster.id)" class="btn btn-xs mb-3 mysmallbtn">{{empRoster.thur_start_time != null ? (empRoster.thur_start_time | time24to12Transform): '--'}}-{{empRoster.thur_end_time != null ? (empRoster.thur_end_time | time24to12Transform): '--'}}</button></td>

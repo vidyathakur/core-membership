@@ -1,3 +1,4 @@
+import { TimeslotsComponent } from './timeslots/timeslots.component';
 import { EmployeehoursComponent } from './employeehours/employeehours.component';
 import { EditsupplierComponent } from './editsupplier/editsupplier.component';
 import { SupplierComponent } from './supplier/supplier.component';
@@ -34,6 +35,7 @@ import { EditserviceresourcesComponent } from './editserviceresources/editservic
 import { ServiceitemComponent } from 'src/app/serviceitem/serviceitem.component';
 import { EditserviceitemComponent } from './editserviceitem/editserviceitem.component';
 import { ConfirmDialogComponent } from 'src/app/confirm-dialog/confirm-dialog.component';
+import { ScheduleAllModule, RecurrenceEditorAllModule } from '@syncfusion/ej2-angular-schedule';
 
 @NgModule({
   declarations: [
@@ -59,7 +61,8 @@ import { ConfirmDialogComponent } from 'src/app/confirm-dialog/confirm-dialog.co
     SupplierComponent,
     EditsupplierComponent,
     EmployeehoursComponent,
-    ConfirmDialogComponent
+    ConfirmDialogComponent,
+    TimeslotsComponent
   ],
   imports: [
     BrowserModule,
@@ -69,6 +72,7 @@ import { ConfirmDialogComponent } from 'src/app/confirm-dialog/confirm-dialog.co
     ReactiveFormsModule,
     NgbModule.forRoot(),
     ChartsModule,
+    ScheduleAllModule,
     RouterModule.forRoot([]),
     LayoutModule,
     AppRoutingModule
@@ -97,7 +101,8 @@ import { ConfirmDialogComponent } from 'src/app/confirm-dialog/confirm-dialog.co
     SupplierComponent,
     EditsupplierComponent,
     EmployeehoursComponent,
-    ConfirmDialogComponent
+    ConfirmDialogComponent,
+    TimeslotsComponent
   ],
   bootstrap: [AppComponent]
 })

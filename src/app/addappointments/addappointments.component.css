@@ -151,6 +151,15 @@ textarea {
   font-size: 16px;
   resize: none;
 }
+.roles {
+        margin-bottom: 6px;
+        margin-left: 6px;
+    }
+    .role {
+        margin-right: 0px;
+        margin-left: 10px;
+        font-weight: normal;
+    }
  .canc{
      color: #b4b4b4; border: 1px solid #b4b4b4; background-color: #ffffff; margin-top: 15px;
     }

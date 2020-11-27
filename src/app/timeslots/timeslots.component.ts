@@ -1,7 +1,7 @@
-import { EmployeehoursService } from '../employeehours/employeehours.service';
-import { AddnewclientService } from '../addnewclient/addnewclient.service';
+import { NgbActiveModal } from '@ng-bootstrap/ng-bootstrap';
 import { Component, Input, OnInit, ViewEncapsulation, ElementRef } from '@angular/core';
 import { extend, isNullOrUndefined, Browser, Internationalization, L10n } from '@syncfusion/ej2-base';
+import { AppointmentsService } from 'src/app/appointments/appointments.service';
 import {
 	ScheduleComponent,
 	ActionEventArgs,
@@ -25,14 +25,8 @@ import { Router, ActivatedRoute } from '@angular/router';
 import { JwtService } from 'src/app/login/jwt.service';
 import { NgxSpinnerService } from 'ngx-spinner';
 import { doctorData } from 'src/app/appointments/data';
-import { AppointmentsService } from 'src/app/appointments/appointments.service';
-
 import {
 	DayService,
-	WeekService,
-	WorkWeekService,
-	MonthService,
-	AgendaService,
 	Schedule,
 	TimelineViews,
 	TimelineMonth,
@@ -44,11 +38,10 @@ import {
 /**
  * schedule block events sample
  */
-Schedule.Inject(Day, TimelineViews, TimelineMonth, Resize, DragAndDrop);
+// Schedule.Inject(Day, TimelineViews, TimelineMonth, Resize, DragAndDrop);
 // tslint:disable-next-line:max-func-body-length
 
 import { FormControl, FormGroup, Validators, FormBuilder } from '@angular/forms';
-import { NgbActiveModal } from '@ng-bootstrap/ng-bootstrap';
 import value from '*.json';
 L10n.load({
 	'en-US': {
@@ -62,13 +55,13 @@ L10n.load({
 });
 
 @Component({
-	selector: 'app-appointments',
-	templateUrl: './appointments.component.html',
-	styleUrls: ['./appointments.component.css'],
+	selector: 'app-timeslots',
+	templateUrl: './timeslots.component.html',
+	styleUrls: ['./timeslots.component.css'],
 	encapsulation: ViewEncapsulation.None,
 	providers: [TimelineViewsService, ResizeService, DragAndDropService]
 })
-export class AppointmentsComponent implements OnInit {
+export class TimeslotsComponent implements OnInit {
 	doctorData: any;
 	service_id: any;
 	public empLevelNames: any;
@@ -94,7 +87,8 @@ export class AppointmentsComponent implements OnInit {
 	}
 
 	public selectedDate: Date = new Date(new Date().getFullYear(), new Date().getMonth(), new Date().getDate());
-	public views: Array<any> = ['Week', 'Month', 'TimelineWeek', 'TimelineMonth', 'Agenda'];
+	// public views: Array<any> = ['Week', 'Month', 'TimelineWeek', 'TimelineMonth', 'Agenda'];
+//	public currentView: View = 'Day';
 	public eventSettings: EventSettingsModel = {
 		dataSource: doctorData
 	};
@@ -143,14 +137,13 @@ export class AppointmentsComponent implements OnInit {
 	constructor(
 		private SpinnerService: NgxSpinnerService,
 		public router: Router,
+		public activeModal: NgbActiveModal,
 		public toastr: ToastrManager,
 		private jwtService: JwtService,
 		private formBuilder: FormBuilder,
 		private _route: ActivatedRoute,
 		public appointmentsService: AppointmentsService,
 		public adminService: AdminService,
-		public addnewclientService: AddnewclientService,
-		public employeehoursservice: EmployeehoursService,
 		private elRef: ElementRef
 	) {
 		// this.appointmentForm = this.formBuilder.group({
@@ -343,9 +336,11 @@ export class AppointmentsComponent implements OnInit {
 					if (!employees.end_time) {
 						employees.end_time = '00:00:00';
 					}
-					let [start_time_hours, start_time_minute, start_time_sec] = employees.start_time? employees.start_time.split(':')
+					let [start_time_hours, start_time_minute, start_time_sec] = employees.start_time
+						? employees.start_time.split(':')
 						: ['', '', ''];
-					let [end_time_hours, end_time_minute, end_time_sec] = employees.end_time? employees.end_time.split(':')
+					let [end_time_hours, end_time_minute, end_time_sec] = employees.end_time
+						? employees.end_time.split(':')
 						: ['', '', ''];
 					let [day, month, year] = current_date.split('-');
 					if (currentEmployees[i].appointment) {
@@ -397,8 +392,14 @@ export class AppointmentsComponent implements OnInit {
 										DoctorId: currentEmployees[i].id,
 										SecondaryColor: '#357cd2'
 									};
-									let [start_time_hours,start_time_minute,start_time_sec] = employees.istart_time.split(':');
-									let [end_time_hours, end_time_minute, end_time_sec] = employees.iend_time.split(':');
+									let [
+										start_time_hours,
+										start_time_minute,
+										start_time_sec
+									] = employees.istart_time.split(':');
+									let [end_time_hours, end_time_minute, end_time_sec] = employees.iend_time.split(
+										':'
+									);
 									let [day, month, year] = current_date.split('-');
 									notAvailableObject.StartTime = new Date(
 										parseInt(year),
@@ -571,5 +572,8 @@ export class AppointmentsComponent implements OnInit {
 				this.toastr.errorToastr('some error occurred');
 			}
 		);
+	}
+	closeModal() {
+		this.activeModal.close();
 	}
 }
