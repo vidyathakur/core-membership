@@ -38,8 +38,8 @@ export class AddnewclientService {
 		return myResponse;
 	}
 
-	public getClientDetailsByMerchantID(data): any {
-		let myResponse = this.http.post(`${environment.BASE_URL}/getClientDetailsByMerchantID `, data, {
+	public getClientDetailsByMerchantID(): any {
+		let myResponse = this.http.post(`${environment.BASE_URL}/getClientDetailsByMerchantID `, {}, {
 			headers: new HttpHeaders().set('SESSION-TOKEN', localStorage.getItem('jwt_token'))
 		});
 		console.log(myResponse);

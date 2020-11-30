@@ -179,7 +179,7 @@ export class AddnewclientComponent implements OnInit {
 		);
 	}
 	public getClientDetailsByMerchantID(): any {
-		this.addnewclientService.getClientDetailsByMerchantID({}).subscribe(
+		this.addnewclientService.getClientDetailsByMerchantID().subscribe(
 			data => {
 				console.log(data);
 				this.clients = data['data'];

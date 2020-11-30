@@ -509,7 +509,7 @@ export class AdminComponent implements OnInit {
 	}
 	public getClientDetailsByMerchantID(): any {
 		this.SpinnerService.show();
-		this.addnewclientService.getClientDetailsByMerchantID({}).subscribe(
+		this.addnewclientService.getClientDetailsByMerchantID().subscribe(
 			data => {
 				console.log(data);
 				this.clients = data['data'];

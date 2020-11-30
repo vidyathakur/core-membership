@@ -10,13 +10,12 @@
               <div class="header-title myheadtitle">Select Client Details and Services</div>
               <div class="main-content-inner">
                 <div class="row">
-
                   <div class="col-md-6">
                     <div class="form-row">
                       <div class="col-md-9">
                         <div class="form-group mysubgroup">
                           <label class="col-form-label myappoinlabel">Select Client</label>
-                          <select class="custom-select mycustom" (change)="changeServiceClient($event)" formControlName="client_id">
+                          <select class="custom-select mycustom"  (change)="changeServiceClient($event)" formControlName="client_id">
                                  <option value="" selected="">Open this select menu</option>
                                  <option *ngFor="let client of clients" [value]=client.id>{{client.f_name}}</option>
                               </select>
@@ -76,48 +75,33 @@
                       <div class="card-body ">
                         <div class="form-row">
                           <div class="col-md-10" *ngFor="let service of services; let i = index;">
-                            <input type="checkbox" id="vehicle1" value="Bike" [ngModelOptions]="{standalone: true}" [(ngModel)]="services[i].checked"
-                            (click)="onCheckboxChange($event,service.id)" >
+                            <!--<input type="checkbox" id="vehicle1" value="Bike" [ngModelOptions]="{standalone: true}" [(ngModel)]="services[i].checked"
+                              (click)="onCheckboxChange($event,service.id)">-->
                             <label for="vehicle1" class="mycheckbox">{{service.service_name}}</label>
-                            <button type="button" class="btn addbtn" (onClick)="addService(service.id)" style="float: right; margin-bottom: 5px;">ADD</button>
+                            <button type="button" class="btn addbtn" (click)="addService(service.id)" style="float: right; margin-bottom: 5px;">ADD</button>
                           </div>
 
                         </div>
                       </div>
                     </div>
                     <b class="text-muted mb-3 mt-4 d-block flagappoint">Flag As</b>
-                    <!--<div class="custom-control custom-checkbox custom-control-inline">
-                      <input type="radio" checked class="custom-control-input" id="customCheck5">
-                      <label class="custom-control-label" for="customCheck5" 
-                      style="font-size: 14px; color: #000;">Requested</label>
-                    </div>
-                    <div class="custom-control custom-checkbox custom-control-inline">
-                      <input type="radio" class="custom-control-input" id="customCheck6">
-                      <label class="custom-control-label" for="customCheck6" 
-                      style="font-size: 14px; color: #000;">Confirmed</label>
-                    </div>
-                    <div class="custom-control custom-checkbox custom-control-inline">
-                      <input type="radio" class="custom-control-input" id="customCheck7">
-                      <label class="custom-control-label" for="customCheck7" 
-                      style="font-size: 14px; color: #000;">VIP</label>
-                    </div>-->
                     <div class="roles">
-                    <input  type="radio" value="Requested" name="flag_as" class="role"/> Requested
-                    <input  type="radio" value="Confirmed" name="flag_as" class="role"/> Confirmed
-                    <input  type="radio" value="VIP" name="flag_as"  class="role"/> VIP
+                      <input type="radio" value="Requested" name="flag_as" class="role" /> Requested
+                      <input type="radio" value="Confirmed" name="flag_as" class="role" /> Confirmed
+                      <input type="radio" value="VIP" name="flag_as" class="role" /> VIP
                     </div>
-                    
-                   <div class="card-body">
+
+                    <div class="card-body">
                       <div class="form-row">
                         <div class="col-md-12">
-                     <textarea name="message" placeholder="Some Text...."></textarea>
-                      </div>
+                          <textarea name="message" placeholder="Some Text...."></textarea>
+                        </div>
                       </div>
                     </div>
                   </div>
                   <div class="col-md-6">
-                    <h2 class="appoint">Appointment overview</h2>
-                    <div class="card">
+                    <h2 class="appoint" *ngIf="show">Appointment overview</h2>
+                    <div class="card" *ngIf="show">
                       <div class="card-body">
                         <div class="row">
                           <div class="col-md-2">
@@ -125,15 +109,21 @@
                           </div>
                           <div class="col-md-10">
                             <p>
-                              <a class="float-left" style="padding-bottom: 10px;"><strong>{{clients.f_name}}</strong></a>
+                              <a class="float-left" style="padding-bottom: 10px;"><strong>{{clientDetails.f_name}}</strong></a>
                               <img src="assets/img/like.png" style="width: 5%; float: right;">
                             </p>
-                            <div class="clearfix"></div>
-                            <p style="color: #000; font-size: 13px; font-weight: 600;"><i class="fa fa-phone-square" style="color: #c89628; font-size: 20px;"></i> +01 1234567894</p>
-                            <p style="color: #000; font-size: 13px; font-weight: 600;"><i class="fa fa-envelope-square" style="color: #c89628; font-size: 20px;"></i>dummy@gmail.com</p>
-                            <p style="color: #000; font-size: 13px; font-weight: 600;"><img src="assets/img/icon-map.png" style="width: 5%; font-size: 20px;">1100 New Heaven Road,<br>
-                              <span style="padding-left: 20px;">Naugatuck CT 6670</span>
+                            <div>
+                            <p style="color: #000; font-size: 13px; font-weight: 600; margin-top: 34px;">
+                              <i class="fa fa-phone-square" style="color: #c89628; font-size: 20px;"></i> 
+                              {{clientDetails.mobile}}</p>
+                            <p style="color: #000; font-size: 13px; font-weight: 600;">
+                              <i class="fa fa-envelope-square" style="color: #c89628; font-size: 20px;"></i>
+                              {{clientDetails.email}}</p>
+                            <p style="color: #000; font-size: 13px; font-weight: 600;">
+                              <img src="assets/img/icon-map.png" style="width: 5%; font-size: 20px;">
+                              {{clientDetails.address}}<br>
                             </p>
+                            </div>
                             <p>
                               <a class="editt">View History</a>
                             </p>
@@ -144,22 +134,22 @@
                     <h2 class="appoints">Services </h2>
                     <div class="card scrollbar3" id="style-3" style="margin-top: 10px;">
                       <div class="card-body myborder" *ngFor="let service of checkOutputDta; let i=index;">
-                        <h5 class="mysubheader">{{service.duration }} - {{service.service_name}} </h5>
+                        <h5 class="mysubheader">{{service.duration }} - {{service.service_name}}</h5>
                         <span class="subicon"><i class="fa fa-times-circle" (click)="removeServices(service.id,i)"></i></span>
                       </div>
                     </div>
                     <div class="card-body" style="padding-left: 0px;">
                       <h4 class="header-title" style="margin-bottom: 0px;">Total time:<span class="ride">override</span></h4>
-                      <h4>{{totalTime ? totalTime + ' Minutes'  : '' }} </h4>
+                      <h4>{{totalTime ? totalTime + ' Minutes' : '' }} </h4>
                       <br>
                       <h4 class="header-title" style="margin-bottom: 0px;">Total Price:</h4>
-                      <h4>{{ price  ?  '$'+price : ''}}</h4>
-                      <div class="custom-control custom-checkbox custom-control-inline">
+                      <h4>{{ price ? '$'+price : ''}}</h4>
+                      <div class="custom-control custom-checkbox custom-control-inline" style="margin-top: 10px;">
                         <input type="checkbox" checked class="custom-control-input" id="customCheck0">
                         <label class="custom-control-label" for="customCheck0" style="font-size: 14px; color: #000;">Send Email/SMS to client</label>
                       </div>
                       <div class="card-body" style="padding-left: 0px;">
-                        <button type="button" class="btn mb-3 canc">Cancel</button>
+                        <button type="button" class="btn mb-3 canc" (click)="onCancel()">Cancel</button>
                         <button type="submit" (click)="openTimeslotsModel()" class="btn mb-3 sub">Pick Time</button>
                       </div>
                     </div>

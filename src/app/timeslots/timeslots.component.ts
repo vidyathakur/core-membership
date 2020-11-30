@@ -66,6 +66,7 @@ export class TimeslotsComponent implements OnInit {
 	service_id: any;
 	public empLevelNames: any;
 	public currentEmployees: any;
+	public allStaff:any;
 	public TimeArray: any;
 	public data: Object[] = <Object[]>extend([], [], null, true);
 	//public selectedDate: Date = new Date();
@@ -88,7 +89,7 @@ export class TimeslotsComponent implements OnInit {
 
 	public selectedDate: Date = new Date(new Date().getFullYear(), new Date().getMonth(), new Date().getDate());
 	// public views: Array<any> = ['Week', 'Month', 'TimelineWeek', 'TimelineMonth', 'Agenda'];
-//	public currentView: View = 'Day';
+	//	public currentView: View = 'Day';
 	public eventSettings: EventSettingsModel = {
 		dataSource: doctorData
 	};
@@ -133,7 +134,7 @@ export class TimeslotsComponent implements OnInit {
 	closeResult: string;
 	@Input() fromParent;
 	submitted = false;
-
+	timeslotsForm: FormGroup;
 	constructor(
 		private SpinnerService: NgxSpinnerService,
 		public router: Router,
@@ -157,6 +158,13 @@ export class TimeslotsComponent implements OnInit {
 		// 	Subject: new FormControl(''),
 		// 	Location: new FormControl('')
 		// });
+		this.timeslotsForm = this.formBuilder.group({
+			service_cat_id: [''],
+			client_id: [''],
+			employee_id: [''],
+			start_date: [''],
+			duration: ['']
+		});
 	}
 
 	ngOnInit() {
@@ -167,6 +175,7 @@ export class TimeslotsComponent implements OnInit {
 		let current_date = day + '-' + month + '-' + year;
 		console.log(current_date);
 		this.getCalendarData(current_date);
+		this.getStaffData(current_date);
 		// this.getServiceByMerchantId();
 		// this.getClientDetailsByMerchantID();
 		this.appointmentsService.getEmpDetailByMerchantId({}).subscribe(
@@ -572,6 +581,20 @@ export class TimeslotsComponent implements OnInit {
 				this.toastr.errorToastr('some error occurred');
 			}
 		);
+	}
+
+	public getStaffData(start_date): any {
+		console.log(start_date);
+		let current_date = start_date;
+		this.appointmentsService.getStaffData(current_date).subscribe(
+			data => {
+				console.log(data);
+				this.allStaff = data['data'];
+				console.log(this.allStaff);
+			}, error => {
+				console.log('some error occurred');
+				this.toastr.errorToastr('some error occurred');
+			});
 	}
 	closeModal() {
 		this.activeModal.close();

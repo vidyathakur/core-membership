@@ -50,7 +50,14 @@ b { /* used for event dates/times */
     background-color: #f3f4f9;
     border-color: #f3f4f9;
      max-width: 100%;
-    padding: 6px 25px;
+    padding: 3px 5px;
+}
+.btnstand2{
+  color: #fff;
+    background-color: #C89628;
+    border-color: #C89628;
+     max-width: 100%;
+    padding: 3px 37px;
 }
 .dropdown-toggle::after {
     display: inline-block;
@@ -238,5 +245,13 @@ b { /* used for event dates/times */
     background: none;
     border: 1px solid #C89628;
     border-radius: 50%;
+    color: #C89628;
+}
+.myicons{
+    z-index: 2;
+    position: absolute;
+    margin-top: -50px;
+    font-size: 35px;
+    margin-left: -50px;
     color: #C89628;
 }

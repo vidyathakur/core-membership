@@ -46,4 +46,12 @@ export class AppointmentsService {
 		console.log(myResponse);
 		return myResponse;
 	}
+
+	public getStaffData(date): any {
+		let myResponse = this.http.get(`${environment.BASE_URL}/getStaffData` + '/' + date, {
+			headers: new HttpHeaders().set('SESSION-TOKEN', localStorage.getItem('jwt_token'))
+		});
+		console.log(myResponse);
+		return myResponse;
+	}
 }

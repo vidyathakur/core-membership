@@ -26,6 +26,7 @@ export class AddappointmentsComponent implements OnInit {
 	selectedItems: any;
 	checked = true;
 	model;
+	public show: boolean = false;
 	addappointmentForm: FormGroup;
 	closeResult: string;
 	@Input() fromParent;
@@ -37,6 +38,7 @@ export class AddappointmentsComponent implements OnInit {
 	public currentEmployees: any;
 	checkOutputDta: any[];
 	events: string[] = [];
+	clientDetails = { f_name: '', email: '', mobile: '', address: '' };
 	constructor(
 		private SpinnerService: NgxSpinnerService,
 		public router: Router,
@@ -117,29 +119,30 @@ export class AddappointmentsComponent implements OnInit {
 	}
 
 	changeServiceClient(e) {
+		this.show = true;
 		let id = e.target.value;
-		this.addnewclientService.getClientDetailsByMerchantID(id).subscribe(
+		console.log(id);
+		this.addnewclientService.getClientDetailsByMerchantID().subscribe(
 			data => {
-				console.log(data);
-				let dataResponse = {};
-				data['data'].forEach((item, key) => {
-					if (!dataResponse.hasOwnProperty(item.id)) {
-						dataResponse[item.id] = [];
+				let details = data.data;
+				let response = {};
+				details.forEach((item, key) => {
+					if (!response.hasOwnProperty(item.id)) {
+						response[item.id] = [];
 					}
-					let object = { f_name: '' };
-					object.f_name = item.f_name;
-					dataResponse[item.id] = object;
+					response[item.id].push(item);
 				});
-				this.clients = dataResponse[id];
-				console.log(this.clients);
+				details = response[id][0];
+				this.clientDetails['f_name'] = details.f_name;
+				this.clientDetails['email'] = details.email;
+				this.clientDetails['address'] = details.address;
+				this.clientDetails['mobile'] = details.mobile;
 			},
 			error => {
 				console.log('some error occurred');
 				this.toastr.errorToastr('some error occurred');
 			}
 		);
-
-		console.log(e.target.value);
 	}
 
 	// 	onCheckboxChange(option, event) {
@@ -150,20 +153,13 @@ export class AddappointmentsComponent implements OnInit {
 	// 		}
 	// 	 	console.log(data);
 	//    }
-	select(d, id: string) {
-		console.log(d);
-	}
-	onCheckboxChange(e: any, id: string) {
-		if (e.target.checked == true) {
-			this.selectedItems.push(id);
-		} else {
-			console.log(id + ' unchecked');
-			this.selectedItems = this.selectedItems.filter(m => m != id);
-		}
+
+	addService(id) {
+		console.log(this.checkOutputDta);
+		this.selectedItems.push(id);
 		let arrayData = [];
 		let totalTime = 0;
 		let price = 0;
-		console.log(this.selectedItems);
 		for (let i in this.selectedItems) {
 			let items = this.selectedItems[i];
 			let splitsData = this.servicesData[items].duration.split(':');
@@ -176,31 +172,49 @@ export class AddappointmentsComponent implements OnInit {
 		this.price = price;
 	}
 
+	// onCheckboxChange(e: any, id: string) {
+	// 	if (e.target.checked == true) {
+	// 		this.selectedItems.push(id);
+	// 	} else {
+	// 		console.log(id + ' unchecked');
+	// 		this.selectedItems = this.selectedItems.filter(m => m != id);
+	// 	}
+	// 	let arrayData = [];
+	// 	let totalTime = 0;
+	// 	let price = 0;
+	// 	for (let i in this.selectedItems) {
+	// 		let items = this.selectedItems[i];
+	// 		let splitsData = this.servicesData[items].duration.split(':');
+	// 		price += parseInt(this.servicesData[items].price);
+	// 		totalTime += parseInt(splitsData[0]) * 60 + parseInt(splitsData[1]);
+	// 		arrayData.push(this.servicesData[items]);
+	// 	}
+	// 	this.checkOutputDta = arrayData;
+	// 	this.totalTime = totalTime;
+	// 	this.price = price;
+	// }
+
 	removeServices(id, index) {
-		let service_id = id;
-		let objectsData = [];
-		this.checkOutputDta = [];
-		this.selectedItems = [];
 		let totalTime = 0;
 		let price = 0;
-		for (let k in this.services) {
-			let item = this.services[k];
-			if (service_id == item.id) {
-				item.checked = false;
-			} else {
-				if (item.checked == true) {
-					let splitsData = item.duration.split(':');
-					price += parseInt(item.price);
-					totalTime += parseInt(splitsData[0]) * 60 + parseInt(splitsData[1]);
-					this.selectedItems.push(item);
-					this.checkOutputDta.push(item);
-				}
+		let ouputData = this.checkOutputDta;
+		delete ouputData[index];
+		for (var i = 0; i < ouputData.length; i++) {
+			if (i === index) {
+				ouputData.splice(i, 1);
+				this.selectedItems.splice(i, 1);
 			}
-			objectsData.push(item);
 		}
+		console.log(ouputData);
+
+		for (let k in ouputData) {
+			let item = ouputData[k];
+			let splitsData = item.duration.split(':');
+			price += parseInt(item.price);
+			totalTime += parseInt(splitsData[0]) * 60 + parseInt(splitsData[1]);
+		}
+		this.checkOutputDta = ouputData;
 		this.totalTime = totalTime;
-		this.services = objectsData;
-		console.log(this.services);
 		this.price = price;
 	}
 
@@ -219,7 +233,7 @@ export class AddappointmentsComponent implements OnInit {
 
 	public getClientDetailsByMerchantID(): any {
 		this.SpinnerService.show();
-		this.addnewclientService.getClientDetailsByMerchantID({}).subscribe(
+		this.addnewclientService.getClientDetailsByMerchantID().subscribe(
 			data => {
 				console.log(data);
 				this.clients = data['data'];
@@ -249,12 +263,11 @@ export class AddappointmentsComponent implements OnInit {
 	}
 
 	openTimeslotsModel() {
-		const modalRef = this.modalService.open(TimeslotsComponent, {size: 'lg', windowClass: 'myCustomModalClass' });
-		modalRef.result.then(
-			result => {
-			},
-			reason => {}
-		);
+		const modalRef = this.modalService.open(TimeslotsComponent, { size: 'lg', windowClass: 'myCustomModalClass' });
+		modalRef.result.then(result => {}, reason => {});
+	}
+
+	onCancel() {
+		this.router.navigate(['/appointments']);
 	}
 }
-
