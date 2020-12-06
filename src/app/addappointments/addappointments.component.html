@@ -36,8 +36,9 @@
                       <div class="col-md-6">
                         <label class="col-form-label myappoinlabel">Date</label>
                         <div class="input-group">
-                          <input class="form-control mycustom" (ngModelChange)="select(model)" formControlName="start_date" placeholder="yyyy-mm-dd"
-                            name="start_date" [(ngModel)]="model" ngbDatepicker [minDate]="{year: 1980, month: 1, day: 1}"
+                          <input class="form-control mycustom" (ngModelChange)="datePickerChanged($event)" [(ngModel)]="datePicker"
+                          formControlName="start_date" placeholder="yyyy-mm-dd"
+                            name="start_date"  ngbDatepicker [minDate]="{year: 1980, month: 1, day: 1}"
                             [maxDate]="{year: 2048, month: 12, day: 31}" #d="ngbDatepicker">
                           <div class="input-group-append">
                             <button class="btn btn-outline-secondary calendar mycustom" (click)="d.toggle()" type="button">

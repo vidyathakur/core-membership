@@ -66,7 +66,7 @@ export class TimeslotsComponent implements OnInit {
 	service_id: any;
 	public empLevelNames: any;
 	public currentEmployees: any;
-	public allStaff:any;
+	public allStaff: any;
 	public TimeArray: any;
 	public data: Object[] = <Object[]>extend([], [], null, true);
 	//public selectedDate: Date = new Date();
@@ -147,17 +147,6 @@ export class TimeslotsComponent implements OnInit {
 		public adminService: AdminService,
 		private elRef: ElementRef
 	) {
-		// this.appointmentForm = this.formBuilder.group({
-		// 	client_id: new FormControl('', Validators.required),
-		// 	service_id: new FormControl('', Validators.required),
-		// 	price: new FormControl(''),
-		// 	comment: new FormControl(''),
-		// 	flag_as: new FormControl(''),
-		// 	duration: new FormControl(''),
-		// 	start_date: new FormControl(''),
-		// 	Subject: new FormControl(''),
-		// 	Location: new FormControl('')
-		// });
 		this.timeslotsForm = this.formBuilder.group({
 			service_cat_id: [''],
 			client_id: [''],
@@ -207,31 +196,6 @@ export class TimeslotsComponent implements OnInit {
 		);
 	}
 
-	// public getServiceByMerchantId(): any {
-	// 	this.adminService.getServiceByMerchantId().subscribe(
-	// 		data => {
-	// 			console.log(data);
-	// 			let currentEmployees = data['data'];
-	// 			let finalArrayData = [];
-	// 			currentEmployees.forEach((item, key) => {
-	// 				console.log(item);
-	// 				let object = { text: '', id: '' };
-	// 				object.text = item.service_name;
-	// 				object.id = item.id;
-	// 				if (item.emp_levels) {
-	// 					object.text = item.emp_levels.service_name;
-	// 				}
-	// 				finalArrayData.push(object);
-	// 			});
-	// 			this.ServiceData = finalArrayData;
-	// 			console.log(this.ServiceData);
-	// 		},
-	// 		error => {
-	// 			console.log('some error occured');
-	// 			this.toastr.errorToastr('some error occured');
-	// 		}
-	// 	);
-	// }
 	public clientChange(argsss): void {
 		console.log(argsss);
 		let clientId = argsss.itemData;
@@ -243,64 +207,6 @@ export class TimeslotsComponent implements OnInit {
 		let serviceId = argsss.itemData;
 		this.service_id = serviceId.id;
 	}
-
-	// onActionBegin(args: ActionEventArgs): void {
-	// 	if (args.requestType === 'eventChange') {
-	// 		//while editing the existing event
-	// 		console.log('event edit');
-	// 	}
-
-	// 	if (args.requestType === 'eventCreate') {
-	// 		let data = args.data[0];
-	// 		console.log(data);
-	// 		let postData = {
-	// 			client_id: this.clientId || '',
-	// 			service_id: this.service_id || '',
-	// 			comment: data.comment || '',
-	// 			flag_as: data.flag_as || '',
-	// 			duration: data.duration || '',
-	// 			endTime: data.EndTime || '',
-	// 			startTime: data.start_date || '',
-	// 			employee_id: data.DoctorId || ''
-	// 		};
-	// 		console.log(postData);
-	// 		this.appointmentsService.createAppointment(data).subscribe(apiResponse => {
-	// 			if (apiResponse.code === 200) {
-	// 				this.toastr.successToastr('Appointment Added Successfully');
-	// 			} else {
-	// 				console.log('Hello');
-	// 				this.toastr.errorToastr(apiResponse.message);
-	// 			}
-	// 		});
-	// 		console.log('event create');
-	// 	}
-	// }
-
-	// public getClientDetailsByMerchantID(): any {
-	// 	this.addnewclientService.getClientDetailsByMerchantID({}).subscribe(
-	// 		data => {
-	// 			console.log(data);
-	// 			let currentEmployees = data['data'];
-	// 			let finalArrayData = [];
-	// 			currentEmployees.forEach((item, key) => {
-	// 				console.log(item);
-	// 				let object = { text: '', id: '' };
-	// 				object.text = item.f_name;
-	// 				object.id = item.id;
-	// 				if (item.emp_levels) {
-	// 					object.text = item.emp_levels.f_name;
-	// 				}
-	// 				finalArrayData.push(object);
-	// 			});
-	// 			this.ClientData = finalArrayData;
-	// 			console.log(this.ClientData);
-	// 		},
-	// 		error => {
-	// 			console.log('some error occured');
-	// 			this.toastr.errorToastr('some error occured');
-	// 		}
-	// 	);
-	// }
 
 	actionBegin(args: ActionEventArgs): void {}
 
@@ -456,18 +362,16 @@ export class TimeslotsComponent implements OnInit {
 		);
 	}
 
-	public getCalendarData(start_date): any {
+	public getCalendarData(start_date, employee_id = false): any {
 		//console.log(start_date);
 		let current_date = start_date;
 		this.appointmentsService.getCalendarData(current_date).subscribe(
 			data => {
 				let currentEmployees = data['data'];
-
 				let finalArrayData = [];
 				let notAvailableData = [];
 				let k = 1;
 				for (let i in currentEmployees) {
-					console.log(typeof i);
 					let employees = currentEmployees[i];
 					if (!employees.start_time) {
 						employees.start_time = '00:00:00';
@@ -583,6 +487,201 @@ export class TimeslotsComponent implements OnInit {
 		);
 	}
 
+	public changeStaff(e) {
+		let value = e.target.value;
+		let data = new Date();
+		let year = data.getFullYear();
+		let month = data.getMonth() + 1;
+		let day = data.getDate();
+		let current_date = day + '-' + month + '-' + year;
+		if (value > 0) {
+			this.appointmentsService.getCalendarData(current_date).subscribe(
+				data => {
+					let currentEmployees = data['data'];
+					let finalArrayData = [];
+					let notAvailableData = [];
+					let k = 1;
+					for (let i in currentEmployees) {
+						if (value == currentEmployees[i].id) {
+							let employees = currentEmployees[i];
+							if (!employees.start_time) {
+								employees.start_time = '00:00:00';
+							}
+							if (!employees.end_time) {
+								employees.end_time = '00:00:00';
+							}
+							let [start_time_hours, start_time_minute, start_time_sec] = employees.start_time.split(':');
+							let [end_time_hours, end_time_minute, end_time_sec] = employees.end_time.split(':');
+							let [day, month, year] = current_date.split('-');
+							if (currentEmployees[i].appointment) {
+								let appointment = currentEmployees[i].appointment;
+								let object = {
+									Id: k,
+									Subject: '',
+									StartTime: new Date(
+										parseInt(year),
+										parseInt(month) - 1,
+										parseInt(day),
+										start_time_hours,
+										start_time_minute
+									),
+									EndTime: new Date(
+										parseInt(year),
+										parseInt(month) - 1,
+										parseInt(day),
+										end_time_hours,
+										end_time_minute
+									),
+									IsAllDay: false,
+									IsBlock: false,
+									DoctorId: employees.id
+								};
+
+								for (let j in appointment) {
+									let client_name =
+										appointment[i].client.f_name + ' ' + appointment[i].client.surname;
+									let services = appointment[j].services;
+									let services_name = [];
+									for (let l in services) {
+										let service = services[l];
+										services_name.push(service.service_name);
+									}
+									object.Subject = client_name + '<br />' + services_name.join('<br/>') + '<br />';
+									finalArrayData.push(object);
+								}
+
+								let notAvailable = currentEmployees[i].is_available;
+								if (notAvailable) {
+									for (let n in notAvailable) {
+										let employees = notAvailable[n];
+										if (employees.is_available == false) {
+											let notAvailableObject = {
+												Id: k,
+												Subject: '',
+												StartTime: new Date(),
+												EndTime: new Date(),
+												IsAllDay: false,
+												IsBlock: true,
+												DoctorId: currentEmployees[i].id
+											};
+											let [
+												start_time_hours,
+												start_time_minute,
+												start_time_sec
+											] = employees.istart_time.split(':');
+											let [
+												end_time_hours,
+												end_time_minute,
+												end_time_sec
+											] = employees.iend_time.split(':');
+											let [day, month, year] = current_date.split('-');
+											notAvailableObject.StartTime = new Date(
+												parseInt(year),
+												parseInt(month) - 1,
+												parseInt(day),
+												start_time_hours,
+												start_time_minute
+											);
+											notAvailableObject.EndTime = new Date(
+												parseInt(year),
+												parseInt(month) - 1,
+												parseInt(day),
+												end_time_hours,
+												end_time_minute
+											);
+											notAvailableObject.Subject = 'Not Available';
+											notAvailableData.push(notAvailableObject);
+											k++;
+										}
+									}
+								} else {
+									let notAvailableEmployee = currentEmployees[i];
+									let length = notAvailableData.length;
+									let notAvailableObject = {
+										Id: length + 1,
+										Subject: 'Not Available',
+										StartTime: new Date(parseInt(year), parseInt(month) - 1, parseInt(day), 0, 0),
+										EndTime: new Date(parseInt(year), parseInt(month) - 1, parseInt(day), 24, 0),
+										IsAllDay: false,
+										IsBlock: true,
+										DoctorId: notAvailableEmployee.id
+									};
+									notAvailableData[length] = notAvailableObject;
+								}
+							}
+						}
+					}
+
+					let finalShowData = [...finalArrayData, ...notAvailableData];
+					this.eventSettings = { dataSource: finalShowData };
+				},
+				error => {
+					console.log('some error occurred');
+					this.toastr.errorToastr('some error occurred');
+				}
+			);
+
+			this.appointmentsService.getEmpDetailByMerchantId({}).subscribe(
+				data => {
+					let currentEmployees = data['data'];
+					console.log(currentEmployees);
+					this.employee_data = data['data'];
+					let finalArrayData = [];
+					currentEmployees.forEach((item, key) => {
+						if (item.id == value) {
+							console.log(item);
+							let object = { text: '', designation: '', Color: '', id: '', Id: '' };
+							object.text = item.f_name;
+							object.Color = item.color;
+							object.id = item.id;
+							object.Id = item.id;
+							object.designation = item.display_name;
+							if (item.emp_levels) {
+								object.designation = item.emp_levels.name;
+							}
+							finalArrayData.push(object);
+						}
+					});
+					this.doctorDataSource = finalArrayData;
+					console.log(this.doctorDataSource);
+				},
+				error => {
+					console.log('some error occurred');
+					this.toastr.errorToastr('some error occurred');
+				}
+			);
+		} else {
+			this.getCalendarData(current_date);
+			this.appointmentsService.getEmpDetailByMerchantId({}).subscribe(
+				data => {
+					let currentEmployees = data['data'];
+					console.log(currentEmployees);
+					this.employee_data = data['data'];
+					let finalArrayData = [];
+					currentEmployees.forEach((item, key) => {
+						console.log(item);
+						let object = { text: '', designation: '', Color: '', id: '', Id: '' };
+						object.text = item.f_name;
+						object.Color = item.color;
+						object.id = item.id;
+						object.Id = item.id;
+						object.designation = item.display_name;
+						if (item.emp_levels) {
+							object.designation = item.emp_levels.name;
+						}
+						finalArrayData.push(object);
+					});
+					this.doctorDataSource = finalArrayData;
+					console.log(this.doctorDataSource);
+				},
+				error => {
+					console.log('some error occurred');
+					this.toastr.errorToastr('some error occurred');
+				}
+			);
+		}
+	}
+
 	public getStaffData(start_date): any {
 		console.log(start_date);
 		let current_date = start_date;
@@ -591,11 +690,15 @@ export class TimeslotsComponent implements OnInit {
 				console.log(data);
 				this.allStaff = data['data'];
 				console.log(this.allStaff);
-			}, error => {
+			},
+			error => {
 				console.log('some error occurred');
 				this.toastr.errorToastr('some error occurred');
-			});
+			}
+		);
 	}
+
+
 	closeModal() {
 		this.activeModal.close();
 	}

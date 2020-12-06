@@ -267,6 +267,20 @@ export class AddappointmentsComponent implements OnInit {
 		modalRef.result.then(result => {}, reason => {});
 	}
 
+	modelChangeDate(e) {
+		let id = e.target.value;
+		console.log(id);
+	}
+	datePickerChanged(args) {
+		let change_date = this.addappointmentForm.value;
+		let start_date = change_date.start_date
+				? change_date.start_date.year + '/' + change_date.start_date.month + '/' + change_date.start_date.day
+				: '';
+		
+		console.log(change_date);
+		console.log(start_date);
+	}
+
 	onCancel() {
 		this.router.navigate(['/appointments']);
 	}

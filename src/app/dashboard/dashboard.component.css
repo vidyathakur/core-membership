@@ -8,7 +8,7 @@
   width: 88%;
 }
 
-.chat_people{ overflow:hidden; clear:both;}
+.chat_people{ overflow:hidden; clear:both; margin-top: -10px;}
 
 .redtxt{
   color: #fe5a5c;
@@ -55,7 +55,7 @@ myscrolls::-webkit-scrollbar-thumb {
 .scrollbar2
 {
   /*max-height: 24vh;*/
-  max-height: 180px;
+  max-height: 215px;
 	overflow-y: scroll;
 }
 
