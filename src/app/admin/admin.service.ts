@@ -172,4 +172,12 @@ export class AdminService {
 		console.log(myResponse);
 		return myResponse;
 	}
+
+	public getDashboardData(): any {
+		let myResponse = this.http.get(`${environment.BASE_URL}/getDashboardData `, {
+			headers: new HttpHeaders().set('SESSION-TOKEN', localStorage.getItem('jwt_token'))
+		});
+		console.log(myResponse);
+		return myResponse;
+	}
 }

@@ -20,6 +20,8 @@ export class SidebarComponent implements OnInit {
 	changeText6: boolean;
 	changeText7: boolean;
 	changeText8: boolean;
+	changeText9: boolean;
+	changeText10: boolean;
 	active;
 	constructor(private router: Router, private jwtService: JwtService) {
 		this.changeText = false;
@@ -46,11 +48,8 @@ export class SidebarComponent implements OnInit {
 		}, 2000);
 	}
 
-	  private handleAuthentication(
-    session_token: string,
-    expiresIn: number
-  ) {
-    const expirationDate = new Date(new Date().getTime() + expiresIn * 1000);
-    this.autoLogout(expiresIn * 1000);
-  }
+	private handleAuthentication(session_token: string, expiresIn: number) {
+		const expirationDate = new Date(new Date().getTime() + expiresIn * 1000);
+		this.autoLogout(expiresIn * 1000);
+	}
 }

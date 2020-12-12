@@ -1,3 +1,4 @@
+import { ClientexistingComponent } from './clientexisting/clientexisting.component';
 import { TimeslotsComponent } from './timeslots/timeslots.component';
 import { EmployeehoursComponent } from './employeehours/employeehours.component';
 import { EditsupplierComponent } from './editsupplier/editsupplier.component';
@@ -36,7 +37,7 @@ import { ServiceitemComponent } from 'src/app/serviceitem/serviceitem.component'
 import { EditserviceitemComponent } from './editserviceitem/editserviceitem.component';
 import { ConfirmDialogComponent } from 'src/app/confirm-dialog/confirm-dialog.component';
 import { ScheduleAllModule, RecurrenceEditorAllModule } from '@syncfusion/ej2-angular-schedule';
-
+import { ToastrModule } from 'ng6-toastr-notifications';
 @NgModule({
   declarations: [
     AppComponent,
@@ -62,7 +63,8 @@ import { ScheduleAllModule, RecurrenceEditorAllModule } from '@syncfusion/ej2-an
     EditsupplierComponent,
     EmployeehoursComponent,
     ConfirmDialogComponent,
-    TimeslotsComponent
+    TimeslotsComponent,
+    ClientexistingComponent
   ],
   imports: [
     BrowserModule,
@@ -73,6 +75,7 @@ import { ScheduleAllModule, RecurrenceEditorAllModule } from '@syncfusion/ej2-an
     NgbModule.forRoot(),
     ChartsModule,
     ScheduleAllModule,
+    ToastrModule.forRoot(),
     RouterModule.forRoot([]),
     LayoutModule,
     AppRoutingModule
@@ -102,7 +105,8 @@ import { ScheduleAllModule, RecurrenceEditorAllModule } from '@syncfusion/ej2-an
     EditsupplierComponent,
     EmployeehoursComponent,
     ConfirmDialogComponent,
-    TimeslotsComponent
+    TimeslotsComponent,
+    ClientexistingComponent
   ],
   bootstrap: [AppComponent]
 })

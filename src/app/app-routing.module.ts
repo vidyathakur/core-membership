@@ -20,7 +20,12 @@ const routes: Routes = [
   { path: 'editproduct/:id', loadChildren: './editproduct/editproduct.module#EditproductModule',canActivate:[AuthGuardService] },
   { path: 'addappointments', loadChildren: './addappointments/addappointments.module#AddappointmentsModule',canActivate:[AuthGuardService] },
   { path: 'addservices', loadChildren: './addservices/addservices.module#AddservicesModule',canActivate:[AuthGuardService] },
+  { path: 'membership', 
+  loadChildren: './membership/membership.module#MembershipModule',
+  data: { showHeader: false,showSidebar: false},
+  canActivate:[AuthGuardService] },
   { path: 'pos', loadChildren: './pos/pos.module#PosModule',canActivate:[AuthGuardService] },
+  { path: 'clientformembership', loadChildren: './clientformembership/clientformembership.module#ClientformembershipModule',canActivate:[AuthGuardService] },
   
    { path: 'clientcategories', loadChildren: './clientcategories/clientcategories.module#ClientcategoriesModule',canActivate:[AuthGuardService] },
    { path: 'publicholiday', loadChildren: './publicholiday/publicholiday.module#PublicholidayModule',canActivate:[AuthGuardService] },

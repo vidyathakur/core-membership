@@ -157,8 +157,8 @@ export class AddservicesComponent implements OnInit {
 				this.serviceCats = data['data'];
 			},
 			error => {
-				console.log('some error occured');
-				this.toastr.errorToastr('some error occured');
+				console.log('some error occurred');
+				this.toastr.errorToastr('some error occurred');
 			}
 		);
 	}

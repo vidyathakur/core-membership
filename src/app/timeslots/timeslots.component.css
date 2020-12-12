@@ -57,7 +57,7 @@ b { /* used for event dates/times */
     background-color: #C89628;
     border-color: #C89628;
      max-width: 100%;
-    padding: 3px 37px;
+    padding: 3px 0px;
 }
 .dropdown-toggle::after {
     display: inline-block;
@@ -149,8 +149,8 @@ b { /* used for event dates/times */
   padding-top: 10px !important;
 }
 .btn:hover {
-    color: #000 !important;
-    text-decoration: none;
+    color: unset !important;
+    /*text-decoration: none;*/
 }
 .e-schedule .e-vertical-view .e-header-cells.e-current-day {
     color: #C89628;

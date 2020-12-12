@@ -36,6 +36,7 @@ export class AddappointmentsComponent implements OnInit {
 	selectedValue = '09';
 	clients: any;
 	public currentEmployees: any;
+	public allTime:any;
 	checkOutputDta: any[];
 	events: string[] = [];
 	clientDetails = { f_name: '', email: '', mobile: '', address: '' };
@@ -86,7 +87,6 @@ export class AddappointmentsComponent implements OnInit {
 		}
 	}
 	ngOnInit() {
-		//this.getServiceByMerchantId();
 		this.getClientDetailsByMerchantID();
 		this.getServiceCatByMerchantId();
 		this.getEmployees();
@@ -256,8 +256,8 @@ export class AddappointmentsComponent implements OnInit {
 				this.currentEmployees = data['data'];
 			},
 			error => {
-				console.log('some error occured');
-				this.toastr.errorToastr('some error occured');
+				console.log('some error occurred');
+				this.toastr.errorToastr('some error occurred');
 			}
 		);
 	}
@@ -271,16 +271,47 @@ export class AddappointmentsComponent implements OnInit {
 		let id = e.target.value;
 		console.log(id);
 	}
-	datePickerChanged(args) {
-		let change_date = this.addappointmentForm.value;
-		let start_date = change_date.start_date
-				? change_date.start_date.year + '/' + change_date.start_date.month + '/' + change_date.start_date.day
-				: '';
-		
-		console.log(change_date);
-		console.log(start_date);
-	}
 
+	// changeStaff(e) {
+	// 	let id = e.target.value;
+	// 	console.log(id);
+	// }
+
+	//  changeTime(e){
+	//  let time = e.target.value;
+	//  console.log(time);
+	// 	};
+
+	// onChange(e) {
+	// 	let change_date = this.addappointmentForm.value;
+	// 	let start_date = change_date.start_date
+	// 		? change_date.start_date.year + '-' + change_date.start_date.month + '-' + change_date.start_date.day
+	// 		: '';
+	// 	console.log(change_date);
+	// 	console.log(start_date);
+	// 	let employee_id = change_date.employee_id;
+	// 	console.log(employee_id);
+	// 	this.addappointmentsservice.getTimeSlotForAppointByEmpId(employee_id, start_date).subscribe(
+	// 		data => {
+	// 			console.log(data);
+	// 			//this.currentEmployees = data['data'];
+	// 		},
+	// 		error => {
+	// 			console.log('some error occurred');
+	// 			this.toastr.successToastr('Please Select Any Employee First');
+	// 		}
+	// 	);
+	// }
+
+	// public getTimeSlotForAppointByEmpId(employee_id, start_date): any {
+	// 	this.addappointmentsservice.getTimeSlotForAppointByEmpId(employee_id, start_date).subscribe(data => {
+	// 			console.log(data);
+	// 			this.allTime = data['data'];
+	// 		}, error => {
+	// 			console.log('some error occurred');
+	// 			this.toastr.errorToastr('some error occurred');
+	// 		});
+	// }
 	onCancel() {
 		this.router.navigate(['/appointments']);
 	}

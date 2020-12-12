@@ -10,68 +10,75 @@
         <nav>
           <ul class="metismenu" id="menu">
             <li [routerLinkActive]="['active']" (mouseenter)="changeText0=true" (mouseleave)="changeText0=false">
-              <a [routerLink]="['/dashboard']" (click)="changeText0=true">
+              <a [routerLink]="['/dashboard']" (click)="changeText0=true" id="htmls0">
                 <img src="assets/img/Dashboard.png" *ngIf="!changeText0 && active!='/dashboard'">
                 <img src="assets/img/Dashboard-1.png" *ngIf="changeText0 || active=='/dashboard'">
                 <span>dashboard</span></a>
             </li>
-            <li [routerLinkActive]="['active']" (mouseenter)="changeText=true" (mouseleave)="changeText=false">
-              <a [routerLink]="['/appointments']" (click)="changeText=true">
-                <img src="assets/img/Appointments.png" *ngIf="!changeText && active!='/appointments'">
-                <img src="assets/img/Appointments-1.png" id="appoint" *ngIf="changeText || active=='/appointments'">
+            <li [routerLinkActive]="['active']" (mouseenter)="changeText1=true" (mouseleave)="changeText1=false">
+              <a [routerLink]="['/appointments']" (click)="changeText1=true" id="htmls1">
+                <img src="assets/img/Appointments.png" *ngIf="!changeText1 && active!='/appointments'">
+                <img src="assets/img/Appointments-1.png"  *ngIf="changeText1 || active=='/appointments'">
                 <span>Appointments</span></a>
 
             </li>
-            <li [routerLinkActive]="['active']" (mouseenter)="changeText8=true" (mouseleave)="changeText8=false">
-              <a [routerLink]="['/admin']" (click)="changeText8=true">
-                <img src="assets/img/My Profile.png" *ngIf="!changeText8 && active!='/admin'">
-                <img src="assets/img/My Profile-1.png" *ngIf="changeText8 || active=='/admin'">
+            <li [routerLinkActive]="['active']" (mouseenter)="changeText2=true" (mouseleave)="changeText2=false">
+              <a [routerLink]="['/admin']" (click)="changeText2=true" id="htmls2">
+                <img src="assets/img/My Profile.png" *ngIf="!changeText2 && active!='/admin'">
+                <img src="assets/img/My Profile-1.png" *ngIf="changeText2 || active=='/admin'">
                 <span>Admin</span></a>
             </li>
-            <li (mouseenter)="changeText5=true" (mouseleave)="changeText5=false">
-              <a [routerLink]="" id="htmls6">
-                <img src="assets/img/Shop Details.png" id="def_shopdetail" *ngIf="!changeText5">
-                <img src="assets/img/Shop Details-1.png" id="def_shopdetail" *ngIf="changeText5">
+            <li [routerLinkActive]="['active']" (mouseenter)="changeText3=true" (mouseleave)="changeText3=false">
+              <a [routerLink]="['/shopdetails']" (click)="changeText3=true" id="htmls3">
+                <img src="assets/img/Shop Details.png"  *ngIf="!changeText3 && active!='/shopdetails'">
+                <img src="assets/img/Shop Details-1.png"  *ngIf="changeText3 || active=='/shopdetails'">
                 <span>Shop Details</span></a>
             </li>
-            <li (mouseenter)="changeText2=true" (mouseleave)="changeText2=false">
-              <a [routerLink]="" aria-expanded="true" id="htmls3">
-                <img src="assets/img/KPIs.png" id="def_kpis" *ngIf="!changeText2">
-                <img src="assets/img/KPIs-1.png" id="def_kpis" *ngIf="changeText2">
+            <li [routerLinkActive]="['active']" (mouseenter)="changeText4=true" (mouseleave)="changeText4=false">
+              <a [routerLink]="['/kpis']" (click)="changeText4=true"  id="htmls4">
+                <img src="assets/img/KPIs.png" *ngIf="!changeText4 && active!='/kpis'">
+                <img src="assets/img/KPIs-1.png" *ngIf="changeText4 || active=='/kpis'">
                 <span>KPIs</span></a>
 
             </li>
-            <li [routerLinkActive]="['active']" (mouseenter)="changeText3=true" (mouseleave)="changeText3=false">
-              <a [routerLink]="['/pos']" (click)="changeText=true" aria-expanded="true" id="htmls4">
-                <img src="assets/img/Pos.png" id="def_pos" *ngIf="!changeText3 && active!='/pos'">
-                <img src="assets/img/Pos-1.png" id="def_pos" *ngIf="changeText3 || active=='/pos'">
+            <li [routerLinkActive]="['active']" (mouseenter)="changeText5=true" (mouseleave)="changeText5=false">
+              <a [routerLink]="['/pos']" (click)="changeText5=true" id="htmls5">
+                <img src="assets/img/Pos.png"  *ngIf="!changeText5 && active!='/pos'">
+                <img src="assets/img/Pos-1.png"  *ngIf="changeText5 || active=='/pos'">
                 <span>POS</span></a>
 
             </li>
-            <li (mouseenter)="changeText4=true" (mouseleave)="changeText4=false">
-              <a [routerLink]="" aria-expanded="true" id="htmls5">
-                <img src="assets/img/Sales Report.png" id="def_salesrepo" *ngIf="!changeText4">
-                <img src="assets/img/Sales Report-1.png" id="def_salesrepo" *ngIf="changeText4">
+            
+            <li [routerLinkActive]="['active']" (mouseenter)="changeText6=true" (mouseleave)="changeText6=false">
+              <a [routerLink]="['/salesreport']" (click)="changeText6=true"  id="htmls6">
+                <img src="assets/img/Sales Report.png"  *ngIf="!changeText6 && active!='/salesreport'">
+                <img src="assets/img/Sales Report-1.png"  *ngIf="changeText6 || active=='/salesreport'">
                 <span>Sales Report</span></a>
 
             </li>
-            <li (mouseenter)="changeText8=true" (mouseleave)="changeText8=false">
-              <a [routerLink]="" aria-expanded="true" id="htmls9">
-                <img src="assets/img/Sales Report.png" id="def_salesrepo" *ngIf="!changeText8">
-                <img src="assets/img/Sales Report-1.png" id="def_salesrepo" *ngIf="changeText8">
+            <li [routerLinkActive]="['active']" (mouseenter)="changeText7=true" (mouseleave)="changeText7=false">
+              <a [routerLink]="['/membership']" (click)="changeText7=true" id="htmls7">
+                <img src="assets/img/Shop Details.png" *ngIf="!changeText7 && active!='/membership'">
+                <img src="assets/img/Shop Details-1.png" *ngIf="changeText7 || active=='/membership'">
+                <span>Membership</span></a>
+            </li>
+            <li [routerLinkActive]="['active']" (mouseenter)="changeText8=true" (mouseleave)="changeText8=false">
+              <a [routerLink]="['/onlinebooking']" (click)="changeText8=true" id="htmls8">
+                <img src="assets/img/Sales Report.png" *ngIf="!changeText8 && active!='/onlinebooking'">
+                <img src="assets/img/Sales Report-1.png" *ngIf="changeText8 || active=='/onlinebooking'">
                 <span>Online Booking Requests</span></a>
 
             </li>
-            <li (mouseenter)="changeText6=true" (mouseleave)="changeText6=false">
-              <a [routerLink]="" id="htmls7">
-                <img src="assets/img/My Profile.png" id="def_myprof" *ngIf="!changeText6">
-                <img src="assets/img/My Profile-1.png" id="def_myprof" *ngIf="changeText6">
+            <li (mouseenter)="changeText9=true" (mouseleave)="changeText9=false">
+              <a [routerLink]="['/myprofile']" (click)="changeText9=true" id="htmls9">
+                <img src="assets/img/My Profile.png" *ngIf="!changeText9 && active!='/myprofile'">
+                <img src="assets/img/My Profile-1.png" *ngIf="changeText9 || active=='/myprofile'">
                 <span>My Profile</span></a>
             </li>
-            <li (mouseenter)="changeText7=true" (mouseleave)="changeText7=false">
-              <a [routerLink]="" (click)="logout()" aria-expanded="true" id="htmls8">
-                <img src="assets/img/Logout.png" id="def_logt" *ngIf="!changeText7">
-                <img src="assets/img/Logout-1.png" id="def_logt" *ngIf="changeText7">
+            <li (mouseenter)="changeText10=true" (mouseleave)="changeText10=false">
+              <a [routerLink]="" (click)="logout()" aria-expanded="true" id="htmls10">
+                <img src="assets/img/Logout.png" id="def_logt" *ngIf="!changeText10">
+                <img src="assets/img/Logout-1.png" id="def_logt" *ngIf="changeText10">
                 <span>Logout</span></a>
 
             </li>

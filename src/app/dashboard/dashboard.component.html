@@ -13,7 +13,7 @@
             <div class="single-report mb-xs-30">
               <div class="s-report-inner pr--20 pt--30 mb-3">
                 <span>Total Customer</span>
-                <h2>45,673</h2>
+                <h2>{{totalCounts.getClientCount}}</h2>
               </div>
             </div>
           </div>
@@ -21,7 +21,7 @@
             <div class="single-report mb-xs-30">
               <div class="s-report-inner pr--20 pt--30 mb-3">
                 <span>Pending Appointments</span>
-                <h2 class="redtxt">67</h2>
+                <h2 class="redtxt">{{totalCounts.getPendingAppointmentCount}}</h2>
               </div>
             </div>
           </div>
@@ -29,7 +29,7 @@
             <div class="single-report mb-xs-30">
               <div class="s-report-inner pr--20 pt--30 mb-3">
                 <span>New Appointments</span>
-                <h2>45<i class="fa fa-arrow-up myarrow"></i></h2>
+                <h2>{{totalCounts.getNewAppointmentCount}}</h2>
               </div>
             </div>
           </div>
@@ -37,7 +37,7 @@
             <div class="single-report mb-xs-30">
               <div class="s-report-inner pr--20 pt--30 mb-3">
                 <span>Returning Customers</span>
-                <h2>32%<i class="fa fa-arrow-up myarrow"></i></h2>
+                <h2>{{totalCounts.getReturnClientCount}}</h2>
               </div>
             </div>
           </div>
@@ -45,7 +45,7 @@
             <div class="single-report mb-xs-30">
               <div class="s-report-inner pr--20 pt--30 mb-3">
                 <span>Today's earnings </span>
-                <h2>$59,624<i class="fa fa-arrow-down redarrow"></i></h2>
+                <h2>{{totalCounts.getTodayEarningCount[0].sums}}</h2>
               </div>
             </div>
           </div>
@@ -53,7 +53,7 @@
             <div class="single-report mb-xs-30">
               <div class="s-report-inner pr--20 pt--30 mb-3">
                 <span>This Month's earnings </span>
-                <h2>$63,475</h2>
+                <h2>{{totalCounts.getMonthEarningCount[0].sums}}</h2>
               </div>
             </div>
           </div>
@@ -69,88 +69,12 @@
         <!-- Live Crypto Price area start -->
         <div class="col-lg-4">
           <div class="card scrollbar" id="style-2" style="margin-top: 10px;">
-            <div class="card-body myborder">
+            <div class="card-body myborder" *ngFor="let count of totalCounts.getUpcomingAppointment">
 
-              <div class="menu_content" style="height: 110px;">
-                <h4 class="contentname">Dora Floyd
-                  <span class="timespan">in next 2 hours</span></h4>
-                <p class="hcol">Hair Color
-                  <span style="padding: 15px;">Leah Baker</span></p>
-
-                <div class="cripto-live mt-5">
-                  <button type="button" class="btn custo-btn"> CALL CUSTOMER</button>
-                  <button type="button" class="btn  reschedule-btn"> RE-SCHEDULE</button>
-                  <img src="assets/img/DELETE.png" style=" margin-left: 7px;">
-                </div>
-              </div>
-            </div>
-            <div class="card-body myborder">
-
-              <div class="menu_content" style="height: 110px;">
-                <h4 class="contentname">Dora Floyd
-                  <span class="timespan">in next 2 hours</span></h4>
-                <p class="hcol">Hair Color
-                  <span style="padding: 15px;">Leah Baker</span></p>
-
-                <div class="cripto-live mt-5">
-                  <button type="button" class="btn custo-btn"> CALL CUSTOMER</button>
-                  <button type="button" class="btn  reschedule-btn"> RE-SCHEDULE</button>
-                  <img src="assets/img/DELETE.png" style=" margin-left: 7px;">
-                </div>
-              </div>
-            </div>
-            <div class="card-body myborder">
-
-              <div class="menu_content" style="height: 110px;">
-                 <h4 class="contentname">Dora Floyd
-                  <span class="timespan">in next 2 hours</span></h4>
-                <p class="hcol">Hair Color
-                  <span style="padding: 15px;">Leah Baker</span></p>
-
-                <div class="cripto-live mt-5">
-                  <button type="button" class="btn custo-btn"> CALL CUSTOMER</button>
-                  <button type="button" class="btn  reschedule-btn"> RE-SCHEDULE</button>
-                  <img src="assets/img/DELETE.png" style=" margin-left: 7px;">
-                </div>
-              </div>
-            </div>
-            <div class="card-body myborder">
-
-              <div class="menu_content" style="height: 110px;">
-                <h4 class="contentname">Dora Floyd
-                  <span class="timespan">in next 2 hours</span></h4>
-                <p class="hcol">Hair Color
-                  <span style="padding: 15px;">Leah Baker</span></p>
-
-                <div class="cripto-live mt-5">
-                  <button type="button" class="btn custo-btn"> CALL CUSTOMER</button>
-                  <button type="button" class="btn  reschedule-btn"> RE-SCHEDULE</button>
-                  <img src="assets/img/DELETE.png" style=" margin-left: 7px;">
-                </div>
-              </div>
-            </div>
-            <div class="card-body myborder">
-
-              <div class="menu_content" style="height: 110px;">
-                <h4 class="contentname">Dora Floyd
-                  <span class="timespan">in next 2 hours</span></h4>
-                <p class="hcol">Hair Color
-                  <span style="padding: 15px;">Leah Baker</span></p>
-
-                <div class="cripto-live mt-5">
-                  <button type="button" class="btn custo-btn"> CALL CUSTOMER</button>
-                  <button type="button" class="btn  reschedule-btn"> RE-SCHEDULE</button>
-                  <img src="assets/img/DELETE.png" style=" margin-left: 7px;">
-                </div>
-              </div>
-            </div>
-            <div class="card-body myborder">
-
-              <div class="menu_content" style="height: 110px;">
-                <h4 class="contentname">Dora Floyd
-                  <span class="timespan">in next 2 hours</span></h4>
-                <p class="hcol">Hair Color
-                  <span style="padding: 15px;">Leah Baker</span></p>
+              <div class="menu_content" style="height: 110px;" >
+                <h4 class="contentname" >{{count.client.f_name}} {{count.client.surname}}
+                  <span class="timespan">{{count.start_date}}</span>
+                <p class="hcol" style="margin-top: 5px;" *ngFor="let service of count.services">{{service.service_name}}</p></h4>
 
                 <div class="cripto-live mt-5">
                   <button type="button" class="btn custo-btn"> CALL CUSTOMER</button>
@@ -185,48 +109,15 @@
           </div>
           <div class="row">
             <div class="col-xl-6 col-lg-6" style="margin-top: 20px;">
-              <h4 class="page-title">Available Employees</h4>
-              <div class="card scrollbar2" id="style-3" style="margin-top: 10px;">
-                <div class="card-body myborder">
-                  <div class="d-flex justify-content-between align-items-center">
+              <h4 class="page-title">Available Employees(Total Employee {{totalEmployees.getEmployeesCount}})</h4>
+              <div class="card scrollbar2" id="style-3" style="margin-top: 10px;" >
+                <div class="card-body myborder" style="height: 55px;" *ngFor="let employee of totalCounts.getEmployees">
+                  <div class="d-flex justify-content-between align-items-center" >
                     <div class="chat_people">
                       <div class="chat_img"> <img src="https://ptetutorials.com/images/user-profile.png" alt="sunil"> </div>
                       <div class="chat_ib">
-                        <h5 class="myheader">Bettie Castro </h5>
-                        <p class="mypara">Hairstylists</p>
-                      </div>
-                    </div>
-                  </div>
-                </div>
-                <div class="card-body myborder">
-                  <div class="d-flex justify-content-between align-items-center">
-                    <div class="chat_people">
-                      <div class="chat_img"> <img src="https://ptetutorials.com/images/user-profile.png" alt="sunil"> </div>
-                      <div class="chat_ib">
-                        <h5 class="myheader">Bettie Castro </h5>
-                        <p class="mypara">Hairstylists</p>
-                      </div>
-                    </div>
-                  </div>
-                </div>
-                <div class="card-body myborder">
-                  <div class="d-flex justify-content-between align-items-center">
-                    <div class="chat_people">
-                      <div class="chat_img"> <img src="https://ptetutorials.com/images/user-profile.png" alt="sunil"> </div>
-                      <div class="chat_ib">
-                        <h5 class="myheader">Bettie Castro </h5>
-                        <p class="mypara">Hairstylists</p>
-                      </div>
-                    </div>
-                  </div>
-                </div>
-                <div class="card-body myborder">
-                  <div class="d-flex justify-content-between align-items-center">
-                    <div class="chat_people">
-                      <div class="chat_img"> <img src="https://ptetutorials.com/images/user-profile.png" alt="sunil"> </div>
-                      <div class="chat_ib">
-                        <h5 class="myheader">Bettie Castro </h5>
-                        <p class="mypara">Hairstylists</p>
+                        <h5 class="myheader">{{employee.f_name}} {{employee.surname}}</h5>
+                        <p class="mypara">{{employee.emp_levels.name}}</p>
                       </div>
                     </div>
                   </div>
@@ -260,5 +151,9 @@
 
     </div>
   </div>
-
+<ng-template #no_data_templ>
+  <div>
+    <p style="text-align: center; padding: 10px;">No Upcoming Appointments </p>
+  </div>
+</ng-template>
 </div>

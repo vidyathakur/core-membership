@@ -9,7 +9,7 @@
   <form [formGroup]="timeslotsForm" (ngSubmit)="onSubmit()">
     <div class="page-title-area" style="padding: 0 16px;">
       <div class="row align-items-center">
-        <div class="col">
+        <div class="col-3">
           <div class="form-group" style="margin-top: 15px;">
             <select class="custom-select" (change)="changeStaff($event)">
       <option value="" selected="" >Select Staff</option>
@@ -18,22 +18,22 @@
       </select>
           </div>
         </div>
-        <div class="col">
-          <button class="btn  btnstand btn-sm" type="button" style="background-color: #e8e9ee;">Previous Available Day</button>
+        <div class="col-3">
+          <button class="btn  btnstand btn-sm" type="button" style="background-color: #e8e9ee;" (click)="dateFilters('previous')">Previous Available Day</button>
         </div>
-        <div class="col">
-          <button class="btn  btnstand2 btn-sm" type="button">Today</button>
+        <div class="col-3">
+          <button class="btn  btnstand2 btn-sm" type="button" (click)="dateFilters('today')">{{showdates}}</button>
         </div>
-        <div class="col">
-          <button class="btn  btnstand btn-sm" type="button" style="background-color: #e8e9ee;">Next Available Day</button>
+        <div class="col-3">
+          <button class="btn  btnstand btn-sm" type="button" style="background-color: #e8e9ee;" (click)="dateFilters('next')">Next Available Day</button>
         </div>
 
-        <div class="col">
+        <!--<div class="col">
           <div class="user-profile pull-right">
-            <!--<button type="button" class="btn btnstand btn-sm mybtn" [routerLink]="['/addappointments']">
-                  <i class="fa fa-plus-circle"></i> ADD NEW APPOINTMENT</button>-->
+            <button type="button" class="btn btnstand btn-sm mybtn" [routerLink]="['/addappointments']">
+                  <i class="fa fa-plus-circle"></i> ADD NEW APPOINTMENT</button>
           </div>
-        </div>
+        </div>-->
       </div>
     </div>
     <div class="control-section">

@@ -1,3 +1,6 @@
+import { SharedModule } from 'src/app/shared/shared.module';
+import { ToastrModule } from 'ng6-toastr-notifications';
+import { HttpClientModule } from '@angular/common/http';
 import { NgModule } from '@angular/core';
 import { CommonModule } from '@angular/common';
 import { FormsModule, ReactiveFormsModule } from '@angular/forms';
@@ -11,8 +14,11 @@ import { ChartsModule } from 'ng2-charts';
   imports: [
     CommonModule,
     FormsModule,
+    HttpClientModule,
     ReactiveFormsModule,
     ChartsModule,
+    SharedModule,
+    ToastrModule.forRoot(),
     DashboardRoutingModule
   ]
 })

@@ -1,17 +1,24 @@
+import { DashboardService } from './dashboard.service';
+import { FormBuilder } from '@angular/forms';
 import { Component, OnInit } from '@angular/core';
 import { ChartDataSets, ChartOptions } from 'chart.js';
 import { Color, Label } from 'ng2-charts';
-
+import { ToastrManager } from 'ng6-toastr-notifications';
+import { Router, ActivatedRoute } from '@angular/router';
+import { JwtService } from 'src/app/login/jwt.service';
 // import { ChartDataSets, ChartOptions } from 'chart.js';
 // import { Color, Label } from 'ng2-charts';
 import { ChartType } from 'chart.js';
 import { SingleDataSet, monkeyPatchChartJsLegend, monkeyPatchChartJsTooltip } from 'ng2-charts';
+import { AdminService } from 'src/app/admin/admin.service';
 @Component({
 	selector: 'app-dashboard',
 	templateUrl: './dashboard.component.html',
 	styleUrls: ['./dashboard.component.css']
 })
 export class DashboardComponent implements OnInit {
+	totalCounts: any;
+	totalEmployees:any;
 	public pieChartOptions: ChartOptions = {
 		responsive: true
 	};
@@ -20,7 +27,16 @@ export class DashboardComponent implements OnInit {
 	public pieChartType: ChartType = 'pie';
 	public pieChartLegend = true;
 	public pieChartPlugins = [];
-	constructor() {
+	constructor(
+		public router: Router,
+		private formBuilder: FormBuilder,
+		public toastr: ToastrManager,
+		public adminService: AdminService,
+		private jwtService: JwtService,
+		private _route: ActivatedRoute,
+		public dashboardService: DashboardService,
+		private route: ActivatedRoute
+	) {
 		monkeyPatchChartJsTooltip();
 		monkeyPatchChartJsLegend();
 	}
@@ -86,6 +102,33 @@ export class DashboardComponent implements OnInit {
 		console.log(event, active);
 	}
 
-	ngOnInit(): void {}
-	
+	ngOnInit(): void {
+		this.getDashboardData();
+		this.getTotalCountData();
+	}
+
+	public getDashboardData(): any {
+		this.adminService.getDashboardData().subscribe(
+			data => {
+				console.log(data);
+				this.totalCounts = data['data'];
+			},
+			error => {
+				console.log('some error occurred');
+				this.toastr.errorToastr('some error occurred');
+			}
+		);
+	}
+
+	public getTotalCountData(): any {
+		this.adminService.getTotalCountData().subscribe(
+			data => {
+				this.totalEmployees = data['data'];
+			},
+			error => {
+				console.log('some error occurred');
+				this.toastr.errorToastr('some error occurred');
+			}
+		);
+	}
 }

@@ -69,6 +69,7 @@ export class TimeslotsComponent implements OnInit {
 	public allStaff: any;
 	public TimeArray: any;
 	public data: Object[] = <Object[]>extend([], [], null, true);
+	m: number;
 	//public selectedDate: Date = new Date();
 	public timeScale: TimeScaleModel = {
 		enable: true,
@@ -80,6 +81,7 @@ export class TimeslotsComponent implements OnInit {
 	public instance: Internationalization = new Internationalization();
 	employee_data: any;
 	clientId: any;
+	showdates: any;
 	getMajorTime(date: Date): string {
 		return this.instance.formatDate(date, { skeleton: 'hm' });
 	}
@@ -157,11 +159,28 @@ export class TimeslotsComponent implements OnInit {
 	}
 
 	ngOnInit() {
+		let months = [
+			'January',
+			'February',
+			'March',
+			'April',
+			'May',
+			'June',
+			'July',
+			'August',
+			'September',
+			'October',
+			'November',
+			'December'
+		];
+
 		let data = new Date();
 		let year = data.getFullYear();
 		let month = data.getMonth() + 1;
 		let day = data.getDate();
 		let current_date = day + '-' + month + '-' + year;
+		this.showdates = 'Today (' + months[data.getMonth()] + ' ' + day + ', ' + year + ')';
+
 		console.log(current_date);
 		this.getCalendarData(current_date);
 		this.getStaffData(current_date);
@@ -210,9 +229,55 @@ export class TimeslotsComponent implements OnInit {
 
 	actionBegin(args: ActionEventArgs): void {}
 
+	dateFilters(filter_types) {
+		let change_date = this.elRef.nativeElement.getElementsByTagName('ejs-schedule')[0].ariaLabel;
+		let dates = change_date.split(',');
+		let years = dates.pop();
+		let months_days = dates[0].split(' ');
+		let days = months_days.pop();
+		let month_name = months_days[months_days.length - 1];
+		let months = [
+			'January',
+			'February',
+			'March',
+			'April',
+			'May',
+			'June',
+			'July',
+			'August',
+			'September',
+			'October',
+			'November',
+			'December'
+		];
+		let values = months.indexOf(month_name);
+		var mm: number = values >= 10 ? values : values;
+		let pastDates = new Date(years, mm, days);
+		let dd: number = 0;
+		if (filter_types == 'previous') {
+			dd += pastDates.getDate() - 1;
+			this.selectedDate = new Date(pastDates.getFullYear(), pastDates.getMonth(), dd);
+		} else if (filter_types == 'next') {
+			dd += pastDates.getDate() + 1;
+			this.selectedDate = new Date(pastDates.getFullYear(), pastDates.getMonth(), dd);
+		} else {
+			this.selectedDate = new Date(new Date().getFullYear(), new Date().getMonth(), new Date().getDate());
+		}
+
+		this.showdates =
+			'Today (' +
+			months[this.selectedDate.getMonth()] +
+			' ' +
+			this.selectedDate.getDate() +
+			', ' +
+			this.selectedDate.getFullYear() +
+			')';
+		this.actionComplete(this.selectedDate);
+	}
+
 	actionComplete(args) {
 		let change_date = this.elRef.nativeElement.getElementsByTagName('ejs-schedule')[0].ariaLabel;
-		console.log(change_date);
+
 		let dates = change_date.split(',');
 		let years = dates.pop();
 		let months_days = dates[0].split(' ');
@@ -697,7 +762,6 @@ export class TimeslotsComponent implements OnInit {
 			}
 		);
 	}
-
 
 	closeModal() {
 		this.activeModal.close();

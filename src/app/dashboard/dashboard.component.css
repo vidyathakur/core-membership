@@ -48,14 +48,14 @@ myscrolls::-webkit-scrollbar-thumb {
 .scrollbar
 {
   /*max-height: 87vh;*/
-  max-height: 606px;
+  max-height: 640px;
 	overflow-y: scroll;
 }
 
 .scrollbar2
 {
   /*max-height: 24vh;*/
-  max-height: 215px;
+  /*max-height: 215px;*/
 	overflow-y: scroll;
 }
 

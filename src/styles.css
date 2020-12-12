@@ -167,3 +167,9 @@ body { margin: 0; font-family: Roboto, "Helvetica Neue", sans-serif; }
 .e-accordion .e-acrdn-item.e-select.e-selected.e-expand-state > .e-acrdn-header .e-acrdn-header-icon, .e-accordion .e-acrdn-item.e-select.e-selected.e-expand-state > .e-acrdn-header .e-acrdn-header-content, .e-accordion .e-acrdn-item.e-select.e-expand-state > .e-acrdn-header .e-acrdn-header-icon, .e-accordion .e-acrdn-item.e-select.e-expand-state > .e-acrdn-header .e-acrdn-header-content {
     color: #000000;
 }
+
+@media (min-width: 576px){
+.modal-dialog-centered {
+    min-height: calc(100% - 12.5rem) !important;
+}
+}
