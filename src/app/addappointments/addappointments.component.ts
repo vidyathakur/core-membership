@@ -94,6 +94,8 @@ export class AddappointmentsComponent implements OnInit {
 
 	changeServiceCat(e) {
 		let id = e.target.value;
+		this.selectedItems = [];
+		this.checkOutputDta = [];
 		this.addappointmentsservice.getServiceByCatId(id).subscribe(
 			data => {
 				console.log(data);
@@ -119,6 +121,7 @@ export class AddappointmentsComponent implements OnInit {
 	}
 
 	changeServiceClient(e) {
+		
 		this.show = true;
 		let id = e.target.value;
 		console.log(id);
@@ -219,6 +222,8 @@ export class AddappointmentsComponent implements OnInit {
 	}
 
 	public getServiceCatByMerchantId(): any {
+	
+		
 		this.adminService.getServiceCatByMerchantId({}).subscribe(
 			data => {
 				console.log(data);

@@ -1,0 +1,350 @@
+.project-tab {
+    padding: 10%;
+    margin-top: -8%;
+}
+.project-tab #tabs{
+    background: #007b5e;
+    color: #eee;
+}
+.project-tab #tabs h6.section-title{
+    color: #eee;
+}
+.project-tab #tabs .nav-tabs .nav-item.show .nav-link, .nav-tabs .nav-link.active {
+    color: #C89628;
+    background-color: transparent;
+    border-color: transparent transparent #f3f3f3;
+    border-bottom: 3px solid !important;
+    font-size: 16px;
+    font-weight: bold;
+}
+.project-tab .nav-link {
+    border: 1px solid transparent;
+    border-top-left-radius: .25rem;
+    border-top-right-radius: .25rem;
+    color: #0062cc;
+    font-size: 16px;
+    font-weight: 600;
+}
+.project-tab .nav-link:hover {
+    border: none;
+}
+.project-tab thead{
+    background: #f3f3f3;
+    color: #333;
+}
+.project-tab a{
+    text-decoration: none;
+    color: #333;
+    font-weight: 600;
+}
+.mt-5, .my-5 {
+    margin-top: 1rem!important;
+}
+a {
+    color: #C89628 !important;
+    text-decoration: none;
+    background-color: transparent;
+}
+ul.breadcrumbs {
+    margin-top: 0px;
+}
+.mybtn{
+  background-color: #C89628; border-color: #C89628; color:#fff;
+           border-radius: 4px; height: 37px; font-size: 11px;  font-weight: 500;
+}
+.mybtn2{
+  background-color: #C89628; border-color: #C89628; color:#fff;
+    border-radius: 4px; font-weight: 500; width: 100%;
+    font-size: 11px;
+    height: 35px;
+    margin-left: -25px;
+}
+.mybordcard{
+  /*border: 0px solid rgba(0,0,0,.125) !important;*/
+}
+.card {
+    position: relative;
+    display: flex;
+    flex-direction: column;
+    min-width: 0;
+    word-wrap: break-word;
+    background-color: #fff;
+    background-clip: border-box;
+    border: 1px solid #fff; 
+    border-radius: .25rem;
+}
+.card-body {
+    flex: 1 1 auto;
+    min-height: 1px;
+    padding: 0.25rem;
+    
+}
+table tr th, table tr td {
+    border-top: 1px solid #f3f4f9 !important;
+}
+.table thead th {
+    vertical-align: bottom;
+    border-bottom: 2px solid #f3f4f9;
+}
+.text-white {
+    color: #000!important;
+}
+.bg-secondary {
+    background-color: #f3f4f9!important;
+}
+.text-uppercase {
+    font-size: 11px;
+}
+.del{
+  margin-left: 10px; text-decoration: underline !important; cursor: pointer;font-size: 14px;
+    font-weight: 500;
+}
+.editt{
+  text-decoration: underline !important; cursor: pointer;font-size: 14px;
+    font-weight: 500;
+}
+.levl{
+  text-decoration: underline !important; cursor: pointer;font-size: 14px;
+    font-weight: 500; color: #C89628;
+}
+.rowcont{
+  font-size: 14px;
+    color: #000;
+    font-weight: 500;
+}
+.mypagelink{
+      background-color: #C89628 !important;
+    color: #fff !important;
+}
+.ressearch{
+  margin-left: -20px;
+}
+
+.nav-tabs .nav-item {
+    font-size: 15px !important;
+}
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+.canc{
+color: #b4b4b4; border: 1px solid #b4b4b4; background-color: #ffffff; margin-top: 15px;
+ }
+.sub{
+color: #fff;background-color: #c89628; margin-left: 10px; margin-top: 15px;
+   }
+    input.ng-invalid.ng-touched {
+border: 1px solid red;
+}
+
+.myformscontrol{
+    font-size: 14px;
+    font-weight: 500;
+    height: 45px;
+}
+
+
+
+.form-label-group {
+  position: relative;
+  margin-bottom: 1rem;
+}
+
+.form-label-group > input,
+.form-label-group > label {
+  padding: var(--input-padding-y) var(--input-padding-x);
+}
+
+.form-label-group > label {
+  position: absolute;
+  top: 5px;
+  left: 0px;
+  display: block;
+  width: 100%;
+  margin-bottom: 0; /* Override default `<label>` margin */
+  line-height: 1.5;
+  color: #495057;
+  border: 1px solid transparent;
+  border-radius: .25rem;
+  transition: all .1s ease-in-out;
+  padding: 0.375rem 0.75rem;
+  font-size: 15px;
+}
+
+.form-label-group input::-webkit-input-placeholder {
+  color: transparent;
+}
+
+.form-label-group input:-ms-input-placeholder {
+  color: transparent;
+}
+
+.form-label-group input::-ms-input-placeholder {
+  color: transparent;
+}
+
+.form-label-group input::-moz-placeholder {
+  color: transparent;
+}
+
+.form-label-group input::placeholder {
+  color: transparent;
+}
+
+.form-label-group input:not(:placeholder-shown) {
+  padding-top: calc(var(--input-padding-y) + var(--input-padding-y) * (2 / 3));
+  padding-bottom: calc(var(--input-padding-y) / 3);
+}
+
+.form-label-group input:not(:placeholder-shown) ~ label {
+  padding-top: calc(var(--input-padding-y) / 3);
+  padding-bottom: calc(var(--input-padding-y) / 3);
+  font-size: 12px;
+  color: #777;
+}
+.custominput{
+    padding-top: 8px !important;
+    padding-left: 12px !important;
+}
+
+input:focus ~ .floating-label,
+input:not(:focus):valid ~ .floating-label{
+  top: 8px;
+  bottom: 10px;
+  left: 20px;
+  font-size: 11px;
+  opacity: 1;
+}
+
+.inputText {
+  font-size: 14px;
+  width: 200px;
+  height: 35px;
+}
+
+.floating-label {
+ position: absolute !important;
+    pointer-events: none !important;
+    top: 3px !important;
+    transition: 0.2s ease all;
+   left: 1px !important;
+}
+
+
+.leveltext{
+    font-size: 15px;
+    padding-top: 20px;
+    color: #c89628;
+    font-weight: 600;
+}
+/*.close {
+    color: #fff; 
+    opacity: 1;
+}*/
+.img-fluid {
+    max-width: 40%;
+    height: auto;
+    float: left;
+    margin-left: -24px;
+}
+.mysmallbtn{
+    font-size: 10px !important;
+    color: #000;
+    background-color: #e3ca92;
+    border-color: #e3ca92;
+    font-weight: 700;
+    height: 30px;
+}
+.btn-danger:hover {
+     color: #000 !important; 
+     background-color: #e3ca92 !important; 
+    border-color: #e3ca92 !important; 
+}
+.closebtn{
+    font-size: 10px !important;
+    color: #bbbcbe !important;
+    background-color: #EEEFF1 !important;
+    border-color: #EEEFF1;
+    font-weight: 700;
+    height: 30px;
+}
+.records{
+    text-align: center;
+    margin-top: 35px;
+}
+.POS {
+  font-size: 15px;
+  font-weight: 500; 
+  color: #000000;
+  line-height: 3.19;
+}
+.Rectangle-8 {
+  width: 50%;
+  height: 40px;
+  padding: 16px 11px 15px 22px;
+  border-radius: 5px;
+  border: solid 1px #d7dbe6;
+  background-color: #f3f4f9;
+}
+.pos-search{
+  margin-left: -25px;
+    color: #a3a3a3;
+}
+.grid-col {
+    padding: 0px 0px;
+    background: #fff;
+    margin-bottom: 0px;
+    color: #666;
+    border: 1px solid #fff;
+    text-align: right;
+}
+.Group-44 {
+  width: 134px;
+  height: 134px;
+  margin: 90px 0px 0px 0px;
+  object-fit: contain;
+}
+.span-heading{
+  text-align: right;
+  padding: 10px;
+}
+.Tax-000 {
+  width: 84px;
+  height: 21px;
+ margin: 22px -20px 1px 37px;
+  font-size: 12px;
+  font-weight: 500;
+  line-height: 1.17;
+  letter-spacing: normal;
+  text-align: left;
+  color: #a3a3a3;
+}
+.Total500 {
+  width: 86px;
+  height: 21px;
+  margin: 22px -20px 1px 37px;
+  font-size: 12px;
+  font-weight: 500;
+  line-height: 1.17;
+  letter-spacing: normal;
+  text-align: left;
+  color: #000000;
+}

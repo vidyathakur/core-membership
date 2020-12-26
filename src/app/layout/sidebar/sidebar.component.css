@@ -1,0 +1,11 @@
+.slimScrollDiv{
+  position: relative;
+    overflow: hidden;
+    width: auto;
+    /* height: 125px;*/
+}
+.menu-inner{
+  overflow: hidden;
+    width: auto;
+    /* height: 0px;*/
+}

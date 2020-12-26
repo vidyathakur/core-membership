@@ -1,5 +1,5 @@
-<div class="page-container">
-  <div class="main-content-inner">
+<div class="page-container" style="background-color: #f3f4f9;">
+  <div class="main-content-inner" >
   <div class="col-12 ">
     <form [formGroup]="clientmembershipForm" (ngSubmit)="onSubmit()">
     <!--<h4 class="header-title" style="color: #c89628; cursor: pointer;" (click)="goToProduct()">Back </h4>-->
@@ -43,13 +43,11 @@
       <div *ngIf="submitted && f.gender.errors" class="invalid-feedback">
         <div *ngIf="f.gender.errors?.required">Gender is required</div>
       </div>
-      <br>
-      <span class="opt">Required</span>
-
-    </div>
+     </div>
+    <span class="opt">Required</span>
   </div>
 </div>
-       <div class="form-row">
+       <div class="form-row" style="margin-top: 10px;">
   <div class="col-md-4">
     <label style="color: #000000; font-size: 14px;">Mobile</label>
     <input type="text" formControlName="mobile" class="form-control" required [ngClass]="{ 'is-invalid': submitted && f.mobile .errors }"
@@ -57,6 +55,7 @@
     <div *ngIf="submitted && f.mobile .errors" class="invalid-feedback">
       <div *ngIf="f.mobile .errors.required">Mobile is required</div>
       <div *ngIf="f.mobile.errors.pattern">Please Enter 10 digit number</div>
+      <div *ngIf="f.mobile.errors.pattern">The mobile format is invalid</div>
     </div>
     <span class="opt">Required</span>
   </div>

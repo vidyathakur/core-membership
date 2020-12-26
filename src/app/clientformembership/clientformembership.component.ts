@@ -28,8 +28,8 @@ export class ClientformembershipComponent implements OnInit {
 			f_name: new FormControl('', Validators.required),
 			surname: new FormControl('', Validators.required),
 			gender: new FormControl('', Validators.required),
-			mobile: new FormControl('', Validators.required),
-			email: new FormControl('', Validators.required)
+			mobile: new FormControl('', [Validators.required, Validators.pattern('^((\\+91-?)|0)?[0-9]{10}$')]),
+			email: new FormControl('', [Validators.required, Validators.email])
 		});
 	}
 
@@ -39,7 +39,6 @@ export class ClientformembershipComponent implements OnInit {
 
 	onSubmit() {
 		this.submitted = true;
-		
 		if (!this.clientmembershipForm.invalid) {
 			let client_data = this.clientmembershipForm.value;
 			let data = {
@@ -50,16 +49,31 @@ export class ClientformembershipComponent implements OnInit {
 				email: client_data.email || ''
 			};
 			console.log(data);
-			this.clientformembershipService.createClientForMembership(data).subscribe(apiResponse => {
-				if (apiResponse.code === 200) {
-					this.toastr.successToastr('Client Added Successfully');
-					this.router.navigate(['/membership']);
-					
-				} else {
-					console.log('Hello');
-					this.toastr.errorToastr(apiResponse.errors);
+			this.clientformembershipService.createClientForMembership(data).subscribe(
+				apiResponse => {
+					if (apiResponse.code === 200) {
+						let clients = apiResponse.data.id;
+						let merchant_id = apiResponse.data.merchant_id;
+						console.log('clientid', clients);
+						console.log('merhcnat', merchant_id);
+						this.toastr.successToastr('Client Added Successfully');
+						this.router.navigate(['/membership/' + clients + '/' + merchant_id]);
+					} else {
+						console.log('Hello');
+						this.toastr.errorToastr(apiResponse.errors['email'][0]);
+						this.toastr.errorToastr('Client Already Available');
+					}
+				},
+				er => {
+					console.log('some error occurred');
+					this.toastr.errorToastr('Client Already Available');
+					this.toastr.errorToastr(er.error.errors['email'][0]);
 				}
-			});
+			);
 		}
+	}
+
+	onCancel() {
+		this.router.navigate(['/build-membership']);
 	}
 }

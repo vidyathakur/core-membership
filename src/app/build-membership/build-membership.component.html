@@ -1,0 +1,39 @@
+<header>
+  <div class="container clearfix">
+    <h1 class="logo mylogo">
+      <a href="#"><img src="assets/img/mini 20-01.png" alt="logo"></a>
+    </h1>
+  </div>
+</header>
+<div class="main-content" style="height: 800px; margin-top: 80px; position: fixed;">
+  <form [formGroup]="searchForm" (ngSubmit)="onSubmit()">
+    <div class="main-content-inner custom-main-content">
+      <div class="row">
+        <div class="col-md-12 ">
+          <h4 class="header-title" style="text-align: center; font-size: 17px; margin-top: 17px;">{{merchantData.company_name}}</h4>
+          <div class="card" style="height: 365px;">
+            <div class="header-title myheadtitle"></div>
+            <div class="main-content-inner">
+              <div class="row" style="margin-top: 25px;">
+                <div class="col-md-7" style="margin-left: auto;">
+                  <h2 class="custom-appoint">Please Enter Email Or Phone No. </h2>
+                  <input type="text" formControlName="search" 
+                  [ngClass]="{ 'is-invalid': submitted && f.search.errors }" name="search" id="search"
+                  placeholder="Please Enter Email Or Phone No." class="form-control myformscontrol custominput" required>
+                  <div *ngIf="submitted && f.search.errors" class="invalid-feedback">
+  <div *ngIf="f.search.errors.required">Email Or Phone No. is required</div>
+</div>
+                </div>
+                <div class="col-md-4">
+                  <button type="submit" class="btn sub">Next</button>
+                </div>
+              </div>
+            </div>
+          </div>
+
+        </div>
+        
+      </div>
+    </div>
+  </form>
+</div>

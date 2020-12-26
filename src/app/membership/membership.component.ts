@@ -1,12 +1,14 @@
-import { ClientexistingComponent } from './../clientexisting/clientexisting.component';
+
 import { Component, OnInit } from '@angular/core';
 import { ToastrManager } from 'ng6-toastr-notifications';
 import { Router, ActivatedRoute } from '@angular/router';
 import { JwtService } from 'src/app/login/jwt.service';
 import { NgxSpinnerService } from 'ngx-spinner';
-import { NgbModal } from '@ng-bootstrap/ng-bootstrap';
-import { FormBuilder, FormGroup } from '@angular/forms';
+import { NgbModal,NgbModalOptions } from '@ng-bootstrap/ng-bootstrap';
+import { FormBuilder, FormGroup, Validators } from '@angular/forms';
 import { MembershipService } from 'src/app/membership/membership.service';
+import { BuildMembershipService } from 'src/app/build-membership/build-membership.service';
+import { BuildMembershipComponent } from 'src/app/build-membership/build-membership.component';
 
 @Component({
 	selector: 'app-membership',
@@ -24,7 +26,12 @@ export class MembershipComponent implements OnInit {
 	submitted = false;
 	selectedItems: any;
 	serviceData: any;
+	public merchantData: any;
 	checkOutputDta: any[];
+	modalOption: NgbModalOptions = {};
+	clientId: any;
+	merchant: any;
+	// data2: string = '1';
 	constructor(
 		private SpinnerService: NgxSpinnerService,
 		public router: Router,
@@ -33,22 +40,34 @@ export class MembershipComponent implements OnInit {
 		private jwtService: JwtService,
 		private formBuilder: FormBuilder,
 		private _route: ActivatedRoute,
-		public membershipService: MembershipService
+		public membershipService: MembershipService,
+		public buildmembershipService: BuildMembershipService
 	) {
 		this.membershipForm = this.formBuilder.group({
 			client_service_ids: [''],
 			client_id: [''],
 			price: [''],
-			subscription_plan: ['']
+			subscription_plan: ['', Validators.required]
 		});
 		this.selectedItems = [];
+		this.clientId = this._route.snapshot.params['client_id'];
+		this.merchant = this._route.snapshot.params['merchant_id'];
+		console.log(this._route.snapshot.params);
 	}
 	get f() {
 		return this.membershipForm.controls;
 	}
 
 	ngOnInit() {
-	this.modalService.open(ClientexistingComponent,{ centered: true });
+		let merchant_id = this.jwtService.getTokenByParams('merchant_id');
+		this.getMerchantById(merchant_id);
+		if (!this.clientId && !this.merchant) {
+			this.modalService.open(BuildMembershipComponent, {
+				centered: true,
+				backdrop: 'static',
+				keyboard: false
+			});
+		}
 		this.getServiceByMerchantId();
 	}
 
@@ -75,15 +94,17 @@ export class MembershipComponent implements OnInit {
 
 	addService(id) {
 		this.selectedItems.push(id);
+		console.log(this.selectedItems);
 		let arrayData = [];
 		let price = 0;
 		let radiosData = this.membershipForm.value;
 		let subscription_plan = parseInt(radiosData.subscription_plan);
 		let prices = this.getObjectDatas;
+		console.log(prices);
 		console.log(this.getObjectDatas);
 		for (let i in this.selectedItems) {
-			price += prices[id].price;
-			arrayData.push(prices[id]);
+			price += prices[this.selectedItems[i]].price;
+			arrayData.push(prices[this.selectedItems[i]]);
 		}
 		this.checkOutputDta = arrayData;
 		this.changePrice = price ? price : 0;
@@ -129,34 +150,51 @@ export class MembershipComponent implements OnInit {
 	// 	);
 	// }
 
+	onCancel() {
+		this.router.navigate(['/dashboard']);
+	}
+
 	onSubmit() {
 		this.submitted = true;
+
 		if (!this.membershipForm.invalid) {
 			let membership_data = this.membershipForm.value;
-			console.log(membership_data);
+			let client_service_ids = [];
+			for (let k in this.selectedItems) {
+				let object = { service_id: this.selectedItems[k] };
+				client_service_ids.push(object);
+			}
+			let membership = { '1': 'monthly', '3': 'quarterly', '12': 'Yearly' };
 			let data = {
-				subscription_plan: membership_data.subscription_plan || '',
-				price: membership_data.price || '',
-				client_service_ids: membership_data.client_service_ids,
-				client_id: membership_data.client_id
+				subscription_plan: membership[membership_data.subscription_plan],
+				price: this.price,
+				client_service_ids: client_service_ids,
+				client_id: this.clientId
 			};
-			console.log(data);
 			this.membershipService.createCustomerMembership(data).subscribe(
 				apiResponse => {
 					if (apiResponse.code === 200) {
 						this.toastr.successToastr('Membership Created Successfully');
 					} else {
 						console.log('Hello');
-						this.toastr.errorToastr('Some error occurred');
+						this.toastr.errorToastr(apiResponse.errors.price[0]);
 					}
 				},
 				er => {
 					console.log('some error occurred');
-					// console.log(er.error.errors);
-					// console.log(er.error.errors['order']);
-					// this.toastr.errorToastr(er.error.errors['order'][0]);
+					this.toastr.errorToastr(er.error.errors['price'][0]);
 				}
 			);
 		}
+	}
+
+	public getMerchantById(merchant_id): any {
+		this.buildmembershipService.getMerchantById(merchant_id).subscribe(data => {
+				console.log(data);
+				this.merchantData = data['data'];
+			}, error => {
+				console.log('some error occurred');
+				this.toastr.errorToastr('some error occurred');
+			});
 	}
 }

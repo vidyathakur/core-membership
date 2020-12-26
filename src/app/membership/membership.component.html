@@ -1,47 +1,49 @@
-<div class="col-md-12">
-  <div class="logo mylogo">
-    <a href="#"><img src="assets/img/mini 20-01.png" alt="logo"></a>
+<header>
+  <div class="container clearfix">
+    <h1  class="logo mylogo">
+      <a href="#"><img src="assets/img/mini 20-01.png" alt="logo"></a>
+    </h1>
   </div>
-</div>
-<div class="main-content" style="height: 800px;">
-  <form [formGroup]="membershipForm" (ngSubmit)="onSubmit()">
- <div class="main-content-inner custom-main-content">
-    <div class="row">
-      <div class="col-md-12 ">
+</header>
+<!-- /header -->
 
-       <input type="hidden" class="form-control" formControlName="client_id">
-       <input type="hidden" class="form-control" formControlName="price">
-       <input type="hidden" class="form-control" formControlName="client_service_ids">
-          <!--<p  style="color: #c89628;cursor: pointer; font-size: 14px; margin-top: 17px;" [routerLink]="['/appointments']">Back </p>-->
-          <h4 class="header-title" style="text-align: center; font-size: 17px; margin-top: 17px;">Lakme Salon Membership </h4>
-          <div class="card">
+<div id="main">
+ <div class="main-content customcontent">
+  <form [formGroup]="membershipForm" (ngSubmit)="onSubmit()">
+    <div class="main-content-inner custom-main-content">
+      <div class="row">
+        <div class="col-md-12 ">
+          <h4 class="header-title" style="text-align: center; font-size: 17px; margin-top: 17px;">{{merchantData.company_name}} </h4>
+          <div class="card custom-card">
             <div class="header-title myheadtitle">Membership builder</div>
             <div class="main-content-inner">
               <div class="row">
-                 <div class="col-md-6 ">
-                   <h2 class="custom-appoint">Available Services </h2>
-                        <div class="card scrollbar4" id="style-3" style="background-color: #f3f4f9;">
-                            <div class="card-body" *ngFor="let service of services; let i = index;" >
-                              <div class="form-row  custom-header-title"   style="background-color: #fff;">
-                              <div class="col">
-                                <h4 class="header-title">{{service.service_name}}</h4>
-                              </div>
-                              <div class="col">
-                                <h4 class="header-title" name="price">{{service.price | currency}}</h4>
-                              </div>
-                              <div class="col">
-                                <button type="button" class="btn addbtn" (click)="addService(service.id)" 
-                                style="float: right; margin-bottom: 5px;">ADD</button>
-                              </div>
-                              </div>
-                              </div>
+                <div class="col-md-6 ">
+                  <h2 class="custom-appoint">Available Services </h2>
+                  <div class="scrollbar4" id="style-3" style="background-color: #f3f4f9; height: 300px;border: 1px solid rgba(0,0,0,.125); border-radius: .25rem;">
+                  <div class="card "  style="background-color: #f3f4f9;">
+                    <div class="card-body" *ngFor="let service of services; let i = index;">
+                      <div class="form-row  custom-header-title" style="background-color: #fff;">
+                        <div class="col">
+                          <h4 class="header-title">{{service.service_name}}</h4>
                         </div>
+                        <div class="col">
+                          <h4 class="header-title" name="price">{{service.price | currency}}</h4>
+                        </div>
+                        <div class="col">
+                          <button type="button" class="btn addbtn" (click)="addService(service.id)" style="float: right; margin-bottom: 5px;">ADD</button>
+                        </div>
+                      </div>
                     </div>
-                    <!-- Basic List Group end -->
-                    <!-- Active Items start -->
-                    <div class="col-md-6">
-                        <h2 class="custom-appoint">Selected Services </h2>
-                        <div class="card scrollbar4 " id="style-3" style="background-color: #f3f4f9;">
+                  </div>
+                </div>
+                </div>
+                <!-- Basic List Group end -->
+                <!-- Active Items start -->
+                <div class="col-md-6">
+                  <h2 class="custom-appoint">Selected Services </h2>
+                  <div class="scrollbar4" id="style-3" style="background-color: #f3f4f9; height: 300px;border: 1px solid rgba(0,0,0,.125); border-radius: .25rem;">
+                   <div class="card " style="background-color: #f3f4f9;">
                             <div class="card-body "  *ngFor="let service of checkOutputDta;let i = index;">
                               <div class="form-row  custom-header-title"  style="background-color: #fff;">
                               <div class="col">
@@ -56,45 +58,60 @@
                               </div>
                               </div>
                         </div>
-                    </div>
+                  </div>
+                </div>
               </div>
             </div>
           </div>
-        
-      </div>
-      <div class="container-fluid">
+
+        </div>
+       
+<!-- #main -->
+
+
+<div class="footer">
+  <div class="container">
   <div class="row">
     <div class="col-sm-6">
-      <h5 style="margin-top: 15px; font-size: 15px;">Subscription Plan</h5>
+      <h5 style=" font-size: 15px;float: left; margin-left: 20%; margin-top:20px;">Subscription Plan</h5>
+      <br><br>
       <div class="custom-control custom-radio custom-control-inline">
-            <input type="radio" checked id="customRadio4"  formControlName="subscription_plan" (change)="serviceEvent($event)" name="subscription_plan" value="1" class="custom-control-input">
-            <label class="custom-control-label"  for="customRadio4">Monthly</label>
-          </div>
-          <div class="custom-control custom-radio custom-control-inline">
-            <input type="radio" id="customRadio5" (change)="serviceEvent($event)" formControlName="subscription_plan" name="subscription_plan" value="3" class="custom-control-input">
-            <label class="custom-control-label"  for="customRadio5">Quarterly </label>
-          </div>
-          <div class="custom-control custom-radio custom-control-inline">
-            <input type="radio" id="customRadio6" (change)="serviceEvent($event)" formControlName="subscription_plan" name="subscription_plan" value="12" class="custom-control-input">
-            <label class="custom-control-label"  for="customRadio6">Yearly </label>
-          </div>
-    </div>
-    
-    <div class="col-sm-6">
-      <div style="float: right;">
-      <h5 style="margin-top: 15px; font-size: 15px;">Total Price</h5>
-      <p>{{ price ? '$'+price : ''}}</p>
+        <input type="radio" id="customRadio4" required formControlName="subscription_plan" [ngClass]="{ 'is-invalid': submitted && f.subscription_plan.errors }"
+          (change)="serviceEvent($event)" name="subscription_plan" value="1" class="custom-control-input">
+        <label class="custom-control-label" for="customRadio4">Monthly</label>
+      </div>
+      <div class="custom-control custom-radio custom-control-inline">
+        <input type="radio" id="customRadio5" required (change)="serviceEvent($event)" formControlName="subscription_plan" [ngClass]="{ 'is-invalid': submitted && f.subscription_plan.errors }"
+          name="subscription_plan" value="3" class="custom-control-input">
+        <label class="custom-control-label" for="customRadio5">Quarterly </label>
+      </div>
+      <div class="custom-control custom-radio custom-control-inline">
+        <input type="radio" id="customRadio6" required (change)="serviceEvent($event)" [ngClass]="{ 'is-invalid': submitted && f.subscription_plan.errors }"
+          formControlName="subscription_plan" name="subscription_plan" value="12" class="custom-control-input">
+        <label class="custom-control-label" for="customRadio6">Yearly </label>
+        <div *ngIf="submitted && f.subscription_plan.errors" class="invalid-feedback">
+          <div *ngIf="f.subscription_plan.errors.required">subscription plan is required</div>
+        </div>
       </div>
     </div>
-    <div class="col-md-12">
-  <div class="form-row" style="float: right;">
-    <button type="button" class="btn mb-3 canc" (click)="onCancel()">Cancel</button>
-    <button type="submit" class="btn mb-3 sub">Confirm</button>
-  </div>
-</div>
-  </div>
-</div>
+
+    <div class="col-sm-6">
+        <h5 style=" font-size: 15px; float: right; margin-right: 20%;">Total Price</h5>
+        <p style="float: right; margin-top: 20px; margin-right: -8%; font-weight: 500;">{{ price ? '$'+price : ''}}</p>
+    </div>
+    <div class="col-sm-12">
+      <div style="float: right; margin-right: 8%; ">
+      <button type="button" class="btn mb-3 canc" (click)="onCancel()">Cancel</button>
+<button type="submit" class="btn mb-3 sub" [disabled]="membershipForm.invalid">Confirm</button>
+    </div>
     </div>
   </div>
+</div>
+</div>
+      </div>
+</div>
   </form>
 </div>
+</div>
+    
+<!-- /footer -->

@@ -1,12 +1,8 @@
 <div class="page-container">
   <div class="main-content">
-    <!-- header area start -->
-
-
-    <div class="main-content-inner">
+  <div class="main-content-inner">
       <h4 class="page-title" style="font-size: 15px;font-weight: 500; color: #000000;">
         Quick Stats</h4>
-      <!-- sales report area start -->
       <div class="sales-report-area mb-5">
         <div class="row">
           <div class="col-md-2">
@@ -45,7 +41,7 @@
             <div class="single-report mb-xs-30">
               <div class="s-report-inner pr--20 pt--30 mb-3">
                 <span>Today's earnings </span>
-                <h2>{{totalCounts.getTodayEarningCount[0].sums}}</h2>
+                <h2>{{totalCounts.getTodayEarningCount[0].sums != null ? totalCounts.getTodayEarningCount[0].sums:0 }}</h2>
               </div>
             </div>
           </div>
@@ -53,25 +49,20 @@
             <div class="single-report mb-xs-30">
               <div class="s-report-inner pr--20 pt--30 mb-3">
                 <span>This Month's earnings </span>
-                <h2>{{totalCounts.getMonthEarningCount[0].sums}}</h2>
+                <h2>{{totalCounts.getMonthEarningCount[0].sums != null ? totalCounts.getMonthEarningCount[0].sums:0}}</h2>
               </div>
             </div>
           </div>
         </div>
       </div>
-      <!-- sales report area end -->
 
-
-      <!-- row area start -->
       <h4 class="page-title">Upcoming appointments</h4>
       <div class="row">
-
-        <!-- Live Crypto Price area start -->
         <div class="col-lg-4">
           <div class="card scrollbar" id="style-2" style="margin-top: 10px;">
             <div class="card-body myborder" *ngFor="let count of totalCounts.getUpcomingAppointment">
 
-              <div class="menu_content" style="height: 110px;" >
+              <div class="menu_content" style="height: 110px;">
                 <h4 class="contentname" >{{count.client.f_name}} {{count.client.surname}}
                   <span class="timespan">{{count.start_date}}</span>
                 <p class="hcol" style="margin-top: 5px;" *ngFor="let service of count.services">{{service.service_name}}</p></h4>

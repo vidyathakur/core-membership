@@ -1,4 +1,5 @@
-import { ClientexistingComponent } from './clientexisting/clientexisting.component';
+import { DropDownListModule, AutoCompleteModule } from '@syncfusion/ej2-angular-dropdowns';
+import { PosClientComponent } from './pos-client/pos-client.component';
 import { TimeslotsComponent } from './timeslots/timeslots.component';
 import { EmployeehoursComponent } from './employeehours/employeehours.component';
 import { EditsupplierComponent } from './editsupplier/editsupplier.component';
@@ -38,6 +39,8 @@ import { EditserviceitemComponent } from './editserviceitem/editserviceitem.comp
 import { ConfirmDialogComponent } from 'src/app/confirm-dialog/confirm-dialog.component';
 import { ScheduleAllModule, RecurrenceEditorAllModule } from '@syncfusion/ej2-angular-schedule';
 import { ToastrModule } from 'ng6-toastr-notifications';
+import { AutocompleteLibModule } from 'angular-ng-autocomplete';
+
 @NgModule({
   declarations: [
     AppComponent,
@@ -64,7 +67,7 @@ import { ToastrModule } from 'ng6-toastr-notifications';
     EmployeehoursComponent,
     ConfirmDialogComponent,
     TimeslotsComponent,
-    ClientexistingComponent
+    PosClientComponent
   ],
   imports: [
     BrowserModule,
@@ -78,6 +81,9 @@ import { ToastrModule } from 'ng6-toastr-notifications';
     ToastrModule.forRoot(),
     RouterModule.forRoot([]),
     LayoutModule,
+    AutoCompleteModule,
+    DropDownListModule,
+    AutocompleteLibModule,
     AppRoutingModule
   ],
   
@@ -106,7 +112,7 @@ import { ToastrModule } from 'ng6-toastr-notifications';
     EmployeehoursComponent,
     ConfirmDialogComponent,
     TimeslotsComponent,
-    ClientexistingComponent
+    PosClientComponent
   ],
   bootstrap: [AppComponent]
 })

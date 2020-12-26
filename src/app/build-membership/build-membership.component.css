@@ -1,3 +1,111 @@
+/*.form-label-group {
+  position: relative;
+  margin-bottom: 0rem;
+}
+
+.form-label-group > input,
+.form-label-group > label {
+  padding: var(--input-padding-y) var(--input-padding-x);
+}
+
+.form-label-group > label {
+  position: absolute;
+  top: 5px;
+  left: 0px;
+  display: block;
+  width: 100%;
+  margin-bottom: 0; 
+  line-height: 1.5;
+  color: #495057;
+  border: 1px solid transparent;
+  border-radius: .25rem;
+  transition: all .1s ease-in-out;
+  padding: 0.375rem 0.75rem;
+  font-size: 14px;
+}
+
+.form-label-group input::-webkit-input-placeholder {
+  color: transparent;
+}
+
+.form-label-group input:-ms-input-placeholder {
+  color: transparent;
+}
+
+.form-label-group input::-ms-input-placeholder {
+  color: transparent;
+}
+
+.form-label-group input::-moz-placeholder {
+  color: transparent;
+}
+
+.form-label-group input::placeholder {
+  color: transparent;
+}
+
+.form-label-group input:not(:placeholder-shown) {
+  padding-top: calc(var(--input-padding-y) + var(--input-padding-y) * (2 / 3));
+  padding-bottom: calc(var(--input-padding-y) / 3);
+}
+
+.form-label-group input:not(:placeholder-shown) ~ label {
+  padding-top: calc(var(--input-padding-y) / 3);
+  padding-bottom: calc(var(--input-padding-y) / 3);
+  font-size: 12px;
+  color: #777;
+}
+.custominput{
+    padding-top: 8px !important;
+    padding-left: 12px !important;
+}
+
+input:focus ~ .floating-label, .floating-label{
+  top: 8px;
+  bottom: 10px;
+  left: 20px;
+  font-size: 11px;
+  opacity: 1;
+}
+
+.inputText {
+  font-size: 14px;
+  width: 200px;
+  height: 35px;
+}
+
+.floating-label {
+ position: absolute !important;
+    pointer-events: none !important;
+    top: 0px !important;
+    transition: 0.2s ease all;
+   left: 1px !important;
+}
+
+button.close {
+        border: 0 none !important;
+}
+.canc{
+     color: #b4b4b4; border: 1px solid #b4b4b4; background-color: #ffffff; margin-top: 15px;
+    }
+    .sub{
+   color: #fff;background-color: #c89628; width: 100%;
+    }
+
+
+    .modal-footer {
+    display: flex;
+    flex-wrap: wrap;
+    align-items: center;
+    justify-content: flex-end;
+    padding: 20px;
+    border-top: 1px solid #ffffff;
+    border-bottom-right-radius: calc(.3rem - 1px);
+    border-bottom-left-radius: calc(.3rem - 1px);
+}
+*/
+
+
 .myheadtitle {
     font-family: 'Lato', sans-serif;
     font-size: 13px;
@@ -8,7 +116,7 @@
     margin-bottom: 13px;
     margin-left: 0px;
     padding: 10px;
-    border-bottom: 1px solid #e3e1ec;
+    border-bottom: 1px solid #fff;
     text-align: center;
 }
 .editt{
@@ -22,7 +130,7 @@
 .mylogo{
   display: block;
     text-align: center;
-    margin-top: 10px;
+    margin-top: 15px;
     margin-bottom: 10px;
 }
 .custom-main-content{
@@ -178,10 +286,12 @@ textarea {
         font-weight: normal;
     }
  .canc{
-     color: #b4b4b4; border: 1px solid #b4b4b4; background-color: #ffffff;
+     color: #b4b4b4; border: 1px solid #b4b4b4; background-color: #ffffff; margin-top: 15px;
     }
     .sub{
-   color: #fff;background-color: #c89628; margin-left: 10px;
+   color: #fff;background-color: #c89628; margin-top: 24px; width: 50%;
+    height: 36px;
+    padding-top: 2px;
     }
    .mysubgroup {
 margin-top: -10px;
@@ -233,7 +343,7 @@ margin-top: -10px;
           box-shadow: 0 10px 6px -6px #777;
 }
 .custom-header-title{
-  height: auto;
+  height: 45px;
     /*background-color:#fff;*/
     padding: 10px;
     box-shadow: 0px 2px 3px -3px;
@@ -271,10 +381,9 @@ input[type='radio'] {
     }
 .card-body {
     flex: 1 1 auto;
-    min-height: auto;
+    min-height: 1px;
     padding: 6px 25px;
 }
-
 
 
 header {
@@ -343,63 +452,3 @@ header {
       height: 35px; }
       header.smaller nav a {
         line-height: 35px; } 
-
-        .footer {
-   position: fixed;
-   left: 0;
-   bottom: 0;
-   width: 100%;
-   background-color: #f3f4f9;
-   color: #000;
-   text-align: center;
-   height: 120px;
-}
-.customcontent{
-  margin-top: 80px;
-    position: fixed;
-}
-.custom-card{
-  height: 400px;
-}
-
-.scrollable{
-  overflow-y: auto;
-  max-height: 300px;
-}
-
-.card {
-    position: relative;
-    display: flex;
-    flex-direction: column;
-    min-width: 0;
-    word-wrap: break-word;
-    background-color: #fff;
-    background-clip: border-box;
-    border: 0px solid rgba(0,0,0,.125) !important;
-    border-radius: .25rem;
-}
-@media (max-width: 757px) and (min-width: 240px){
-.footer {
-    position: relative;
-    left: 0;
-    bottom: 0;
-    width: 100%;
-    background-color: #f3f4f9;
-    color: #000;
-    text-align: center;
-    height: 120px;
-}
-}
-
-@media (max-width: 757px) and (min-width: 240px){
-.customcontent{
-  margin-top: 80px;
-  position: relative !important;
-}
-}
-@media (max-width: 757px) and (min-width: 240px){
-.custom-card{
-  height: auto;
-}
-}
-
