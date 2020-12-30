@@ -5,157 +5,112 @@
     </button>
 </div>
 <div class="modal-body">
- <form [formGroup]="posForm">
-  <div class="row">
-  <div class="col-lg-5 col-md-6">
-  <div class="grid-col">
-    <label style="color: #000000;">Search Clients</label>
-    <!--<input type="text" formControlName="search" class="Rectangle-8" placeholder="Search with client's name, email address and mobile number...">
-<i class="ti-search pos-search"></i>-->
-<!--<div class="control-section">
-  <div class="col-lg-8  content-wrapper" style="height: 350px">
-    <div id='content' style="margin: 0 auto; width:250px; padding-top: 30px">
-      <ejs-autocomplete id='sample-list' #sample [dataSource]='countriesData' 
-      [highlight]='true' [fields]='fields' placeholder='e.g. Australia'></ejs-autocomplete>
-    </div>
-  </div>
-</div>-->
-<div class="ng-autocomplete">
-  <ng-autocomplete [data]="data" [searchKeyword]="keyword" formControlName="search" (selected)='selectEvent($event)' 
-  (inputChanged)='onChangeSearch($event)'
-    (inputFocused)='onFocused($event)' (inputCleared)="searchCleared()" [itemTemplate]="itemTemplate" [notFoundTemplate]="notFoundTemplate">
-  </ng-autocomplete>
-
-  <ng-template #itemTemplate let-item>
-    <a [innerHTML]="item.name"></a>
-  </ng-template>
-
-  <ng-template #notFoundTemplate let-notFound>
-    <div [innerHTML]="notFound"></div>
-  </ng-template>
-</div>
-  </div>
-</div>
-<div class="col-lg-3 col-md-6">
-  <div class="grid-col">
-     <label style="color: #000000;">From</label>
-    <div class="input-group" style="height: 40px;"> 
-      <input class="form-control"  placeholder="Select Date" style="height: 40px;" formControlName="date_from"
-      name="date_from" [(ngModel)]="model" ngbDatepicker [minDate]="{year: 1980, month: 1, day: 1}" [maxDate]="{year: 2048, month: 12, day: 31}"
-        #d="ngbDatepicker">
-      <div class="input-group-append">
-        <button class="btn btn-outline-secondary calendar" style="font-size: 13px;" (click)="d.toggle()" type="button">
-          <i class="fa fa-calendar"></i></button>
-      </div>
-    </div>
-    <span class="opt">Optional</span>
-    </div>
-</div>
-<div class="col-lg-3 col-md-6">
-  <div class="grid-col">
-    <label style="color: #000000;">To</label>
-<div class="input-group" style="height: 40px;">
-  <input class="form-control" style="height: 40px;" placeholder="Select Date" formControlName="date_to" name="date_to" 
-  [(ngModel)]="model" ngbDatepicker [minDate]="{year: 1980, month: 1, day: 1}"
-    [maxDate]="{year: 2048, month: 12, day: 31}" #d="ngbDatepicker">
-  <div class="input-group-append">
-    <button class="btn btn-outline-secondary calendar" style="font-size: 13px;" (click)="d.toggle()" type="button">
-          <i class="fa fa-calendar"></i></button>
-  </div>
-</div>
-    </div>
-</div>
-<div class="col-lg-1 col-md-6">
-  <div class="grid-col">
-    <button type="submit" class="btn btnstand btn-sm mybtn" (click)="onSubmit()">SEARCH</button>
-    </div>
-</div>
-</div>
-<div class="single-table" style="margin-top: 15px; text-align: center; border-top: 1px solid #dee2e6; ">
-  <!--<a href="#"><img src="assets/img/Group 44.png" class="Group-44" alt="logo"></a>
-  <p style="text-align: center; font-weight: 500;"> No Appointment Data</p>-->
- 
-     <div class="col-md-6">
-       <span class="select-client003">Selected Clients</span><br>
-          <div class="span-heading" *ngFor="let item of clientList">
-              <div class="card" style="margin-left: -10px;">
-                <p style="padding: 3px 10px 10px 10px;">
-                  <span ><img src="assets/img/user.png" style="width: 7%;"> <span class="clientName">{{item.name}}</span></span>
-                  </p>
-                  <p class="para-500">
-                  <span class="mob-client">+91 {{item.mobile}}</span>
-                  <span  style="float: right;" (click)="removeClients()"><i class="fa fa-times-circle remove-icon"></i></span>
-                </p>
-            </div>
-        </div>
-</div>
-<div class="table-responsive">
-  <label class="btn btn-filter" style="float: left;">
-  <input type="checkbox" name="allNonTrades" [value]="nontrade" (change)="allNonTrades($event)">All NonTrades
-</label>
-  <table class="table text-center">
-    <tbody>
-      <tr *ngFor="let service of serviceItem">
-        <td class="rowcont"><input type="checkbox" name="nontrades" ></td>
-        <td class="rowcont">
-   
-          <span class="tabbar">#223344</span> <span class="tabserv">{{service.service_names}}</span></td>
-        <td class="rowcont">{{service.price}}</td>
-      </tr>
-    </tbody>
-  </table>
-</div>
-</div>
-<div class="modal-footer">
-  <p>
-  <span class="Total5002">Total: {{total_price}}</span>
-</p>
-  <button type="submit" class="btn mb-3 sub">BILL</button>
-</div>
-  <!--<div class="card">
-  <div class="card-body">
+  <form [formGroup]="posForm">
     <div class="row">
-      <div class="col-md-auto">
+      <div class="col-lg-5 col-md-6">
         <div class="grid-col">
-          <input type="text" class="Rectangle-8" placeholder="Search...">
-          <i class="ti-search pos-search"></i>
+          <label style="color: #000000;">Search Clients</label>
+
+          <div class="ng-autocomplete">
+            <ng-autocomplete [data]="data"  autocomplete="off" labelForId [searchKeyword]="keyword" placeHolder="Search with client's name,email and mobile no." formControlName="search"
+              (selected)='selectEvent($event)' [ngClass]="{ 'is-invalid': submitted && f.search .errors }" required (inputChanged)='onChangeSearch($event)'
+              (inputFocused)='onFocused($event)' (inputCleared)="searchCleared()" [itemTemplate]="itemTemplate" [notFoundTemplate]="notFoundTemplate">
+            </ng-autocomplete>
+            <div *ngIf="submitted && f.search .errors" class="invalid-feedback">
+              <div *ngIf="f.search .errors.required">Search field is required</div>
+            </div>
+            <!--<span class="opt">Required</span>-->
+
+            <ng-template #itemTemplate let-item>
+              <a><img src="assets/img/user.png" style="width: 7%;"></a>
+              <a [innerHTML]="item.name" style="margin-bottom: -30px;margin-top: -49px; margin-left: 26px;"></a>
+              <a [innerHTML]="item.mobile" style="margin-left: 25px;"></a>
+
+            </ng-template>
+
+            <ng-template #notFoundTemplate let-notFound>
+              <div [innerHTML]="notFound"></div>
+            </ng-template>
+          </div>
         </div>
       </div>
-      <div class="col-md-auto">
+      <div class="col-lg-3 col-md-6">
         <div class="grid-col">
-          <button type="button" class="btn btnstand btn-sm mybtn" [routerLink]="['/addemployees']">BILL CLIENT APPOINTMENT</button>
+          <label style="color: #000000;">From</label>
+          <div class="input-group" style="height: 40px;">
+            <input class="form-control" placeholder="Select Date" style="height: 40px;" formControlName="date_from" name="date_from"
+              [(ngModel)]="model1" ngbDatepicker [minDate]="{year: 1980, month: 1, day: 1}" [maxDate]="{year: 2048, month: 12, day: 31}"
+              #d1="ngbDatepicker">
+            <div class="input-group-append">
+              <button class="btn btn-outline-secondary calendar" style="font-size: 13px;" (click)="d1.toggle()" type="button">
+          <i class="fa fa-calendar"></i></button>
+            </div>
+          </div>
+          <span class="opt">Optional</span>
         </div>
       </div>
-      <div class="col-md-auto">
+      <div class="col-lg-3 col-md-6">
         <div class="grid-col">
-          <button type="button" class="btn btnstand btn-sm mybtn" [routerLink]="['/addemployees']">BILL WALK IN</button>
+          <label style="color: #000000;">To</label>
+          <div class="input-group" style="height: 40px; margin-left: -11px;">
+            <input class="form-control" style="height: 40px;" placeholder="Select Date" formControlName="date_to" name="date_to" [(ngModel)]="model2"
+              ngbDatepicker [minDate]="{year: 1980, month: 1, day: 1}" [maxDate]="{year: 2048, month: 12, day: 31}" #d="ngbDatepicker">
+            <div class="input-group-append">
+              <button class="btn btn-outline-secondary calendar" style="font-size: 13px;" (click)="d.toggle()" type="button">
+          <i class="fa fa-calendar"></i>
+    </button>
+            </div>
+          </div>
         </div>
       </div>
-      <div class="col-md-auto">
+      <div class="col-lg-1 col-md-6">
         <div class="grid-col">
-          <button type="button" class="btn btnstand btn-sm mybtn" [routerLink]="['/addemployees']">BILL WALK IN</button>
+          <button type="submit" class="btn btnstand btn-sm mybtn" (click)="onSubmit()">SEARCH</button>
         </div>
       </div>
     </div>
-    <div class="single-table" style="margin-top: 15px; text-align: center;">
-      <a href="#"><img src="assets/img/Group 44.png" class="Group-44" alt="logo"></a>
-      <p style="text-align: center; font-weight: 500;"> No Sales Data</p>
+  </form>
+
+  <div class="single-table" style="margin-top: 15px; text-align: center; border-top: 1px solid #dee2e6;margin-bottom: 113px; ">
+    <a href="#" *ngIf="!showbtn"><img src="assets/img/Group 44.png" class="Group-44" alt="logo"></a>
+    <p style="text-align: center; font-weight: 500;" *ngIf="!showbtn"> No Appointment Data</p>
+
+    <div class="col-md-6" *ngIf="showselectedbtn">
+      <span class="select-client003">Selected Clients</span><br>
+      <div class="span-heading" *ngFor="let item of clientList">
+        <div class="card" style="margin-left: -10px;">
+          <p style="padding: 3px 10px 10px 10px;">
+            <span><img src="assets/img/user.png" style="width: 7%;"> <span class="clientName">{{item.name}}</span></span>
+          </p>
+          <p class="para-500">
+            <span class="mob-client">+91 {{item.mobile}}</span>
+            <span style="float: right;" (click)="removeClients()"><i class="fa fa-times-circle remove-icon"></i></span>
+          </p>
+        </div>
+      </div>
+    </div>
+
+    <div class="table-responsive" *ngIf="showtotalprice">
+      <label class="btn btn-filter" style="float: left;">
+  <input type="checkbox" [(ngModel)]="isMasterSel" name="isMasterSel" (change)="checkUncheckAll()">All Select
+</label>
+      <table class="table text-center">
+        <tbody>
+          <tr *ngFor="let service of serviceItem">
+            <td class="rowcont">
+              <input type="checkbox" [(ngModel)]="service.isSelected" value="item.id" (change)="isAllSelected()" name="isSelected"></td>
+            <td class="rowcont">
+              <span class="tabbar">{{service.barcode_no}}</span> <span class="tabserv">{{service.service_names}}</span></td>
+            <td class="rowcont" style="color: #C89628;">{{service.price}}</td>
+          </tr>
+        </tbody>
+      </table>
     </div>
   </div>
-</div>-->
-  <!--<form [formGroup]="productbrandForm" (ngSubmit)="onSubmit()">
-    <div class="form-group form-label-group">
-      <input type="text" formControlName="brand_name" [ngClass]="{ 'is-invalid': submitted && f.brand_name.errors }" name="brand_name"
-        id="brand_name" placeholder="Enter Brand Name" class="form-control myformscontrol custominput" required autofocus>
-      <label for="brand_name" class="floating-label">Enter Brand Name</label>
-      <div *ngIf="submitted && f.brand_name.errors" class="invalid-feedback">
-        <div *ngIf="f.brand_name.errors.required">Brand Name is required</div>
-      </div>
-    </div>
-    <div class="modal-footer">
-      <button type="button" class="btn mb-3 canc" data-dismiss="modal" (click)="closeModal('close')">Cancel</button>
-      <button type="submit" class="btn mb-3 sub">Submit</button>
-    </div>
-  </form>-->
- </form>
+  <div class="modal-footer">
+    <p *ngIf="showtotalprice">
+      <span class="Total5002">Total: {{total_price}}</span>
+    </p>
+    <button type="button" class="btn mb-3 sub" (click)="generateBill()" *ngIf="showtotalprice">BILL</button>
+  </div>
 </div>

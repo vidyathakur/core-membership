@@ -340,7 +340,7 @@ input:not(:focus):valid ~ .floating-label{
 .Total500 {
   width: 86px;
   height: 21px;
-  margin: 22px -20px 1px 37px;
+  margin: 22px -10px 1px 37px;
   font-size: 12px;
   font-weight: 500;
   line-height: 1.17;

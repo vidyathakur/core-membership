@@ -17,6 +17,14 @@ export class PosClientService {
 		return new HttpHeaders().set('session_token', localStorage.getItem('jwt_token'));
 	}
 
+	public getTransactionByMerchantId(): any {
+		let myResponse = this.http.get(`${environment.BASE_URL}/getTransactionByMerchantId`, {
+			headers: new HttpHeaders().set('SESSION-TOKEN', localStorage.getItem('jwt_token'))
+		});
+		console.log();
+		return myResponse;
+	}
+
 	public searchClient(data): Observable<any> {
 		console.log(data);
 		return this.http.post(`${environment.BASE_URL}/searchClient`, data, {
@@ -26,6 +34,21 @@ export class PosClientService {
 
 	public getAppointmentByClientId(data): any {
 		let myResponse = this.http.post(`${environment.BASE_URL}/getAppointmentByClientId`, data, {
+			headers: new HttpHeaders().set('SESSION-TOKEN', localStorage.getItem('jwt_token'))
+		});
+		console.log(myResponse);
+		return myResponse;
+	}
+
+	public createPos(data): any {
+		let myResponse = this.http.post(`${environment.BASE_URL}/createPos`, data, {
+			headers: new HttpHeaders().set('SESSION-TOKEN', localStorage.getItem('jwt_token'))
+		});
+		console.log(myResponse);
+		return myResponse;
+	}
+	public deleteTransaction(transactionId): any {
+		let myResponse = this.http.delete(`${environment.BASE_URL}/deleteTransaction` + '/' + transactionId, {
 			headers: new HttpHeaders().set('SESSION-TOKEN', localStorage.getItem('jwt_token'))
 		});
 		console.log(myResponse);

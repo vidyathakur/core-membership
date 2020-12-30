@@ -70,7 +70,8 @@
                         <div class="form-row">
                           <div class="col-md-4">
                             <label style="color: #000000;">Mobile</label>
-                            <input type="text" formControlName="mobile" class="form-control" required [ngClass]="{ 'is-invalid': submitted && f.mobile .errors }"
+                            <input type="text" formControlName="mobile" class="form-control" required 
+                            [ngClass]="{ 'is-invalid': submitted && f.mobile .errors }"
                               placeholder="Mobile">
                             <div *ngIf="submitted && f.mobile .errors" class="invalid-feedback">
                               <div *ngIf="f.mobile .errors.required">Mobile is required</div>

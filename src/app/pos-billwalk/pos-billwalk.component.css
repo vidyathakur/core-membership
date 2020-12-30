@@ -130,7 +130,7 @@ button.close {
   height: 37px; 
   font-size: 11px;  
   font-weight: 500;
-  margin: 33px 10px 10px -20px;
+  margin: 33px 10px 10px -15px;
 }
 .grid-col {
     padding: 0px 0px;
@@ -147,7 +147,7 @@ button.close {
 }
 .span-heading{
   text-align: left;
-  padding: 10px;
+  padding: 4px;
 }
 .Tax-000 {
   width: 84px;
@@ -223,5 +223,5 @@ button.close {
   color: #000000;
 }
 .ng-autocomplete {
-    width: 100% !important;
+    width: 310px !important;
 }
