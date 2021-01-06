@@ -61,6 +61,28 @@
                     <button type="button" class="btn mybtn" (click)="goToServiceCat()">ADD NEW</button>
                   </div>
                 </div>
+                <div class="form-row" style="margin-top: 10px;">
+  <div class="col-md-6">
+    <label style="color: #000000;">Gender</label>
+    <div class="roles">
+      <input type="radio" class="inputgen" formControlName="gender" value="male" [ngClass]="{ 'is-invalid': submitted && f.gender.errors }"
+        required>
+      <label class="role" for="Male">Male</label>
+      <input type="radio" class="inputgen" formControlName="gender" [ngClass]="{ 'is-invalid': submitted && f.gender.errors }"
+        value="Female" required>
+      <label class="role" for="Female">Female</label>
+      <input type="radio" class="inputgen" formControlName="gender" [ngClass]="{ 'is-invalid': submitted && f.gender.errors }"
+        value="others" required>
+      <label class="role" for="Others">Other</label>
+      <div *ngIf="submitted && f.gender.errors" class="invalid-feedback">
+        <div *ngIf="f.gender.errors?.required">Gender is required</div>
+      </div>
+      <br>
+      <span class="req">Required</span>
+
+    </div>
+  </div>
+</div>
 
                 <div class="form-row" style="padding-top: 10px;">
                   <div class="col-md-4">
@@ -180,6 +202,28 @@
                     <button type="button" class="btn mybtn" (click)="goToServiceCat()">ADD NEW</button>
                   </div>
                 </div>
+                  <div class="form-row" style="margin-top: 10px;">
+  <div class="col-md-6">
+    <label style="color: #000000;">Gender</label>
+    <div class="roles">
+      <input type="radio" class="inputgen" formControlName="gender" value="male" [ngClass]="{ 'is-invalid': submitted && f.gender.errors }"
+        required>
+      <label class="role" for="Male">Male</label>
+      <input type="radio" class="inputgen" formControlName="gender" [ngClass]="{ 'is-invalid': submitted && f.gender.errors }"
+        value="Female" required>
+      <label class="role" for="Female">Female</label>
+      <input type="radio" class="inputgen" formControlName="gender" [ngClass]="{ 'is-invalid': submitted && f.gender.errors }"
+        value="others" required>
+      <label class="role" for="Others">Other</label>
+      <div *ngIf="submitted && f.gender.errors" class="invalid-feedback">
+        <div *ngIf="f.gender.errors?.required">Gender is required</div>
+      </div>
+      <br>
+      <span class="req">Required</span>
+
+    </div>
+  </div>
+</div>
 
                 <div class="form-row" style="padding-top: 10px;">
                   <div class="col-md-4">

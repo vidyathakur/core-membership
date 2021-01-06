@@ -160,7 +160,8 @@ export class AddappointmentsComponent implements OnInit {
 	addService(id) {
 		console.log(this.checkOutputDta);
 		this.selectedItems.push(id);
-		let arrayData = [];
+		console.log(this.selectedItems);
+		// let arrayData = [];
 		let totalTime = 0;
 		let price = 0;
 		for (let i in this.selectedItems) {
@@ -168,11 +169,13 @@ export class AddappointmentsComponent implements OnInit {
 			let splitsData = this.servicesData[items].duration.split(':');
 			price += parseInt(this.servicesData[items].price);
 			totalTime += parseInt(splitsData[0]) * 60 + parseInt(splitsData[1]);
-			arrayData.push(this.servicesData[items]);
+			// arrayData.push(this.servicesData[items]);
 		}
-		this.checkOutputDta = arrayData;
+		// this.checkOutputDta = arrayData;
 		this.totalTime = totalTime;
 		this.price = price;
+		console.log(this.price);
+		console.log(this.servicesData);
 	}
 
 	// onCheckboxChange(e: any, id: string) {
@@ -222,9 +225,7 @@ export class AddappointmentsComponent implements OnInit {
 	}
 
 	public getServiceCatByMerchantId(): any {
-	
-		
-		this.adminService.getServiceCatByMerchantId({}).subscribe(
+	this.adminService.getServiceCatByMerchantId({}).subscribe(
 			data => {
 				console.log(data);
 				this.serviceCats = data['data'];

@@ -88,8 +88,8 @@ export class EditpublicholidayComponent implements OnInit {
 				this.ngOnInit();
 			},
 			error => {
-				console.log('some error occured');
-				this.toastr.errorToastr('Some error occured', 'Oops!');
+				console.log('some error occurred');
+				this.toastr.errorToastr('Some error occurred', 'Oops!');
 			}
 		);
 	}

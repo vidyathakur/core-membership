@@ -1,3 +1,5 @@
+import { PosProductComponent } from './pos-product/pos-product.component';
+import { PosServicesComponent } from './pos-services/pos-services.component';
 import { PosBillwalkComponent } from './pos-billwalk/pos-billwalk.component';
 import { DropDownListModule, AutoCompleteModule } from '@syncfusion/ej2-angular-dropdowns';
 import { PosClientComponent } from './pos-client/pos-client.component';
@@ -69,7 +71,9 @@ import { AutocompleteLibModule } from 'angular-ng-autocomplete';
     ConfirmDialogComponent,
     TimeslotsComponent,
     PosClientComponent,
-    PosBillwalkComponent
+    PosBillwalkComponent,
+    PosServicesComponent,
+    PosProductComponent
   ],
   imports: [
     BrowserModule,
@@ -115,7 +119,9 @@ import { AutocompleteLibModule } from 'angular-ng-autocomplete';
     ConfirmDialogComponent,
     TimeslotsComponent,
     PosClientComponent,
-    PosBillwalkComponent
+    PosBillwalkComponent,
+    PosServicesComponent,
+    PosProductComponent
   ],
   bootstrap: [AppComponent]
 })

@@ -54,4 +54,18 @@ export class PosClientService {
 		console.log(myResponse);
 		return myResponse;
 	}
+
+	public searchServiceByMerchantId(data): Observable<any> {
+		console.log(data);
+		return this.http.post(`${environment.BASE_URL}/searchServiceByMerchantId`, data, {
+			headers: new HttpHeaders().set('SESSION-TOKEN', localStorage.getItem('jwt_token'))
+		});
+	}
+
+	public searchProductByMerchantId(data): Observable<any> {
+		console.log(data);
+		return this.http.post(`${environment.BASE_URL}/searchProductByMerchantId`, data, {
+			headers: new HttpHeaders().set('SESSION-TOKEN', localStorage.getItem('jwt_token'))
+		});
+	}
 }

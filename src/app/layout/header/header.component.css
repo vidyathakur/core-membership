@@ -59,17 +59,6 @@ myscrolls::-webkit-scrollbar-thumb {
 	overflow-y: scroll;
 }
 
-
-
-/*
- *  STYLE 1
- */
-
-
-/*
- *  STYLE 2
- */
-
 #style-2::-webkit-scrollbar-track
 {
 	-webkit-box-shadow: inset 0 0 6px rgba(0,0,0,0.3);
@@ -111,67 +100,77 @@ myscrolls::-webkit-scrollbar-thumb {
 }
 
 .appointmnt{
-  margin-left: 7px; background-color: #BCBDB8 !important;
+  margin-left: 7px; 
+  background-color: #BCBDB8 !important;
 }
 .myborder{
   border-bottom: 1px solid #dadee8;
 }
 
-.bottomsearchinput{
-      height: 35px;
-    padding-left: 20px;
-    padding-right: 40px;
-    letter-spacing: 0;
-    background: #fff;
-    border-radius: 0px;
-    border: 1px solid #dadee8;
-    border-top: 0px #ffffff;
-    width: 100%;
-    display: inline;
+.bottomsearchinput {
+  height:35px;
+  padding-left: 20px;
+  padding-right: 40px;
+  letter-spacing: 0;
+  background: #fff;
+  border-radius: 0px;
+  border: 1px solid #dadee8;
+  border-top: 0px #ffffff;
+  width:100%;
+  display: inline;
 }
 .searchbar{
-      position: absolute;
-    left: 10px;
-    top: 12px;
-    font-size: 14px;
-    color: #b1a7a7;
+position: absolute;
+left: 10px;
+top: 12px;
+font-size: 14px;
+color: #b1a7a7;
 }
 .myheader{
-  font-size: 15px; color: #000000; margin-bottom: 2px;
+  font-size: 15px; 
+  color: #000000; 
+  margin-bottom: 2px;
 }
 .mypara{
-  color: #BCBDB8; font-size: 11px; font-weight: 500;
+  color: #BCBDB8; 
+  font-size: 11px; 
+  font-weight: 500;
 }
 .custo-btn{
   border-radius: 33px;
-    background-color: #C89628;
-    border-color: #C89628;
-    height: 25px;
-    font-size: 10px;
-    font-weight: 500;
-    padding-top: 4px;
-    color: #fff;
+  background-color: #C89628;
+  border-color: #C89628;
+  height: 25px;
+  font-size: 10px;
+  font-weight: 500;
+  padding-top: 4px;
+  color: #fff;
 }
 .reschedule-btn{
   border-radius: 33px;
-    background-color: #BCBDB8;
-    border-color: #BCBDB8;
-    height: 25px;
-    font-size: 10px;
-    color: #fff;
-    margin-left: 7px;
-    font-weight: 500;
-    padding-top: 4px;
+  background-color: #BCBDB8;
+  border-color: #BCBDB8;
+  height: 25px;
+  font-size: 10px;
+  color: #fff;
+  margin-left: 7px;
+  font-weight: 500;
+  padding-top: 4px;
 }
 .myrespbtn{
-  background-color: #C89628; border-color: #C89628; color:#fff;
-  border-radius: 33px; height: 33px; font-size: 11px; margin-left: 1rem; font-weight: 500;
+  background-color: #C89628; 
+  border-color: #C89628; 
+  color:#fff;
+  border-radius: 33px; 
+  height: 33px; 
+  font-size: 11px; 
+  margin-left: 1rem; 
+  font-weight: 500;
 }
-
 .mybtnsearch{
   position: absolute;
-    left: 25px;
-    margin-top: 10px;
-    font-size: 14px;
-    color: #b1a7a7;
+  left: 25px;
+  margin-top: 10px;
+  font-size: 14px;
+  color: #b1a7a7;
 }

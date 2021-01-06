@@ -20,6 +20,8 @@ export class PosComponent implements OnInit {
 	posData: any;
 	responseData: any;
 	total_price: any;
+	showTable: boolean=true;
+	showModal:boolean;
 	constructor(
 		public activeModal: NgbActiveModal,
 		private SpinnerService: NgxSpinnerService,
@@ -39,11 +41,12 @@ export class PosComponent implements OnInit {
 	}
 
 	openPosclientModal() {
+		this.showTable=true;
 		const modalRef = this.modalService.open(PosClientComponent, {
 			windowClass: 'myCustomModalClass',
 			size: 'lg',
 			centered: true,
-			backdrop: 'static',
+			backdrop: 'static'
 		});
 		modalRef.result.then(
 			result => {
@@ -55,6 +58,7 @@ export class PosComponent implements OnInit {
 	}
 
 	openPosBillwalkModal() {
+		this.showTable = this.showTable ? false : true;
 		const modalRef = this.modalService.open(PosBillwalkComponent, {
 			windowClass: 'myCustomModalClass',
 			size: 'sm',
@@ -63,7 +67,7 @@ export class PosComponent implements OnInit {
 		});
 		modalRef.result.then(
 			result => {
-				// this.getTransactionByMerchantId();
+				this.getTransactionByMerchantId();
 				console.log(result);
 			},
 			reason => {}
@@ -125,7 +129,7 @@ export class PosComponent implements OnInit {
 		this.posclientService.deleteTransaction(id).subscribe(
 			data => {
 				console.log(data);
-				this.toastr.successToastr(' Transaction Deleted Successfully');
+				this.toastr.successToastr(data.message);
 				this.getTransactionByMerchantId();
 				this.activeModal.close();
 			},

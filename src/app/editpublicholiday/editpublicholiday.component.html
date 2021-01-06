@@ -14,7 +14,8 @@
 
     </div>
     <div class="input-group">
-      <input class="form-control" formControlName="holiday_date" placeholder="yyyy-mm-dd" name="holiday_date" [(ngModel)]="model"
+      <input class="form-control" formControlName="holiday_date" 
+      placeholder="yyyy-mm-dd" name="holiday_date" [(ngModel)]="model"
         ngbDatepicker #d="ngbDatepicker">
       <div class="input-group-append">
         <button class="btn btn-outline-secondary calendar" style="font-size: 13px;" (click)="d.toggle()" type="button">

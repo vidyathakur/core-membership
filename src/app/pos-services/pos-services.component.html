@@ -1,0 +1,110 @@
+<div class="modal-content">
+  <div class="modal-header">
+    <h5 class="modal-title">Add Services</h5>
+    <button type="button" class="close" data-dismiss="modal" (click)="closeModal('dismiss')">
+        <span aria-hidden="true">&times;</span>
+    </button>
+  </div>
+  <div class="modal-body">
+      <div class="row">
+        <div class="col-lg-10">
+          <label style="color: #000000;">Search Clients</label>
+
+          <div class="ng-autocomplete">
+            <ng-autocomplete [data]="data" autocomplete="off" [searchKeyword]="keyword" placeHolder="Search with client's name,email and mobile no."
+              (selected)='selectEvent($event)' [ngClass]="{ 'is-invalid': submitted && f.search .errors }"
+              required (inputChanged)='onChangeSearch($event)' (inputFocused)='onFocused($event)' (inputCleared)="searchCleared()"
+              [itemTemplate]="itemTemplate" [notFoundTemplate]="notFoundTemplate">
+            </ng-autocomplete>
+            <div *ngIf="submitted && f.search .errors" class="invalid-feedback">
+              <div *ngIf="f.search .errors.required">Search field is required</div>
+            </div>
+            <!--<span class="opt">Required</span>-->
+
+           <ng-template #itemTemplate let-item>
+          <a><img src="assets/img/user.png" class="user-icon"></a>
+          <a [innerHTML]="item.name" style="margin-bottom: -30px; margin-top: -60px; margin-left: 35px;"></a>
+          <a [innerHTML]="item.mobile" style="margin-left: 35px;"></a>
+
+        </ng-template>
+
+            <ng-template #notFoundTemplate let-notFound>
+              <div [innerHTML]="notFound"></div>
+            </ng-template>
+          </div>
+        </div>
+        <div class="col-lg-2">
+          <button type="button" [routerLink]="['/addnewclient']" class="btn  mybutton myrespbtn">
+             <i class="fa fa-plus-circle"></i> ADD NEW CLIENT</button>
+        </div>
+      </div>
+    <div class="col-md-6" *ngIf="showselectedbtn">
+  <span class="select-client003">Selected Clients</span><br>
+  <div class="span-heading" *ngFor="let item of clientList">
+    <div class="card" style="margin-left: -26px;">
+      <p style="padding: 3px 10px 10px 10px;">
+        <span><img src="assets/img/user.png" style="width: 7%;"> <span class="clientName">{{item.name}}</span></span>
+      </p>
+      <p class="para-500">
+        <span class="mob-client">+91 {{item.mobile}}</span>
+        <span style="float: right;" (click)="removeClients()"><i class="fa fa-times-circle remove-icon"></i></span>
+      </p>
+    </div>
+  </div>
+</div>
+<div class="col-lg-12" >
+  <span class="select-client003">Selected Services</span><br>
+<div style="margin-top: 10px; width: 49%; margin-left: -15px;">
+  <ng-autocomplete [data]="data" autocomplete="off" [searchKeyword]="keyword" placeHolder="Search and Add"
+    (selected)='selectServiceEvent($event)' [ngClass]="{ 'is-invalid': submitted && f.search .errors }" required
+    (inputChanged)='onChangeSearchService($event)' (inputFocused)='onFocused($event)' (inputCleared)="searchServiceCleared()" 
+    [itemTemplate]="itemTemplate"
+    [notFoundTemplate]="notFoundTemplate">
+  </ng-autocomplete>
+  <div *ngIf="submitted && f.search .errors" class="invalid-feedback">
+    <div *ngIf="f.search .errors.required">Search field is required</div>
+  </div>
+
+  <ng-template #itemTemplate let-item>
+    <!--<a><img src="assets/img/user.png" style="width: 7%;"></a>-->
+    <a [innerHTML]="item.name"></a>
+    <!--<a [innerHTML]="item.mobile" style="margin-left: 35px;"></a>-->
+
+  </ng-template>
+
+  <ng-template #notFoundTemplate let-notFound>
+    <div [innerHTML]="notFound"></div>
+  </ng-template>
+</div>
+  </div>
+    <div class="single-table" style="margin-top: 15px; text-align: center; border-top: 1px solid #dee2e6;margin-bottom: 113px; ">
+      <a href="#" *ngIf="!showbtn"><img src="assets/img/Group 44.png" class="Group-44" alt="logo"></a>
+      <p style="text-align: center; font-weight: 500;" *ngIf="!showbtn"> No Appointment Data</p>
+
+      
+
+      <div class="table-responsive">
+        <table class="table text-center">
+          <tbody>
+            <tr *ngFor="let item of serviceList;let i = index;">
+              <td class="rowcont">
+                <span class="tabbar">{{item.name}}</span> 
+                <span class="tabserv">Time:{{item.time}}</span>
+              </td>
+                <td class="rowcont" style="color: #C89628;">
+                <span class="tabserv">${{item.price != null ? item.price:0.00}}</span>
+                <span style="float: right;" (click)="removeServices(item.id,i)">
+                  <i class="fa fa-times-circle remove-icon" (click)="removeServices(item.id,i)"></i></span></td>
+            </tr>
+          </tbody>
+        </table>
+      </div>
+    </div>
+    <div class="modal-footer">
+      <p >
+        <span class="Total5002">Total:{{total_price}}</span>
+      </p>
+      <button type="button" class="btn mb-3 sub" (click)="generateBill()">BILL</button>
+    </div>
+  </div>
+</div>

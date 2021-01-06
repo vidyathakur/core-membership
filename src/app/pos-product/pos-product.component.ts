@@ -10,21 +10,23 @@ import { Input } from '@angular/core';
 import { PosClientService } from 'src/app/pos-client/pos-client.service';
 import { isEmbeddedView } from '@angular/core/src/view/util';
 
+
 @Component({
-	selector: 'app-pos-client',
-	templateUrl: './pos-client.component.html',
-	styleUrls: ['./pos-client.component.css'],
+	selector: 'app-pos-product',
+	templateUrl: './pos-product.component.html',
+	styleUrls: ['./pos-product.component.css'],
 	providers: [AutoCompleteComponent]
 })
-export class PosClientComponent implements OnInit {
+export class PosProductComponent implements OnInit {
 	total_price: any;
 	query: string;
 	keyword = 'name';
-	// searchKeyword: string;
-	// keyword = ["name", "email"];
 	clientList = [];
+	productList = [];
 	data = [];
+	selectedItems: any;
 	posForm: FormGroup;
+	posaddForm: FormGroup;
 	showbtn = false;
 	closeResult: string;
 	submitted = false;
@@ -35,6 +37,7 @@ export class PosClientComponent implements OnInit {
 	isDisabled: boolean;
 	showtotalprice = false;
 	checkedCategoryList: any[];
+	inputnumber = 0;
 	constructor(
 		public activeModal: NgbActiveModal,
 		private SpinnerService: NgxSpinnerService,
@@ -46,10 +49,7 @@ export class PosClientComponent implements OnInit {
 		private _route: ActivatedRoute,
 		public autoCompleteObj: AutoCompleteComponent,
 		public posclientService: PosClientService
-	) {
-		this.isMasterSel = false;
-		this.isDisabled = false;
-	}
+	) {}
 
 	ngOnInit() {
 		this.posForm = this.formBuilder.group({
@@ -86,11 +86,68 @@ export class PosClientComponent implements OnInit {
 		});
 	}
 
+	plus(id) {
+		console.log(id);
+		this.inputnumber = this.inputnumber + 1;
+	}
+
+	minus(id) {
+		console.log(id);
+		if (this.inputnumber != 0) this.inputnumber = this.inputnumber - 1;
+	}
+
+	onChangeSearchProduct(val: string) {
+		this.showbtn = true;
+		this.posclientService.searchProductByMerchantId({ search: val }).subscribe(apiResponse => {
+			if (apiResponse.code === 200) {
+				let response = [];
+				apiResponse.data.forEach(item => {
+					let object = { id: item.id, name: item.product_name, retail_pice: item.retail_pice };
+					response.push(object);
+				});
+				this.data = response;
+			} else {
+				this.toastr.errorToastr(apiResponse.message);
+			}
+		});
+	}
+
+	removeProducts(id, index) {
+		let ouputData = this.productList;
+		console.log(this.productList);
+		delete ouputData[index];
+		for (var i = 0; i < ouputData.length; i++) {
+			if (i === index) {
+				ouputData.splice(i, 1);
+			}
+		}
+		for (let k in ouputData) {
+			let item = ouputData[k];
+		}
+		this.productList = ouputData;
+	}
+
+	selectProductEvent(item) {
+		this.productList.push(item);
+		this.checkedCategoryList = [];
+		let retail_pice = [];
+		for (var i = 0; i < this.productList.length; i++) {
+			let item = this.productList[i];
+			retail_pice.push(item.retail_pice ? item.retail_pice : 0);
+		}
+		this.total_price = retail_pice.reduce((a, b) => a + b, 0);
+		console.log(this.total_price);
+	}
+
 	searchCleared() {
 		this.clientList = [];
-		this.serviceItem = [];
+		// this.serviceItem = [];
 		this.showtotalprice = false;
 		this.showselectedbtn = false;
+	}
+
+	searchProductCleared() {
+		//this.serviceList = [];
 	}
 
 	removeClients() {
@@ -109,107 +166,8 @@ export class PosClientComponent implements OnInit {
 		return this.posForm.controls;
 	}
 
-	onSubmit() {
-		this.submitted = true;
-		this.showbtn = true;
-		this.showselectedbtn = true;
-		if (!this.posForm.invalid) {
-			let posData = this.posForm.value;
-			console.log(posData);
-			let client = this.clientList;
-			console.log(client);
-			let client_id = [];
-			for (let c in client) {
-				client_id.push(client[c].id);
-			}
-			console.log(posData);
-			let data = {
-				client_id: client_id[0],
-				date_from: posData.date_from
-					? posData.date_from.year + '-' + posData.date_from.month + '-' + posData.date_from.day
-					: '',
-				date_to: posData.date_to
-					? posData.date_to.year + '-' + posData.date_to.month + '-' + posData.date_to.day
-					: ''
-			};
-			console.log(data);
-			this.posclientService.getAppointmentByClientId(data).subscribe(apiResponse => {
-				this.showtotalprice = true;
-				if (apiResponse.code === 200) {
-					console.log(apiResponse);
-					let responseData = apiResponse.data;
-					let response = [];
-					let price = [];
-					for (let i in responseData) {
-						let client = responseData[i];
-						let object = {
-							id: '',
-							service_names: '',
-							price: '',
-							isSelected: false,
-							service_id: '',
-							barcode_no: client.client.barcode_no,
-							appointment_id: client.id,
-							client_id: client.client_id
-						};
-						let service_name = [];
-						let service_id = [];
-						for (let k in client.services) {
-							let service = client.services[k];
-							service_name.push(service.service_name);
-							service_id.push(service.id);
-						}
-						price.push(parseInt(client.price));
-						object.id = client.id;
-						object.service_names = service_name.join(',');
-						object.price = client.price;
-						object.service_id = service_id.join(',');
-						response.push(object);
-					}
-					this.serviceItem = response;
-					console.log(this.serviceItem);
-					this.total_price = 0; //price.reduce((a, b) => a + b, 0);
-				} else {
-					this.toastr.errorToastr(apiResponse.message);
-				}
-			});
-		}
-	}
-
 	closeModal() {
 		this.activeModal.close();
-	}
-
-	checkUncheckAll() {
-		for (var i = 0; i < this.serviceItem.length; i++) {
-			this.serviceItem[i].isSelected = this.isMasterSel;
-		}
-		this.getCheckedItemList();
-	}
-
-	isAllSelected() {
-		this.isMasterSel = this.serviceItem.every(function(item: any) {
-			return item.isSelected == true;
-		});
-		this.getCheckedItemList();
-	}
-
-	getCheckedItemList() {
-		this.checkedCategoryList = [];
-		let price = [];
-		let checkData = 0;
-		for (var i = 0; i < this.serviceItem.length; i++) {
-			let item = this.serviceItem[i];
-			item.isSelected = item.isSelected ? true : false;
-			price.push(item.isSelected ? parseFloat(item.price) : 0);
-			if (item.isSelected === true) {
-				checkData = 1;
-			}
-			this.checkedCategoryList.push(this.serviceItem[i]);
-		}
-		this.total_price = price.reduce((a, b) => a + b, 0);
-		this.serviceItem = this.checkedCategoryList;
-		this.isDisabled = checkData == 1 ? true : false;
 	}
 
 	generateBill() {

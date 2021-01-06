@@ -92,7 +92,7 @@ button.close {
      color: #b4b4b4; border: 1px solid #b4b4b4; background-color: #ffffff; margin-top: 15px;
     }
     .sub{
-   color: #fff;background-color: #c89628; margin-left: 10px; margin-top: 15px;
+   color: #fff;background-color: #c89628; margin-left: 10px; margin-top: 15px; width: 10%;
     }
 
     .POS {
@@ -130,7 +130,7 @@ button.close {
   height: 37px; 
   font-size: 11px;  
   font-weight: 500;
-  margin: 33px 10px 10px -15px;
+  margin: 33px 10px 10px -20px;
 }
 .grid-col {
     padding: 0px 0px;
@@ -147,7 +147,7 @@ button.close {
 }
 .span-heading{
   text-align: left;
-  padding: 4px;
+  padding: 10px;
 }
 .Tax-000 {
   width: 84px;
@@ -203,6 +203,7 @@ button.close {
     padding: 5px;
     font-weight: 500;
     font-size: 14px;
+    margin-left: -20px;
 }
 .tabbar{
   float: left;
@@ -223,5 +224,34 @@ button.close {
   color: #000000;
 }
 .ng-autocomplete {
-    width: 310px !important;
+    width: 100% !important;
+}
+.modal-content {
+    min-height: 90vh !important;
+}
+.myrespbtn{
+  background-color: #C89628;
+    border-color: #C89628;
+    color: #fff;
+    height: 40px;
+    font-size: 11px;
+    margin-left: -1rem;
+    font-weight: 500;
+    margin-top: 32px;
+}
+.user-icon{
+  width: 5% !important;
+}
+.input-group {
+    position: relative;
+    width: 22% !important;
+    float: right;
+}
+.custom-btns{
+  background-color: #C89628 !important;
+    border-color: #C89628 !important;
+    height: 27px;
+    border-radius: 5px;
+    width: 27px;
+    padding: 0px;
 }

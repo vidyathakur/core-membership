@@ -151,6 +151,21 @@ textarea {
   font-size: 16px;
   resize: none;
 }
+
+.role {
+        margin-right: 20px;
+        margin-left: 10px;
+        font-weight: normal;
+    }
+
+    /*.checkbox label {
+        margin-bottom: 20px !important;
+    }*/
+
+    .roles {
+        margin-bottom: 6px;
+        margin-left: 6px;
+    }
  .canc{
      color: #b4b4b4; border: 1px solid #b4b4b4; background-color: #ffffff; margin-top: 15px;
     }

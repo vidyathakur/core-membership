@@ -42,7 +42,11 @@
                                         </div>
                                     </div>
                                 </div>
-                      <div class="single-table" style="margin-top: 15px; border-bottom: 1px solid #dee2e6;">
+                                <div style="margin-top: 15px; text-align: center; margin-bottom: 113px;" *ngIf="!showTable">
+                                <a href="#"><img src="assets/img/Group 44.png" class="Group-44" alt="logo"></a>
+                                <p style="text-align: center; font-weight: 500;">No Sales Data</p>
+                              </div>
+                      <div class="single-table" style="margin-top: 15px; border-bottom: 1px solid #dee2e6;" *ngIf="showTable">
                         <div class="table-responsive" *ngIf="posData?.length;else no_data_templ">
                           <table class="table text-center">
                             <thead class="text-uppercase bg-secondary">
@@ -58,7 +62,7 @@
                               <tr *ngFor="let pos of posData">
                                 <th scope="row" class="levl">{{pos.client[0].barcode_no ? pos.client[0].barcode_no:''}}</th>
                                 <td class="rowcont">{{pos.client[0].f_name ? pos.client[0].f_name:''}} {{pos.client[0].surname ? pos.client[0].surname:''}}</td>
-                                <td class="rowcont">{{pos.paid_on}}</td>
+                                <td class="rowcont">{{pos.paid_on |date: "MM-dd-yyyy"}}</td>
                                 <td class="rowcont">{{pos.total_amount}}</td>
                                 <td>
                                   <a class="del" (click)="openConfirmationDialog(pos.id,'sales')">Delete</a>
@@ -70,7 +74,7 @@
                       </div>
                       <div class="col-md-12">
                         <div class="span-heading">
-                           <p>   
+                           <p *ngIf="showTable">   
                              <!--<span class="Tax-000">Tax: $0.00</span>-->
                             <span class="Total500" *ngFor="let pos of posData">Total: ${{pos.total_amount}}</span>  
                           </p>  
@@ -102,7 +106,7 @@
   <p style="color: white">Please Wait. </p>
 </ngx-spinner>
 <ng-template #no_data_templ>
-  <div style="margin-top: 15px; text-align: center; margin-bottom: 113px;">
+  <div style="margin-top: 15px; text-align: center; margin-bottom: 113px;" >
     <a href="#"><img src="assets/img/Group 44.png" class="Group-44" alt="logo"></a>
     <p style="text-align: center; font-weight: 500;">No Sales Data</p>
   </div>
