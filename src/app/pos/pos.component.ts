@@ -22,6 +22,7 @@ export class PosComponent implements OnInit {
 	total_price: any;
 	showTable: boolean=true;
 	showModal:boolean;
+	totalAmounts: number;
 	constructor(
 		public activeModal: NgbActiveModal,
 		private SpinnerService: NgxSpinnerService,
@@ -38,10 +39,11 @@ export class PosComponent implements OnInit {
 
 	ngOnInit() {
 		this.getTransactionByMerchantId();
+		this.activeModal.close();
 	}
 
 	openPosclientModal() {
-		this.showTable=true;
+		// this.showTable=true;
 		const modalRef = this.modalService.open(PosClientComponent, {
 			windowClass: 'myCustomModalClass',
 			size: 'lg',
@@ -58,7 +60,7 @@ export class PosComponent implements OnInit {
 	}
 
 	openPosBillwalkModal() {
-		this.showTable = this.showTable ? false : true;
+		// this.showTable = this.showTable ? false : true;
 		const modalRef = this.modalService.open(PosBillwalkComponent, {
 			windowClass: 'myCustomModalClass',
 			size: 'sm',
@@ -78,20 +80,24 @@ export class PosComponent implements OnInit {
 		this.posclientService.getTransactionByMerchantId().subscribe(
 			data => {
 				console.log(data);
-				this.posData = data['data'];
-				// let finalData = [];
-				// for (let i in responseData) {
-				// 	let data = responseData[i];
-				// 	let [paid_date, time] = data.paid_on.split(' ');
-				// 	console.log(data.client);
-				// 	let object = {
-				// 		client_name: data.client.length > 0 ? data.client[0].f_name : '',
-				// 		date: paid_date,
-				// 		amount: data.total_amount
-				// 	};
-				// 	finalData.push(object);
-				// }
-				// this.posData = finalData;
+				let responseData = data['data'];
+				let finalData = [];
+				let totalAmount  = 0;
+				for (let i in responseData) {
+					let pos = responseData[i];
+					let object = {
+						id: pos.id,
+						barcode: pos.client[0] ? pos.client[0].barcode_no:'',
+						name : pos.client[0] ? pos.client[0].f_name:'',
+						surname : pos.client[0] ? pos.client[0].surname:'',
+						paid_on: pos.paid_on,
+						amount: pos.total_amount
+					};
+					totalAmount += pos.total_amount;
+					finalData.push(object);
+				}
+				this.posData = finalData;
+				this.totalAmounts = totalAmount;
 				// console.log(this.total_price);
 			},
 			error => {
@@ -101,37 +107,24 @@ export class PosComponent implements OnInit {
 		);
 	}
 
-	public openConfirmationDialog(id, type) {
-		switch (type) {
-			case 'sales':
-				this.confirmDialogService
-					.confirm('Please confirm..', 'Are you really want to Delete this... ?')
-					.then(confirmed => this.deleteTransaction(id))
-					.catch(() => console.log(type));
-				break;
-			// case 'employee':
-			// 	this.confirmDialogService
-			// 		.confirm('Please confirm..', 'Are you really want to Delete this... ?')
-			// 		.then(confirmed => this.deleteEmployee(id))
-			// 		.catch(() => console.log(type));
-			// 	break;
-			// case 'serviceCat':
-			// 	this.confirmDialogService
-			// 		.confirm('Please confirm..', 'Are you really want to Delete this... ?')
-			// 		.then(confirmed => this.deleteServiceCat(id))
-			// 		.catch(() => console.log(type));
-			default:
-				break;
-		}
+	public openConfirmationDialog(id,amount) {
+		
+			this.confirmDialogService
+				.confirm('Please confirm..', 'Are you really want to Delete this... ?')
+				.then(confirmed => this.deleteTransaction(id,amount))
+				.catch(() => console.log('type'));
+			
+		
 	}
 
-	public deleteTransaction(id): any {
+	public deleteTransaction(id,amount): any {
 		this.posclientService.deleteTransaction(id).subscribe(
 			data => {
 				console.log(data);
 				this.toastr.successToastr(data.message);
 				this.getTransactionByMerchantId();
 				this.activeModal.close();
+				this.totalAmounts = (this.totalAmounts)-parseInt(amount); 
 			},
 			error => {
 				console.log('some error occurred');

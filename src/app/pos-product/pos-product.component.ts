@@ -38,6 +38,8 @@ export class PosProductComponent implements OnInit {
 	showtotalprice = false;
 	checkedCategoryList: any[];
 	inputnumber = 0;
+	qtd: any[] = [];
+	price_increase: any[] = [];
 	constructor(
 		public activeModal: NgbActiveModal,
 		private SpinnerService: NgxSpinnerService,
@@ -87,13 +89,48 @@ export class PosProductComponent implements OnInit {
 	}
 
 	plus(id) {
-		console.log(id);
-		this.inputnumber = this.inputnumber + 1;
+		this.qtd[id] = parseInt(this.qtd[id]) + 1;
+		let outputData = this.productList;
+		let updatePrice = [];
+		let price = {};
+		let totalPrice = 0;
+		for (let k in outputData) {
+			let item = outputData[k];
+			let prices = parseInt(item.retail_pice) * this.qtd[item.id];
+			totalPrice += prices;
+			if (!price.hasOwnProperty(item.id)) {
+				price[item.id] = [];
+			}
+			price[item.id].push(prices);
+		}
+		this.price_increase[id] = price[id][0];
+		this.total_price = totalPrice;
+		//console.log(Object.values(price));
 	}
 
 	minus(id) {
 		console.log(id);
-		if (this.inputnumber != 0) this.inputnumber = this.inputnumber - 1;
+		console.log(this.qtd[id]);
+		if (this.qtd[id] - 1 > 0) {
+			this.qtd[id] = parseInt(this.qtd[id]) - 1;
+			let outputData = this.productList;
+			let updatePrice = [];
+			let price = {};
+			let totalPrice = 0;
+			for (let k in outputData) {
+				let item = outputData[k];
+				let prices = parseInt(item.retail_pice) * this.qtd[item.id];
+				totalPrice += prices;
+				if (!price.hasOwnProperty(item.id)) {
+					price[item.id] = [];
+				}
+				price[item.id].push(prices);
+			}
+			this.price_increase[id] = price[id][0];
+			this.total_price = totalPrice;
+		} else {
+			this.qtd[id] = 1;
+		}
 	}
 
 	onChangeSearchProduct(val: string) {
@@ -121,10 +158,19 @@ export class PosProductComponent implements OnInit {
 				ouputData.splice(i, 1);
 			}
 		}
-		for (let k in ouputData) {
-			let item = ouputData[k];
-		}
+		this.price_increase[id] = 0;
+		this.qtd[id] = 1;
 		this.productList = ouputData;
+		let retail_pice = [];
+		for (var i = 0; i < this.productList.length; i++) {
+			let item = this.productList[i];
+			this.qtd[item.id] = this.qtd[item.id] ? this.qtd[item.id] : 1;
+			this.price_increase[item.id] = this.price_increase[item.id]
+				? this.price_increase[item.id]
+				: item.retail_pice;
+			retail_pice.push(this.price_increase[item.id] ? this.price_increase[item.id] : 0);
+		}
+		this.total_price = retail_pice.reduce((a, b) => a + b, 0);
 	}
 
 	selectProductEvent(item) {
@@ -133,7 +179,11 @@ export class PosProductComponent implements OnInit {
 		let retail_pice = [];
 		for (var i = 0; i < this.productList.length; i++) {
 			let item = this.productList[i];
-			retail_pice.push(item.retail_pice ? item.retail_pice : 0);
+			this.qtd[item.id] = this.qtd[item.id] ? this.qtd[item.id] : 1;
+			this.price_increase[item.id] = this.price_increase[item.id]
+				? this.price_increase[item.id]
+				: item.retail_pice;
+			retail_pice.push(this.price_increase[item.id] ? this.price_increase[item.id] : 0);
 		}
 		this.total_price = retail_pice.reduce((a, b) => a + b, 0);
 		console.log(this.total_price);
@@ -174,32 +224,27 @@ export class PosProductComponent implements OnInit {
 		let appointment = [];
 		let service_id = [];
 		let client_id = [];
-		for (var i = 0; i < this.serviceItem.length; i++) {
-			let item = this.serviceItem[i];
-			if (item.isSelected) {
-				let service = item.service_id.split(',');
-				appointment.push(item.appointment_id);
-				for (let s in service) {
-					service_id.push(service[s]);
-				}
-				client_id.push(item.client_id);
-			}
+		for (var i = 0; i < this.productList.length; i++) {
+			let pitem = this.productList[i];
+			service_id.push(pitem.id);
 		}
-		let client = client_id.filter(function(item, pos) {
-			return client_id.indexOf(item) == pos;
-		});
+		for (var i = 0; i < this.clientList.length; i++) {
+			let citem = this.clientList[i];
+			client_id.push(citem.id);
+		}
 		let data = new Date();
 		let [year, month, day] = [data.getFullYear(), data.getMonth() + 1, data.getDate()];
 		let current_date = day + '-' + month + '-' + year;
 		let object = {
-			type: 'appointment',
+			type: 'walk-in',
 			payment_method: 'cash',
 			total_amount: this.total_price,
 			paid_on: current_date,
 			appointment_ids: appointment,
-			client_ids: client,
+			client_ids: client_id,
 			services_ids: service_id
 		};
+
 		this.posclientService.createPos(object).subscribe(apiResponse => {
 			if (apiResponse.code === 200) {
 				this.toastr.successToastr(apiResponse.message);
@@ -209,5 +254,10 @@ export class PosProductComponent implements OnInit {
 				this.toastr.errorToastr(apiResponse.message);
 			}
 		});
+	}
+
+	goToClient() {
+		this.activeModal.close();
+		this.router.navigate(['/addnewclient']);
 	}
 }

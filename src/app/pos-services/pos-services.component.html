@@ -6,12 +6,13 @@
     </button>
   </div>
   <div class="modal-body">
+    <form [formGroup]="posForm">
       <div class="row">
         <div class="col-lg-10">
           <label style="color: #000000;">Search Clients</label>
 
           <div class="ng-autocomplete">
-            <ng-autocomplete [data]="data" autocomplete="off" [searchKeyword]="keyword" placeHolder="Search with client's name,email and mobile no."
+            <ng-autocomplete [data]="data" formControlName="search" autocomplete="off" [searchKeyword]="keyword" placeHolder="Search with Clients Name, Email address or Mobile number"
               (selected)='selectEvent($event)' [ngClass]="{ 'is-invalid': submitted && f.search .errors }"
               required (inputChanged)='onChangeSearch($event)' (inputFocused)='onFocused($event)' (inputCleared)="searchCleared()"
               [itemTemplate]="itemTemplate" [notFoundTemplate]="notFoundTemplate">
@@ -34,7 +35,7 @@
           </div>
         </div>
         <div class="col-lg-2">
-          <button type="button" [routerLink]="['/addnewclient']" class="btn  mybutton myrespbtn">
+          <button type="button" (click)="goToClient()" class="btn  mybutton myrespbtn">
              <i class="fa fa-plus-circle"></i> ADD NEW CLIENT</button>
         </div>
       </div>
@@ -106,5 +107,6 @@
       </p>
       <button type="button" class="btn mb-3 sub" (click)="generateBill()">BILL</button>
     </div>
+    </form>
   </div>
 </div>

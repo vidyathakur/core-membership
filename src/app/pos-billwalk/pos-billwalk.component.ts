@@ -34,7 +34,7 @@ export class PosBillwalkComponent implements OnInit {
 
 	ngOnInit() {}
 
-	openPosclientModal() {
+	openPosServiceModal() {
 		const modalRef = this.modalService.open(PosServicesComponent, {
 			windowClass: 'myCustomModalClass',
 			size: 'lg',

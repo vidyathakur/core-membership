@@ -1,3 +1,4 @@
+import { PosBillwalkComponent } from './../pos-billwalk/pos-billwalk.component';
 import { PosServicesService } from './pos-services.service';
 import { AutoCompleteComponent, FilterType, ChangeEventArgs } from '@syncfusion/ej2-angular-dropdowns';
 import { Component, OnInit } from '@angular/core';
@@ -93,9 +94,11 @@ export class PosServicesComponent implements OnInit {
 			if (apiResponse.code === 200) {
 				let response = [];
 				apiResponse.data.forEach(item => {
-					let service_name = item.service_name + ((item.gender=='Male') ? '- Men Fashion' : (item.gender=='Female') ? '- Women Fashion' : '')
-					let object = { id: item.id, name: service_name, time:item.duration, price:item.price };
-					price.push((item.price) ? parseInt(item.price) : 0);
+					let service_name =
+						item.service_name +
+						(item.gender == 'Male' ? '- Men Fashion' : item.gender == 'Female' ? '- Women Fashion' : '');
+					let object = { id: item.id, name: service_name, time: item.duration, price: item.price };
+					price.push(item.price ? parseInt(item.price) : 0);
 					response.push(object);
 				});
 				this.data = response;
@@ -205,5 +208,10 @@ export class PosServicesComponent implements OnInit {
 				this.toastr.errorToastr(apiResponse.message);
 			}
 		});
+	}
+
+	goToClient() {
+		this.activeModal.close();
+		this.router.navigate(['/addnewclient']);
 	}
 }

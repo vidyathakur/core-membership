@@ -13,7 +13,7 @@
             <label style="color: #000000;">Search Clients</label>
 
             <div class="ng-autocomplete">
-              <ng-autocomplete [data]="data" autocomplete="off" [searchKeyword]="keyword" placeHolder="Search with client's name,email and mobile no."
+              <ng-autocomplete [data]="data" autocomplete="off" [searchKeyword]="keyword" placeHolder="Search with Clients Name, Email address or Mobile number"
                 formControlName="search" (selected)='selectEvent($event)' [ngClass]="{ 'is-invalid': submitted && f.search .errors }"
                 required (inputChanged)='onChangeSearch($event)' (inputFocused)='onFocused($event)' (inputCleared)="searchCleared()"
                 [itemTemplate]="itemTemplate" [notFoundTemplate]="notFoundTemplate">

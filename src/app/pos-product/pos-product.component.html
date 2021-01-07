@@ -11,7 +11,7 @@
         <label style="color: #000000;">Search Clients</label>
 
         <div class="ng-autocomplete">
-          <ng-autocomplete [data]="data" autocomplete="off" [searchKeyword]="keyword" placeHolder="Search with client's name,email and mobile no."
+          <ng-autocomplete [data]="data" autocomplete="off" [searchKeyword]="keyword" placeHolder="Search with Clients Name, Email address or Mobile number"
             (selected)='selectEvent($event)' [ngClass]="{ 'is-invalid': submitted && f.search .errors }" required (inputChanged)='onChangeSearch($event)'
             (inputFocused)='onFocused($event)' (inputCleared)="searchCleared()" [itemTemplate]="itemTemplate" [notFoundTemplate]="notFoundTemplate">
           </ng-autocomplete>
@@ -33,7 +33,7 @@
         </div>
       </div>
       <div class="col-lg-2">
-        <button type="button" [routerLink]="['/addnewclient']" class="btn  mybutton myrespbtn">
+        <button type="button" (click)="goToClient()" class="btn  mybutton myrespbtn">
              <i class="fa fa-plus-circle"></i> ADD NEW CLIENT</button>
       </div>
     </div>
@@ -97,8 +97,7 @@
                 <i class="fa fa-minus"></i>
                 </button>
                 </span>
-            <input type="text" name="inputnumber" class="form-control" [value]="inputnumber"
-             style="height: 29px; border-radius: 3px;">
+            <input type="text" name="inputnumber" class="form-control" value="1" [(ngModel)]="qtd[item.id]" style="height: 29px; border-radius: 3px;">
            <span class="input-group-btn">
           <button type="button" class="btn btn-success btn-number custom-btns" (click)="plus(item.id)"
           data-type="plus" style="height: 27px; border-radius: 3px;" >
@@ -108,7 +107,7 @@
           </div></span>
               </td>
           <td>
-              <span class="prod-price" style="float: right; color: #C89628;">${{item.retail_pice}}</span>
+              <span class="prod-price" style="float: right; color: #C89628;">${{(price_increase[item.id]) ? price_increase[item.id] : item.retail_pice}}</span>
           </td>
           <td>
                 <span style="float: right; cursor: pointer;" (click)="removeProducts(item.id,i)">
@@ -125,7 +124,7 @@
       <p>
         <span class="Total5002">Total:{{total_price}}</span>
       </p>
-      <button type="button" class="btn mb-3 sub">BILL</button>
+      <button type="button" class="btn mb-3 sub" (click)="generateBill()">BILL</button>
     </div>
   </div>
 </div>
